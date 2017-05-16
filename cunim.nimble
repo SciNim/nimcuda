@@ -41,6 +41,7 @@ let libs = [
   "vector_types",
   # "driver_types",
   "cuComplex",
+  "cublas_api",
   # "cublas",
   # "cudnn",
   "cufft",
