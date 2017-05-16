@@ -1,0 +1,3 @@
+#ifdef C2NIM
+  #mangle CURANDDISCRETE_H_ CURANDDISCRETE_H
+#endif
