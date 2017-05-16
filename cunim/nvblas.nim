@@ -8,6 +8,9 @@ elif defined(macosx):
 else:
   const
     libName = "libnvblas.so"
+import
+  cuComplex
+
 ## 
 ##  Copyright 1993-2014 NVIDIA Corporation.  All rights reserved.
 ## 

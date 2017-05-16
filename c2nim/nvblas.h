@@ -42,5 +42,6 @@
   #  define libName "libnvblas.so"
   #endif
 
+  #include "cuComplex.h"
   #skipinclude
 #endif

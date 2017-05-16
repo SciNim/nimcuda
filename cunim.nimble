@@ -47,7 +47,7 @@ let libs = [
   # "curand",
   # "cusolver",
   "cusparse",
-  # "nvblas",
+  "nvblas",
   "nvgraph"
 ]
 
