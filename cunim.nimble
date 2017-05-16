@@ -42,6 +42,7 @@ let libs = [
   # "driver_types",
   "cuComplex",
   "cublas_api",
+  "cublas_v2",
   # "cublas",
   # "cudnn",
   "cufft",
