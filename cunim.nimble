@@ -39,7 +39,7 @@ proc compile(libName: string) =
 let libs = [
   "library_types",
   "vector_types",
-  # "driver_types",
+  # "driver_types", # do not decomment - the nim file is manually adjusted
   "surface_types",
   "texture_types",
   "cuda_runtime_api",
