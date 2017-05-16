@@ -1,12 +1,12 @@
 #ifdef C2NIM
-  #skipifndef __cdecl
-  #def CUSPARSEAPI __cdecl
+  #skipifndef CUSPARSEAPI
+  #def CUSPARSEAPI
 
   #mangle cudaDataType_t cudaDataType
   #mangle CUSPARSE_H_ CUSPARSE_H
 
-  #prefix cusparse
-  #prefix cusparse_
+  // #prefix cusparse
+  // #prefix cusparse_
 
   #dynlib libName
   #private libName
@@ -19,6 +19,9 @@
   #  define libName "libcusparse.so"
   #endif
 
+  typedef void* cudaStream_t;
+
   #include "library_types.h"
+  #include "cuComplex.h"
   #skipinclude
 #endif
