@@ -1,8 +1,6 @@
 import cunim/cufft, cunim/cuda_runtime_api, cunim/driver_types, cunim/vector_types
 
 type
-  CArray{.unchecked.}[T] = array[1, T]
-  CPointer[T] = ptr CArray[T]
   CudaError = object of IOError
   CufftError = object of IOError
 
@@ -19,18 +17,6 @@ template check(a: cudaError_t) =
 template check(a: cufftResult) =
   let y = a
   if y != CUFFT_SUCCESS: raiseCufftError(y)
-
-# {. passl: "-lcublas" passl: "-lcudart" .}
-#
-# proc cudaMalloc(p: ptr pointer, size: int): cudaError
-#   {. header: "cuda_runtime_api.h", importc: "cudaMalloc" .}
-#
-# proc cudaFree(p: pointer): cudaError
-#   {. header: "cuda_runtime_api.h", importc: "cudaFree" .}
-#
-# proc cudaMalloc32(size: int): ptr float32 =
-#   let s = size * sizeof(float32)
-#   check cudaMalloc(cast[ptr pointer](addr result), s)
 
 proc main() =
   const
@@ -68,8 +54,6 @@ proc main() =
 
   echo "original : ", input[0..10]
   echo "transform: ", output[0..10]
-
-
 
 when isMainModule:
   main()
