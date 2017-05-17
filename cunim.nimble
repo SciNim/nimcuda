@@ -75,3 +75,22 @@ task headers, "generate bindings from headers":
 
 task check, "check that generated bindings do compile":
   compileAll()
+
+proc exampleConfig() =
+  --hints: off
+  --linedir: on
+  --stacktrace: on
+  --linetrace: on
+  --debuginfo
+  --cincludes: "/usr/local/cuda/include"
+  --clibdir: "/usr/local/cuda/lib64"
+  --path: "."
+  --run
+
+task pagerank, "run pagerank example":
+  exampleConfig()
+  setCommand "c", "examples/pagerank.nim"
+
+task fft, "run fft example":
+  exampleConfig()
+  setCommand "c", "examples/fft.nim"
