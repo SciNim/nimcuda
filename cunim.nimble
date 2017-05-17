@@ -70,11 +70,21 @@ proc compileAll() =
   for lib in libs:
     compile(lib)
 
+proc docAll() =
+  for lib in libs:
+    let
+      libPath = "cunim" / lib.addFileExt("nim")
+      docPath = "docs" / lib.addFileExt("html")
+    exec("nim doc " & libPath & " -o:" & docPath)
+
 task headers, "generate bindings from headers":
   processAll()
 
 task check, "check that generated bindings do compile":
   compileAll()
+
+task docs, "generate documentation":
+  docAll()
 
 proc exampleConfig() =
   --hints: off
