@@ -4,12 +4,7 @@ type
   CArray{.unchecked.}[T] = array[1, T]
   CPointer[T] = ptr CArray[T]
 
-proc allocCPointer[T](n: Natural): CPointer[T] {.inline.} =
-  cast[CPointer[T]](alloc(n * sizeof(T)))
-
 proc first[T](p: CPointer[T]): ptr T {.inline.} = addr(p[0])
-
-proc first[T](a: var openarray[T]): ptr T {.inline.} = addr(a[0])
 
 type
   CudaError = object of IOError
