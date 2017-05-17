@@ -47,7 +47,7 @@ let libs = [
   "cublas_api",
   "cublas_v2",
   # "cublas",
-  # "cudnn",
+  "cudnn",
   "cufft",
   # "curand",
   "cusolver_common",
