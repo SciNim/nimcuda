@@ -2,7 +2,7 @@ import sequtils
 import cunim/nvgraph, cunim/library_types
 
 type
-  CArray{.unchecked.}[T] = array[10, T]
+  CArray{.unchecked.}[T] = array[1, T]
   CPointer[T] = ptr CArray[T]
 
 proc allocCPointer[T](n: Natural): CPointer[T] {.inline.} =
@@ -12,12 +12,12 @@ proc first[T](p: CPointer[T]): ptr T {.inline.} = addr(p[0])
 
 proc first[T](a: var openarray[T]): ptr T {.inline.} = addr(a[0])
 
-type NVGraphError* = object of IOError
+type NVGraphError = object of IOError
 
-proc raiseNVGraphError*(x: nvgraphStatus_t) {.noinline.} =
+proc raiseNVGraphError(x: nvgraphStatus_t) {.noinline.} =
   raise newException(NVGraphError, $x & " " & $int(x))
 
-template check*(a: untyped) =
+template check(a: untyped) =
   let y = a
   if y != NVGRAPH_STATUS_SUCCESS: raiseNVGraphError(y)
 
