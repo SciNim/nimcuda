@@ -3,10 +3,6 @@ import cunim/cufft, cunim/cuda_runtime_api, cunim/driver_types, cunim/vector_typ
 type
   CArray{.unchecked.}[T] = array[1, T]
   CPointer[T] = ptr CArray[T]
-
-proc first[T](p: CPointer[T]): ptr T {.inline.} = addr(p[0])
-
-type
   CudaError = object of IOError
   CufftError = object of IOError
 
@@ -31,19 +27,21 @@ proc main() =
     N = NX * NY
   var
     plan: cufftHandle
-    idata: CPointer[cufftComplex]
-    odata: CPointer[cufftComplex]
+    idata: ptr cufftComplex
+    odata: ptr cufftComplex
 
   check cudaMalloc(cast[ptr pointer](addr idata), sizeof(cufftComplex) * N)
   check cudaMalloc(cast[ptr pointer](addr odata), sizeof(cufftComplex) * N)
 
+  var idatap = cast[CPointer[cufftComplex]](idata)
+
   for i in 0 ..< N:
-    idata[i].x = cfloat(i) / cfloat(N)
-    idata[i].y = cfloat(N - i) / cfloat(N)
+    idatap[i].x = cfloat(i) / cfloat(N)
+    idatap[i].y = cfloat(N - i) / cfloat(N)
 
   check cufftPlan2d(addr plan, NX, NY, CUFFT_C2C)
-  check cufftExecC2C(plan, idata.first, odata.first, CUFFT_FORWARD)
-  check cufftExecC2C(plan, odata.first, odata.first, CUFFT_INVERSE)
+  check cufftExecC2C(plan, idata, odata, CUFFT_FORWARD)
+  check cufftExecC2C(plan, odata, odata, CUFFT_INVERSE)
 
   echo "FFT: "
 
