@@ -18,6 +18,8 @@ template check(a: cufftResult) =
   let y = a
   if y != CUFFT_SUCCESS: raiseCufftError(y)
 
+proc first[T](a: var openarray[T]): ptr T {.inline.} = addr(a[0])
+
 proc main() =
   const
     NX = 256
@@ -40,13 +42,13 @@ proc main() =
     input[i].x = cfloat(i) / cfloat(N)
     input[i].y = cfloat(N - i) / cfloat(N)
 
-  check cudaMemcpy(idata, addr input[0], size, cudaMemcpyHostToDevice)
+  check cudaMemcpy(idata, input.first, size, cudaMemcpyHostToDevice)
 
   check cufftPlan2d(addr plan, NX, NY, CUFFT_C2C)
   check cufftExecC2C(plan, idata, odata, CUFFT_FORWARD)
   check cufftExecC2C(plan, odata, odata, CUFFT_INVERSE)
 
-  check cudaMemcpy(addr output[0], odata, size, cudaMemcpyDeviceToHost)
+  check cudaMemcpy(output.first, odata, size, cudaMemcpyDeviceToHost)
 
   check cufftDestroy(plan)
   check cudaFree(idata)
