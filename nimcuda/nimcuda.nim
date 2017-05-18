@@ -4,6 +4,7 @@ import ./cuComplex
 import ./cuda_runtime_api
 import ./cudnn
 import ./cufft
+import ./curand
 import ./cusolver_common
 import ./cusolverDn
 import ./cusolverRf
@@ -23,6 +24,7 @@ type
   CublasError* = object of IOError
   CusparseError* = object of IOError
   CusolverError* = object of IOError
+  CurandError* = object of IOError
   CudnnError* = object of IOError
   NVGraphError* = object of IOError
 
@@ -45,6 +47,10 @@ template check*(a: cusparseStatus_t) =
 template check*(a: cusolverStatus_t) =
   if a != CUSOLVER_STATUS_SUCCESS:
     raise newException(CusolverError, $a & " " & $int(a))
+
+template check*(a: curandStatus) =
+  if a != CURAND_STATUS_SUCCESS:
+    raise newException(CurandError, $a & " " & $int(a))
 
 template check*(a: cudnnStatus_t) =
   if a != CUDNN_STATUS_SUCCESS:

@@ -100,3 +100,7 @@ task fft, "run fft example":
 task sparse, "run sparse example":
   exampleConfig()
   setCommand "c", "examples/sparse.nim"
+
+task random, "run random example":
+  exampleConfig()
+  setCommand "c", "examples/random.nim"
