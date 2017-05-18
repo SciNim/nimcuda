@@ -1,5 +1,5 @@
 import sequtils
-import nimcuda/[nvgraph, library_types]
+import nimcuda/[nvgraph, library_types, nimcuda]
 
 type
   CArray{.unchecked.}[T] = array[1, T]
@@ -11,15 +11,6 @@ proc allocCPointer[T](n: Natural): CPointer[T] {.inline.} =
 proc first[T](p: CPointer[T]): ptr T {.inline.} = addr(p[0])
 
 proc first[T](a: var openarray[T]): ptr T {.inline.} = addr(a[0])
-
-type NVGraphError = object of IOError
-
-proc raiseNVGraphError(x: nvgraphStatus_t) {.noinline.} =
-  raise newException(NVGraphError, $x & " " & $int(x))
-
-template check(a: untyped) =
-  let y = a
-  if y != NVGRAPH_STATUS_SUCCESS: raiseNVGraphError(y)
 
 proc main() =
   var

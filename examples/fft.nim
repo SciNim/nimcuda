@@ -1,22 +1,4 @@
-import nimcuda/[cufft, cuda_runtime_api, driver_types, vector_types]
-
-type
-  CudaError = object of IOError
-  CufftError = object of IOError
-
-proc raiseCudaError(x: cudaError_t) {.noinline.} =
-  raise newException(CudaError, $x & " " & $int(x))
-
-proc raiseCufftError(x: cufftResult) {.noinline.} =
-  raise newException(CufftError, $x & " " & $int(x))
-
-template check(a: cudaError_t) =
-  let y = a
-  if y != cudaSuccess: raiseCudaError(y)
-
-template check(a: cufftResult) =
-  let y = a
-  if y != CUFFT_SUCCESS: raiseCufftError(y)
+import nimcuda/[cufft, cuda_runtime_api, driver_types, vector_types, nimcuda]
 
 proc first[T](a: var openarray[T]): ptr T {.inline.} = addr(a[0])
 

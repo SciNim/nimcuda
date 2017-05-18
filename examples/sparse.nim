@@ -1,22 +1,4 @@
-import nimcuda/[cuda_runtime_api, cusparse, driver_types]
-
-type
-  CudaError = object of IOError
-  CusparseError = object of IOError
-
-proc raiseCudaError(x: cudaError_t) {.noinline.} =
-  raise newException(CudaError, $x & " " & $int(x))
-
-proc raiseCusparseError(x: cusparseStatus_t) {.noinline.} =
-  raise newException(CusparseError, $x & " " & $int(x))
-
-template check(a: cudaError_t) =
-  let y = a
-  if y != cudaSuccess: raiseCudaError(y)
-
-template check(a: cusparseStatus_t) =
-  let y = a
-  if y != CUSPARSE_STATUS_SUCCESS: raiseCusparseError(y)
+import nimcuda/[cuda_runtime_api, cusparse, driver_types, nimcuda]
 
 proc first[T](a: var openarray[T]): ptr T {.inline.} = addr(a[0])
 
