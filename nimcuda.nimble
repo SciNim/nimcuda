@@ -76,7 +76,7 @@ task check, "check that generated bindings do compile":
   compileAll()
 
 task docs, "generate documentation":
-  exec("nim doc2 nimcuda/nimcuda.nim")
+  exec("nim doc2 --project nimcuda/nimcuda.nim")
 
 proc exampleConfig() =
   --hints: off
