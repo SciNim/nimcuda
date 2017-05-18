@@ -1,5 +1,5 @@
 import sequtils
-import cunim/nvgraph, cunim/library_types
+import nimcuda/nvgraph, nimcuda/library_types
 
 type
   CArray{.unchecked.}[T] = array[1, T]

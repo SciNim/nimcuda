@@ -28,12 +28,12 @@ proc patch(libName: string): string =
 proc process(libName: string) =
   let
     headerName = libName.addFileExt("h")
-    outPath = "cunim" / libName.addFileExt("nim")
+    outPath = "nimcuda" / libName.addFileExt("nim")
     headerPath = patch(headerName)
   exec("c2nim " & headerPath & " -o:" & outPath)
 
 proc compile(libName: string) =
-  let libPath = "cunim" / libName.addFileExt("nim")
+  let libPath = "nimcuda" / libName.addFileExt("nim")
   exec("nim c -c " & libPath)
 
 let libs = [
@@ -46,7 +46,6 @@ let libs = [
   "cuComplex",
   "cublas_api",
   "cublas_v2",
-  # "cublas",
   "cudnn",
   "cufft",
   # "curand",
@@ -60,7 +59,7 @@ let libs = [
 ]
 
 proc processAll() =
-  exec("mkdir -p cunim")
+  exec("mkdir -p nimcuda")
   exec("mkdir -p headers")
   for lib in libs:
     process(lib)
@@ -70,13 +69,6 @@ proc compileAll() =
   for lib in libs:
     compile(lib)
 
-proc docAll() =
-  for lib in libs:
-    let
-      libPath = "cunim" / lib.addFileExt("nim")
-      docPath = "docs" / lib.addFileExt("html")
-    exec("nim doc " & libPath & " -o:" & docPath)
-
 task headers, "generate bindings from headers":
   processAll()
 
@@ -84,7 +76,7 @@ task check, "check that generated bindings do compile":
   compileAll()
 
 task docs, "generate documentation":
-  docAll()
+  exec("nim doc2 nimcuda/nimcuda.nim")
 
 proc exampleConfig() =
   --hints: off

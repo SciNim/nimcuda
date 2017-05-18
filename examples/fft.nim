@@ -1,4 +1,4 @@
-import cunim/cufft, cunim/cuda_runtime_api, cunim/driver_types, cunim/vector_types
+import nimcuda/cufft, nimcuda/cuda_runtime_api, nimcuda/driver_types, nimcuda/vector_types
 
 type
   CudaError = object of IOError
