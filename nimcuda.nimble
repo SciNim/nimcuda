@@ -96,3 +96,7 @@ task pagerank, "run pagerank example":
 task fft, "run fft example":
   exampleConfig()
   setCommand "c", "examples/fft.nim"
+
+task sparse, "run sparse example":
+  exampleConfig()
+  setCommand "c", "examples/sparse.nim"
