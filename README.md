@@ -34,3 +34,16 @@ qualified as `cublasStatus_t.ARCH_MISMATCH` in case of ambiguity).
 Right now, no mangling is performed, because the API surface is large and
 not always consistent, so it felt simpler to leave it as is. This may change
 in a future release.
+
+## Error handling
+
+Under `nimcuda/nimcuda` there are a few templates that turn CUDA errors
+into Nim exceptions. They are all under the overloaded name `check`, so that
+one can do, for instance
+
+```nim
+check cudaMalloc(cast[ptr pointer](addr gpuRows), sizeof(rows))
+```
+
+(here `cudaMalloc` is one of the many functions that fail by returning an
+error code).
