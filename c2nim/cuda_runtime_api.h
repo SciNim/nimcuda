@@ -1,14 +1,17 @@
 #ifdef C2NIM
   #mangle __CUDA_RUNTIME_API_H__ CUDA_RUNTIME_API_H
 
+  #skipifdef _WIN32
+  #skipifdef __CUDA_API_VERSION_INTERNAL
+  #skipifndef __CUDACC_INTEGRATED__
+  #skipifdef CUDA_API_PER_THREAD_DEFAULT_STREAM
+  #skipifndef __CUDACC_INTEGRATED__
+
   #def CUDARTAPI
   #def __host__
   #def __cudart_builtin__
   #def CUDART_CB
   #def __dv(v)
-
-  #skipifdef _WIN32
-  #skipifdef __CUDA_API_VERSION_INTERNAL
 
   #dynlib libName
   #private libName
