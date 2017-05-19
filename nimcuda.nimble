@@ -4,7 +4,7 @@ version       = "0.1.0"
 author        = "Andrea Ferretti"
 description   = "Nim binding for CUDA"
 license       = "Apache2"
-skipDirs      = @["headers", "include", "c2nim", "examples"]
+skipDirs      = @["headers", "include", "c2nim", "examples", "htmldocs"]
 
 # Dependencies
 
