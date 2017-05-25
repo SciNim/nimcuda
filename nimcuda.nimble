@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.1"
+version       = "0.1.2"
 author        = "Andrea Ferretti"
 description   = "Nim binding for CUDA"
 license       = "Apache2"
@@ -67,6 +67,7 @@ proc processAll() =
   exec("rm headers/*")
 
 proc compileAll() =
+  compile("nimcuda")
   for lib in libs:
     compile(lib)
 

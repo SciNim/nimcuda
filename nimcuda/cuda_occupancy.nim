@@ -223,15 +223,15 @@ type
 ##      current implementation or device is invalid
 ##
 
-proc cudaOccMaxActiveBlocksPerMultiprocessor*(result: ptr cudaOccResult;
-    properties: ptr cudaOccDeviceProp; attributes: ptr cudaOccFuncAttributes;
-    state: ptr cudaOccDeviceState; blockSize: cint; dynamicSmemSize: csize): cudaOccError {.
-    inline.}
-  ##  out
-  ##  in
-  ##  in
-  ##  in
-  ##  in
+# proc cudaOccMaxActiveBlocksPerMultiprocessor(result: ptr cudaOccResult;
+#     properties: ptr cudaOccDeviceProp; attributes: ptr cudaOccFuncAttributes;
+#     state: ptr cudaOccDeviceState; blockSize: cint; dynamicSmemSize: csize): cudaOccError {.
+#     inline.}
+##  out
+##  in
+##  in
+##  in
+##  in
 ##  in
 ## *
 ##  The CUDA launch configurator C API suggests a grid / block size pair (in
@@ -272,17 +272,17 @@ proc cudaOccMaxActiveBlocksPerMultiprocessor*(result: ptr cudaOccResult;
 ##
 ##
 
-proc cudaOccMaxPotentialOccupancyBlockSize*(minGridSize: ptr cint;
-    blockSize: ptr cint; properties: ptr cudaOccDeviceProp;
-    attributes: ptr cudaOccFuncAttributes; state: ptr cudaOccDeviceState;
-    blockSizeToDynamicSMemSize: proc (a2: cint): csize; dynamicSMemSize: csize): cudaOccError {.
-    inline.}
-  ##  out
-  ##  out
-  ##  in
-  ##  in
-  ##  in
-  ##  in
+# proc cudaOccMaxPotentialOccupancyBlockSize(minGridSize: ptr cint;
+#     blockSize: ptr cint; properties: ptr cudaOccDeviceProp;
+#     attributes: ptr cudaOccFuncAttributes; state: ptr cudaOccDeviceState;
+#     blockSizeToDynamicSMemSize: proc (a2: cint): csize; dynamicSMemSize: csize): cudaOccError {.
+#     inline.}
+##  out
+##  out
+##  in
+##  in
+##  in
+##  in
 ##  in
 ## *
 ##  The CUDA launch configurator C++ API suggests a grid / block size pair (in
@@ -765,7 +765,7 @@ proc cudaOccMaxActiveBlocksPerMultiprocessor*(res: ptr cudaOccResult;
   ##  Also compute if partitioned global caching has to be turned off
   ##
   status = cudaOccMaxBlocksPerSMRegsLimit(addr(ctaLimitRegs), addr(gcConfig),
-                                        result, properties, attributes, blockSize)
+                                        res, properties, attributes, blockSize)
   if status != CUDA_OCC_SUCCESS:
     return status
   status = cudaOccMaxBlocksPerSMWarpsLimit(addr(ctaLimitWarps), gcConfig,
@@ -775,7 +775,7 @@ proc cudaOccMaxActiveBlocksPerMultiprocessor*(res: ptr cudaOccResult;
   status = cudaOccMaxBlocksPerMultiprocessor(addr(ctaLimitBlocks), properties)
   if status != CUDA_OCC_SUCCESS:
     return status
-  status = cudaOccMaxBlocksPerSMSmemLimit(addr(ctaLimitSMem), result, properties,
+  status = cudaOccMaxBlocksPerSMSmemLimit(addr(ctaLimitSMem), res, properties,
                                         attributes, state, blockSize,
                                         dynamicSmemSize)
   if status != CUDA_OCC_SUCCESS:
@@ -787,13 +787,13 @@ proc cudaOccMaxActiveBlocksPerMultiprocessor*(res: ptr cudaOccResult;
   ##  Determine occupancy limiting factors
   ##
   if ctaLimit == ctaLimitWarps:
-    limitingFactors = limitingFactors or OCC_LIMIT_WARPS
+    limitingFactors = limitingFactors or OCC_LIMIT_WARPS.cuint
   if ctaLimit == ctaLimitRegs:
-    limitingFactors = limitingFactors or OCC_LIMIT_REGISTERS
+    limitingFactors = limitingFactors or OCC_LIMIT_REGISTERS.cuint
   if ctaLimit == ctaLimitSMem:
-    limitingFactors = limitingFactors or OCC_LIMIT_SHARED_MEMORY
+    limitingFactors = limitingFactors or OCC_LIMIT_SHARED_MEMORY.cuint
   if ctaLimit == ctaLimitBlocks:
-    limitingFactors = limitingFactors or OCC_LIMIT_BLOCKS
+    limitingFactors = limitingFactors or OCC_LIMIT_BLOCKS.cuint
   res.limitingFactors = limitingFactors
   res.blockLimitRegs = ctaLimitRegs
   res.blockLimitSharedMem = ctaLimitSMem
@@ -807,10 +807,10 @@ proc cudaOccMaxActiveBlocksPerMultiprocessor*(res: ptr cudaOccResult;
 proc cudaOccMaxPotentialOccupancyBlockSize*(minGridSize: ptr cint;
     blockSize: ptr cint; properties: ptr cudaOccDeviceProp;
     attributes: ptr cudaOccFuncAttributes; state: ptr cudaOccDeviceState;
-    blockSizeToDynamicSMemSize: proc (a2: cint): csize; dynamicSMemSize: csize): cudaOccError {.
+    blockSizeToDynamicSMemSize: proc (a2: cint): csize; dynamicSMemSize: var csize): cudaOccError {.
     inline.} =
   var status: cudaOccError = CUDA_OCC_SUCCESS
-  var result: cudaOccResult
+  var res: cudaOccResult
   ##  Limits
   var occupancyLimit: cint
   var granularity: cint
@@ -828,7 +828,7 @@ proc cudaOccMaxPotentialOccupancyBlockSize*(minGridSize: ptr cint;
   ## /////////////////////////
   ##  Check user input
   ## /////////////////////////
-  if not minGridSize or not blockSize or not properties or not attributes or not state:
+  if minGridSize.isNil or blockSize.isNil or properties.isNil or attributes.isNil or state.isNil:
     return CUDA_OCC_ERROR_INVALID_INPUT
   status = cudaOccInputCheck(properties, attributes, state)
   if status != CUDA_OCC_SUCCESS:
@@ -843,13 +843,13 @@ proc cudaOccMaxPotentialOccupancyBlockSize*(minGridSize: ptr cint;
     blockSizeToTry = occMin(blockSizeLimit, blockSizeToTryAligned)
     ##  Ignore dynamicSMemSize if the user provides a mapping
     ##
-    if blockSizeToDynamicSMemSize:
-      dynamicSMemSize = (blockSizeToDynamicSMemSize[])(blockSizeToTry)
-    status = cudaOccMaxActiveBlocksPerMultiprocessor(addr(result), properties,
+    if not blockSizeToDynamicSMemSize.isNil:
+      dynamicSMemSize = blockSizeToDynamicSMemSize(blockSizeToTry)
+    status = cudaOccMaxActiveBlocksPerMultiprocessor(addr(res), properties,
         attributes, state, blockSizeToTry, dynamicSMemSize)
     if status != CUDA_OCC_SUCCESS:
       return status
-    occupancyInBlocks = result.activeBlocksPerMultiprocessor
+    occupancyInBlocks = res.activeBlocksPerMultiprocessor
     occupancyInThreads = blockSizeToTry * occupancyInBlocks
     if occupancyInThreads > maxOccupancy:
       maxBlockSize = blockSizeToTry

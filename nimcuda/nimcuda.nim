@@ -15,6 +15,7 @@
 import ./cublas_api
 import ./cublas_v2
 import ./cuComplex
+import ./cuda_occupancy
 import ./cuda_runtime_api
 import ./cudnn
 import ./cufft
@@ -34,6 +35,7 @@ import ./vector_types
 
 type
   CudaError* = object of IOError
+  CudaOccError* = object of IOError
   CufftError* = object of IOError
   CublasError* = object of IOError
   CusparseError* = object of IOError
@@ -45,6 +47,10 @@ type
 template check*(a: cudaError_t) =
   if a != cudaSuccess:
     raise newException(CudaError, $a & " " & $int(a))
+
+template check*(a: cudaOccError) =
+  if a != CUDA_OCC_SUCCESS:
+    raise newException(CudaOccError, $a & " " & $int(a))
 
 template check*(a: cublasStatus_t) =
   if a != CUBLAS_STATUS_SUCCESS:
