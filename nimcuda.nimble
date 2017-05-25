@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.0"
+version       = "0.1.1"
 author        = "Andrea Ferretti"
 description   = "Nim binding for CUDA"
 license       = "Apache2"
@@ -43,6 +43,7 @@ let libs = [
   "surface_types",
   "texture_types",
   "cuda_runtime_api",
+  # "cuda_occupancy", # do not decomment - the nim file is manually adjusted
   "cuComplex",
   "cublas_api",
   "cublas_v2",
