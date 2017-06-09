@@ -314,60 +314,60 @@ when not defined(CUBLAS_API_H):
       dynlib: libName.}
   ##  ---------------- CUBLAS BLAS1 functions ----------------
   proc cublasNrm2Ex*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
-                    incx: cint; res: pointer; resultType: cudaDataType;
+                    incx: cint; result: pointer; resultType: cudaDataType;
                     executionType: cudaDataType): cublasStatus_t {.cdecl,
       importc: "cublasNrm2Ex", dynlib: libName.}
   ##  host or device pointer
   proc cublasSnrm2_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                      res: ptr cfloat): cublasStatus_t {.cdecl,
+                      result: ptr cfloat): cublasStatus_t {.cdecl,
       importc: "cublasSnrm2_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasDnrm2_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                      res: ptr cdouble): cublasStatus_t {.cdecl,
+                      result: ptr cdouble): cublasStatus_t {.cdecl,
       importc: "cublasDnrm2_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasScnrm2_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                       res: ptr cfloat): cublasStatus_t {.cdecl,
+                       result: ptr cfloat): cublasStatus_t {.cdecl,
       importc: "cublasScnrm2_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasDznrm2_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
-                       incx: cint; res: ptr cdouble): cublasStatus_t {.cdecl,
+                       incx: cint; result: ptr cdouble): cublasStatus_t {.cdecl,
       importc: "cublasDznrm2_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasDotEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
                    incx: cint; y: pointer; yType: cudaDataType; incy: cint;
-                   res: pointer; resultType: cudaDataType;
+                   result: pointer; resultType: cudaDataType;
                    executionType: cudaDataType): cublasStatus_t {.cdecl,
       importc: "cublasDotEx", dynlib: libName.}
   proc cublasDotcEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
                     incx: cint; y: pointer; yType: cudaDataType; incy: cint;
-                    res: pointer; resultType: cudaDataType;
+                    result: pointer; resultType: cudaDataType;
                     executionType: cudaDataType): cublasStatus_t {.cdecl,
       importc: "cublasDotcEx", dynlib: libName.}
   proc cublasSdot_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                     y: ptr cfloat; incy: cint; res: ptr cfloat): cublasStatus_t {.cdecl,
-      importc: "cublasSdot_v2", dynlib: libName.}
+                     y: ptr cfloat; incy: cint; result: ptr cfloat): cublasStatus_t {.
+      cdecl, importc: "cublasSdot_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasDdot_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                     y: ptr cdouble; incy: cint; res: ptr cdouble): cublasStatus_t {.
+                     y: ptr cdouble; incy: cint; result: ptr cdouble): cublasStatus_t {.
       cdecl, importc: "cublasDdot_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasCdotu_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                      y: ptr cuComplex; incy: cint; res: ptr cuComplex): cublasStatus_t {.
+                      y: ptr cuComplex; incy: cint; result: ptr cuComplex): cublasStatus_t {.
       cdecl, importc: "cublasCdotu_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasCdotc_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                      y: ptr cuComplex; incy: cint; res: ptr cuComplex): cublasStatus_t {.
+                      y: ptr cuComplex; incy: cint; result: ptr cuComplex): cublasStatus_t {.
       cdecl, importc: "cublasCdotc_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasZdotu_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
                       incx: cint; y: ptr cuDoubleComplex; incy: cint;
-                      res: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                      result: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
       importc: "cublasZdotu_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasZdotc_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
                       incx: cint; y: ptr cuDoubleComplex; incy: cint;
-                      res: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                      result: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
       importc: "cublasZdotc_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasScalEx*(handle: cublasHandle_t; n: cint; alpha: pointer;
@@ -447,51 +447,51 @@ when not defined(CUBLAS_API_H):
                       incx: cint; y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.
       cdecl, importc: "cublasZswap_v2", dynlib: libName.}
   proc cublasIsamax_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                       res: ptr cint): cublasStatus_t {.cdecl,
+                       result: ptr cint): cublasStatus_t {.cdecl,
       importc: "cublasIsamax_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasIdamax_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                       res: ptr cint): cublasStatus_t {.cdecl,
+                       result: ptr cint): cublasStatus_t {.cdecl,
       importc: "cublasIdamax_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasIcamax_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                       res: ptr cint): cublasStatus_t {.cdecl,
+                       result: ptr cint): cublasStatus_t {.cdecl,
       importc: "cublasIcamax_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasIzamax_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
-                       incx: cint; res: ptr cint): cublasStatus_t {.cdecl,
+                       incx: cint; result: ptr cint): cublasStatus_t {.cdecl,
       importc: "cublasIzamax_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasIsamin_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                       res: ptr cint): cublasStatus_t {.cdecl,
+                       result: ptr cint): cublasStatus_t {.cdecl,
       importc: "cublasIsamin_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasIdamin_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                       res: ptr cint): cublasStatus_t {.cdecl,
+                       result: ptr cint): cublasStatus_t {.cdecl,
       importc: "cublasIdamin_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasIcamin_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                       res: ptr cint): cublasStatus_t {.cdecl,
+                       result: ptr cint): cublasStatus_t {.cdecl,
       importc: "cublasIcamin_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasIzamin_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
-                       incx: cint; res: ptr cint): cublasStatus_t {.cdecl,
+                       incx: cint; result: ptr cint): cublasStatus_t {.cdecl,
       importc: "cublasIzamin_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasSasum_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                      res: ptr cfloat): cublasStatus_t {.cdecl,
+                      result: ptr cfloat): cublasStatus_t {.cdecl,
       importc: "cublasSasum_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasDasum_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                      res: ptr cdouble): cublasStatus_t {.cdecl,
+                      result: ptr cdouble): cublasStatus_t {.cdecl,
       importc: "cublasDasum_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasScasum_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                       res: ptr cfloat): cublasStatus_t {.cdecl,
+                       result: ptr cfloat): cublasStatus_t {.cdecl,
       importc: "cublasScasum_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasDzasum_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
-                       incx: cint; res: ptr cdouble): cublasStatus_t {.cdecl,
+                       incx: cint; result: ptr cdouble): cublasStatus_t {.cdecl,
       importc: "cublasDzasum_v2", dynlib: libName.}
   ##  host or device pointer
   proc cublasSrot_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
