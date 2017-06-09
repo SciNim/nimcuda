@@ -1,5 +1,4 @@
 #ifdef C2NIM
-  #skipifndef CURANDAPI
   #def CURANDAPI
 
   #mangle CURAND_H_ CURAND_H

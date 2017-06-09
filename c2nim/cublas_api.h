@@ -1,8 +1,6 @@
 #ifdef C2NIM
   #mangle CUBLAS_API_H_ CUBLAS_API_H
 
-  #skipifndef CUBLASWINAPI
-  #skipifndef CUBLASAPI
   #def CUBLASWINAPI
   #def CUBLASAPI
 

@@ -1,5 +1,4 @@
 #ifdef C2NIM
-  #skipifndef CUDNNWINAPI
   #def CUDNNWINAPI
 
   #mangle CUDNN_H_ CUDNN_H

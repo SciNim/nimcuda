@@ -1,5 +1,4 @@
 #ifdef C2NIM
-  #skipifndef CUFFTAPI
   #def CUFFTAPI
 
   #dynlib libName

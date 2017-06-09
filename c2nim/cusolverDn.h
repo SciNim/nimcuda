@@ -1,7 +1,6 @@
 #ifdef C2NIM
   #mangle CUSOLVERDN_H_ CUSOLVERDN_H
 
-  #skipifndef CUSOLVERAPI
   #def CUSOLVERAPI
 
   #dynlib libName

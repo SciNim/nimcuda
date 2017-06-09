@@ -1,11 +1,11 @@
 #ifdef C2NIM
   #mangle __CUDA_RUNTIME_API_H__ CUDA_RUNTIME_API_H
 
-  #skipifdef _WIN32
-  #skipifdef __CUDA_API_VERSION_INTERNAL
-  #skipifndef __CUDACC_INTEGRATED__
-  #skipifdef CUDA_API_PER_THREAD_DEFAULT_STREAM
-  #skipifndef __CUDACC_INTEGRATED__
+  #assumendef _WIN32
+  #assumendef __CUDA_API_VERSION_INTERNAL
+  #assumedef __CUDACC_INTEGRATED__
+  #assumendef CUDA_API_PER_THREAD_DEFAULT_STREAM
+  #assumedef __CUDACC_INTEGRATED__
 
   #def CUDARTAPI
   #def __host__

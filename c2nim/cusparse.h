@@ -1,5 +1,4 @@
 #ifdef C2NIM
-  #skipifndef CUSPARSEAPI
   #def CUSPARSEAPI
 
   #mangle cudaDataType_t cudaDataType

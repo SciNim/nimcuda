@@ -6,7 +6,7 @@
   #mangle __occDivideRoundUp occDivideRoundUp
   #mangle __occRoundUp occRoundUp
 
-  #skipifdef __CUDACC__
+  #assumendef __CUDACC__
   #def __OCC_INLINE inline
 
   // typedef struct {} cudaOccResult;

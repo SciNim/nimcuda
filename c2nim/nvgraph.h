@@ -1,5 +1,4 @@
 #ifdef C2NIM
-  #skipifndef NVGRAPH_API
   #def NVGRAPH_API
 
   #mangle cudaDataType_t cudaDataType
