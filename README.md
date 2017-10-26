@@ -1,7 +1,10 @@
 # NimCUDA
 
 Nim bindings for the [CUDA](https://developer.nvidia.com/cuda-toolkit)
-libraries.
+libraries. The versions currently in use are
+
+* CUDA 8.0
+* CuDNN 5.1
 
 ## Status
 
