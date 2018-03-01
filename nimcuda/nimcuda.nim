@@ -45,37 +45,46 @@ type
   NVGraphError* = object of IOError
 
 template check*(a: cudaError_t) =
-  if a != cudaSuccess:
-    raise newException(CudaError, $a & " " & $int(a))
+  let y = a # ensure we only evaluate once even if the expression has side effects
+  if y != cudaSuccess:
+    raise newException(CudaError, $y & " " & $int(y))
 
 template check*(a: cudaOccError) =
-  if a != CUDA_OCC_SUCCESS:
-    raise newException(CudaOccError, $a & " " & $int(a))
+  let y = a # ensure we only evaluate once even if the expression has side effects
+  if y != CUDA_OCC_SUCCESS:
+    raise newException(CudaOccError, $y & " " & $int(y))
 
 template check*(a: cublasStatus_t) =
-  if a != CUBLAS_STATUS_SUCCESS:
-    raise newException(CublasError, $a & " " & $int(a))
+  let y = a # ensure we only evaluate once even if the expression has side effects
+  if y != CUBLAS_STATUS_SUCCESS:
+    raise newException(CublasError, $y & " " & $int(y))
 
 template check*(a: cufftResult) =
-  if a != CUFFT_SUCCESS:
-    raise newException(CufftError, $a & " " & $int(a))
+  let y = a # ensure we only evaluate once even if the expression has side effects
+  if y != CUFFT_SUCCESS:
+    raise newException(CufftError, $y & " " & $int(y))
 
 template check*(a: cusparseStatus_t) =
-  if a != CUSPARSE_STATUS_SUCCESS:
-    raise newException(CusparseError, $a & " " & $int(a))
+  let y = a # ensure we only evaluate once even if the expression has side effects
+  if y != CUSPARSE_STATUS_SUCCESS:
+    raise newException(CusparseError, $y & " " & $int(y))
 
 template check*(a: cusolverStatus_t) =
-  if a != CUSOLVER_STATUS_SUCCESS:
-    raise newException(CusolverError, $a & " " & $int(a))
+  let y = a # ensure we only evaluate once even if the expression has side effects
+  if y != CUSOLVER_STATUS_SUCCESS:
+    raise newException(CusolverError, $y & " " & $int(y))
 
 template check*(a: curandStatus) =
-  if a != CURAND_STATUS_SUCCESS:
-    raise newException(CurandError, $a & " " & $int(a))
+  let y = a # ensure we only evaluate once even if the expression has side effects
+  if y != CURAND_STATUS_SUCCESS:
+    raise newException(CurandError, $y & " " & $int(y))
 
 template check*(a: cudnnStatus_t) =
-  if a != CUDNN_STATUS_SUCCESS:
-    raise newException(CudnnError, $a & " " & $int(a))
+  let y = a # ensure we only evaluate once even if the expression has side effects
+  if y != CUDNN_STATUS_SUCCESS:
+    raise newException(CudnnError, $y & " " & $int(y))
 
 template check*(a: nvgraphStatus_t) =
-  if a != NVGRAPH_STATUS_SUCCESS:
-    raise newException(NVGraphError, $a & " " & $int(a))
+  let y = a # ensure we only evaluate once even if the expression has side effects
+  if y != NVGRAPH_STATUS_SUCCESS:
+    raise newException(NVGraphError, $y & " " & $int(y))
