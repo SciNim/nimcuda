@@ -13,9 +13,13 @@ requires "nim >= 0.16.0"
 import ospaths, strutils
 
 proc patch(libName: string): string =
+  when defined(windows):
+    let libpath = getEnv("CUDA_PATH") / "include" / libName
+  else:
+    let libpath = "/usr/local/cuda/include" / libName
+
   let
     simpleLibPath = "include" / libName
-    libPath = "/usr/local/cuda/include" / libName
     patchPath = "c2nim" / libName
     outPath = "headers" / libName
     libContent =
