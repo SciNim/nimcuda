@@ -90,8 +90,12 @@ proc exampleConfig() =
   --stacktrace: on
   --linetrace: on
   --debuginfo
-  --cincludes: "/usr/local/cuda/include"
-  --clibdir: "/usr/local/cuda/lib64"
+  when defined(windows):
+    switch("cincludes", getenv("CUDA_PATH") / "include")
+    switch("clibdir", getenv("CUDA_PATH") / "lib/x64")
+  else:
+    --cincludes: "/usr/local/cuda/include"
+    --clibdir: "/usr/local/cuda/lib64"
   --path: "."
   --run
 
