@@ -1,13 +1,16 @@
  {.deadCodeElim: on.}
 when defined(windows):
-  const
-    libName = "cudnn.dll"
+  import os
+  #{.passL: "\"" & os.getEnv("CUDA_PATH") / "lib/x64" / "cudnn.lib" & "\"".}
+  {.pragma: dyn.}
 elif defined(macosx):
   const
     libName = "libcudnn.dylib"
+  {.pragma: dyn, dynlib: libName.}
 else:
   const
     libName = "libcudnn.so"
+  {.pragma: dyn, dynlib: libName.}
 type
   cudnnTensorStruct = object
   
@@ -47,7 +50,7 @@ when not defined(CUDNN_H):
     
   type
     cudnnHandle_t* = ptr cudnnContext
-  proc cudnnGetVersion*(): csize {.cdecl, importc: "cudnnGetVersion", dynlib: libName.}
+  proc cudnnGetVersion*(): csize {.cdecl, importc: "cudnnGetVersion", dyn.}
   ## 
   ##  CUDNN return codes
   ## 
@@ -61,15 +64,15 @@ when not defined(CUDNN_H):
       CUDNN_STATUS_LICENSE_ERROR = 10
   ##  human-readable error messages
   proc cudnnGetErrorString*(status: cudnnStatus_t): cstring {.cdecl,
-      importc: "cudnnGetErrorString", dynlib: libName.}
+      importc: "cudnnGetErrorString", dyn.}
   proc cudnnCreate*(handle: ptr cudnnHandle_t): cudnnStatus_t {.cdecl,
-      importc: "cudnnCreate", dynlib: libName.}
+      importc: "cudnnCreate", dyn.}
   proc cudnnDestroy*(handle: cudnnHandle_t): cudnnStatus_t {.cdecl,
-      importc: "cudnnDestroy", dynlib: libName.}
+      importc: "cudnnDestroy", dyn.}
   proc cudnnSetStream*(handle: cudnnHandle_t; streamId: cudaStream_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetStream", dynlib: libName.}
+      cdecl, importc: "cudnnSetStream", dyn.}
   proc cudnnGetStream*(handle: cudnnHandle_t; streamId: ptr cudaStream_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetStream", dynlib: libName.}
+      cdecl, importc: "cudnnGetStream", dyn.}
   ##  Data structures to represent Image/Filter and the Neural Network Layer
   type
     cudnnTensorDescriptor_t* = ptr cudnnTensorStruct
@@ -97,7 +100,7 @@ when not defined(CUDNN_H):
     CUDNN_DIM_MAX* = 8
   ##  Create an instance of a generic Tensor descriptor
   proc cudnnCreateTensorDescriptor*(tensorDesc: ptr cudnnTensorDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnCreateTensorDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnCreateTensorDescriptor", dyn.}
   type
     cudnnTensorFormat_t* {.size: sizeof(cint).} = enum
       CUDNN_TENSOR_NCHW = 0,    ##  row major (wStride = 1, hStride = w)
@@ -106,7 +109,7 @@ when not defined(CUDNN_H):
                                   format: cudnnTensorFormat_t;
                                   dataType: cudnnDataType_t; n: cint; c: cint;
                                   h: cint; w: cint): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetTensor4dDescriptor", dynlib: libName.}
+      importc: "cudnnSetTensor4dDescriptor", dyn.}
     ##  image data type
     ##  number of inputs (batch size)
     ##  number of input feature maps
@@ -116,7 +119,7 @@ when not defined(CUDNN_H):
                                     dataType: cudnnDataType_t; n: cint; c: cint;
                                     h: cint; w: cint; nStride: cint; cStride: cint;
                                     hStride: cint; wStride: cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetTensor4dDescriptorEx", dynlib: libName.}
+      cdecl, importc: "cudnnSetTensor4dDescriptorEx", dyn.}
     ##  image data type
     ##  number of inputs (batch size)
     ##  number of input feature maps
@@ -127,7 +130,7 @@ when not defined(CUDNN_H):
                                   c: ptr cint; h: ptr cint; w: ptr cint;
                                   nStride: ptr cint; cStride: ptr cint;
                                   hStride: ptr cint; wStride: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetTensor4dDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnGetTensor4dDescriptor", dyn.}
     ##  image data type
     ##  number of inputs (batch size)
     ##  number of input feature maps
@@ -136,12 +139,12 @@ when not defined(CUDNN_H):
   proc cudnnSetTensorNdDescriptor*(tensorDesc: cudnnTensorDescriptor_t;
                                   dataType: cudnnDataType_t; nbDims: cint;
                                   dimA: ptr cint; strideA: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetTensorNdDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnSetTensorNdDescriptor", dyn.}
   proc cudnnGetTensorNdDescriptor*(tensorDesc: cudnnTensorDescriptor_t;
                                   nbDimsRequested: cint;
                                   dataType: ptr cudnnDataType_t; nbDims: ptr cint;
                                   dimA: ptr cint; strideA: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetTensorNdDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnGetTensorNdDescriptor", dyn.}
   ##  PixelOffset( n, c, h, w ) = n *input_stride + c * feature_stride + h * h_stride + w * w_stride
   ## 
   ##    1)Example of all images in row major order one batch of features after the other (with an optional padding on row)
@@ -166,18 +169,18 @@ when not defined(CUDNN_H):
   ## 
   ##  Destroy an instance of Tensor4d descriptor
   proc cudnnDestroyTensorDescriptor*(tensorDesc: cudnnTensorDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnDestroyTensorDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnDestroyTensorDescriptor", dyn.}
   ##  Tensor layout conversion helper (y = alpha * x + beta * y)
   proc cudnnTransformTensor*(handle: cudnnHandle_t; alpha: pointer;
                             xDesc: cudnnTensorDescriptor_t; x: pointer;
                             beta: pointer; yDesc: cudnnTensorDescriptor_t;
                             y: pointer): cudnnStatus_t {.cdecl,
-      importc: "cudnnTransformTensor", dynlib: libName.}
+      importc: "cudnnTransformTensor", dyn.}
   ##  Tensor Bias addition : C = alpha * A + beta * C
   proc cudnnAddTensor*(handle: cudnnHandle_t; alpha: pointer;
                       aDesc: cudnnTensorDescriptor_t; A: pointer; beta: pointer;
                       cDesc: cudnnTensorDescriptor_t; C: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnAddTensor", dynlib: libName.}
+      cdecl, importc: "cudnnAddTensor", dyn.}
   ## 
   ##  CUDNN OpTensor op type
   ## 
@@ -186,34 +189,34 @@ when not defined(CUDNN_H):
       CUDNN_OP_TENSOR_ADD = 0, CUDNN_OP_TENSOR_MUL = 1, CUDNN_OP_TENSOR_MIN = 2,
       CUDNN_OP_TENSOR_MAX = 3
   proc cudnnCreateOpTensorDescriptor*(opTensorDesc: ptr cudnnOpTensorDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnCreateOpTensorDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnCreateOpTensorDescriptor", dyn.}
   proc cudnnSetOpTensorDescriptor*(opTensorDesc: cudnnOpTensorDescriptor_t;
                                   opTensorOp: cudnnOpTensorOp_t;
                                   opTensorCompType: cudnnDataType_t;
                                   opTensorNanOpt: cudnnNanPropagation_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetOpTensorDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnSetOpTensorDescriptor", dyn.}
   proc cudnnGetOpTensorDescriptor*(opTensorDesc: cudnnOpTensorDescriptor_t;
                                   opTensorOp: ptr cudnnOpTensorOp_t;
                                   opTensorCompType: ptr cudnnDataType_t;
                                   opTensorNanOpt: ptr cudnnNanPropagation_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetOpTensorDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnGetOpTensorDescriptor", dyn.}
   proc cudnnDestroyOpTensorDescriptor*(opTensorDesc: cudnnOpTensorDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnDestroyOpTensorDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnDestroyOpTensorDescriptor", dyn.}
   ##  Tensor Bias operation : C = op( alpha1 * A, alpha2 * B ) + beta * C
   proc cudnnOpTensor*(handle: cudnnHandle_t;
                      opTensorDesc: cudnnOpTensorDescriptor_t; alpha1: pointer;
                      aDesc: cudnnTensorDescriptor_t; A: pointer; alpha2: pointer;
                      bDesc: cudnnTensorDescriptor_t; B: pointer; beta: pointer;
                      cDesc: cudnnTensorDescriptor_t; C: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnOpTensor", dynlib: libName.}
+      cdecl, importc: "cudnnOpTensor", dyn.}
   ##  Set all values of a tensor to a given value : y[i] = value[0]
   proc cudnnSetTensor*(handle: cudnnHandle_t; yDesc: cudnnTensorDescriptor_t;
                       y: pointer; valuePtr: pointer): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetTensor", dynlib: libName.}
+      importc: "cudnnSetTensor", dyn.}
   ##  Scale all values of a tensor by a given factor : y[i] = alpha * y[i]
   proc cudnnScaleTensor*(handle: cudnnHandle_t; yDesc: cudnnTensorDescriptor_t;
                         y: pointer; alpha: pointer): cudnnStatus_t {.cdecl,
-      importc: "cudnnScaleTensor", dynlib: libName.}
+      importc: "cudnnScaleTensor", dyn.}
   ## 
   ##   convolution mode
   ## 
@@ -222,12 +225,12 @@ when not defined(CUDNN_H):
       CUDNN_CONVOLUTION = 0, CUDNN_CROSS_CORRELATION = 1
   ##  Create an instance of FilterStruct
   proc cudnnCreateFilterDescriptor*(filterDesc: ptr cudnnFilterDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnCreateFilterDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnCreateFilterDescriptor", dyn.}
   proc cudnnSetFilter4dDescriptor*(filterDesc: cudnnFilterDescriptor_t;
                                   dataType: cudnnDataType_t;
                                   format: cudnnTensorFormat_t; k: cint; c: cint;
                                   h: cint; w: cint): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetFilter4dDescriptor", dynlib: libName.}
+      importc: "cudnnSetFilter4dDescriptor", dyn.}
     ##  image data type
     ##  number of output feature maps
     ##  number of input feature maps
@@ -237,7 +240,7 @@ when not defined(CUDNN_H):
                                   dataType: ptr cudnnDataType_t;
                                   format: ptr cudnnTensorFormat_t; k: ptr cint;
                                   c: ptr cint; h: ptr cint; w: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetFilter4dDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnGetFilter4dDescriptor", dyn.}
     ##  image data type
     ##  number of output feature maps
     ##  number of input feature maps
@@ -247,25 +250,25 @@ when not defined(CUDNN_H):
                                   dataType: cudnnDataType_t;
                                   format: cudnnTensorFormat_t; nbDims: cint;
                                   filterDimA: ptr cint): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetFilterNdDescriptor", dynlib: libName.}
+      importc: "cudnnSetFilterNdDescriptor", dyn.}
     ##  image data type
   proc cudnnGetFilterNdDescriptor*(filterDesc: cudnnFilterDescriptor_t;
                                   nbDimsRequested: cint;
                                   dataType: ptr cudnnDataType_t;
                                   format: ptr cudnnTensorFormat_t;
                                   nbDims: ptr cint; filterDimA: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetFilterNdDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnGetFilterNdDescriptor", dyn.}
     ##  image data type
   proc cudnnDestroyFilterDescriptor*(filterDesc: cudnnFilterDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnDestroyFilterDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnDestroyFilterDescriptor", dyn.}
   ##  Create an instance of convolution descriptor
   proc cudnnCreateConvolutionDescriptor*(convDesc: ptr cudnnConvolutionDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnCreateConvolutionDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnCreateConvolutionDescriptor", dyn.}
   proc cudnnSetConvolution2dDescriptor*(convDesc: cudnnConvolutionDescriptor_t;
                                        pad_h: cint; pad_w: cint; u: cint; v: cint;
                                        upscalex: cint; upscaley: cint;
                                        mode: cudnnConvolutionMode_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetConvolution2dDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnSetConvolution2dDescriptor", dyn.}
     ##  zero-padding height
     ##  zero-padding width
     ##  vertical filter stride
@@ -276,7 +279,7 @@ when not defined(CUDNN_H):
       convDesc: cudnnConvolutionDescriptor_t; pad_h: cint; pad_w: cint; u: cint;
       v: cint; upscalex: cint; upscaley: cint; mode: cudnnConvolutionMode_t;
       dataType: cudnnDataType_t): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetConvolution2dDescriptor_v5", dynlib: libName.}
+      importc: "cudnnSetConvolution2dDescriptor_v5", dyn.}
     ##  zero-padding height
     ##  zero-padding width
     ##  vertical filter stride
@@ -288,7 +291,7 @@ when not defined(CUDNN_H):
                                        v: ptr cint; upscalex: ptr cint;
                                        upscaley: ptr cint;
                                        mode: ptr cudnnConvolutionMode_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetConvolution2dDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnGetConvolution2dDescriptor", dyn.}
     ##  zero-padding height
     ##  zero-padding width
     ##  vertical filter stride
@@ -299,7 +302,7 @@ when not defined(CUDNN_H):
       convDesc: cudnnConvolutionDescriptor_t; pad_h: ptr cint; pad_w: ptr cint;
       u: ptr cint; v: ptr cint; upscalex: ptr cint; upscaley: ptr cint;
       mode: ptr cudnnConvolutionMode_t; dataType: ptr cudnnDataType_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetConvolution2dDescriptor_v5", dynlib: libName.}
+      cdecl, importc: "cudnnGetConvolution2dDescriptor_v5", dyn.}
     ##  zero-padding height
     ##  zero-padding width
     ##  vertical filter stride
@@ -312,13 +315,13 @@ when not defined(CUDNN_H):
       inputTensorDesc: cudnnTensorDescriptor_t;
       filterDesc: cudnnFilterDescriptor_t; n: ptr cint; c: ptr cint; h: ptr cint;
       w: ptr cint): cudnnStatus_t {.cdecl, importc: "cudnnGetConvolution2dForwardOutputDim",
-                                dynlib: libName.}
+                                dyn.}
   proc cudnnSetConvolutionNdDescriptor*(convDesc: cudnnConvolutionDescriptor_t;
                                        arrayLength: cint; padA: ptr cint;
                                        filterStrideA: ptr cint; upscaleA: ptr cint;
                                        mode: cudnnConvolutionMode_t;
                                        dataType: cudnnDataType_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetConvolutionNdDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnSetConvolutionNdDescriptor", dyn.}
     ##  nbDims-2 size
   ##  convolution data type
   proc cudnnGetConvolutionNdDescriptor*(convDesc: cudnnConvolutionDescriptor_t;
@@ -327,17 +330,17 @@ when not defined(CUDNN_H):
                                        strideA: ptr cint; upscaleA: ptr cint;
                                        mode: ptr cudnnConvolutionMode_t;
                                        dataType: ptr cudnnDataType_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetConvolutionNdDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnGetConvolutionNdDescriptor", dyn.}
   ##  convolution data type
   ##  Helper function to return the dimensions of the output tensor given a convolution descriptor
   proc cudnnGetConvolutionNdForwardOutputDim*(
       convDesc: cudnnConvolutionDescriptor_t;
       inputTensorDesc: cudnnTensorDescriptor_t;
       filterDesc: cudnnFilterDescriptor_t; nbDims: cint; tensorOuputDimA: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetConvolutionNdForwardOutputDim", dynlib: libName.}
+      cdecl, importc: "cudnnGetConvolutionNdForwardOutputDim", dyn.}
   ##  Destroy an instance of convolution descriptor
   proc cudnnDestroyConvolutionDescriptor*(convDesc: cudnnConvolutionDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnDestroyConvolutionDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnDestroyConvolutionDescriptor", dyn.}
   ##  helper function to provide the convolution algo that fit best the requirement
   type
     cudnnConvolutionFwdPreference_t* {.size: sizeof(cint).} = enum
@@ -363,20 +366,20 @@ when not defined(CUDNN_H):
       convDesc: cudnnConvolutionDescriptor_t; yDesc: cudnnTensorDescriptor_t;
       requestedAlgoCount: cint; returnedAlgoCount: ptr cint;
       perfResults: ptr cudnnConvolutionFwdAlgoPerf_t): cudnnStatus_t {.cdecl,
-      importc: "cudnnFindConvolutionForwardAlgorithm", dynlib: libName.}
+      importc: "cudnnFindConvolutionForwardAlgorithm", dyn.}
   proc cudnnFindConvolutionForwardAlgorithmEx*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; x: pointer; wDesc: cudnnFilterDescriptor_t;
       w: pointer; convDesc: cudnnConvolutionDescriptor_t;
       yDesc: cudnnTensorDescriptor_t; y: pointer; requestedAlgoCount: cint;
       returnedAlgoCount: ptr cint; perfResults: ptr cudnnConvolutionFwdAlgoPerf_t;
       workSpace: pointer; workSpaceSizeInBytes: csize): cudnnStatus_t {.cdecl,
-      importc: "cudnnFindConvolutionForwardAlgorithmEx", dynlib: libName.}
+      importc: "cudnnFindConvolutionForwardAlgorithmEx", dyn.}
   proc cudnnGetConvolutionForwardAlgorithm*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; wDesc: cudnnFilterDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; yDesc: cudnnTensorDescriptor_t;
       preference: cudnnConvolutionFwdPreference_t; memoryLimitInBytes: csize;
       algo: ptr cudnnConvolutionFwdAlgo_t): cudnnStatus_t {.cdecl,
-      importc: "cudnnGetConvolutionForwardAlgorithm", dynlib: libName.}
+      importc: "cudnnGetConvolutionForwardAlgorithm", dyn.}
   ## 
   ##   convolution algorithm (which requires potentially some workspace)
   ## 
@@ -385,7 +388,7 @@ when not defined(CUDNN_H):
       xDesc: cudnnTensorDescriptor_t; wDesc: cudnnFilterDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; yDesc: cudnnTensorDescriptor_t;
       algo: cudnnConvolutionFwdAlgo_t; sizeInBytes: ptr csize): cudnnStatus_t {.cdecl,
-      importc: "cudnnGetConvolutionForwardWorkspaceSize", dynlib: libName.}
+      importc: "cudnnGetConvolutionForwardWorkspaceSize", dyn.}
   ##  Convolution functions: All of the form "output = alpha * Op(inputs) + beta * output"
   ##  Function to perform the forward pass for batch convolution
   proc cudnnConvolutionForward*(handle: cudnnHandle_t; alpha: pointer;
@@ -396,13 +399,13 @@ when not defined(CUDNN_H):
                                workSpace: pointer; workSpaceSizeInBytes: csize;
                                beta: pointer; yDesc: cudnnTensorDescriptor_t;
                                y: pointer): cudnnStatus_t {.cdecl,
-      importc: "cudnnConvolutionForward", dynlib: libName.}
+      importc: "cudnnConvolutionForward", dyn.}
   ##  Function to compute the bias gradient for batch convolution
   proc cudnnConvolutionBackwardBias*(handle: cudnnHandle_t; alpha: pointer;
                                     dyDesc: cudnnTensorDescriptor_t; dy: pointer;
                                     beta: pointer;
                                     dbDesc: cudnnTensorDescriptor_t; db: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnConvolutionBackwardBias", dynlib: libName.}
+      cdecl, importc: "cudnnConvolutionBackwardBias", dyn.}
   ##  helper function to provide the convolution algo that fit best the requirement
   type
     cudnnConvolutionBwdFilterPreference_t* {.size: sizeof(cint).} = enum
@@ -426,7 +429,7 @@ when not defined(CUDNN_H):
       convDesc: cudnnConvolutionDescriptor_t; dwDesc: cudnnFilterDescriptor_t;
       requestedAlgoCount: cint; returnedAlgoCount: ptr cint;
       perfResults: ptr cudnnConvolutionBwdFilterAlgoPerf_t): cudnnStatus_t {.cdecl,
-      importc: "cudnnFindConvolutionBackwardFilterAlgorithm", dynlib: libName.}
+      importc: "cudnnFindConvolutionBackwardFilterAlgorithm", dyn.}
   proc cudnnFindConvolutionBackwardFilterAlgorithmEx*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; x: pointer; dyDesc: cudnnTensorDescriptor_t;
       y: pointer; convDesc: cudnnConvolutionDescriptor_t;
@@ -434,13 +437,13 @@ when not defined(CUDNN_H):
       returnedAlgoCount: ptr cint;
       perfResults: ptr cudnnConvolutionBwdFilterAlgoPerf_t; workSpace: pointer;
       workSpaceSizeInBytes: csize): cudnnStatus_t {.cdecl,
-      importc: "cudnnFindConvolutionBackwardFilterAlgorithmEx", dynlib: libName.}
+      importc: "cudnnFindConvolutionBackwardFilterAlgorithmEx", dyn.}
   proc cudnnGetConvolutionBackwardFilterAlgorithm*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; dyDesc: cudnnTensorDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; dwDesc: cudnnFilterDescriptor_t;
       preference: cudnnConvolutionBwdFilterPreference_t;
       memoryLimitInBytes: csize; algo: ptr cudnnConvolutionBwdFilterAlgo_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetConvolutionBackwardFilterAlgorithm", dynlib: libName.}
+      cdecl, importc: "cudnnGetConvolutionBackwardFilterAlgorithm", dyn.}
   ## 
   ##   convolution algorithm (which requires potentially some workspace)
   ## 
@@ -450,7 +453,7 @@ when not defined(CUDNN_H):
       convDesc: cudnnConvolutionDescriptor_t; gradDesc: cudnnFilterDescriptor_t;
       algo: cudnnConvolutionBwdFilterAlgo_t; sizeInBytes: ptr csize): cudnnStatus_t {.
       cdecl, importc: "cudnnGetConvolutionBackwardFilterWorkspaceSize",
-      dynlib: libName.}
+      dyn.}
   proc cudnnConvolutionBackwardFilter*(handle: cudnnHandle_t; alpha: pointer;
                                       xDesc: cudnnTensorDescriptor_t; x: pointer;
                                       dyDesc: cudnnTensorDescriptor_t;
@@ -460,7 +463,7 @@ when not defined(CUDNN_H):
                                       workSpace: pointer;
                                       workSpaceSizeInBytes: csize; beta: pointer;
                                       dwDesc: cudnnFilterDescriptor_t; dw: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnConvolutionBackwardFilter", dynlib: libName.}
+      cdecl, importc: "cudnnConvolutionBackwardFilter", dyn.}
   ## *******************************************************
   ##  helper function to provide the convolution algo that fit best the requirement
   type
@@ -486,7 +489,7 @@ when not defined(CUDNN_H):
       convDesc: cudnnConvolutionDescriptor_t; dxDesc: cudnnTensorDescriptor_t;
       requestedAlgoCount: cint; returnedAlgoCount: ptr cint;
       perfResults: ptr cudnnConvolutionBwdDataAlgoPerf_t): cudnnStatus_t {.cdecl,
-      importc: "cudnnFindConvolutionBackwardDataAlgorithm", dynlib: libName.}
+      importc: "cudnnFindConvolutionBackwardDataAlgorithm", dyn.}
   proc cudnnFindConvolutionBackwardDataAlgorithmEx*(handle: cudnnHandle_t;
       wDesc: cudnnFilterDescriptor_t; w: pointer; dyDesc: cudnnTensorDescriptor_t;
       dy: pointer; convDesc: cudnnConvolutionDescriptor_t;
@@ -494,20 +497,20 @@ when not defined(CUDNN_H):
       returnedAlgoCount: ptr cint;
       perfResults: ptr cudnnConvolutionBwdDataAlgoPerf_t; workSpace: pointer;
       workSpaceSizeInBytes: csize): cudnnStatus_t {.cdecl,
-      importc: "cudnnFindConvolutionBackwardDataAlgorithmEx", dynlib: libName.}
+      importc: "cudnnFindConvolutionBackwardDataAlgorithmEx", dyn.}
   proc cudnnGetConvolutionBackwardDataAlgorithm*(handle: cudnnHandle_t;
       wDesc: cudnnFilterDescriptor_t; dyDesc: cudnnTensorDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; dxDesc: cudnnTensorDescriptor_t;
       preference: cudnnConvolutionBwdDataPreference_t; memoryLimitInBytes: csize;
       algo: ptr cudnnConvolutionBwdDataAlgo_t): cudnnStatus_t {.cdecl,
-      importc: "cudnnGetConvolutionBackwardDataAlgorithm", dynlib: libName.}
+      importc: "cudnnGetConvolutionBackwardDataAlgorithm", dyn.}
   ##  Helper function to return the minimum size of the workspace to be passed to the convolution given an algo
   proc cudnnGetConvolutionBackwardDataWorkspaceSize*(handle: cudnnHandle_t;
       wDesc: cudnnFilterDescriptor_t; dyDesc: cudnnTensorDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; dxDesc: cudnnTensorDescriptor_t;
       algo: cudnnConvolutionBwdDataAlgo_t; sizeInBytes: ptr csize): cudnnStatus_t {.
       cdecl, importc: "cudnnGetConvolutionBackwardDataWorkspaceSize",
-      dynlib: libName.}
+      dyn.}
   proc cudnnConvolutionBackwardData*(handle: cudnnHandle_t; alpha: pointer;
                                     wDesc: cudnnFilterDescriptor_t; w: pointer;
                                     dyDesc: cudnnTensorDescriptor_t; dy: pointer;
@@ -516,11 +519,11 @@ when not defined(CUDNN_H):
                                     workSpace: pointer;
                                     workSpaceSizeInBytes: csize; beta: pointer;
                                     dxDesc: cudnnTensorDescriptor_t; dx: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnConvolutionBackwardData", dynlib: libName.}
+      cdecl, importc: "cudnnConvolutionBackwardData", dyn.}
   proc cudnnIm2Col*(handle: cudnnHandle_t; xDesc: cudnnTensorDescriptor_t;
                    x: pointer; wDesc: cudnnFilterDescriptor_t;
                    convDesc: cudnnConvolutionDescriptor_t; colBuffer: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnIm2Col", dynlib: libName.}
+      cdecl, importc: "cudnnIm2Col", dyn.}
   ## 
   ##   softmax algorithm
   ## 
@@ -538,7 +541,7 @@ when not defined(CUDNN_H):
                            mode: cudnnSoftmaxMode_t; alpha: pointer;
                            xDesc: cudnnTensorDescriptor_t; x: pointer;
                            beta: pointer; yDesc: cudnnTensorDescriptor_t; y: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnSoftmaxForward", dynlib: libName.}
+      cdecl, importc: "cudnnSoftmaxForward", dyn.}
   ##  Function to perform backward softmax
   proc cudnnSoftmaxBackward*(handle: cudnnHandle_t; algo: cudnnSoftmaxAlgorithm_t;
                             mode: cudnnSoftmaxMode_t; alpha: pointer;
@@ -546,7 +549,7 @@ when not defined(CUDNN_H):
                             dyDesc: cudnnTensorDescriptor_t; dy: pointer;
                             beta: pointer; dxDesc: cudnnTensorDescriptor_t;
                             dx: pointer): cudnnStatus_t {.cdecl,
-      importc: "cudnnSoftmaxBackward", dynlib: libName.}
+      importc: "cudnnSoftmaxBackward", dyn.}
   ## 
   ##   pooling mode
   ## 
@@ -556,14 +559,14 @@ when not defined(CUDNN_H):
       CUDNN_POOLING_AVERAGE_COUNT_EXCLUDE_PADDING = 2
   ##  Create an instance of pooling descriptor
   proc cudnnCreatePoolingDescriptor*(poolingDesc: ptr cudnnPoolingDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnCreatePoolingDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnCreatePoolingDescriptor", dyn.}
   proc cudnnSetPooling2dDescriptor*(poolingDesc: cudnnPoolingDescriptor_t;
                                    mode: cudnnPoolingMode_t;
                                    maxpoolingNanOpt: cudnnNanPropagation_t;
                                    windowHeight: cint; windowWidth: cint;
                                    verticalPadding: cint; horizontalPadding: cint;
                                    verticalStride: cint; horizontalStride: cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetPooling2dDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnSetPooling2dDescriptor", dyn.}
   proc cudnnGetPooling2dDescriptor*(poolingDesc: cudnnPoolingDescriptor_t;
                                    mode: ptr cudnnPoolingMode_t;
                                    maxpoolingNanOpt: ptr cudnnNanPropagation_t;
@@ -572,39 +575,39 @@ when not defined(CUDNN_H):
                                    horizontalPadding: ptr cint;
                                    verticalStride: ptr cint;
                                    horizontalStride: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetPooling2dDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnGetPooling2dDescriptor", dyn.}
   proc cudnnSetPoolingNdDescriptor*(poolingDesc: cudnnPoolingDescriptor_t;
                                    mode: cudnnPoolingMode_t;
                                    maxpoolingNanOpt: cudnnNanPropagation_t;
                                    nbDims: cint; windowDimA: ptr cint;
                                    paddingA: ptr cint; strideA: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetPoolingNdDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnSetPoolingNdDescriptor", dyn.}
   proc cudnnGetPoolingNdDescriptor*(poolingDesc: cudnnPoolingDescriptor_t;
                                    nbDimsRequested: cint;
                                    mode: ptr cudnnPoolingMode_t;
                                    maxpoolingNanOpt: ptr cudnnNanPropagation_t;
                                    nbDims: ptr cint; windowDimA: ptr cint;
                                    paddingA: ptr cint; strideA: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetPoolingNdDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnGetPoolingNdDescriptor", dyn.}
   proc cudnnGetPoolingNdForwardOutputDim*(poolingDesc: cudnnPoolingDescriptor_t;
       inputTensorDesc: cudnnTensorDescriptor_t; nbDims: cint;
       outputTensorDimA: ptr cint): cudnnStatus_t {.cdecl,
-      importc: "cudnnGetPoolingNdForwardOutputDim", dynlib: libName.}
+      importc: "cudnnGetPoolingNdForwardOutputDim", dyn.}
   proc cudnnGetPooling2dForwardOutputDim*(poolingDesc: cudnnPoolingDescriptor_t;
       inputTensorDesc: cudnnTensorDescriptor_t; n: ptr cint; c: ptr cint; h: ptr cint;
       w: ptr cint): cudnnStatus_t {.cdecl,
                                 importc: "cudnnGetPooling2dForwardOutputDim",
-                                dynlib: libName.}
+                                dyn.}
   ##  Destroy an instance of pooling descriptor
   proc cudnnDestroyPoolingDescriptor*(poolingDesc: cudnnPoolingDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnDestroyPoolingDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnDestroyPoolingDescriptor", dyn.}
   ##  Pooling functions: All of the form "output = alpha * Op(inputs) + beta * output"
   ##  Function to perform forward pooling
   proc cudnnPoolingForward*(handle: cudnnHandle_t;
                            poolingDesc: cudnnPoolingDescriptor_t; alpha: pointer;
                            xDesc: cudnnTensorDescriptor_t; x: pointer;
                            beta: pointer; yDesc: cudnnTensorDescriptor_t; y: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnPoolingForward", dynlib: libName.}
+      cdecl, importc: "cudnnPoolingForward", dyn.}
   ##  Function to perform backward pooling
   proc cudnnPoolingBackward*(handle: cudnnHandle_t;
                             poolingDesc: cudnnPoolingDescriptor_t; alpha: pointer;
@@ -613,7 +616,7 @@ when not defined(CUDNN_H):
                             xDesc: cudnnTensorDescriptor_t; x: pointer;
                             beta: pointer; dxDesc: cudnnTensorDescriptor_t;
                             dx: pointer): cudnnStatus_t {.cdecl,
-      importc: "cudnnPoolingBackward", dynlib: libName.}
+      importc: "cudnnPoolingBackward", dyn.}
   ## 
   ##  activation mode
   ## 
@@ -623,26 +626,26 @@ when not defined(CUDNN_H):
       CUDNN_ACTIVATION_TANH = 2, CUDNN_ACTIVATION_CLIPPED_RELU = 3
   ##  Activation functions: All of the form "output = alpha * Op(inputs) + beta * output"
   proc cudnnCreateActivationDescriptor*(activationDesc: ptr cudnnActivationDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnCreateActivationDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnCreateActivationDescriptor", dyn.}
   proc cudnnSetActivationDescriptor*(activationDesc: cudnnActivationDescriptor_t;
                                     mode: cudnnActivationMode_t;
                                     reluNanOpt: cudnnNanPropagation_t;
                                     reluCeiling: cdouble): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetActivationDescriptor", dynlib: libName.}
+      importc: "cudnnSetActivationDescriptor", dyn.}
   proc cudnnGetActivationDescriptor*(activationDesc: cudnnActivationDescriptor_t;
                                     mode: ptr cudnnActivationMode_t;
                                     reluNanOpt: ptr cudnnNanPropagation_t;
                                     reluCeiling: ptr cdouble): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetActivationDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnGetActivationDescriptor", dyn.}
   proc cudnnDestroyActivationDescriptor*(activationDesc: cudnnActivationDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnDestroyActivationDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnDestroyActivationDescriptor", dyn.}
   ##  Function to perform forward activation
   proc cudnnActivationForward*(handle: cudnnHandle_t;
                               activationDesc: cudnnActivationDescriptor_t;
                               alpha: pointer; xDesc: cudnnTensorDescriptor_t;
                               x: pointer; beta: pointer;
                               yDesc: cudnnTensorDescriptor_t; y: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnActivationForward", dynlib: libName.}
+      cdecl, importc: "cudnnActivationForward", dyn.}
   ##  Function to perform backward activation
   proc cudnnActivationBackward*(handle: cudnnHandle_t;
                                activationDesc: cudnnActivationDescriptor_t;
@@ -651,13 +654,13 @@ when not defined(CUDNN_H):
                                dy: pointer; xDesc: cudnnTensorDescriptor_t;
                                x: pointer; beta: pointer;
                                dxDesc: cudnnTensorDescriptor_t; dx: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnActivationBackward", dynlib: libName.}
+      cdecl, importc: "cudnnActivationBackward", dyn.}
   ##  
   ##  Create an instance of LRN (Local Response Normalization) descriptor
   ##  Uses lrnN=5, lrnAlpha=1e-4, lrnBeta=0.75, lrnK=2.0 as defaults from Krizhevsky'12 ImageNet paper
   ## 
   proc cudnnCreateLRNDescriptor*(normDesc: ptr cudnnLRNDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnCreateLRNDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnCreateLRNDescriptor", dyn.}
   const
     CUDNN_LRN_MIN_N* = 1
     CUDNN_LRN_MAX_N* = 16
@@ -674,7 +677,7 @@ when not defined(CUDNN_H):
   ## 
   proc cudnnSetLRNDescriptor*(normDesc: cudnnLRNDescriptor_t; lrnN: cuint;
                              lrnAlpha: cdouble; lrnBeta: cdouble; lrnK: cdouble): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetLRNDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnSetLRNDescriptor", dyn.}
   ## 
   ##  Retrieve the settings currently stored in an LRN layer descriptor
   ##  Any of the provided pointers can be NULL (no corresponding value will be returned)
@@ -682,10 +685,10 @@ when not defined(CUDNN_H):
   proc cudnnGetLRNDescriptor*(normDesc: cudnnLRNDescriptor_t; lrnN: ptr cuint;
                              lrnAlpha: ptr cdouble; lrnBeta: ptr cdouble;
                              lrnK: ptr cdouble): cudnnStatus_t {.cdecl,
-      importc: "cudnnGetLRNDescriptor", dynlib: libName.}
+      importc: "cudnnGetLRNDescriptor", dyn.}
   ##  Destroy an instance of LRN descriptor
   proc cudnnDestroyLRNDescriptor*(lrnDesc: cudnnLRNDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnDestroyLRNDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnDestroyLRNDescriptor", dyn.}
   ##  LRN functions: output = alpha * normalize(x) + beta * old_y
   ##  LRN cross-channel forward computation. Double parameters cast to tensor data type
   proc cudnnLRNCrossChannelForward*(handle: cudnnHandle_t;
@@ -694,7 +697,7 @@ when not defined(CUDNN_H):
                                    xDesc: cudnnTensorDescriptor_t; x: pointer;
                                    beta: pointer; yDesc: cudnnTensorDescriptor_t;
                                    y: pointer): cudnnStatus_t {.cdecl,
-      importc: "cudnnLRNCrossChannelForward", dynlib: libName.}
+      importc: "cudnnLRNCrossChannelForward", dyn.}
   ##  LRN cross-channel backward computation. Double parameters cast to tensor data type
   proc cudnnLRNCrossChannelBackward*(handle: cudnnHandle_t;
                                     normDesc: cudnnLRNDescriptor_t;
@@ -704,7 +707,7 @@ when not defined(CUDNN_H):
                                     xDesc: cudnnTensorDescriptor_t; x: pointer;
                                     beta: pointer;
                                     dxDesc: cudnnTensorDescriptor_t; dx: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnLRNCrossChannelBackward", dynlib: libName.}
+      cdecl, importc: "cudnnLRNCrossChannelBackward", dyn.}
   type
     cudnnDivNormMode_t* {.size: sizeof(cint).} = enum
       CUDNN_DIVNORM_PRECOMPUTED_MEANS = 0
@@ -713,7 +716,7 @@ when not defined(CUDNN_H):
       normDesc: cudnnLRNDescriptor_t; mode: cudnnDivNormMode_t; alpha: pointer;
       xDesc: cudnnTensorDescriptor_t; x: pointer; means: pointer; temp: pointer;
       temp2: pointer; beta: pointer; yDesc: cudnnTensorDescriptor_t; y: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnDivisiveNormalizationForward", dynlib: libName.}
+      cdecl, importc: "cudnnDivisiveNormalizationForward", dyn.}
     ##  same desc for means, temp, temp2
     ##  if NULL, means are assumed to be zero
   proc cudnnDivisiveNormalizationBackward*(handle: cudnnHandle_t;
@@ -721,7 +724,7 @@ when not defined(CUDNN_H):
       xDesc: cudnnTensorDescriptor_t; x: pointer; means: pointer; dy: pointer;
       temp: pointer; temp2: pointer; beta: pointer;
       dXdMeansDesc: cudnnTensorDescriptor_t; dx: pointer; dMeans: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnDivisiveNormalizationBackward", dynlib: libName.}
+      cdecl, importc: "cudnnDivisiveNormalizationBackward", dyn.}
     ##  same desc for x, means, dy, temp, temp2
     ##  if NULL, means are assumed to be zero
     ##  same desc for dx, dMeans
@@ -741,7 +744,7 @@ when not defined(CUDNN_H):
   proc cudnnDeriveBNTensorDescriptor*(derivedBnDesc: cudnnTensorDescriptor_t;
                                      xDesc: cudnnTensorDescriptor_t;
                                      mode: cudnnBatchNormMode_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnDeriveBNTensorDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnDeriveBNTensorDescriptor", dyn.}
   ##  Computes y = BN(x). Also accumulates moving averages of mean and inverse variances
   proc cudnnBatchNormalizationForwardTraining*(handle: cudnnHandle_t;
       mode: cudnnBatchNormMode_t; alpha: pointer; beta: pointer;
@@ -750,7 +753,7 @@ when not defined(CUDNN_H):
       bnBias: pointer; exponentialAverageFactor: cdouble;
       resultRunningMean: pointer; resultRunningVariance: pointer; epsilon: cdouble;
       resultSaveMean: pointer; resultSaveInvVariance: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnBatchNormalizationForwardTraining", dynlib: libName.}
+      cdecl, importc: "cudnnBatchNormalizationForwardTraining", dyn.}
     ##  alpha[0] = result blend factor
     ##  beta[0] = dest layer blend factor
     ##  NxCxHxW
@@ -791,7 +794,7 @@ when not defined(CUDNN_H):
       y: pointer; bnScaleBiasMeanVarDesc: cudnnTensorDescriptor_t; bnScale: pointer;
       bnBias: pointer; estimatedMean: pointer; estimatedVariance: pointer;
       epsilon: cdouble): cudnnStatus_t {.cdecl, importc: "cudnnBatchNormalizationForwardInference",
-                                      dynlib: libName.}
+                                      dyn.}
     ##  alpha[0] = result blend factor
     ##  beta[0] = dest layer blend factor
     ##  NxCxHxW
@@ -813,7 +816,7 @@ when not defined(CUDNN_H):
                                        dBnBiasResult: pointer; epsilon: cdouble;
                                        savedMean: pointer;
                                        savedInvVariance: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnBatchNormalizationBackward", dynlib: libName.}
+      cdecl, importc: "cudnnBatchNormalizationBackward", dyn.}
     ##  same desc for x, dx, dy
     ##  Shared tensor desc for the 4 tensors below
     ##  bnBias doesn't affect backpropagation
@@ -827,27 +830,27 @@ when not defined(CUDNN_H):
       CUDNN_SAMPLER_BILINEAR = 0
   proc cudnnCreateSpatialTransformerDescriptor*(
       stDesc: ptr cudnnSpatialTransformerDescriptor_t): cudnnStatus_t {.cdecl,
-      importc: "cudnnCreateSpatialTransformerDescriptor", dynlib: libName.}
+      importc: "cudnnCreateSpatialTransformerDescriptor", dyn.}
   proc cudnnSetSpatialTransformerNdDescriptor*(
       stDesc: cudnnSpatialTransformerDescriptor_t;
       samplerType: cudnnSamplerType_t; dataType: cudnnDataType_t; nbDims: cint;
       dimA: ptr cint): cudnnStatus_t {.cdecl, importc: "cudnnSetSpatialTransformerNdDescriptor",
-                                   dynlib: libName.}
+                                   dyn.}
   proc cudnnDestroySpatialTransformerDescriptor*(
       stDesc: cudnnSpatialTransformerDescriptor_t): cudnnStatus_t {.cdecl,
-      importc: "cudnnDestroySpatialTransformerDescriptor", dynlib: libName.}
+      importc: "cudnnDestroySpatialTransformerDescriptor", dyn.}
   proc cudnnSpatialTfGridGeneratorForward*(handle: cudnnHandle_t;
       stDesc: cudnnSpatialTransformerDescriptor_t; theta: pointer; grid: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnSpatialTfGridGeneratorForward", dynlib: libName.}
+      cdecl, importc: "cudnnSpatialTfGridGeneratorForward", dyn.}
   proc cudnnSpatialTfGridGeneratorBackward*(handle: cudnnHandle_t;
       stDesc: cudnnSpatialTransformerDescriptor_t; dgrid: pointer; dtheta: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnSpatialTfGridGeneratorBackward", dynlib: libName.}
+      cdecl, importc: "cudnnSpatialTfGridGeneratorBackward", dyn.}
   proc cudnnSpatialTfSamplerForward*(handle: cudnnHandle_t; stDesc: cudnnSpatialTransformerDescriptor_t;
                                     alpha: pointer;
                                     xDesc: cudnnTensorDescriptor_t; x: pointer;
                                     grid: pointer; beta: pointer;
                                     yDesc: cudnnTensorDescriptor_t; y: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnSpatialTfSamplerForward", dynlib: libName.}
+      cdecl, importc: "cudnnSpatialTfSamplerForward", dyn.}
   proc cudnnSpatialTfSamplerBackward*(handle: cudnnHandle_t; stDesc: cudnnSpatialTransformerDescriptor_t;
                                      alpha: pointer;
                                      xDesc: cudnnTensorDescriptor_t; x: pointer;
@@ -857,37 +860,37 @@ when not defined(CUDNN_H):
                                      dyDesc: cudnnTensorDescriptor_t; dy: pointer;
                                      grid: pointer; betaDgrid: pointer;
                                      dgrid: pointer): cudnnStatus_t {.cdecl,
-      importc: "cudnnSpatialTfSamplerBackward", dynlib: libName.}
+      importc: "cudnnSpatialTfSamplerBackward", dyn.}
   type
     cudnnDropoutDescriptor_t* = ptr cudnnDropoutStruct
   proc cudnnCreateDropoutDescriptor*(dropoutDesc: ptr cudnnDropoutDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnCreateDropoutDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnCreateDropoutDescriptor", dyn.}
   proc cudnnDestroyDropoutDescriptor*(dropoutDesc: cudnnDropoutDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnDestroyDropoutDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnDestroyDropoutDescriptor", dyn.}
   ## helper function to determine size of the states to be passed to cudnnSetDropoutDescriptor
   proc cudnnDropoutGetStatesSize*(handle: cudnnHandle_t; sizeInBytes: ptr csize): cudnnStatus_t {.
-      cdecl, importc: "cudnnDropoutGetStatesSize", dynlib: libName.}
+      cdecl, importc: "cudnnDropoutGetStatesSize", dyn.}
   ## helper function to determine size of the reserve space to be passed to dropout forward/backward calls
   proc cudnnDropoutGetReserveSpaceSize*(xdesc: cudnnTensorDescriptor_t;
                                        sizeInBytes: ptr csize): cudnnStatus_t {.
-      cdecl, importc: "cudnnDropoutGetReserveSpaceSize", dynlib: libName.}
+      cdecl, importc: "cudnnDropoutGetReserveSpaceSize", dyn.}
   proc cudnnSetDropoutDescriptor*(dropoutDesc: cudnnDropoutDescriptor_t;
                                  handle: cudnnHandle_t; dropout: cfloat;
                                  states: pointer; stateSizeInBytes: csize;
                                  seed: culonglong): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetDropoutDescriptor", dynlib: libName.}
+      importc: "cudnnSetDropoutDescriptor", dyn.}
   proc cudnnDropoutForward*(handle: cudnnHandle_t;
                            dropoutDesc: cudnnDropoutDescriptor_t;
                            xdesc: cudnnTensorDescriptor_t; x: pointer;
                            ydesc: cudnnTensorDescriptor_t; y: pointer;
                            reserveSpace: pointer; reserveSpaceSizeInBytes: csize): cudnnStatus_t {.
-      cdecl, importc: "cudnnDropoutForward", dynlib: libName.}
+      cdecl, importc: "cudnnDropoutForward", dyn.}
   proc cudnnDropoutBackward*(handle: cudnnHandle_t;
                             dropoutDesc: cudnnDropoutDescriptor_t;
                             dydesc: cudnnTensorDescriptor_t; dy: pointer;
                             dxdesc: cudnnTensorDescriptor_t; dx: pointer;
                             reserveSpace: pointer; reserveSpaceSizeInBytes: csize): cudnnStatus_t {.
-      cdecl, importc: "cudnnDropoutBackward", dynlib: libName.}
+      cdecl, importc: "cudnnDropoutBackward", dyn.}
   ##  RNN API
   type
     cudnnRNNMode_t* {.size: sizeof(cint).} = enum
@@ -905,16 +908,16 @@ when not defined(CUDNN_H):
   type
     cudnnRNNDescriptor_t* = ptr cudnnRNNStruct
   proc cudnnCreateRNNDescriptor*(rnnDesc: ptr cudnnRNNDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnCreateRNNDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnCreateRNNDescriptor", dyn.}
   proc cudnnDestroyRNNDescriptor*(rnnDesc: cudnnRNNDescriptor_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnDestroyRNNDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnDestroyRNNDescriptor", dyn.}
   proc cudnnSetRNNDescriptor*(rnnDesc: cudnnRNNDescriptor_t; hiddenSize: cint;
                              numLayers: cint;
                              dropoutDesc: cudnnDropoutDescriptor_t;
                              inputMode: cudnnRNNInputMode_t;
                              direction: cudnnDirectionMode_t;
                              mode: cudnnRNNMode_t; dataType: cudnnDataType_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetRNNDescriptor", dynlib: libName.}
+      cdecl, importc: "cudnnSetRNNDescriptor", dyn.}
     ##  Between layers, not between recurrent steps.
   ##  dataType in the RNN descriptor is used to determine math precision
   ##  dataType in weight descriptors and input descriptors is used to describe storage
@@ -922,24 +925,24 @@ when not defined(CUDNN_H):
                                 rnnDesc: cudnnRNNDescriptor_t; seqLength: cint;
                                 xDesc: ptr cudnnTensorDescriptor_t;
                                 sizeInBytes: ptr csize): cudnnStatus_t {.cdecl,
-      importc: "cudnnGetRNNWorkspaceSize", dynlib: libName.}
+      importc: "cudnnGetRNNWorkspaceSize", dyn.}
   proc cudnnGetRNNTrainingReserveSize*(handle: cudnnHandle_t;
                                       rnnDesc: cudnnRNNDescriptor_t;
                                       seqLength: cint;
                                       xDesc: ptr cudnnTensorDescriptor_t;
                                       sizeInBytes: ptr csize): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetRNNTrainingReserveSize", dynlib: libName.}
+      cdecl, importc: "cudnnGetRNNTrainingReserveSize", dyn.}
   proc cudnnGetRNNParamsSize*(handle: cudnnHandle_t; rnnDesc: cudnnRNNDescriptor_t;
                              xDesc: cudnnTensorDescriptor_t;
                              sizeInBytes: ptr csize; dataType: cudnnDataType_t): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetRNNParamsSize", dynlib: libName.}
+      cdecl, importc: "cudnnGetRNNParamsSize", dyn.}
   proc cudnnGetRNNLinLayerMatrixParams*(handle: cudnnHandle_t;
                                        rnnDesc: cudnnRNNDescriptor_t; layer: cint;
                                        xDesc: cudnnTensorDescriptor_t;
                                        wDesc: cudnnFilterDescriptor_t; w: pointer;
                                        linLayerID: cint; linLayerMatDesc: cudnnFilterDescriptor_t;
                                        linLayerMat: ptr pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetRNNLinLayerMatrixParams", dynlib: libName.}
+      cdecl, importc: "cudnnGetRNNLinLayerMatrixParams", dyn.}
   proc cudnnGetRNNLinLayerBiasParams*(handle: cudnnHandle_t;
                                      rnnDesc: cudnnRNNDescriptor_t; layer: cint;
                                      xDesc: cudnnTensorDescriptor_t;
@@ -947,7 +950,7 @@ when not defined(CUDNN_H):
                                      linLayerID: cint;
                                      linLayerBiasDesc: cudnnFilterDescriptor_t;
                                      linLayerBias: ptr pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetRNNLinLayerBiasParams", dynlib: libName.}
+      cdecl, importc: "cudnnGetRNNLinLayerBiasParams", dyn.}
   proc cudnnRNNForwardInference*(handle: cudnnHandle_t;
                                 rnnDesc: cudnnRNNDescriptor_t; seqLength: cint;
                                 xDesc: ptr cudnnTensorDescriptor_t; x: pointer;
@@ -958,7 +961,7 @@ when not defined(CUDNN_H):
                                 hyDesc: cudnnTensorDescriptor_t; hy: pointer;
                                 cyDesc: cudnnTensorDescriptor_t; cy: pointer;
                                 workspace: pointer; workSpaceSizeInBytes: csize): cudnnStatus_t {.
-      cdecl, importc: "cudnnRNNForwardInference", dynlib: libName.}
+      cdecl, importc: "cudnnRNNForwardInference", dyn.}
   proc cudnnRNNForwardTraining*(handle: cudnnHandle_t;
                                rnnDesc: cudnnRNNDescriptor_t; seqLength: cint;
                                xDesc: ptr cudnnTensorDescriptor_t; x: pointer;
@@ -971,7 +974,7 @@ when not defined(CUDNN_H):
                                workspace: pointer; workSpaceSizeInBytes: csize;
                                reserveSpace: pointer;
                                reserveSpaceSizeInBytes: csize): cudnnStatus_t {.
-      cdecl, importc: "cudnnRNNForwardTraining", dynlib: libName.}
+      cdecl, importc: "cudnnRNNForwardTraining", dyn.}
   proc cudnnRNNBackwardData*(handle: cudnnHandle_t; rnnDesc: cudnnRNNDescriptor_t;
                             seqLength: cint; yDesc: ptr cudnnTensorDescriptor_t;
                             y: pointer; dyDesc: ptr cudnnTensorDescriptor_t;
@@ -986,7 +989,7 @@ when not defined(CUDNN_H):
                             dcx: pointer; workspace: pointer;
                             workSpaceSizeInBytes: csize; reserveSpace: pointer;
                             reserveSpaceSizeInBytes: csize): cudnnStatus_t {.cdecl,
-      importc: "cudnnRNNBackwardData", dynlib: libName.}
+      importc: "cudnnRNNBackwardData", dyn.}
   proc cudnnRNNBackwardWeights*(handle: cudnnHandle_t;
                                rnnDesc: cudnnRNNDescriptor_t; seqLength: cint;
                                xDesc: ptr cudnnTensorDescriptor_t; x: pointer;
@@ -996,7 +999,7 @@ when not defined(CUDNN_H):
                                dwDesc: cudnnFilterDescriptor_t; dw: pointer;
                                reserveSpace: pointer;
                                reserveSpaceSizeInBytes: csize): cudnnStatus_t {.
-      cdecl, importc: "cudnnRNNBackwardWeights", dynlib: libName.}
+      cdecl, importc: "cudnnRNNBackwardWeights", dyn.}
   ##  DEPRECATED routines to be removed next release : 
   ##    User should use the non-suffixed version (which has the API and functionality of _v4 version)
   ##    Routines with _v3 suffix has the functionality of the non-suffixed routines in the CUDNN V4
@@ -1004,7 +1007,7 @@ when not defined(CUDNN_H):
   proc cudnnSetFilter4dDescriptor_v3*(filterDesc: cudnnFilterDescriptor_t;
                                      dataType: cudnnDataType_t; k: cint; c: cint;
                                      h: cint; w: cint): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetFilter4dDescriptor_v3", dynlib: libName.}
+      importc: "cudnnSetFilter4dDescriptor_v3", dyn.}
     ##  image data type
     ##  number of output feature maps
     ##  number of input feature maps
@@ -1014,7 +1017,7 @@ when not defined(CUDNN_H):
                                      dataType: cudnnDataType_t;
                                      format: cudnnTensorFormat_t; k: cint; c: cint;
                                      h: cint; w: cint): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetFilter4dDescriptor_v4", dynlib: libName.}
+      importc: "cudnnSetFilter4dDescriptor_v4", dyn.}
     ##  image data type
     ##  number of output feature maps
     ##  number of input feature maps
@@ -1023,7 +1026,7 @@ when not defined(CUDNN_H):
   proc cudnnGetFilter4dDescriptor_v3*(filterDesc: cudnnFilterDescriptor_t;
                                      dataType: ptr cudnnDataType_t; k: ptr cint;
                                      c: ptr cint; h: ptr cint; w: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetFilter4dDescriptor_v3", dynlib: libName.}
+      cdecl, importc: "cudnnGetFilter4dDescriptor_v3", dyn.}
     ##  image data type
     ##  number of output feature maps
     ##  number of input feature maps
@@ -1033,7 +1036,7 @@ when not defined(CUDNN_H):
                                      dataType: ptr cudnnDataType_t;
                                      format: ptr cudnnTensorFormat_t; k: ptr cint;
                                      c: ptr cint; h: ptr cint; w: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetFilter4dDescriptor_v4", dynlib: libName.}
+      cdecl, importc: "cudnnGetFilter4dDescriptor_v4", dyn.}
     ##  image data type
     ##  number of output feature maps
     ##  number of input feature maps
@@ -1042,26 +1045,26 @@ when not defined(CUDNN_H):
   proc cudnnSetFilterNdDescriptor_v3*(filterDesc: cudnnFilterDescriptor_t;
                                      dataType: cudnnDataType_t; nbDims: cint;
                                      filterDimA: ptr cint): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetFilterNdDescriptor_v3", dynlib: libName.}
+      importc: "cudnnSetFilterNdDescriptor_v3", dyn.}
     ##  image data type
   proc cudnnSetFilterNdDescriptor_v4*(filterDesc: cudnnFilterDescriptor_t;
                                      dataType: cudnnDataType_t;
                                      format: cudnnTensorFormat_t; nbDims: cint;
                                      filterDimA: ptr cint): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetFilterNdDescriptor_v4", dynlib: libName.}
+      importc: "cudnnSetFilterNdDescriptor_v4", dyn.}
     ##  image data type
   proc cudnnGetFilterNdDescriptor_v3*(filterDesc: cudnnFilterDescriptor_t;
                                      nbDimsRequested: cint;
                                      dataType: ptr cudnnDataType_t;
                                      nbDims: ptr cint; filterDimA: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetFilterNdDescriptor_v3", dynlib: libName.}
+      cdecl, importc: "cudnnGetFilterNdDescriptor_v3", dyn.}
     ##  image data type
   proc cudnnGetFilterNdDescriptor_v4*(filterDesc: cudnnFilterDescriptor_t;
                                      nbDimsRequested: cint;
                                      dataType: ptr cudnnDataType_t;
                                      format: ptr cudnnTensorFormat_t;
                                      nbDims: ptr cint; filterDimA: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetFilterNdDescriptor_v4", dynlib: libName.}
+      cdecl, importc: "cudnnGetFilterNdDescriptor_v4", dyn.}
     ##  image data type
   proc cudnnSetPooling2dDescriptor_v3*(poolingDesc: cudnnPoolingDescriptor_t;
                                       mode: cudnnPoolingMode_t;
@@ -1069,7 +1072,7 @@ when not defined(CUDNN_H):
                                       verticalPadding: cint;
                                       horizontalPadding: cint;
                                       verticalStride: cint; horizontalStride: cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetPooling2dDescriptor_v3", dynlib: libName.}
+      cdecl, importc: "cudnnSetPooling2dDescriptor_v3", dyn.}
   proc cudnnSetPooling2dDescriptor_v4*(poolingDesc: cudnnPoolingDescriptor_t;
                                       mode: cudnnPoolingMode_t;
                                       maxpoolingNanOpt: cudnnNanPropagation_t;
@@ -1077,7 +1080,7 @@ when not defined(CUDNN_H):
                                       verticalPadding: cint;
                                       horizontalPadding: cint;
                                       verticalStride: cint; horizontalStride: cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetPooling2dDescriptor_v4", dynlib: libName.}
+      cdecl, importc: "cudnnSetPooling2dDescriptor_v4", dyn.}
   proc cudnnGetPooling2dDescriptor_v3*(poolingDesc: cudnnPoolingDescriptor_t;
                                       mode: ptr cudnnPoolingMode_t;
                                       windowHeight: ptr cint;
@@ -1086,7 +1089,7 @@ when not defined(CUDNN_H):
                                       horizontalPadding: ptr cint;
                                       verticalStride: ptr cint;
                                       horizontalStride: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetPooling2dDescriptor_v3", dynlib: libName.}
+      cdecl, importc: "cudnnGetPooling2dDescriptor_v3", dyn.}
   proc cudnnGetPooling2dDescriptor_v4*(poolingDesc: cudnnPoolingDescriptor_t;
                                       mode: ptr cudnnPoolingMode_t;
       maxpoolingNanOpt: ptr cudnnNanPropagation_t; windowHeight: ptr cint;
@@ -1095,43 +1098,43 @@ when not defined(CUDNN_H):
                                       horizontalPadding: ptr cint;
                                       verticalStride: ptr cint;
                                       horizontalStride: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetPooling2dDescriptor_v4", dynlib: libName.}
+      cdecl, importc: "cudnnGetPooling2dDescriptor_v4", dyn.}
   proc cudnnSetPoolingNdDescriptor_v3*(poolingDesc: cudnnPoolingDescriptor_t;
                                       mode: cudnnPoolingMode_t; nbDims: cint;
                                       windowDimA: ptr cint; paddingA: ptr cint;
                                       strideA: ptr cint): cudnnStatus_t {.cdecl,
-      importc: "cudnnSetPoolingNdDescriptor_v3", dynlib: libName.}
+      importc: "cudnnSetPoolingNdDescriptor_v3", dyn.}
   proc cudnnSetPoolingNdDescriptor_v4*(poolingDesc: cudnnPoolingDescriptor_t;
                                       mode: cudnnPoolingMode_t;
                                       maxpoolingNanOpt: cudnnNanPropagation_t;
                                       nbDims: cint; windowDimA: ptr cint;
                                       paddingA: ptr cint; strideA: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnSetPoolingNdDescriptor_v4", dynlib: libName.}
+      cdecl, importc: "cudnnSetPoolingNdDescriptor_v4", dyn.}
   proc cudnnGetPoolingNdDescriptor_v3*(poolingDesc: cudnnPoolingDescriptor_t;
                                       nbDimsRequested: cint;
                                       mode: ptr cudnnPoolingMode_t;
                                       nbDims: ptr cint; windowDimA: ptr cint;
                                       paddingA: ptr cint; strideA: ptr cint): cudnnStatus_t {.
-      cdecl, importc: "cudnnGetPoolingNdDescriptor_v3", dynlib: libName.}
+      cdecl, importc: "cudnnGetPoolingNdDescriptor_v3", dyn.}
   proc cudnnGetPoolingNdDescriptor_v4*(poolingDesc: cudnnPoolingDescriptor_t;
                                       nbDimsRequested: cint;
                                       mode: ptr cudnnPoolingMode_t;
       maxpoolingNanOpt: ptr cudnnNanPropagation_t; nbDims: ptr cint;
                                       windowDimA: ptr cint; paddingA: ptr cint;
                                       strideA: ptr cint): cudnnStatus_t {.cdecl,
-      importc: "cudnnGetPoolingNdDescriptor_v4", dynlib: libName.}
+      importc: "cudnnGetPoolingNdDescriptor_v4", dyn.}
   proc cudnnActivationForward_v3*(handle: cudnnHandle_t;
                                  mode: cudnnActivationMode_t; alpha: pointer;
                                  xDesc: cudnnTensorDescriptor_t; x: pointer;
                                  beta: pointer; yDesc: cudnnTensorDescriptor_t;
                                  y: pointer): cudnnStatus_t {.cdecl,
-      importc: "cudnnActivationForward_v3", dynlib: libName.}
+      importc: "cudnnActivationForward_v3", dyn.}
   proc cudnnActivationForward_v4*(handle: cudnnHandle_t;
                                  activationDesc: cudnnActivationDescriptor_t;
                                  alpha: pointer; xDesc: cudnnTensorDescriptor_t;
                                  x: pointer; beta: pointer;
                                  yDesc: cudnnTensorDescriptor_t; y: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnActivationForward_v4", dynlib: libName.}
+      cdecl, importc: "cudnnActivationForward_v4", dyn.}
   proc cudnnActivationBackward_v3*(handle: cudnnHandle_t;
                                   mode: cudnnActivationMode_t; alpha: pointer;
                                   yDesc: cudnnTensorDescriptor_t; y: pointer;
@@ -1139,7 +1142,7 @@ when not defined(CUDNN_H):
                                   xDesc: cudnnTensorDescriptor_t; x: pointer;
                                   beta: pointer; dxDesc: cudnnTensorDescriptor_t;
                                   dx: pointer): cudnnStatus_t {.cdecl,
-      importc: "cudnnActivationBackward_v3", dynlib: libName.}
+      importc: "cudnnActivationBackward_v3", dyn.}
   proc cudnnActivationBackward_v4*(handle: cudnnHandle_t;
                                   activationDesc: cudnnActivationDescriptor_t;
                                   alpha: pointer; yDesc: cudnnTensorDescriptor_t;
@@ -1147,4 +1150,4 @@ when not defined(CUDNN_H):
                                   dy: pointer; xDesc: cudnnTensorDescriptor_t;
                                   x: pointer; beta: pointer;
                                   dxDesc: cudnnTensorDescriptor_t; dx: pointer): cudnnStatus_t {.
-      cdecl, importc: "cudnnActivationBackward_v4", dynlib: libName.}
+      cdecl, importc: "cudnnActivationBackward_v4", dyn.}

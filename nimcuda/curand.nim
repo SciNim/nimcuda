@@ -1,13 +1,16 @@
  {.deadCodeElim: on.}
 when defined(windows):
-  const
-    libName = "curand.dll"
+    import os
+    {.passL: "\"" & os.getEnv("CUDA_PATH") / "lib/x64" / "curand.lib" & "\"".}
+    {.pragma: dyn.}
 elif defined(macosx):
   const
     libName = "libcurand.dylib"
+  {.pragma: dyn, dynlib: libName.}
 else:
   const
     libName = "libcurand.so"
+  {.pragma: dyn, dynlib: libName.}
 type
   curandDistributionShift_st = object
   
@@ -310,7 +313,7 @@ when not defined(CURAND_H):
   ## 
   proc curandCreateGenerator*(generator: ptr curandGenerator_t;
                              rng_type: curandRngType_t): curandStatus_t {.cdecl,
-      importc: "curandCreateGenerator", dynlib: libName.}
+      importc: "curandCreateGenerator", dyn.}
   ## *
   ##  \brief Create new host CPU random number generator.
   ## 
@@ -390,7 +393,7 @@ when not defined(CURAND_H):
   ## 
   proc curandCreateGeneratorHost*(generator: ptr curandGenerator_t;
                                  rng_type: curandRngType_t): curandStatus_t {.
-      cdecl, importc: "curandCreateGeneratorHost", dynlib: libName.}
+      cdecl, importc: "curandCreateGeneratorHost", dyn.}
   ## *
   ##  \brief Destroy an existing generator.
   ## 
@@ -403,7 +406,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if generator was destroyed successfully \n
   ## 
   proc curandDestroyGenerator*(generator: curandGenerator_t): curandStatus_t {.
-      cdecl, importc: "curandDestroyGenerator", dynlib: libName.}
+      cdecl, importc: "curandDestroyGenerator", dyn.}
   ## *
   ##  \brief Return the version number of the library.
   ## 
@@ -418,7 +421,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the version number was successfully returned \n
   ## 
   proc curandGetVersion*(version: ptr cint): curandStatus_t {.cdecl,
-      importc: "curandGetVersion", dynlib: libName.}
+      importc: "curandGetVersion", dyn.}
   ## *
   ##  \brief Return the value of the curand property.
   ## 
@@ -433,7 +436,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_OUT_OF_RANGE if the property type is not recognized \n
   ## 
   proc curandGetProperty*(`type`: libraryPropertyType; value: ptr cint): curandStatus_t {.
-      cdecl, importc: "curandGetProperty", dynlib: libName.}
+      cdecl, importc: "curandGetProperty", dyn.}
   ## *
   ##  \brief Set the current stream for CURAND kernel launches.
   ## 
@@ -448,7 +451,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if stream was set successfully \n
   ## 
   proc curandSetStream*(generator: curandGenerator_t; stream: cudaStream_t): curandStatus_t {.
-      cdecl, importc: "curandSetStream", dynlib: libName.}
+      cdecl, importc: "curandSetStream", dyn.}
   ## *
   ##  \brief Set the seed value of the pseudo-random number generator.  
   ##  
@@ -467,7 +470,7 @@ when not defined(CURAND_H):
   ## 
   proc curandSetPseudoRandomGeneratorSeed*(generator: curandGenerator_t;
       seed: culonglong): curandStatus_t {.cdecl, importc: "curandSetPseudoRandomGeneratorSeed",
-                                       dynlib: libName.}
+                                       dyn.}
   ## *
   ##  \brief Set the absolute offset of the pseudo or quasirandom number generator.
   ## 
@@ -484,7 +487,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if generator offset was set successfully \n
   ## 
   proc curandSetGeneratorOffset*(generator: curandGenerator_t; offset: culonglong): curandStatus_t {.
-      cdecl, importc: "curandSetGeneratorOffset", dynlib: libName.}
+      cdecl, importc: "curandSetGeneratorOffset", dyn.}
   ## *
   ##  \brief Set the ordering of results of the pseudo or quasirandom number generator.
   ## 
@@ -508,7 +511,7 @@ when not defined(CURAND_H):
   ## 
   proc curandSetGeneratorOrdering*(generator: curandGenerator_t;
                                   order: curandOrdering_t): curandStatus_t {.cdecl,
-      importc: "curandSetGeneratorOrdering", dynlib: libName.}
+      importc: "curandSetGeneratorOrdering", dyn.}
   ## *
   ##  \brief Set the number of dimensions.
   ## 
@@ -528,7 +531,7 @@ when not defined(CURAND_H):
   ## 
   proc curandSetQuasiRandomGeneratorDimensions*(generator: curandGenerator_t;
       num_dimensions: cuint): curandStatus_t {.cdecl,
-      importc: "curandSetQuasiRandomGeneratorDimensions", dynlib: libName.}
+      importc: "curandSetQuasiRandomGeneratorDimensions", dyn.}
   ## *
   ##  \brief Generate 32-bit pseudo or quasirandom numbers.
   ## 
@@ -556,7 +559,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the results were generated successfully \n
   ## 
   proc curandGenerate*(generator: curandGenerator_t; outputPtr: ptr cuint; num: csize): curandStatus_t {.
-      cdecl, importc: "curandGenerate", dynlib: libName.}
+      cdecl, importc: "curandGenerate", dyn.}
   ## *
   ##  \brief Generate 64-bit quasirandom numbers.
   ## 
@@ -584,7 +587,7 @@ when not defined(CURAND_H):
   ## 
   proc curandGenerateLongLong*(generator: curandGenerator_t;
                               outputPtr: ptr culonglong; num: csize): curandStatus_t {.
-      cdecl, importc: "curandGenerateLongLong", dynlib: libName.}
+      cdecl, importc: "curandGenerateLongLong", dyn.}
   ## *
   ##  \brief Generate uniformly distributed floats.
   ## 
@@ -612,7 +615,7 @@ when not defined(CURAND_H):
   ## 
   proc curandGenerateUniform*(generator: curandGenerator_t; outputPtr: ptr cfloat;
                              num: csize): curandStatus_t {.cdecl,
-      importc: "curandGenerateUniform", dynlib: libName.}
+      importc: "curandGenerateUniform", dyn.}
   ## *
   ##  \brief Generate uniformly distributed doubles.
   ## 
@@ -641,7 +644,7 @@ when not defined(CURAND_H):
   ## 
   proc curandGenerateUniformDouble*(generator: curandGenerator_t;
                                    outputPtr: ptr cdouble; num: csize): curandStatus_t {.
-      cdecl, importc: "curandGenerateUniformDouble", dynlib: libName.}
+      cdecl, importc: "curandGenerateUniformDouble", dyn.}
   ## *
   ##  \brief Generate normally distributed doubles.
   ## 
@@ -686,7 +689,7 @@ when not defined(CURAND_H):
   ## 
   proc curandGenerateNormal*(generator: curandGenerator_t; outputPtr: ptr cfloat;
                             n: csize; mean: cfloat; stddev: cfloat): curandStatus_t {.
-      cdecl, importc: "curandGenerateNormal", dynlib: libName.}
+      cdecl, importc: "curandGenerateNormal", dyn.}
   ## *
   ##  \brief Generate normally distributed doubles.
   ## 
@@ -733,7 +736,7 @@ when not defined(CURAND_H):
   proc curandGenerateNormalDouble*(generator: curandGenerator_t;
                                   outputPtr: ptr cdouble; n: csize; mean: cdouble;
                                   stddev: cdouble): curandStatus_t {.cdecl,
-      importc: "curandGenerateNormalDouble", dynlib: libName.}
+      importc: "curandGenerateNormalDouble", dyn.}
   ## *
   ##  \brief Generate log-normally distributed floats.
   ## 
@@ -780,7 +783,7 @@ when not defined(CURAND_H):
   proc curandGenerateLogNormal*(generator: curandGenerator_t;
                                outputPtr: ptr cfloat; n: csize; mean: cfloat;
                                stddev: cfloat): curandStatus_t {.cdecl,
-      importc: "curandGenerateLogNormal", dynlib: libName.}
+      importc: "curandGenerateLogNormal", dyn.}
   ## *
   ##  \brief Generate log-normally distributed doubles.
   ## 
@@ -828,7 +831,7 @@ when not defined(CURAND_H):
   proc curandGenerateLogNormalDouble*(generator: curandGenerator_t;
                                      outputPtr: ptr cdouble; n: csize; mean: cdouble;
                                      stddev: cdouble): curandStatus_t {.cdecl,
-      importc: "curandGenerateLogNormalDouble", dynlib: libName.}
+      importc: "curandGenerateLogNormalDouble", dyn.}
   ## *
   ##  \brief Construct the histogram array for a Poisson distribution.
   ## 
@@ -851,7 +854,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the histogram was generated successfully \n
   ## 
   proc curandCreatePoissonDistribution*(lambda: cdouble; discrete_distribution: ptr curandDiscreteDistribution_t): curandStatus_t {.
-      cdecl, importc: "curandCreatePoissonDistribution", dynlib: libName.}
+      cdecl, importc: "curandCreatePoissonDistribution", dyn.}
   ## *
   ##  \brief Destroy the histogram array for a discrete distribution (e.g. Poisson).
   ## 
@@ -864,7 +867,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the histogram was destroyed successfully \n
   ## 
   proc curandDestroyDistribution*(discrete_distribution: curandDiscreteDistribution_t): curandStatus_t {.
-      cdecl, importc: "curandDestroyDistribution", dynlib: libName.}
+      cdecl, importc: "curandDestroyDistribution", dyn.}
   ## *
   ##  \brief Generate Poisson-distributed unsigned ints.
   ## 
@@ -894,20 +897,20 @@ when not defined(CURAND_H):
   ## 
   proc curandGeneratePoisson*(generator: curandGenerator_t; outputPtr: ptr cuint;
                              n: csize; lambda: cdouble): curandStatus_t {.cdecl,
-      importc: "curandGeneratePoisson", dynlib: libName.}
+      importc: "curandGeneratePoisson", dyn.}
   ##  just for internal usage
   proc curandGeneratePoissonMethod*(generator: curandGenerator_t;
                                    outputPtr: ptr cuint; n: csize; lambda: cdouble;
                                    `method`: curandMethod_t): curandStatus_t {.
-      cdecl, importc: "curandGeneratePoissonMethod", dynlib: libName.}
+      cdecl, importc: "curandGeneratePoissonMethod", dyn.}
   proc curandGenerateBinomial*(generator: curandGenerator_t; outputPtr: ptr cuint;
                               num: csize; n: cuint; p: cdouble): curandStatus_t {.
-      cdecl, importc: "curandGenerateBinomial", dynlib: libName.}
+      cdecl, importc: "curandGenerateBinomial", dyn.}
   ##  just for internal usage
   proc curandGenerateBinomialMethod*(generator: curandGenerator_t;
                                     outputPtr: ptr cuint; num: csize; n: cuint;
                                     p: cdouble; `method`: curandMethod_t): curandStatus_t {.
-      cdecl, importc: "curandGenerateBinomialMethod", dynlib: libName.}
+      cdecl, importc: "curandGenerateBinomialMethod", dyn.}
   ## *
   ##  \brief Setup starting states.
   ## 
@@ -927,7 +930,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the seeds were generated successfully \n
   ## 
   proc curandGenerateSeeds*(generator: curandGenerator_t): curandStatus_t {.cdecl,
-      importc: "curandGenerateSeeds", dynlib: libName.}
+      importc: "curandGenerateSeeds", dyn.}
   ## *
   ##  \brief Get direction vectors for 32-bit quasirandom number generation.
   ## 
@@ -951,7 +954,7 @@ when not defined(CURAND_H):
   ## 
   proc curandGetDirectionVectors32*(vectors: ptr ptr curandDirectionVectors32_t;
                                    set: curandDirectionVectorSet_t): curandStatus_t {.
-      cdecl, importc: "curandGetDirectionVectors32", dynlib: libName.}
+      cdecl, importc: "curandGetDirectionVectors32", dyn.}
   ## *
   ##  \brief Get scramble constants for 32-bit scrambled Sobol' .
   ## 
@@ -968,7 +971,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the pointer was set successfully \n
   ## 
   proc curandGetScrambleConstants32*(constants: ptr ptr cuint): curandStatus_t {.
-      cdecl, importc: "curandGetScrambleConstants32", dynlib: libName.}
+      cdecl, importc: "curandGetScrambleConstants32", dyn.}
   ## *
   ##  \brief Get direction vectors for 64-bit quasirandom number generation.
   ## 
@@ -992,7 +995,7 @@ when not defined(CURAND_H):
   ## 
   proc curandGetDirectionVectors64*(vectors: ptr ptr curandDirectionVectors64_t;
                                    set: curandDirectionVectorSet_t): curandStatus_t {.
-      cdecl, importc: "curandGetDirectionVectors64", dynlib: libName.}
+      cdecl, importc: "curandGetDirectionVectors64", dyn.}
   ## *
   ##  \brief Get scramble constants for 64-bit scrambled Sobol' .
   ## 
@@ -1009,5 +1012,5 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the pointer was set successfully \n
   ## 
   proc curandGetScrambleConstants64*(constants: ptr ptr culonglong): curandStatus_t {.
-      cdecl, importc: "curandGetScrambleConstants64", dynlib: libName.}
+      cdecl, importc: "curandGetScrambleConstants64", dyn.}
   ## * @}
