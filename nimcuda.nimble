@@ -13,9 +13,13 @@ requires "nim >= 0.16.0"
 import ospaths, strutils
 
 proc patch(libName: string): string =
+  when defined(windows):
+    let libpath = getEnv("CUDA_PATH") / "include" / libName
+  else:
+    let libpath = "/usr/local/cuda/include" / libName
+
   let
     simpleLibPath = "include" / libName
-    libPath = "/usr/local/cuda/include" / libName
     patchPath = "c2nim" / libName
     outPath = "headers" / libName
     libContent =
@@ -86,8 +90,12 @@ proc exampleConfig() =
   --stacktrace: on
   --linetrace: on
   --debuginfo
-  --cincludes: "/usr/local/cuda/include"
-  --clibdir: "/usr/local/cuda/lib64"
+  when defined(windows):
+    switch("cincludes", getenv("CUDA_PATH") / "include")
+    switch("clibdir", getenv("CUDA_PATH") / "lib/x64")
+  else:
+    --cincludes: "/usr/local/cuda/include"
+    --clibdir: "/usr/local/cuda/lib64"
   --path: "."
   --run
 

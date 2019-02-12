@@ -1,13 +1,16 @@
  {.deadCodeElim: on.}
 when defined(windows):
-  const
-    libName = "cusolver.dll"
+  import os
+  {.passL: "\"" & os.getEnv("CUDA_PATH") / "lib/x64" / "cusolver.lib" & "\"".}
+  {.pragma: dyn.}
 elif defined(macosx):
   const
     libName = "libcusolver.dylib"
+  {.pragma: dyn, dynlib: libName.}
 else:
   const
     libName = "libcusolver.so"
+  {.pragma: dyn, dynlib: libName.}
 import
   library_types
 
@@ -77,4 +80,4 @@ when not defined(CUSOLVER_COMMON_H):
     cusolverEigMode_t* {.size: sizeof(cint).} = enum
       CUSOLVER_EIG_MODE_NOVECTOR = 0, CUSOLVER_EIG_MODE_VECTOR = 1
   proc cusolverGetProperty*(`type`: libraryPropertyType; value: ptr cint): cusolverStatus_t {.
-      cdecl, importc: "cusolverGetProperty", dynlib: libName.}
+      cdecl, importc: "cusolverGetProperty", dyn.}

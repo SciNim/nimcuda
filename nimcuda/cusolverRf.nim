@@ -1,13 +1,16 @@
  {.deadCodeElim: on.}
 when defined(windows):
-  const
-    libName = "cusolver.dll"
+  import os
+  {.passL: "\"" & os.getEnv("CUDA_PATH") / "lib/x64" / "cusolver.lib" & "\"".}
+  {.pragma: dyn.}
 elif defined(macosx):
   const
     libName = "libcusolver.dylib"
+  {.pragma: dyn, dynlib: libName.}
 else:
   const
     libName = "libcusolver.so"
+  {.pragma: dyn, dynlib: libName.}
 import
   cuComplex, cusolver_common
 
@@ -103,41 +106,41 @@ when not defined(CUSOLVERRF_H):
     cusolverRfHandle_t* = ptr cusolverRfCommon
   ##  CUSOLVERRF create (allocate memory) and destroy (free memory) in the handle
   proc cusolverRfCreate*(handle: ptr cusolverRfHandle_t): cusolverStatus_t {.cdecl,
-      importc: "cusolverRfCreate", dynlib: libName.}
+      importc: "cusolverRfCreate", dyn.}
   proc cusolverRfDestroy*(handle: cusolverRfHandle_t): cusolverStatus_t {.cdecl,
-      importc: "cusolverRfDestroy", dynlib: libName.}
+      importc: "cusolverRfDestroy", dyn.}
   ##  CUSOLVERRF set and get input format
   proc cusolverRfGetMatrixFormat*(handle: cusolverRfHandle_t;
                                  format: ptr cusolverRfMatrixFormat_t;
                                  diag: ptr cusolverRfUnitDiagonal_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfGetMatrixFormat", dynlib: libName.}
+      cdecl, importc: "cusolverRfGetMatrixFormat", dyn.}
   proc cusolverRfSetMatrixFormat*(handle: cusolverRfHandle_t;
                                  format: cusolverRfMatrixFormat_t;
                                  diag: cusolverRfUnitDiagonal_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfSetMatrixFormat", dynlib: libName.}
+      cdecl, importc: "cusolverRfSetMatrixFormat", dyn.}
   ##  CUSOLVERRF set and get numeric properties
   proc cusolverRfSetNumericProperties*(handle: cusolverRfHandle_t; zero: cdouble;
                                       boost: cdouble): cusolverStatus_t {.cdecl,
-      importc: "cusolverRfSetNumericProperties", dynlib: libName.}
+      importc: "cusolverRfSetNumericProperties", dyn.}
   proc cusolverRfGetNumericProperties*(handle: cusolverRfHandle_t;
                                       zero: ptr cdouble; boost: ptr cdouble): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfGetNumericProperties", dynlib: libName.}
+      cdecl, importc: "cusolverRfGetNumericProperties", dyn.}
   proc cusolverRfGetNumericBoostReport*(handle: cusolverRfHandle_t; report: ptr cusolverRfNumericBoostReport_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfGetNumericBoostReport", dynlib: libName.}
+      cdecl, importc: "cusolverRfGetNumericBoostReport", dyn.}
   ##  CUSOLVERRF choose the triangular solve algorithm
   proc cusolverRfSetAlgs*(handle: cusolverRfHandle_t;
                          factAlg: cusolverRfFactorization_t;
                          solveAlg: cusolverRfTriangularSolve_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfSetAlgs", dynlib: libName.}
+      cdecl, importc: "cusolverRfSetAlgs", dyn.}
   proc cusolverRfGetAlgs*(handle: cusolverRfHandle_t;
                          factAlg: ptr cusolverRfFactorization_t;
                          solveAlg: ptr cusolverRfTriangularSolve_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfGetAlgs", dynlib: libName.}
+      cdecl, importc: "cusolverRfGetAlgs", dyn.}
   ##  CUSOLVERRF set and get fast mode
   proc cusolverRfGetResetValuesFastMode*(handle: cusolverRfHandle_t; fastMode: ptr cusolverRfResetValuesFastMode_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfGetResetValuesFastMode", dynlib: libName.}
+      cdecl, importc: "cusolverRfGetResetValuesFastMode", dyn.}
   proc cusolverRfSetResetValuesFastMode*(handle: cusolverRfHandle_t; fastMode: cusolverRfResetValuesFastMode_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfSetResetValuesFastMode", dynlib: libName.}
+      cdecl, importc: "cusolverRfSetResetValuesFastMode", dyn.}
   ## ** Non-Batched Routines **
   ##  CUSOLVERRF setup of internal structures from host or device memory
   proc cusolverRfSetupHost*(n: cint; nnzA: cint; h_csrRowPtrA: ptr cint;
@@ -147,7 +150,7 @@ when not defined(CUSOLVERRF_H):
                            h_csrRowPtrU: ptr cint; h_csrColIndU: ptr cint;
                            h_csrValU: ptr cdouble; h_P: ptr cint; h_Q: ptr cint;
                            handle: cusolverRfHandle_t): cusolverStatus_t {.cdecl,
-      importc: "cusolverRfSetupHost", dynlib: libName.}
+      importc: "cusolverRfSetupHost", dyn.}
     ##  Input (in the host memory)
     ##  Output
   proc cusolverRfSetupDevice*(n: cint; nnzA: cint; csrRowPtrA: ptr cint;
@@ -156,7 +159,7 @@ when not defined(CUSOLVERRF_H):
                              csrValL: ptr cdouble; nnzU: cint; csrRowPtrU: ptr cint;
                              csrColIndU: ptr cint; csrValU: ptr cdouble; P: ptr cint;
                              Q: ptr cint; handle: cusolverRfHandle_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfSetupDevice", dynlib: libName.}
+      cdecl, importc: "cusolverRfSetupDevice", dyn.}
     ##  Input (in the device memory)
     ##  Output
   ##  CUSOLVERRF update the matrix values (assuming the reordering, pivoting 
@@ -165,25 +168,25 @@ when not defined(CUSOLVERRF_H):
   proc cusolverRfResetValues*(n: cint; nnzA: cint; csrRowPtrA: ptr cint;
                              csrColIndA: ptr cint; csrValA: ptr cdouble; P: ptr cint;
                              Q: ptr cint; handle: cusolverRfHandle_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfResetValues", dynlib: libName.}
+      cdecl, importc: "cusolverRfResetValues", dyn.}
     ##  Input (in the device memory)
     ##  Output
   ##  CUSOLVERRF analysis (for parallelism)
   proc cusolverRfAnalyze*(handle: cusolverRfHandle_t): cusolverStatus_t {.cdecl,
-      importc: "cusolverRfAnalyze", dynlib: libName.}
+      importc: "cusolverRfAnalyze", dyn.}
   ##  CUSOLVERRF re-factorization (for parallelism)
   proc cusolverRfRefactor*(handle: cusolverRfHandle_t): cusolverStatus_t {.cdecl,
-      importc: "cusolverRfRefactor", dynlib: libName.}
+      importc: "cusolverRfRefactor", dyn.}
   ##  CUSOLVERRF extraction: Get L & U packed into a single matrix M
   proc cusolverRfAccessBundledFactorsDevice*(handle: cusolverRfHandle_t;
       nnzM: ptr cint; Mp: ptr ptr cint; Mi: ptr ptr cint; Mx: ptr ptr cdouble): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfAccessBundledFactorsDevice", dynlib: libName.}
+      cdecl, importc: "cusolverRfAccessBundledFactorsDevice", dyn.}
     ##  Input
     ##  Output (in the host memory)
     ##  Output (in the device memory)
   proc cusolverRfExtractBundledFactorsHost*(handle: cusolverRfHandle_t;
       h_nnzM: ptr cint; h_Mp: ptr ptr cint; h_Mi: ptr ptr cint; h_Mx: ptr ptr cdouble): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfExtractBundledFactorsHost", dynlib: libName.}
+      cdecl, importc: "cusolverRfExtractBundledFactorsHost", dyn.}
     ##  Input
     ##  Output (in the host memory)
   ##  CUSOLVERRF extraction: Get L & U individually
@@ -191,13 +194,13 @@ when not defined(CUSOLVERRF_H):
       h_nnzL: ptr cint; h_csrRowPtrL: ptr ptr cint; h_csrColIndL: ptr ptr cint;
       h_csrValL: ptr ptr cdouble; h_nnzU: ptr cint; h_csrRowPtrU: ptr ptr cint;
       h_csrColIndU: ptr ptr cint; h_csrValU: ptr ptr cdouble): cusolverStatus_t {.cdecl,
-      importc: "cusolverRfExtractSplitFactorsHost", dynlib: libName.}
+      importc: "cusolverRfExtractSplitFactorsHost", dyn.}
     ##  Input
     ##  Output (in the host memory)
   ##  CUSOLVERRF (forward and backward triangular) solves
   proc cusolverRfSolve*(handle: cusolverRfHandle_t; P: ptr cint; Q: ptr cint; nrhs: cint;
                        Temp: ptr cdouble; ldt: cint; XF: ptr cdouble; ldxf: cint): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfSolve", dynlib: libName.}
+      cdecl, importc: "cusolverRfSolve", dyn.}
     ##  Input (in the device memory)
     ## only nrhs=1 is supported
     ## of size ldt*nrhs (ldt>=n)
@@ -213,7 +216,7 @@ when not defined(CUSOLVERRF_H):
                                 h_csrRowPtrU: ptr cint; h_csrColIndU: ptr cint;
                                 h_csrValU: ptr cdouble; h_P: ptr cint; h_Q: ptr cint;
                                 handle: cusolverRfHandle_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfBatchSetupHost", dynlib: libName.}
+      cdecl, importc: "cusolverRfBatchSetupHost", dyn.}
     ##  Input (in the host memory)
     ##  Output (in the device memory)
   ##  CUSOLVERRF-batch update the matrix values (assuming the reordering, pivoting 
@@ -223,20 +226,20 @@ when not defined(CUSOLVERRF_H):
                                   csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                                   csrValA_array: ptr ptr cdouble; P: ptr cint;
                                   Q: ptr cint; handle: cusolverRfHandle_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfBatchResetValues", dynlib: libName.}
+      cdecl, importc: "cusolverRfBatchResetValues", dyn.}
     ##  Input (in the device memory)
     ##  Output
   ##  CUSOLVERRF-batch analysis (for parallelism)
   proc cusolverRfBatchAnalyze*(handle: cusolverRfHandle_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfBatchAnalyze", dynlib: libName.}
+      cdecl, importc: "cusolverRfBatchAnalyze", dyn.}
   ##  CUSOLVERRF-batch re-factorization (for parallelism)
   proc cusolverRfBatchRefactor*(handle: cusolverRfHandle_t): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfBatchRefactor", dynlib: libName.}
+      cdecl, importc: "cusolverRfBatchRefactor", dyn.}
   ##  CUSOLVERRF-batch (forward and backward triangular) solves
   proc cusolverRfBatchSolve*(handle: cusolverRfHandle_t; P: ptr cint; Q: ptr cint;
                             nrhs: cint; Temp: ptr cdouble; ldt: cint;
                             XF_array: ptr ptr cdouble; ldxf: cint): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfBatchSolve", dynlib: libName.}
+      cdecl, importc: "cusolverRfBatchSolve", dyn.}
     ##  Input (in the device memory)
     ## only nrhs=1 is supported
     ## of size 2*batchSize*(n*nrhs)
@@ -245,6 +248,6 @@ when not defined(CUSOLVERRF_H):
     ##  Input
   ##  CUSOLVERRF-batch obtain the position of zero pivot
   proc cusolverRfBatchZeroPivot*(handle: cusolverRfHandle_t; position: ptr cint): cusolverStatus_t {.
-      cdecl, importc: "cusolverRfBatchZeroPivot", dynlib: libName.}
+      cdecl, importc: "cusolverRfBatchZeroPivot", dyn.}
     ##  Input
     ##  Output (in the host memory)
