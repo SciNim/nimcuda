@@ -472,8 +472,8 @@ proc cudaOccSMemPerMultiprocessor*(limit: ptr csize;
       bytes = (sharedMemPerMultiprocessorHigh + sharedMemPerMultiprocessorLow) div
           2
   of 5, 6: 
-        ##  Maxwell and Pascal have dedicated shared memory.
-        ##
+    ##  Maxwell and Pascal have dedicated shared memory.
+    ##
     bytes = sharedMemPerMultiprocessorHigh
   else:
     return CUDA_OCC_ERROR_UNKNOWN_DEVICE
