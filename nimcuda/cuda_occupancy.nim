@@ -458,8 +458,6 @@ proc cudaOccSMemPerMultiprocessor*(limit: ptr csize;
       bytes = sharedMemPerMultiprocessorHigh
     of CACHE_PREFER_L1:
       bytes = sharedMemPerMultiprocessorLow
-    else:
-      bytes = sharedMemPerMultiprocessorHigh
   of 3: ##  Kepler supports 16KB, 32KB, or 48KB partitions for L1. The rest
       ##  is shared memory.
       ##
@@ -473,9 +471,8 @@ proc cudaOccSMemPerMultiprocessor*(limit: ptr csize;
                          ##
       bytes = (sharedMemPerMultiprocessorHigh + sharedMemPerMultiprocessorLow) div
           2
-    else:
-      bytes = sharedMemPerMultiprocessorHigh
-  of 5, 6:                      ##  Maxwell and Pascal have dedicated shared memory.
+  of 5, 6: 
+        ##  Maxwell and Pascal have dedicated shared memory.
         ##
     bytes = sharedMemPerMultiprocessorHigh
   else:
