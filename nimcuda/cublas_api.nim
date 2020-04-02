@@ -23,15 +23,15 @@ type
 import
   library_types, cuComplex
 
-## 
+##
 ##  Copyright 1993-2014 NVIDIA Corporation.  All rights reserved.
-## 
+##
 ##  NOTICE TO LICENSEE:
-## 
+##
 ##  This source code and/or documentation ("Licensed Deliverables") are
 ##  subject to NVIDIA intellectual property rights under U.S. and
 ##  international Copyright laws.
-## 
+##
 ##  These Licensed Deliverables contained herein is PROPRIETARY and
 ##  CONFIDENTIAL to NVIDIA and is being provided under the terms and
 ##  conditions of a form of NVIDIA software license agreement by and
@@ -40,7 +40,7 @@ import
 ##  the contrary in the License Agreement, reproduction or disclosure
 ##  of the Licensed Deliverables to any third party without the express
 ##  written consent of NVIDIA is prohibited.
-## 
+##
 ##  NOTWITHSTANDING ANY TERMS OR CONDITIONS TO THE CONTRARY IN THE
 ##  LICENSE AGREEMENT, NVIDIA MAKES NO REPRESENTATION ABOUT THE
 ##  SUITABILITY OF THESE LICENSED DELIVERABLES FOR ANY PURPOSE.  IT IS
@@ -55,7 +55,7 @@ import
 ##  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
 ##  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 ##  OF THESE LICENSED DELIVERABLES.
-## 
+##
 ##  U.S. Government End Users.  These Licensed Deliverables are a
 ##  "commercial item" as that term is defined at 48 C.F.R. 2.101 (OCT
 ##  1995), consisting of "commercial computer software" and "commercial
@@ -65,18 +65,18 @@ import
 ##  48 C.F.R. 227.7202-1 through 227.7202-4 (JUNE 1995), all
 ##  U.S. Government End Users acquire the Licensed Deliverables with
 ##  only those rights set forth herein.
-## 
+##
 ##  Any use of the Licensed Deliverables in individual and commercial
 ##  software must include, in the user documentation and internal
 ##  comments to the code, the above Disclaimer and U.S. Government End
 ##  Users Notice.
-## 
-## 
+##
+##
 ##  This is the public header file for the CUBLAS library, defining the API
-## 
-##  CUBLAS is an implementation of BLAS (Basic Linear Algebra Subroutines) 
-##  on top of the CUDA runtime. 
-## 
+##
+##  CUBLAS is an implementation of BLAS (Basic Linear Algebra Subroutines)
+##  on top of the CUDA runtime.
+##
 
 when not defined(CUBLAS_API_H):
   const
@@ -113,7 +113,7 @@ when not defined(CUBLAS_API_H):
   ##  Opaque structure holding CUBLAS library context
   type
     cublasContext* = object
-    
+
   type
     cublasHandle_t* = ptr cublasContext
   proc cublasCreate_v2*(handle: ptr cublasHandle_t): cublasStatus_t {.cdecl,
@@ -137,185 +137,185 @@ when not defined(CUBLAS_API_H):
       cdecl, importc: "cublasGetAtomicsMode", dyn.}
   proc cublasSetAtomicsMode*(handle: cublasHandle_t; mode: cublasAtomicsMode_t): cublasStatus_t {.
       cdecl, importc: "cublasSetAtomicsMode", dyn.}
-  ##  
-  ##  cublasStatus_t 
-  ##  cublasSetVector (int n, int elemSize, const void *x, int incx, 
-  ##                   void *y, int incy) 
-  ## 
-  ##  copies n elements from a vector x in CPU memory space to a vector y 
-  ##  in GPU memory space. Elements in both vectors are assumed to have a 
+  ##
+  ##  `cublasStatus_t`
+  ##  `cublasSetVector (int n, int elemSize, const void *x, int incx,`
+  ##                    `void *y, int incy)`
+  ##
+  ##  copies n elements from a vector x in CPU memory space to a vector y
+  ##  in GPU memory space. Elements in both vectors are assumed to have a
   ##  size of elemSize bytes. Storage spacing between consecutive elements
   ##  is incx for the source vector x and incy for the destination vector
   ##  y. In general, y points to an object, or part of an object, allocated
   ##  via cublasAlloc(). Column major format for two-dimensional matrices
-  ##  is assumed throughout CUBLAS. Therefore, if the increment for a vector 
-  ##  is equal to 1, this access a column vector while using an increment 
-  ##  equal to the leading dimension of the respective matrix accesses a 
+  ##  is assumed throughout CUBLAS. Therefore, if the increment for a vector
+  ##  is equal to 1, this access a column vector while using an increment
+  ##  equal to the leading dimension of the respective matrix accesses a
   ##  row vector.
-  ## 
+  ##
   ##  Return Values
   ##  -------------
   ##  CUBLAS_STATUS_NOT_INITIALIZED  if CUBLAS library not been initialized
   ##  CUBLAS_STATUS_INVALID_VALUE    if incx, incy, or elemSize <= 0
-  ##  CUBLAS_STATUS_MAPPING_ERROR    if an error occurred accessing GPU memory   
+  ##  CUBLAS_STATUS_MAPPING_ERROR    if an error occurred accessing GPU memory
   ##  CUBLAS_STATUS_SUCCESS          if the operation completed successfully
-  ## 
+  ##
   proc cublasSetVector*(n: cint; elemSize: cint; x: pointer; incx: cint;
                        devicePtr: pointer; incy: cint): cublasStatus_t {.cdecl,
       importc: "cublasSetVector", dyn.}
-  ##  
-  ##  cublasStatus_t 
-  ##  cublasGetVector (int n, int elemSize, const void *x, int incx, 
-  ##                   void *y, int incy)
-  ##  
-  ##  copies n elements from a vector x in GPU memory space to a vector y 
-  ##  in CPU memory space. Elements in both vectors are assumed to have a 
+  ##
+  ##  cublasStatus_t
+  ##  `cublasGetVector (int n, int elemSize, const void *x, int incx,`
+  ##                    `void *y, int incy)`
+  ##
+  ##  copies n elements from a vector x in GPU memory space to a vector y
+  ##  in CPU memory space. Elements in both vectors are assumed to have a
   ##  size of elemSize bytes. Storage spacing between consecutive elements
   ##  is incx for the source vector x and incy for the destination vector
   ##  y. In general, x points to an object, or part of an object, allocated
   ##  via cublasAlloc(). Column major format for two-dimensional matrices
-  ##  is assumed throughout CUBLAS. Therefore, if the increment for a vector 
-  ##  is equal to 1, this access a column vector while using an increment 
-  ##  equal to the leading dimension of the respective matrix accesses a 
+  ##  is assumed throughout CUBLAS. Therefore, if the increment for a vector
+  ##  is equal to 1, this access a column vector while using an increment
+  ##  equal to the leading dimension of the respective matrix accesses a
   ##  row vector.
-  ## 
+  ##
   ##  Return Values
   ##  -------------
   ##  CUBLAS_STATUS_NOT_INITIALIZED  if CUBLAS library not been initialized
   ##  CUBLAS_STATUS_INVALID_VALUE    if incx, incy, or elemSize <= 0
-  ##  CUBLAS_STATUS_MAPPING_ERROR    if an error occurred accessing GPU memory   
+  ##  CUBLAS_STATUS_MAPPING_ERROR    if an error occurred accessing GPU memory
   ##  CUBLAS_STATUS_SUCCESS          if the operation completed successfully
-  ## 
+  ##
   proc cublasGetVector*(n: cint; elemSize: cint; x: pointer; incx: cint; y: pointer;
                        incy: cint): cublasStatus_t {.cdecl,
       importc: "cublasGetVector", dyn.}
-  ## 
-  ##  cublasStatus_t 
-  ##  cublasSetMatrix (int rows, int cols, int elemSize, const void *A, 
-  ##                   int lda, void *B, int ldb)
-  ## 
+  ##
+  ##  cublasStatus_t
+  ##  `cublasSetMatrix (int rows, int cols, int elemSize, const void *A,`
+  ##                   `int lda, void *B, int ldb)`
+  ##
   ##  copies a tile of rows x cols elements from a matrix A in CPU memory
   ##  space to a matrix B in GPU memory space. Each element requires storage
-  ##  of elemSize bytes. Both matrices are assumed to be stored in column 
-  ##  major format, with the leading dimension (i.e. number of rows) of 
+  ##  of elemSize bytes. Both matrices are assumed to be stored in column
+  ##  major format, with the leading dimension (i.e. number of rows) of
   ##  source matrix A provided in lda, and the leading dimension of matrix B
-  ##  provided in ldb. In general, B points to an object, or part of an 
+  ##  provided in ldb. In general, B points to an object, or part of an
   ##  object, that was allocated via cublasAlloc().
-  ## 
-  ##  Return Values 
+  ##
+  ##  Return Values
   ##  -------------
   ##  CUBLAS_STATUS_NOT_INITIALIZED  if CUBLAS library has not been initialized
-  ##  CUBLAS_STATUS_INVALID_VALUE    if rows or cols < 0, or elemSize, lda, or 
+  ##  CUBLAS_STATUS_INVALID_VALUE    if rows or cols < 0, or elemSize, lda, or
   ##                                 ldb <= 0
   ##  CUBLAS_STATUS_MAPPING_ERROR    if error occurred accessing GPU memory
   ##  CUBLAS_STATUS_SUCCESS          if the operation completed successfully
-  ## 
+  ##
   proc cublasSetMatrix*(rows: cint; cols: cint; elemSize: cint; A: pointer; lda: cint;
                        B: pointer; ldb: cint): cublasStatus_t {.cdecl,
       importc: "cublasSetMatrix", dyn.}
-  ## 
-  ##  cublasStatus_t 
-  ##  cublasGetMatrix (int rows, int cols, int elemSize, const void *A, 
-  ##                   int lda, void *B, int ldb)
-  ## 
+  ##
+  ##  cublasStatus_t
+  ##  `cublasGetMatrix (int rows, int cols, int elemSize, const void *A,`
+  ##                   `int lda, void *B, int ldb)`
+  ##
   ##  copies a tile of rows x cols elements from a matrix A in GPU memory
   ##  space to a matrix B in CPU memory space. Each element requires storage
-  ##  of elemSize bytes. Both matrices are assumed to be stored in column 
-  ##  major format, with the leading dimension (i.e. number of rows) of 
+  ##  of elemSize bytes. Both matrices are assumed to be stored in column
+  ##  major format, with the leading dimension (i.e. number of rows) of
   ##  source matrix A provided in lda, and the leading dimension of matrix B
-  ##  provided in ldb. In general, A points to an object, or part of an 
+  ##  provided in ldb. In general, A points to an object, or part of an
   ##  object, that was allocated via cublasAlloc().
-  ## 
-  ##  Return Values 
+  ##
+  ##  Return Values
   ##  -------------
   ##  CUBLAS_STATUS_NOT_INITIALIZED  if CUBLAS library has not been initialized
   ##  CUBLAS_STATUS_INVALID_VALUE    if rows, cols, eleSize, lda, or ldb <= 0
   ##  CUBLAS_STATUS_MAPPING_ERROR    if error occurred accessing GPU memory
   ##  CUBLAS_STATUS_SUCCESS          if the operation completed successfully
-  ## 
+  ##
   proc cublasGetMatrix*(rows: cint; cols: cint; elemSize: cint; A: pointer; lda: cint;
                        B: pointer; ldb: cint): cublasStatus_t {.cdecl,
       importc: "cublasGetMatrix", dyn.}
-  ##  
-  ##  cublasStatus 
-  ##  cublasSetVectorAsync ( int n, int elemSize, const void *x, int incx, 
-  ##                        void *y, int incy, cudaStream_t stream );
-  ## 
+  ##
+  ##  cublasStatus
+  ##  `cublasSetVectorAsync ( int n, int elemSize, const void *x, int incx,`
+  ##                        `void *y, int incy, cudaStream_t stream );`
+  ##
   ##  cublasSetVectorAsync has the same functionnality as cublasSetVector
   ##  but the transfer is done asynchronously within the CUDA stream passed
   ##  in parameter.
-  ## 
+  ##
   ##  Return Values
   ##  -------------
   ##  CUBLAS_STATUS_NOT_INITIALIZED  if CUBLAS library not been initialized
   ##  CUBLAS_STATUS_INVALID_VALUE    if incx, incy, or elemSize <= 0
-  ##  CUBLAS_STATUS_MAPPING_ERROR    if an error occurred accessing GPU memory   
+  ##  CUBLAS_STATUS_MAPPING_ERROR    if an error occurred accessing GPU memory
   ##  CUBLAS_STATUS_SUCCESS          if the operation completed successfully
-  ## 
+  ##
   proc cublasSetVectorAsync*(n: cint; elemSize: cint; hostPtr: pointer; incx: cint;
                             devicePtr: pointer; incy: cint; stream: cudaStream_t): cublasStatus_t {.
       cdecl, importc: "cublasSetVectorAsync", dyn.}
-  ##  
-  ##  cublasStatus 
-  ##  cublasGetVectorAsync( int n, int elemSize, const void *x, int incx, 
-  ##                        void *y, int incy, cudaStream_t stream)
-  ##  
+  ##
+  ##  cublasStatus
+  ##  `cublasGetVectorAsync( int n, int elemSize, const void *x, int incx,`
+  ##                        `void *y, int incy, cudaStream_t stream)`
+  ##
   ##  cublasGetVectorAsync has the same functionnality as cublasGetVector
   ##  but the transfer is done asynchronously within the CUDA stream passed
   ##  in parameter.
-  ## 
+  ##
   ##  Return Values
   ##  -------------
   ##  CUBLAS_STATUS_NOT_INITIALIZED  if CUBLAS library not been initialized
   ##  CUBLAS_STATUS_INVALID_VALUE    if incx, incy, or elemSize <= 0
-  ##  CUBLAS_STATUS_MAPPING_ERROR    if an error occurred accessing GPU memory   
+  ##  CUBLAS_STATUS_MAPPING_ERROR    if an error occurred accessing GPU memory
   ##  CUBLAS_STATUS_SUCCESS          if the operation completed successfully
-  ## 
+  ##
   proc cublasGetVectorAsync*(n: cint; elemSize: cint; devicePtr: pointer; incx: cint;
                             hostPtr: pointer; incy: cint; stream: cudaStream_t): cublasStatus_t {.
       cdecl, importc: "cublasGetVectorAsync", dyn.}
-  ## 
-  ##  cublasStatus_t 
-  ##  cublasSetMatrixAsync (int rows, int cols, int elemSize, const void *A, 
-  ##                        int lda, void *B, int ldb, cudaStream_t stream)
-  ## 
+  ##
+  ##  cublasStatus_t
+  ##  `cublasSetMatrixAsync (int rows, int cols, int elemSize, const void *A,`
+  ##                        `int lda, void *B, int ldb, cudaStream_t stream)`
+  ##
   ##  cublasSetMatrixAsync has the same functionnality as cublasSetMatrix
   ##  but the transfer is done asynchronously within the CUDA stream passed
   ##  in parameter.
-  ## 
-  ##  Return Values 
+  ##
+  ##  Return Values
   ##  -------------
   ##  CUBLAS_STATUS_NOT_INITIALIZED  if CUBLAS library has not been initialized
-  ##  CUBLAS_STATUS_INVALID_VALUE    if rows or cols < 0, or elemSize, lda, or 
+  ##  CUBLAS_STATUS_INVALID_VALUE    if rows or cols < 0, or elemSize, lda, or
   ##                                 ldb <= 0
   ##  CUBLAS_STATUS_MAPPING_ERROR    if error occurred accessing GPU memory
   ##  CUBLAS_STATUS_SUCCESS          if the operation completed successfully
-  ## 
+  ##
   proc cublasSetMatrixAsync*(rows: cint; cols: cint; elemSize: cint; A: pointer;
                             lda: cint; B: pointer; ldb: cint; stream: cudaStream_t): cublasStatus_t {.
       cdecl, importc: "cublasSetMatrixAsync", dyn.}
-  ## 
-  ##  cublasStatus_t 
-  ##  cublasGetMatrixAsync (int rows, int cols, int elemSize, const void *A, 
-  ##                        int lda, void *B, int ldb, cudaStream_t stream)
-  ## 
+  ##
+  ##  cublasStatus_t
+  ##  `cublasGetMatrixAsync (int rows, int cols, int elemSize, const void *A,`
+  ##                        `int lda, void *B, int ldb, cudaStream_t stream)`
+  ##
   ##  cublasGetMatrixAsync has the same functionnality as cublasGetMatrix
   ##  but the transfer is done asynchronously within the CUDA stream passed
   ##  in parameter.
-  ## 
-  ##  Return Values 
+  ##
+  ##  Return Values
   ##  -------------
   ##  CUBLAS_STATUS_NOT_INITIALIZED  if CUBLAS library has not been initialized
   ##  CUBLAS_STATUS_INVALID_VALUE    if rows, cols, eleSize, lda, or ldb <= 0
   ##  CUBLAS_STATUS_MAPPING_ERROR    if error occurred accessing GPU memory
   ##  CUBLAS_STATUS_SUCCESS          if the operation completed successfully
-  ## 
+  ##
   proc cublasGetMatrixAsync*(rows: cint; cols: cint; elemSize: cint; A: pointer;
                             lda: cint; B: pointer; ldb: cint; stream: cudaStream_t): cublasStatus_t {.
       cdecl, importc: "cublasGetMatrixAsync", dyn.}
   proc cublasXerbla*(srName: cstring; info: cint) {.cdecl, importc: "cublasXerbla",
       dyn.}
-  ##  ---------------- CUBLAS BLAS1 functions ----------------
+  ##  CUBLAS BLAS1 functions
   proc cublasNrm2Ex*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
                     incx: cint; result: pointer; resultType: cudaDataType;
                     executionType: cudaDataType): cublasStatus_t {.cdecl,

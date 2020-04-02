@@ -121,8 +121,8 @@ when not defined(DRIVER_TYPES_H):
       cudaMemAttachSingle* = 0x00000004
       cudaOccupancyDefault* = 0x00000000
       cudaOccupancyDisableCachingOverride* = 0x00000001
-      cudaCpuDeviceId* = cint(-1) ## *< Device id that represents the CPU
-      cudaInvalidDeviceId* = cint(-2) ## *< Device id that represents an invalid device
+      cudaCpuDeviceId* = cint(-1) ## < Device id that represents the CPU
+      cudaInvalidDeviceId* = cint(-2) ## < Device id that represents an invalid device
   ## ******************************************************************************
   ##                                                                               *
   ##                                                                               *

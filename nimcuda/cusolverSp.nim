@@ -14,15 +14,15 @@ else:
 import
   cuComplex
 
-## 
+##
 ##  Copyright 2014 NVIDIA Corporation.  All rights reserved.
-## 
+##
 ##  NOTICE TO LICENSEE:
-## 
+##
 ##  This source code and/or documentation ("Licensed Deliverables") are
 ##  subject to NVIDIA intellectual property rights under U.S. and
 ##  international Copyright laws.
-## 
+##
 ##  These Licensed Deliverables contained herein is PROPRIETARY and
 ##  CONFIDENTIAL to NVIDIA and is being provided under the terms and
 ##  conditions of a form of NVIDIA software license agreement by and
@@ -31,7 +31,7 @@ import
 ##  the contrary in the License Agreement, reproduction or disclosure
 ##  of the Licensed Deliverables to any third party without the express
 ##  written consent of NVIDIA is prohibited.
-## 
+##
 ##  NOTWITHSTANDING ANY TERMS OR CONDITIONS TO THE CONTRARY IN THE
 ##  LICENSE AGREEMENT, NVIDIA MAKES NO REPRESENTATION ABOUT THE
 ##  SUITABILITY OF THESE LICENSED DELIVERABLES FOR ANY PURPOSE.  IT IS
@@ -46,7 +46,7 @@ import
 ##  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
 ##  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 ##  OF THESE LICENSED DELIVERABLES.
-## 
+##
 ##  U.S. Government End Users.  These Licensed Deliverables are a
 ##  "commercial item" as that term is defined at 48 C.F.R. 2.101 (OCT
 ##  1995), consisting of "commercial computer software" and "commercial
@@ -56,12 +56,12 @@ import
 ##  48 C.F.R. 227.7202-1 through 227.7202-4 (JUNE 1995), all
 ##  U.S. Government End Users acquire the Licensed Deliverables with
 ##  only those rights set forth herein.
-## 
+##
 ##  Any use of the Licensed Deliverables in individual and commercial
 ##  software must include, in the user documentation and internal
 ##  comments to the code, the above Disclaimer and U.S. Government End
 ##  Users Notice.
-## 
+##
 
 when not defined(CUSOLVERSP_H):
   const
@@ -71,12 +71,12 @@ when not defined(CUSOLVERSP_H):
 
   type
     cusolverSpContext* = object
-    
+
   type
     cusolverSpHandle_t* = ptr cusolverSpContext
   type
     csrqrInfo* = object
-    
+
   type
     csrqrInfo_t* = ptr csrqrInfo
   proc cusolverSpCreate*(handle: ptr cusolverSpHandle_t): cusolverStatus_t {.cdecl,
@@ -92,12 +92,12 @@ when not defined(CUSOLVERSP_H):
                                csrEndPtrA: ptr cint; csrColIndA: ptr cint;
                                issym: ptr cint): cusolverStatus_t {.cdecl,
       importc: "cusolverSpXcsrissymHost", dyn.}
-  ##  -------- GPU linear solver based on LU factorization
-  ##        solve A*x = b, A can be singular 
+  ##  GPU linear solver based on LU factorization
+  ##  `      solve A*x = b, A can be singular `
   ##  [ls] stands for linear solve
   ##  [v] stands for vector
   ##  [lu] stands for LU factorization
-  ## 
+
   proc cusolverSpScsrlsvluHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                                descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                                csrRowPtrA: ptr cint; csrColIndA: ptr cint;
@@ -123,12 +123,12 @@ when not defined(CUSOLVERSP_H):
                                tol: cdouble; reorder: cint; x: ptr cuDoubleComplex;
                                singularity: ptr cint): cusolverStatus_t {.cdecl,
       importc: "cusolverSpZcsrlsvluHost", dyn.}
-  ##  -------- GPU linear solver based on QR factorization
-  ##        solve A*x = b, A can be singular 
+  ##  GPU linear solver based on QR factorization
+  ##        solve A*x = b, A can be singular
   ##  [ls] stands for linear solve
   ##  [v] stands for vector
   ##  [qr] stands for QR factorization
-  ## 
+  ##
   proc cusolverSpScsrlsvqr*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                            descrA: cusparseMatDescr_t; csrVal: ptr cfloat;
                            csrRowPtr: ptr cint; csrColInd: ptr cint; b: ptr cfloat;
@@ -154,12 +154,12 @@ when not defined(CUSOLVERSP_H):
                            reorder: cint; x: ptr cuDoubleComplex;
                            singularity: ptr cint): cusolverStatus_t {.cdecl,
       importc: "cusolverSpZcsrlsvqr", dyn.}
-  ##  -------- CPU linear solver based on QR factorization
-  ##        solve A*x = b, A can be singular 
+  ##  CPU linear solver based on QR factorization
+  ##        solve A*x = b, A can be singular
   ##  [ls] stands for linear solve
   ##  [v] stands for vector
   ##  [qr] stands for QR factorization
-  ## 
+  ##
   proc cusolverSpScsrlsvqrHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                                descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                                csrRowPtrA: ptr cint; csrColIndA: ptr cint;
@@ -185,15 +185,15 @@ when not defined(CUSOLVERSP_H):
                                tol: cdouble; reorder: cint; x: ptr cuDoubleComplex;
                                singularity: ptr cint): cusolverStatus_t {.cdecl,
       importc: "cusolverSpZcsrlsvqrHost", dyn.}
-  ##  -------- CPU linear solver based on Cholesky factorization
-  ##        solve A*x = b, A can be singular 
+  ##  CPU linear solver based on Cholesky factorization
+  ##        solve A*x = b, A can be singular
   ##  [ls] stands for linear solve
   ##  [v] stands for vector
   ##  [chol] stands for Cholesky factorization
-  ## 
+  ##
   ##  Only works for symmetric positive definite matrix.
   ##  The upper part of A is ignored.
-  ## 
+  ##
   proc cusolverSpScsrlsvcholHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                                  descrA: cusparseMatDescr_t; csrVal: ptr cfloat;
                                  csrRowPtr: ptr cint; csrColInd: ptr cint;
@@ -220,15 +220,15 @@ when not defined(CUSOLVERSP_H):
                                  tol: cdouble; reorder: cint;
                                  x: ptr cuDoubleComplex; singularity: ptr cint): cusolverStatus_t {.
       cdecl, importc: "cusolverSpZcsrlsvcholHost", dyn.}
-  ##  -------- GPU linear solver based on Cholesky factorization
-  ##        solve A*x = b, A can be singular 
+  ##  GPU linear solver based on Cholesky factorization
+  ##        solve A*x = b, A can be singular
   ##  [ls] stands for linear solve
   ##  [v] stands for vector
   ##  [chol] stands for Cholesky factorization
-  ## 
+  ##
   ##  Only works for symmetric positive definite matrix.
   ##  The upper part of A is ignored.
-  ## 
+  ##
   proc cusolverSpScsrlsvchol*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                              descrA: cusparseMatDescr_t; csrVal: ptr cfloat;
                              csrRowPtr: ptr cint; csrColInd: ptr cint; b: ptr cfloat;
@@ -258,12 +258,12 @@ when not defined(CUSOLVERSP_H):
                              singularity: ptr cint): cusolverStatus_t {.cdecl,
       importc: "cusolverSpZcsrlsvchol", dyn.}
     ##  output
-  ##  ----------- CPU least square solver based on QR factorization
-  ##        solve min|b - A*x| 
+  ##  CPU least square solver based on QR factorization
+  ##        solve min|b - A*x|
   ##  [lsq] stands for least square
   ##  [v] stands for vector
   ##  [qr] stands for QR factorization
-  ## 
+  ##
   proc cusolverSpScsrlsqvqrHost*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                 nnz: cint; descrA: cusparseMatDescr_t;
                                 csrValA: ptr cfloat; csrRowPtrA: ptr cint;
@@ -293,12 +293,12 @@ when not defined(CUSOLVERSP_H):
                                 x: ptr cuDoubleComplex; p: ptr cint;
                                 min_norm: ptr cdouble): cusolverStatus_t {.cdecl,
       importc: "cusolverSpZcsrlsqvqrHost", dyn.}
-  ##  --------- CPU eigenvalue solver based on shift inverse
-  ##       solve A*x = lambda * x 
+  ##  CPU eigenvalue solver based on shift inverse
+  ##       solve A*x = lambda * x
   ##    where lambda is the eigenvalue nearest mu0.
   ##  [eig] stands for eigenvalue solver
   ##  [si] stands for shift-inverse
-  ## 
+  ##
   proc cusolverSpScsreigvsiHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                                 descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                                 csrRowPtrA: ptr cint; csrColIndA: ptr cint;
@@ -325,12 +325,12 @@ when not defined(CUSOLVERSP_H):
                                 x0: ptr cuDoubleComplex; maxite: cint; tol: cdouble;
                                 mu: ptr cuDoubleComplex; x: ptr cuDoubleComplex): cusolverStatus_t {.
       cdecl, importc: "cusolverSpZcsreigvsiHost", dyn.}
-  ##  --------- GPU eigenvalue solver based on shift inverse
-  ##       solve A*x = lambda * x 
+  ##  GPU eigenvalue solver based on shift inverse
+  ##       solve A*x = lambda * x
   ##    where lambda is the eigenvalue nearest mu0.
   ##  [eig] stands for eigenvalue solver
   ##  [si] stands for shift-inverse
-  ## 
+  ##
   proc cusolverSpScsreigvsi*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                             descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                             csrRowPtrA: ptr cint; csrColIndA: ptr cint; mu0: cfloat;
@@ -356,7 +356,7 @@ when not defined(CUSOLVERSP_H):
                             x0: ptr cuDoubleComplex; maxite: cint; eps: cdouble;
                             mu: ptr cuDoubleComplex; x: ptr cuDoubleComplex): cusolverStatus_t {.
       cdecl, importc: "cusolverSpZcsreigvsi", dyn.}
-  ##  ----------- enclosed eigenvalues
+  ##  enclosed eigenvalues
   proc cusolverSpScsreigsHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                               descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                               csrRowPtrA: ptr cint; csrColIndA: ptr cint;
@@ -384,34 +384,34 @@ when not defined(CUSOLVERSP_H):
                               right_upper_corner: cuDoubleComplex;
                               num_eigs: ptr cint): cusolverStatus_t {.cdecl,
       importc: "cusolverSpZcsreigsHost", dyn.}
-  ##  --------- CPU symrcm
-  ##    Symmetric reverse Cuthill McKee permutation         
-  ## 
-  ## 
+  ##  CPU symrcm
+  ##    Symmetric reverse Cuthill McKee permutation
+  ##
+  ##
   proc cusolverSpXcsrsymrcmHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                                 descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
                                 csrColIndA: ptr cint; p: ptr cint): cusolverStatus_t {.
       cdecl, importc: "cusolverSpXcsrsymrcmHost", dyn.}
-  ##  --------- CPU symmdq 
+  ##  CPU symmdq
   ##    Symmetric minimum degree algorithm based on quotient graph
-  ## 
-  ## 
+  ##
+  ##
   proc cusolverSpXcsrsymmdqHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                                 descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
                                 csrColIndA: ptr cint; p: ptr cint): cusolverStatus_t {.
       cdecl, importc: "cusolverSpXcsrsymmdqHost", dyn.}
-  ##  --------- CPU symmdq 
+  ##  CPU symmdq
   ##    Symmetric Approximate minimum degree algorithm based on quotient graph
-  ## 
-  ## 
+  ##
+  ##
   proc cusolverSpXcsrsymamdHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                                 descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
                                 csrColIndA: ptr cint; p: ptr cint): cusolverStatus_t {.
       cdecl, importc: "cusolverSpXcsrsymamdHost", dyn.}
-  ##  --------- CPU permuation
-  ##    P*A*Q^T        
-  ## 
-  ## 
+  ##  CPU permuation
+  ##    P*A*Q^T
+  ##
+  ##
   proc cusolverSpXcsrperm_bufferSizeHost*(handle: cusolverSpHandle_t; m: cint;
       n: cint; nnzA: cint; descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
       csrColIndA: ptr cint; p: ptr cint; q: ptr cint; bufferSizeInBytes: ptr csize): cusolverStatus_t {.
@@ -421,10 +421,10 @@ when not defined(CUSOLVERSP_H):
                               csrRowPtrA: ptr cint; csrColIndA: ptr cint; p: ptr cint;
                               q: ptr cint; map: ptr cint; pBuffer: pointer): cusolverStatus_t {.
       cdecl, importc: "cusolverSpXcsrpermHost", dyn.}
-  ## 
+  ##
   ##   Low-level API: Batched QR
-  ## 
-  ## 
+  ##
+  ##
   proc cusolverSpCreateCsrqrInfo*(info: ptr csrqrInfo_t): cusolverStatus_t {.cdecl,
       importc: "cusolverSpCreateCsrqrInfo", dyn.}
   proc cusolverSpDestroyCsrqrInfo*(info: csrqrInfo_t): cusolverStatus_t {.cdecl,

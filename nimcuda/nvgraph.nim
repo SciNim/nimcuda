@@ -17,16 +17,16 @@ else:
 import
   library_types
 
-## 
+##
 ##  Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
-## 
+##
 ##  NVIDIA CORPORATION and its licensors retain all intellectual property
 ##  and proprietary rights in and to this software, related documentation
 ##  and any modifications thereto.  Any use, reproduction, disclosure or
 ##  distribution of this software and related documentation without an express
 ##  license agreement from NVIDIA CORPORATION is strictly prohibited.
-## 
-## 
+##
+##
 
 ##  nvGRAPH status type returns
 
@@ -45,14 +45,14 @@ proc nvgraphStatusGetString*(status: nvgraphStatus_t): cstring {.cdecl,
 
 type
   nvgraphContext* = object
-  
+
   nvgraphHandle_t* = ptr nvgraphContext
 
 ##  Opaque structure holding the graph descriptor
 
 type
   nvgraphGraphDescr* = object
-  
+
   nvgraphGraphDescr_t* = ptr nvgraphGraphDescr
 
 ##  Semi-ring types
@@ -70,7 +70,7 @@ type
     NVGRAPH_CSR_32 = 0, NVGRAPH_CSC_32 = 1, NVGRAPH_COO_32 = 2
   nvgraphTag_t* {.size: sizeof(cint).} = enum
     NVGRAPH_DEFAULT = 0,        ##  Default is unsorted.
-    NVGRAPH_UNSORTED = 1,       ## 
+    NVGRAPH_UNSORTED = 1,       ##
     NVGRAPH_SORTED_BY_SOURCE = 2, ##  CSR
     NVGRAPH_SORTED_BY_DESTINATION = 3
 
@@ -82,14 +82,14 @@ type
     nedges*: cint              ##  nnz
     source_offsets*: ptr cint   ##  rowPtr
     destination_indices*: ptr cint ##  colInd
-  
+
   nvgraphCSRTopology32I_t* = ptr nvgraphCSRTopology32I_st
   nvgraphCSCTopology32I_st* = object
     nvertices*: cint           ##  n+1
     nedges*: cint              ##  nnz
     destination_offsets*: ptr cint ##  colPtr
     source_indices*: ptr cint   ##  rowInd
-  
+
   nvgraphCSCTopology32I_t* = ptr nvgraphCSCTopology32I_st
   nvgraphCOOTopology32I_st* = object
     nvertices*: cint           ##  n+1
@@ -142,20 +142,20 @@ proc nvgraphAllocateVertexData*(handle: nvgraphHandle_t;
 proc nvgraphAllocateEdgeData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
                              numsets: csize; settypes: ptr cudaDataType): nvgraphStatus_t {.
     cdecl, importc: "nvgraphAllocateEdgeData", dyn.}
-##  Update the vertex set #setnum with the data in *vertexData, sets have 0-based index
+##  `Update the vertex set #setnum with the data in *vertexData, sets have 0-based index`
 ##   Conversions are not sopported so nvgraphTopologyType_t should match the graph structure
 
 proc nvgraphSetVertexData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
                           vertexData: pointer; setnum: csize): nvgraphStatus_t {.
     cdecl, importc: "nvgraphSetVertexData", dyn.}
-##  Copy the edge set #setnum in *edgeData, sets have 0-based index
+##  `Copy the edge set #setnum in *edgeData, sets have 0-based index`
 ##   Conversions are not sopported so nvgraphTopologyType_t should match the graph structure
 
 proc nvgraphGetVertexData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
                           vertexData: pointer; setnum: csize): nvgraphStatus_t {.
     cdecl, importc: "nvgraphGetVertexData", dyn.}
 ##  Convert the edge data to another topology
-## 
+##
 
 proc nvgraphConvertTopology*(handle: nvgraphHandle_t;
                             srcTType: nvgraphTopologyType_t; srcTopology: pointer;
@@ -164,26 +164,26 @@ proc nvgraphConvertTopology*(handle: nvgraphHandle_t;
                             dstEdgeData: pointer): nvgraphStatus_t {.cdecl,
     importc: "nvgraphConvertTopology", dyn.}
 ##  Convert graph to another structure
-## 
+##
 
 proc nvgraphConvertGraph*(handle: nvgraphHandle_t; srcDescrG: nvgraphGraphDescr_t;
                          dstDescrG: nvgraphGraphDescr_t;
                          dstTType: nvgraphTopologyType_t): nvgraphStatus_t {.cdecl,
     importc: "nvgraphConvertGraph", dyn.}
-##  Update the edge set #setnum with the data in *edgeData, sets have 0-based index
+##  `Update the edge set #setnum with the data in *edgeData, sets have 0-based index`
 ##   Conversions are not sopported so nvgraphTopologyType_t should match the graph structure
 
 proc nvgraphSetEdgeData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
                         edgeData: pointer; setnum: csize): nvgraphStatus_t {.cdecl,
     importc: "nvgraphSetEdgeData", dyn.}
-##  Copy the edge set #setnum in *edgeData, sets have 0-based index
+##  `Copy the edge set #setnum in *edgeData, sets have 0-based index`
 ##  Conversions are not sopported so nvgraphTopologyType_t should match the graph structure
 
 proc nvgraphGetEdgeData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
                         edgeData: pointer; setnum: csize): nvgraphStatus_t {.cdecl,
     importc: "nvgraphGetEdgeData", dyn.}
 ##  create a new graph by extracting a subgraph given a list of vertices
-## 
+##
 
 proc nvgraphExtractSubgraphByVertex*(handle: nvgraphHandle_t;
                                     descrG: nvgraphGraphDescr_t;
@@ -191,7 +191,7 @@ proc nvgraphExtractSubgraphByVertex*(handle: nvgraphHandle_t;
                                     subvertices: ptr cint; numvertices: csize): nvgraphStatus_t {.
     cdecl, importc: "nvgraphExtractSubgraphByVertex", dyn.}
 ##  create a new graph by extracting a subgraph given a list of edges
-## 
+##
 
 proc nvgraphExtractSubgraphByEdge*(handle: nvgraphHandle_t;
                                   descrG: nvgraphGraphDescr_t;
@@ -199,7 +199,7 @@ proc nvgraphExtractSubgraphByEdge*(handle: nvgraphHandle_t;
                                   subedges: ptr cint; numedges: csize): nvgraphStatus_t {.
     cdecl, importc: "nvgraphExtractSubgraphByEdge", dyn.}
 ##  nvGRAPH Semi-ring sparse matrix vector multiplication
-## 
+##
 
 proc nvgraphSrSpmv*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
                    weight_index: csize; alpha: pointer; x_index: csize; beta: pointer;
@@ -207,14 +207,14 @@ proc nvgraphSrSpmv*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
     importc: "nvgraphSrSpmv", dyn.}
 ##  nvGRAPH Single Source Shortest Path (SSSP)
 ##  Calculate the shortest path distance from a single vertex in the graph to all other vertices.
-## 
+##
 
 proc nvgraphSssp*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
                  weight_index: csize; source_vert: ptr cint; sssp_index: csize): nvgraphStatus_t {.
     cdecl, importc: "nvgraphSssp", dyn.}
 ##  nvGRAPH WidestPath
 ##  Find widest path potential from source_index to every other vertices.
-## 
+##
 
 proc nvgraphWidestPath*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
                        weight_index: csize; source_vert: ptr cint;
@@ -222,7 +222,7 @@ proc nvgraphWidestPath*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
     importc: "nvgraphWidestPath", dyn.}
 ##  nvGRAPH PageRank
 ##  Find PageRank for each vertex of a graph with a given transition probabilities, a bookmark vector of dangling vertices, and the damping factor.
-## 
+##
 
 proc nvgraphPagerank*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
                      weight_index: csize; alpha: pointer; bookmark_index: csize;
