@@ -13,27 +13,27 @@ else:
   {.pragma: dyn, dynlib: libName.}
 type
   cudnnTensorStruct = object
-  
+
   cudnnConvolutionStruct = object
-  
+
   cudnnPoolingStruct = object
-  
+
   cudnnFilterStruct = object
-  
+
   cudnnLRNStruct = object
-  
+
   cudnnActivationStruct = object
-  
+
   cudnnSpatialTransformerStruct = object
-  
+
   cudnnOpTensorStruct = object
-  
+
   cudnnDropoutStruct = object
-  
+
 
 ##    cudnn : Neural Networks Library
-## 
-## 
+##
+##
 
 when not defined(CUDNN_H):
   const
@@ -47,13 +47,13 @@ when not defined(CUDNN_H):
 
   type
     cudnnContext* = object
-    
+
   type
     cudnnHandle_t* = ptr cudnnContext
   proc cudnnGetVersion*(): csize {.cdecl, importc: "cudnnGetVersion", dyn.}
-  ## 
+  ##
   ##  CUDNN return codes
-  ## 
+  ##
   type
     cudnnStatus_t* {.size: sizeof(cint).} = enum
       CUDNN_STATUS_SUCCESS = 0, CUDNN_STATUS_NOT_INITIALIZED = 1,
@@ -83,15 +83,15 @@ when not defined(CUDNN_H):
     cudnnActivationDescriptor_t* = ptr cudnnActivationStruct
     cudnnSpatialTransformerDescriptor_t* = ptr cudnnSpatialTransformerStruct
     cudnnOpTensorDescriptor_t* = ptr cudnnOpTensorStruct
-  ## 
+  ##
   ##  CUDNN data type
-  ## 
+  ##
   type
     cudnnDataType_t* {.size: sizeof(cint).} = enum
       CUDNN_DATA_FLOAT = 0, CUDNN_DATA_DOUBLE = 1, CUDNN_DATA_HALF = 2
-  ## 
+  ##
   ##  CUDNN propagate Nan
-  ## 
+  ##
   type
     cudnnNanPropagation_t* {.size: sizeof(cint).} = enum
       CUDNN_NOT_PROPAGATE_NAN = 0, CUDNN_PROPAGATE_NAN = 1
@@ -145,45 +145,45 @@ when not defined(CUDNN_H):
                                   dataType: ptr cudnnDataType_t; nbDims: ptr cint;
                                   dimA: ptr cint; strideA: ptr cint): cudnnStatus_t {.
       cdecl, importc: "cudnnGetTensorNdDescriptor", dyn.}
-  ##  PixelOffset( n, c, h, w ) = n *input_stride + c * feature_stride + h * h_stride + w * w_stride
-  ## 
+  ##  `PixelOffset( n, c, h, w ) = n *input_stride + c * feature_stride + h * h_stride + w * w_stride`
+  ##
   ##    1)Example of all images in row major order one batch of features after the other (with an optional padding on row)
   ##    input_stride :  c x h x h_stride
   ##    feature_stride : h x h_stride
   ##    h_stride  :  >= w  ( h_stride = w if no padding)
   ##    w_stride  : 1
-  ## 
-  ## 
+  ##
+  ##
   ##    2)Example of all images in row major with features maps interleaved
   ##    input_stride :  c x h x h_stride
   ##    feature_stride : 1
   ##    h_stride  :  w x c
   ##    w_stride  : c
-  ## 
+  ##
   ##    3)Example of all images in column major order one batch of features after the other (with optional padding on column)
   ##    input_stride :  c x w x w_stride
   ##    feature_stride : w x w_stride
   ##    h_stride  :  1
   ##    w_stride  :  >= h
-  ## 
-  ## 
+  ##
+  ##
   ##  Destroy an instance of Tensor4d descriptor
   proc cudnnDestroyTensorDescriptor*(tensorDesc: cudnnTensorDescriptor_t): cudnnStatus_t {.
       cdecl, importc: "cudnnDestroyTensorDescriptor", dyn.}
-  ##  Tensor layout conversion helper (y = alpha * x + beta * y)
+  ##  `Tensor layout conversion helper (y = alpha * x + beta * y)`
   proc cudnnTransformTensor*(handle: cudnnHandle_t; alpha: pointer;
                             xDesc: cudnnTensorDescriptor_t; x: pointer;
                             beta: pointer; yDesc: cudnnTensorDescriptor_t;
                             y: pointer): cudnnStatus_t {.cdecl,
       importc: "cudnnTransformTensor", dyn.}
-  ##  Tensor Bias addition : C = alpha * A + beta * C
+  ##  `Tensor Bias addition : C = alpha * A + beta * C`
   proc cudnnAddTensor*(handle: cudnnHandle_t; alpha: pointer;
                       aDesc: cudnnTensorDescriptor_t; A: pointer; beta: pointer;
                       cDesc: cudnnTensorDescriptor_t; C: pointer): cudnnStatus_t {.
       cdecl, importc: "cudnnAddTensor", dyn.}
-  ## 
+  ##
   ##  CUDNN OpTensor op type
-  ## 
+  ##
   type
     cudnnOpTensorOp_t* {.size: sizeof(cint).} = enum
       CUDNN_OP_TENSOR_ADD = 0, CUDNN_OP_TENSOR_MUL = 1, CUDNN_OP_TENSOR_MIN = 2,
@@ -202,7 +202,7 @@ when not defined(CUDNN_H):
       cdecl, importc: "cudnnGetOpTensorDescriptor", dyn.}
   proc cudnnDestroyOpTensorDescriptor*(opTensorDesc: cudnnOpTensorDescriptor_t): cudnnStatus_t {.
       cdecl, importc: "cudnnDestroyOpTensorDescriptor", dyn.}
-  ##  Tensor Bias operation : C = op( alpha1 * A, alpha2 * B ) + beta * C
+  ##  `Tensor Bias operation : C = op( alpha1 * A, alpha2 * B ) + beta * C`
   proc cudnnOpTensor*(handle: cudnnHandle_t;
                      opTensorDesc: cudnnOpTensorDescriptor_t; alpha1: pointer;
                      aDesc: cudnnTensorDescriptor_t; A: pointer; alpha2: pointer;
@@ -213,13 +213,13 @@ when not defined(CUDNN_H):
   proc cudnnSetTensor*(handle: cudnnHandle_t; yDesc: cudnnTensorDescriptor_t;
                       y: pointer; valuePtr: pointer): cudnnStatus_t {.cdecl,
       importc: "cudnnSetTensor", dyn.}
-  ##  Scale all values of a tensor by a given factor : y[i] = alpha * y[i]
+  ##  `Scale all values of a tensor by a given factor : y[i] = alpha * y[i]`
   proc cudnnScaleTensor*(handle: cudnnHandle_t; yDesc: cudnnTensorDescriptor_t;
                         y: pointer; alpha: pointer): cudnnStatus_t {.cdecl,
       importc: "cudnnScaleTensor", dyn.}
-  ## 
+  ##
   ##   convolution mode
-  ## 
+  ##
   type
     cudnnConvolutionMode_t* {.size: sizeof(cint).} = enum
       CUDNN_CONVOLUTION = 0, CUDNN_CROSS_CORRELATION = 1
@@ -380,16 +380,16 @@ when not defined(CUDNN_H):
       preference: cudnnConvolutionFwdPreference_t; memoryLimitInBytes: csize;
       algo: ptr cudnnConvolutionFwdAlgo_t): cudnnStatus_t {.cdecl,
       importc: "cudnnGetConvolutionForwardAlgorithm", dyn.}
-  ## 
+  ##
   ##   convolution algorithm (which requires potentially some workspace)
-  ## 
+  ##
   ##  Helper function to return the minimum size of the workspace to be passed to the convolution given an algo
   proc cudnnGetConvolutionForwardWorkspaceSize*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; wDesc: cudnnFilterDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; yDesc: cudnnTensorDescriptor_t;
       algo: cudnnConvolutionFwdAlgo_t; sizeInBytes: ptr csize): cudnnStatus_t {.cdecl,
       importc: "cudnnGetConvolutionForwardWorkspaceSize", dyn.}
-  ##  Convolution functions: All of the form "output = alpha * Op(inputs) + beta * output"
+  ##  `Convolution functions: All of the form "output = alpha * Op(inputs) + beta * output"`
   ##  Function to perform the forward pass for batch convolution
   proc cudnnConvolutionForward*(handle: cudnnHandle_t; alpha: pointer;
                                xDesc: cudnnTensorDescriptor_t; x: pointer;
@@ -444,9 +444,9 @@ when not defined(CUDNN_H):
       preference: cudnnConvolutionBwdFilterPreference_t;
       memoryLimitInBytes: csize; algo: ptr cudnnConvolutionBwdFilterAlgo_t): cudnnStatus_t {.
       cdecl, importc: "cudnnGetConvolutionBackwardFilterAlgorithm", dyn.}
-  ## 
+  ##
   ##   convolution algorithm (which requires potentially some workspace)
-  ## 
+  ##
   ##  Helper function to return the minimum size of the workspace to be passed to the convolution given an algo
   proc cudnnGetConvolutionBackwardFilterWorkspaceSize*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; dyDesc: cudnnTensorDescriptor_t;
@@ -464,7 +464,7 @@ when not defined(CUDNN_H):
                                       workSpaceSizeInBytes: csize; beta: pointer;
                                       dwDesc: cudnnFilterDescriptor_t; dw: pointer): cudnnStatus_t {.
       cdecl, importc: "cudnnConvolutionBackwardFilter", dyn.}
-  ## *******************************************************
+  ## `*******************************************************`
   ##  helper function to provide the convolution algo that fit best the requirement
   type
     cudnnConvolutionBwdDataPreference_t* {.size: sizeof(cint).} = enum
@@ -524,9 +524,9 @@ when not defined(CUDNN_H):
                    x: pointer; wDesc: cudnnFilterDescriptor_t;
                    convDesc: cudnnConvolutionDescriptor_t; colBuffer: pointer): cudnnStatus_t {.
       cdecl, importc: "cudnnIm2Col", dyn.}
-  ## 
+  ##
   ##   softmax algorithm
-  ## 
+  ##
   type
     cudnnSoftmaxAlgorithm_t* {.size: sizeof(cint).} = enum
       CUDNN_SOFTMAX_FAST = 0,   ##  straightforward implementation
@@ -535,7 +535,7 @@ when not defined(CUDNN_H):
     cudnnSoftmaxMode_t* {.size: sizeof(cint).} = enum
       CUDNN_SOFTMAX_MODE_INSTANCE = 0, ##  compute the softmax over all C, H, W for each N
       CUDNN_SOFTMAX_MODE_CHANNEL = 1
-  ##  Softmax functions: All of the form "output = alpha * Op(inputs) + beta * output"
+  ##  `Softmax functions: All of the form "output = alpha * Op(inputs) + beta * output"`
   ##  Function to perform forward softmax
   proc cudnnSoftmaxForward*(handle: cudnnHandle_t; algo: cudnnSoftmaxAlgorithm_t;
                            mode: cudnnSoftmaxMode_t; alpha: pointer;
@@ -550,9 +550,9 @@ when not defined(CUDNN_H):
                             beta: pointer; dxDesc: cudnnTensorDescriptor_t;
                             dx: pointer): cudnnStatus_t {.cdecl,
       importc: "cudnnSoftmaxBackward", dyn.}
-  ## 
+  ##
   ##   pooling mode
-  ## 
+  ##
   type
     cudnnPoolingMode_t* {.size: sizeof(cint).} = enum
       CUDNN_POOLING_MAX = 0, CUDNN_POOLING_AVERAGE_COUNT_INCLUDE_PADDING = 1, ##  count for average includes padded values
@@ -601,7 +601,7 @@ when not defined(CUDNN_H):
   ##  Destroy an instance of pooling descriptor
   proc cudnnDestroyPoolingDescriptor*(poolingDesc: cudnnPoolingDescriptor_t): cudnnStatus_t {.
       cdecl, importc: "cudnnDestroyPoolingDescriptor", dyn.}
-  ##  Pooling functions: All of the form "output = alpha * Op(inputs) + beta * output"
+  ##  `Pooling functions: All of the form "output = alpha * Op(inputs) + beta * output"`
   ##  Function to perform forward pooling
   proc cudnnPoolingForward*(handle: cudnnHandle_t;
                            poolingDesc: cudnnPoolingDescriptor_t; alpha: pointer;
@@ -617,14 +617,14 @@ when not defined(CUDNN_H):
                             beta: pointer; dxDesc: cudnnTensorDescriptor_t;
                             dx: pointer): cudnnStatus_t {.cdecl,
       importc: "cudnnPoolingBackward", dyn.}
-  ## 
+  ##
   ##  activation mode
-  ## 
+  ##
   type
     cudnnActivationMode_t* {.size: sizeof(cint).} = enum
       CUDNN_ACTIVATION_SIGMOID = 0, CUDNN_ACTIVATION_RELU = 1,
       CUDNN_ACTIVATION_TANH = 2, CUDNN_ACTIVATION_CLIPPED_RELU = 3
-  ##  Activation functions: All of the form "output = alpha * Op(inputs) + beta * output"
+  ##  `Activation functions: All of the form "output = alpha * Op(inputs) + beta * output"`
   proc cudnnCreateActivationDescriptor*(activationDesc: ptr cudnnActivationDescriptor_t): cudnnStatus_t {.
       cdecl, importc: "cudnnCreateActivationDescriptor", dyn.}
   proc cudnnSetActivationDescriptor*(activationDesc: cudnnActivationDescriptor_t;
@@ -655,10 +655,10 @@ when not defined(CUDNN_H):
                                x: pointer; beta: pointer;
                                dxDesc: cudnnTensorDescriptor_t; dx: pointer): cudnnStatus_t {.
       cdecl, importc: "cudnnActivationBackward", dyn.}
-  ##  
+  ##
   ##  Create an instance of LRN (Local Response Normalization) descriptor
   ##  Uses lrnN=5, lrnAlpha=1e-4, lrnBeta=0.75, lrnK=2.0 as defaults from Krizhevsky'12 ImageNet paper
-  ## 
+  ##
   proc cudnnCreateLRNDescriptor*(normDesc: ptr cudnnLRNDescriptor_t): cudnnStatus_t {.
       cdecl, importc: "cudnnCreateLRNDescriptor", dyn.}
   const
@@ -670,18 +670,18 @@ when not defined(CUDNN_H):
   type
     cudnnLRNMode_t* {.size: sizeof(cint).} = enum
       CUDNN_LRN_CROSS_CHANNEL_DIM1 = 0 ##  Normalize across tensor's dimA[1] dimension
-  ## 
+  ##
   ##  Uses a window [center-lookBehind, center+lookAhead], where
   ##  lookBehind = floor( (lrnN-1)/2 ), lookAhead = lrnN-lookBehind-1.
   ##  Values of double parameters cast to tensor data type.
-  ## 
+  ##
   proc cudnnSetLRNDescriptor*(normDesc: cudnnLRNDescriptor_t; lrnN: cuint;
                              lrnAlpha: cdouble; lrnBeta: cdouble; lrnK: cdouble): cudnnStatus_t {.
       cdecl, importc: "cudnnSetLRNDescriptor", dyn.}
-  ## 
+  ##
   ##  Retrieve the settings currently stored in an LRN layer descriptor
   ##  Any of the provided pointers can be NULL (no corresponding value will be returned)
-  ## 
+  ##
   proc cudnnGetLRNDescriptor*(normDesc: cudnnLRNDescriptor_t; lrnN: ptr cuint;
                              lrnAlpha: ptr cdouble; lrnBeta: ptr cdouble;
                              lrnK: ptr cdouble): cudnnStatus_t {.cdecl,
@@ -689,7 +689,7 @@ when not defined(CUDNN_H):
   ##  Destroy an instance of LRN descriptor
   proc cudnnDestroyLRNDescriptor*(lrnDesc: cudnnLRNDescriptor_t): cudnnStatus_t {.
       cdecl, importc: "cudnnDestroyLRNDescriptor", dyn.}
-  ##  LRN functions: output = alpha * normalize(x) + beta * old_y
+  ##  `LRN functions: output = alpha * normalize(x) + beta * old_y`
   ##  LRN cross-channel forward computation. Double parameters cast to tensor data type
   proc cudnnLRNCrossChannelForward*(handle: cudnnHandle_t;
                                    normDesc: cudnnLRNDescriptor_t;
@@ -711,7 +711,7 @@ when not defined(CUDNN_H):
   type
     cudnnDivNormMode_t* {.size: sizeof(cint).} = enum
       CUDNN_DIVNORM_PRECOMPUTED_MEANS = 0
-  ##  LCN/divisive normalization functions: y = alpha * normalize(x) + beta * y
+  ##  `LCN/divisive normalization functions: y = alpha * normalize(x) + beta * y`
   proc cudnnDivisiveNormalizationForward*(handle: cudnnHandle_t;
       normDesc: cudnnLRNDescriptor_t; mode: cudnnDivNormMode_t; alpha: pointer;
       xDesc: cudnnTensorDescriptor_t; x: pointer; means: pointer; temp: pointer;
@@ -736,11 +736,11 @@ when not defined(CUDNN_H):
       CUDNN_BATCHNORM_SPATIAL = 1
   const
     CUDNN_BN_MIN_EPSILON* = 1e-05
-  ## 
-  ##  Derives a tensor descriptor from layer data descriptor for BatchNormalization 
-  ##  scale, invVariance, bnBias, bnScale tensors. Use this tensor desc for 
+  ##
+  ##  Derives a tensor descriptor from layer data descriptor for BatchNormalization
+  ##  scale, invVariance, bnBias, bnScale tensors. Use this tensor desc for
   ##  bnScaleBiasMeanVarDesc and bnScaleBiasDiffDesc in Batch Normalization forward and backward functions.
-  ## 
+  ##
   proc cudnnDeriveBNTensorDescriptor*(derivedBnDesc: cudnnTensorDescriptor_t;
                                      xDesc: cudnnTensorDescriptor_t;
                                      mode: cudnnBatchNormMode_t): cudnnStatus_t {.
@@ -764,30 +764,30 @@ when not defined(CUDNN_H):
     ##                                    Dimensions for this descriptor depend on normalization mode
     ##                                    - Spatial Normalization : tensors are expected to have dims 1xCx1x1
     ##                                     (normalization is performed across NxHxW)
-    ##                                    - Per-Activation Normalization : tensors are expected to have dims of 1xCxHxW 
+    ##                                    - Per-Activation Normalization : tensors are expected to have dims of 1xCxHxW
     ##                                     (normalization is performed across N)
     ##  'Gamma' and 'Beta' respectively in Ioffe and Szegedy's paper's notation
     ##  MUST use factor=1 in the very first call of a complete training cycle.
     ##                                    Use a factor=1/(1+n) at N-th call to the function to get
     ##                                    Cumulative Moving Average (CMA) behavior
     ##                                    CMA[n] = (x[1]+...+x[n])/n
-    ##                                    Since CMA[n+1] = (n*CMA[n]+x[n+1])/(n+1) =
-    ##                                    ((n+1)*CMA[n]-CMA[n])/(n+1) + x[n+1]/(n+1) =
-    ##                                    CMA[n]*(1-1/(n+1)) + x[n+1]*1/(n+1)
-    ##  Used in Training phase only. 
-    ##                                    runningMean = newMean*factor + runningMean*(1-factor)
+    ##                                    `Since CMA[n+1] = (n*CMA[n]+x[n+1])/(n+1) =`
+    ##                                    `((n+1)*CMA[n]-CMA[n])/(n+1) + x[n+1]/(n+1) =`
+    ##                                    `CMA[n]*(1-1/(n+1)) + x[n+1]*1/(n+1)`
+    ##  Used in Training phase only.
+    ##                                    `runningMean = newMean*factor + runningMean*(1-factor)`
     ##  Output in training mode, input in inference. Is the moving average
     ##                                    of  variance[x] (factor is applied in the same way as for runningMean)
     ##  Has to be >= CUDNN_BN_MIN_EPSILON. Should be the same in forward and backward functions.
     ##  Optionally save intermediate results from the forward pass here
     ##                                    - can be reused to speed up backward pass. NULL if unused
-  ## 
-  ##  Performs Batch Normalization during Inference: 
-  ##  y[i] = bnScale[k]*(x[i]-estimatedMean[k])/sqrt(epsilon+estimatedVariance[k]) + bnBias[k]
+  ##
+  ##  Performs Batch Normalization during Inference:
+  ##  `y[i] = bnScale[k]*(x[i]-estimatedMean[k])/sqrt(epsilon+estimatedVariance[k]) + bnBias[k]`
   ##  with bnScale, bnBias, runningMean, runningInvVariance tensors indexed
   ##  according to spatial or per-activation mode. Refer to cudnnBatchNormalizationForwardTraining
   ##  above for notes on function arguments.
-  ## 
+  ##
   proc cudnnBatchNormalizationForwardInference*(handle: cudnnHandle_t;
       mode: cudnnBatchNormMode_t; alpha: pointer; beta: pointer;
       xDesc: cudnnTensorDescriptor_t; x: pointer; yDesc: cudnnTensorDescriptor_t;
@@ -904,7 +904,7 @@ when not defined(CUDNN_H):
       CUDNN_LINEAR_INPUT = 0, CUDNN_SKIP_INPUT = 1
   type
     cudnnRNNStruct* = object
-    
+
   type
     cudnnRNNDescriptor_t* = ptr cudnnRNNStruct
   proc cudnnCreateRNNDescriptor*(rnnDesc: ptr cudnnRNNDescriptor_t): cudnnStatus_t {.
@@ -1000,10 +1000,10 @@ when not defined(CUDNN_H):
                                reserveSpace: pointer;
                                reserveSpaceSizeInBytes: csize): cudnnStatus_t {.
       cdecl, importc: "cudnnRNNBackwardWeights", dyn.}
-  ##  DEPRECATED routines to be removed next release : 
+  ##  DEPRECATED routines to be removed next release :
   ##    User should use the non-suffixed version (which has the API and functionality of _v4 version)
   ##    Routines with _v3 suffix has the functionality of the non-suffixed routines in the CUDNN V4
-  ## 
+  ##
   proc cudnnSetFilter4dDescriptor_v3*(filterDesc: cudnnFilterDescriptor_t;
                                      dataType: cudnnDataType_t; k: cint; c: cint;
                                      h: cint; w: cint): cudnnStatus_t {.cdecl,

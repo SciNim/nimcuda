@@ -262,7 +262,7 @@ type
 ##  The suggested block size and the minimum number of blocks needed to achieve
 ##  the maximum occupancy are returned through blockSize and minGridSize.
 ##
-##  If *blockSize is 0, then the given combination cannot run on the device.
+##  If `*blockSize` is 0, then the given combination cannot run on the device.
 ##
 ##  ERRORS
 ##
@@ -311,7 +311,7 @@ type
 ##  The suggested block size and the minimum number of blocks needed to achieve
 ##  the maximum occupancy are returned through blockSize and minGridSize.
 ##
-##  If *blockSize is 0, then the given combination cannot run on the device.
+##  If `*blockSize` is 0, then the given combination cannot run on the device.
 ##
 ##  ERRORS
 ##
@@ -471,7 +471,7 @@ proc cudaOccSMemPerMultiprocessor*(limit: ptr csize;
                          ##
       bytes = (sharedMemPerMultiprocessorHigh + sharedMemPerMultiprocessorLow) div
           2
-  of 5, 6: 
+  of 5, 6:
     ##  Maxwell and Pascal have dedicated shared memory.
     ##
     bytes = sharedMemPerMultiprocessorHigh
