@@ -10,7 +10,7 @@ skipDirs      = @["headers", "include", "c2nim", "examples", "htmldocs"]
 
 requires "nim >= 0.16.0"
 
-import ospaths, strutils
+import os, strutils
 
 proc patch(libName: string): string =
   when defined(windows):
