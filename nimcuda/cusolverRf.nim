@@ -1,4 +1,4 @@
- {.deadCodeElim: on.}
+{.deadCodeElim: on.}
 when defined(windows):
   import os
   {.passL: "\"" & os.getEnv("CUDA_PATH") / "lib/x64" / "cusolver.lib" & "\"".}
@@ -14,15 +14,15 @@ else:
 import
   cuComplex, cusolver_common
 
-## 
+##
 ##  Copyright 1993-2014 NVIDIA Corporation.  All rights reserved.
-## 
+##
 ##  NOTICE TO LICENSEE:
-## 
+##
 ##  This source code and/or documentation ("Licensed Deliverables") are
 ##  subject to NVIDIA intellectual property rights under U.S. and
 ##  international Copyright laws.
-## 
+##
 ##  These Licensed Deliverables contained herein is PROPRIETARY and
 ##  CONFIDENTIAL to NVIDIA and is being provided under the terms and
 ##  conditions of a form of NVIDIA software license agreement by and
@@ -31,7 +31,7 @@ import
 ##  the contrary in the License Agreement, reproduction or disclosure
 ##  of the Licensed Deliverables to any third party without the express
 ##  written consent of NVIDIA is prohibited.
-## 
+##
 ##  NOTWITHSTANDING ANY TERMS OR CONDITIONS TO THE CONTRARY IN THE
 ##  LICENSE AGREEMENT, NVIDIA MAKES NO REPRESENTATION ABOUT THE
 ##  SUITABILITY OF THESE LICENSED DELIVERABLES FOR ANY PURPOSE.  IT IS
@@ -46,7 +46,7 @@ import
 ##  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
 ##  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 ##  OF THESE LICENSED DELIVERABLES.
-## 
+##
 ##  U.S. Government End Users.  These Licensed Deliverables are a
 ##  "commercial item" as that term is defined at 48 C.F.R. 2.101 (OCT
 ##  1995), consisting of "commercial computer software" and "commercial
@@ -56,12 +56,12 @@ import
 ##  48 C.F.R. 227.7202-1 through 227.7202-4 (JUNE 1995), all
 ##  U.S. Government End Users acquire the Licensed Deliverables with
 ##  only those rights set forth herein.
-## 
+##
 ##  Any use of the Licensed Deliverables in individual and commercial
 ##  software must include, in the user documentation and internal
 ##  comments to the code, the above Disclaimer and U.S. Government End
 ##  Users Notice.
-## 
+##
 
 when not defined(CUSOLVERRF_H):
   const
@@ -101,7 +101,7 @@ when not defined(CUSOLVERRF_H):
   ##  Opaque structure holding CUSOLVERRF library common
   type
     cusolverRfCommon* = object
-    
+
   type
     cusolverRfHandle_t* = ptr cusolverRfCommon
   ##  CUSOLVERRF create (allocate memory) and destroy (free memory) in the handle
@@ -162,7 +162,7 @@ when not defined(CUSOLVERRF_H):
       cdecl, importc: "cusolverRfSetupDevice", dyn.}
     ##  Input (in the device memory)
     ##  Output
-  ##  CUSOLVERRF update the matrix values (assuming the reordering, pivoting 
+  ##  CUSOLVERRF update the matrix values (assuming the reordering, pivoting
   ##    and consequently the sparsity pattern of L and U did not change),
   ##    and zero out the remaining values.
   proc cusolverRfResetValues*(n: cint; nnzA: cint; csrRowPtrA: ptr cint;
@@ -219,7 +219,7 @@ when not defined(CUSOLVERRF_H):
       cdecl, importc: "cusolverRfBatchSetupHost", dyn.}
     ##  Input (in the host memory)
     ##  Output (in the device memory)
-  ##  CUSOLVERRF-batch update the matrix values (assuming the reordering, pivoting 
+  ##  CUSOLVERRF-batch update the matrix values (assuming the reordering, pivoting
   ##    and consequently the sparsity pattern of L and U did not change),
   ##    and zero out the remaining values.
   proc cusolverRfBatchResetValues*(batchSize: cint; n: cint; nnzA: cint;
