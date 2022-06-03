@@ -1,4 +1,4 @@
- {.deadCodeElim: on.}
+{.deadCodeElim: on.}
 when defined(windows):
     import os
     {.passL: "\"" & os.getEnv("CUDA_PATH") / "lib/x64" / "curand.lib" & "\"".}

@@ -1,4 +1,4 @@
- {.deadCodeElim: on.}
+{.deadCodeElim: on.}
 when defined(windows):
   import os
   {.passL: "\"" & os.getEnv("CUDA_PATH") / "lib/x64" / "cufft.lib" & "\"".}
@@ -18,13 +18,13 @@ import
   cuComplex, library_types
 
 ##  Copyright 2005-2014 NVIDIA Corporation.  All rights reserved.
-## 
+##
 ##  NOTICE TO LICENSEE:
-## 
+##
 ##  The source code and/or documentation ("Licensed Deliverables") are
 ##  subject to NVIDIA intellectual property rights under U.S. and
 ##  international Copyright laws.
-## 
+##
 ##  The Licensed Deliverables contained herein are PROPRIETARY and
 ##  CONFIDENTIAL to NVIDIA and are being provided under the terms and
 ##  conditions of a form of NVIDIA software license agreement by and
@@ -33,7 +33,7 @@ import
 ##  the contrary in the License Agreement, reproduction or disclosure
 ##  of the Licensed Deliverables to any third party without the express
 ##  written consent of NVIDIA is prohibited.
-## 
+##
 ##  NOTWITHSTANDING ANY TERMS OR CONDITIONS TO THE CONTRARY IN THE
 ##  LICENSE AGREEMENT, NVIDIA MAKES NO REPRESENTATION ABOUT THE
 ##  SUITABILITY OF THESE LICENSED DELIVERABLES FOR ANY PURPOSE.  THEY ARE
@@ -48,7 +48,7 @@ import
 ##  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
 ##  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 ##  OF THESE LICENSED DELIVERABLES.
-## 
+##
 ##  U.S. Government End Users.  These Licensed Deliverables are a
 ##  "commercial item" as that term is defined at 48 C.F.R. 2.101 (OCT
 ##  1995), consisting of "commercial computer software" and "commercial
@@ -58,16 +58,16 @@ import
 ##  48 C.F.R. 227.7202-1 through 227.7202-4 (JUNE 1995), all
 ##  U.S. Government End Users acquire the Licensed Deliverables with
 ##  only those rights set forth herein.
-## 
+##
 ##  Any use of the Licensed Deliverables in individual and commercial
 ##  software must include, in the user documentation and internal
 ##  comments to the code, the above Disclaimer and U.S. Government End
 ##  Users Notice.
-## 
+##
 ## !
-##  \file cufft.h  
-##  \brief Public header file for the NVIDIA CUDA FFT library (CUFFT)  
-## 
+##  \file cufft.h
+##  \brief Public header file for the NVIDIA CUDA FFT library (CUFFT)
+##
 
 ##  CUFFT API function return values
 
@@ -95,7 +95,7 @@ type
   cufftReal* = cfloat
   cufftDoubleReal* = cdouble
 
-##  cufftComplex is a single-precision, floating-point complex data type that 
+##  cufftComplex is a single-precision, floating-point complex data type that
 ##  consists of interleaved real and imaginary components.
 ##  cufftDoubleComplex is the double-precision equivalent.
 
@@ -130,9 +130,9 @@ type
 const
   CUFFT_COMPATIBILITY_DEFAULT* = CUFFT_COMPATIBILITY_FFTW_PADDING
 
-## 
+##
 ##  structure definition used by the shim between old and new APIs
-## 
+##
 
 const
   MAX_SHIM_RANK* = 3
