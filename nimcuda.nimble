@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.7"
+version       = "0.1.8"
 author        = "Andrea Ferretti"
 description   = "Nim binding for CUDA"
 license       = "Apache2"
