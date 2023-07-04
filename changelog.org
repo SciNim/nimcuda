@@ -1,0 +1,3 @@
+* v0.1.9
+- fix ~fileExists~ ambiguous identifier for older Nim versions
+- fix placement of ~{.union.}~ pragma  
