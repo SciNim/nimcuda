@@ -793,7 +793,7 @@ when not defined(DRIVER_TYPES_H):
       pitchInBytes*: csize     ## *< Pitch between two rows in bytes
 
   type
-    INNER_C_UNION_846314039* = object {.union.}
+    INNER_C_UNION_846314039* {.union.} = object
       array*: INNER_C_STRUCT_1387504323
       mipmap*: INNER_C_STRUCT_3729397116
       linear*: INNER_C_STRUCT_904144573
