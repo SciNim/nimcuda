@@ -1,0 +1,21 @@
+nimTitle	texture_types	texture_types.html	module nimcuda/texture_types		0
+nim	cudaTextureType1D	texture_types.html#cudaTextureType1D	const cudaTextureType1D		70
+nim	cudaTextureType2D	texture_types.html#cudaTextureType2D	const cudaTextureType2D		71
+nim	cudaTextureType3D	texture_types.html#cudaTextureType3D	const cudaTextureType3D		72
+nim	cudaTextureTypeCubemap	texture_types.html#cudaTextureTypeCubemap	const cudaTextureTypeCubemap		73
+nim	cudaTextureType1DLayered	texture_types.html#cudaTextureType1DLayered	const cudaTextureType1DLayered		74
+nim	cudaTextureType2DLayered	texture_types.html#cudaTextureType2DLayered	const cudaTextureType2DLayered		75
+nim	cudaTextureTypeCubemapLayered	texture_types.html#cudaTextureTypeCubemapLayered	const cudaTextureTypeCubemapLayered		76
+nim	cudaAddressModeWrap	texture_types.html#cudaAddressModeWrap	cudaTextureAddressMode.cudaAddressModeWrap		81
+nim	cudaAddressModeClamp	texture_types.html#cudaAddressModeClamp	cudaTextureAddressMode.cudaAddressModeClamp		81
+nim	cudaAddressModeMirror	texture_types.html#cudaAddressModeMirror	cudaTextureAddressMode.cudaAddressModeMirror		81
+nim	cudaAddressModeBorder	texture_types.html#cudaAddressModeBorder	cudaTextureAddressMode.cudaAddressModeBorder		81
+nim	cudaTextureAddressMode	texture_types.html#cudaTextureAddressMode	enum cudaTextureAddressMode		81
+nim	cudaFilterModePoint	texture_types.html#cudaFilterModePoint	cudaTextureFilterMode.cudaFilterModePoint		90
+nim	cudaFilterModeLinear	texture_types.html#cudaFilterModeLinear	cudaTextureFilterMode.cudaFilterModeLinear		90
+nim	cudaTextureFilterMode	texture_types.html#cudaTextureFilterMode	enum cudaTextureFilterMode		90
+nim	cudaReadModeElementType	texture_types.html#cudaReadModeElementType	cudaTextureReadMode.cudaReadModeElementType		97
+nim	cudaReadModeNormalizedFloat	texture_types.html#cudaReadModeNormalizedFloat	cudaTextureReadMode.cudaReadModeNormalizedFloat		97
+nim	cudaTextureReadMode	texture_types.html#cudaTextureReadMode	enum cudaTextureReadMode		97
+nim	cudaTextureDesc	texture_types.html#cudaTextureDesc	object cudaTextureDesc		104
+nim	cudaTextureObject_t	texture_types.html#cudaTextureObject_t	type cudaTextureObject_t		162

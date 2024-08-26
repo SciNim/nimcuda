@@ -1,0 +1,16 @@
+nimTitle	surface_types	surface_types.html	module nimcuda/surface_types		0
+nim	cudaSurfaceType1D	surface_types.html#cudaSurfaceType1D	const cudaSurfaceType1D		70
+nim	cudaSurfaceType2D	surface_types.html#cudaSurfaceType2D	const cudaSurfaceType2D		71
+nim	cudaSurfaceType3D	surface_types.html#cudaSurfaceType3D	const cudaSurfaceType3D		72
+nim	cudaSurfaceTypeCubemap	surface_types.html#cudaSurfaceTypeCubemap	const cudaSurfaceTypeCubemap		73
+nim	cudaSurfaceType1DLayered	surface_types.html#cudaSurfaceType1DLayered	const cudaSurfaceType1DLayered		74
+nim	cudaSurfaceType2DLayered	surface_types.html#cudaSurfaceType2DLayered	const cudaSurfaceType2DLayered		75
+nim	cudaSurfaceTypeCubemapLayered	surface_types.html#cudaSurfaceTypeCubemapLayered	const cudaSurfaceTypeCubemapLayered		76
+nim	cudaBoundaryModeZero	surface_types.html#cudaBoundaryModeZero	cudaSurfaceBoundaryMode.cudaBoundaryModeZero		81
+nim	cudaBoundaryModeClamp	surface_types.html#cudaBoundaryModeClamp	cudaSurfaceBoundaryMode.cudaBoundaryModeClamp		81
+nim	cudaBoundaryModeTrap	surface_types.html#cudaBoundaryModeTrap	cudaSurfaceBoundaryMode.cudaBoundaryModeTrap		81
+nim	cudaSurfaceBoundaryMode	surface_types.html#cudaSurfaceBoundaryMode	enum cudaSurfaceBoundaryMode		81
+nim	cudaFormatModeForced	surface_types.html#cudaFormatModeForced	cudaSurfaceFormatMode.cudaFormatModeForced		89
+nim	cudaFormatModeAuto	surface_types.html#cudaFormatModeAuto	cudaSurfaceFormatMode.cudaFormatModeAuto		89
+nim	cudaSurfaceFormatMode	surface_types.html#cudaSurfaceFormatMode	enum cudaSurfaceFormatMode		89
+nim	cudaSurfaceObject_t	surface_types.html#cudaSurfaceObject_t	type cudaSurfaceObject_t		96

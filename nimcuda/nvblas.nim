@@ -1,21 +1,17 @@
-{.deadCodeElim: on.}
 when defined(windows):
-  import os
-  {.passL: "\"" & os.getEnv("CUDA_PATH") / "lib/x64" / "nvblas.lib" & "\"".}
-  {.pragma: dyn.}
+  const
+    libName = "nvblas.dll"
 elif defined(macosx):
   const
     libName = "libnvblas.dylib"
-  {.pragma: dyn, dynlib: libName.}
 else:
   const
     libName = "libnvblas.so"
-  {.pragma: dyn, dynlib: libName.}
 import
   cuComplex
 
 ##
-##  Copyright 1993-2014 NVIDIA Corporation.  All rights reserved.
+##  Copyright 1993-2019 NVIDIA Corporation. All rights reserved.
 ##
 ##  NOTICE TO LICENSEE:
 ##
@@ -64,246 +60,244 @@ import
 ##
 
 when not defined(NVBLAS_H):
-  const
-    NVBLAS_H* = true
   ##  GEMM
   proc sgemm1*(transa: cstring; transb: cstring; m: ptr cint; n: ptr cint; k: ptr cint;
               alpha: ptr cfloat; a: ptr cfloat; lda: ptr cint; b: ptr cfloat; ldb: ptr cint;
               beta: ptr cfloat; c: ptr cfloat; ldc: ptr cint) {.cdecl, importc: "sgemm_",
-      dyn.}
+      dynlib: libName.}
   proc dgemm1*(transa: cstring; transb: cstring; m: ptr cint; n: ptr cint; k: ptr cint;
               alpha: ptr cdouble; a: ptr cdouble; lda: ptr cint; b: ptr cdouble;
               ldb: ptr cint; beta: ptr cdouble; c: ptr cdouble; ldc: ptr cint) {.cdecl,
-      importc: "dgemm_", dyn.}
+      importc: "dgemm_", dynlib: libName.}
   proc cgemm1*(transa: cstring; transb: cstring; m: ptr cint; n: ptr cint; k: ptr cint;
               alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint; b: ptr cuComplex;
               ldb: ptr cint; beta: ptr cuComplex; c: ptr cuComplex; ldc: ptr cint) {.cdecl,
-      importc: "cgemm_", dyn.}
+      importc: "cgemm_", dynlib: libName.}
   proc zgemm1*(transa: cstring; transb: cstring; m: ptr cint; n: ptr cint; k: ptr cint;
               alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
               b: ptr cuDoubleComplex; ldb: ptr cint; beta: ptr cuDoubleComplex;
               c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zgemm_",
-      dyn.}
+      dynlib: libName.}
   proc sgemm*(transa: cstring; transb: cstring; m: ptr cint; n: ptr cint; k: ptr cint;
              alpha: ptr cfloat; a: ptr cfloat; lda: ptr cint; b: ptr cfloat; ldb: ptr cint;
              beta: ptr cfloat; c: ptr cfloat; ldc: ptr cint) {.cdecl, importc: "sgemm",
-      dyn.}
+      dynlib: libName.}
   proc dgemm*(transa: cstring; transb: cstring; m: ptr cint; n: ptr cint; k: ptr cint;
              alpha: ptr cdouble; a: ptr cdouble; lda: ptr cint; b: ptr cdouble;
              ldb: ptr cint; beta: ptr cdouble; c: ptr cdouble; ldc: ptr cint) {.cdecl,
-      importc: "dgemm", dyn.}
+      importc: "dgemm", dynlib: libName.}
   proc cgemm*(transa: cstring; transb: cstring; m: ptr cint; n: ptr cint; k: ptr cint;
              alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint; b: ptr cuComplex;
              ldb: ptr cint; beta: ptr cuComplex; c: ptr cuComplex; ldc: ptr cint) {.cdecl,
-      importc: "cgemm", dyn.}
+      importc: "cgemm", dynlib: libName.}
   proc zgemm*(transa: cstring; transb: cstring; m: ptr cint; n: ptr cint; k: ptr cint;
              alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
              b: ptr cuDoubleComplex; ldb: ptr cint; beta: ptr cuDoubleComplex;
              c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zgemm",
-      dyn.}
+      dynlib: libName.}
   ##  SYRK
   proc ssyrk1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cfloat;
               a: ptr cfloat; lda: ptr cint; beta: ptr cfloat; c: ptr cfloat; ldc: ptr cint) {.
-      cdecl, importc: "ssyrk_", dyn.}
+      cdecl, importc: "ssyrk_", dynlib: libName.}
   proc dsyrk1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cdouble;
               a: ptr cdouble; lda: ptr cint; beta: ptr cdouble; c: ptr cdouble;
-              ldc: ptr cint) {.cdecl, importc: "dsyrk_", dyn.}
+              ldc: ptr cint) {.cdecl, importc: "dsyrk_", dynlib: libName.}
   proc csyrk1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
               alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint; beta: ptr cuComplex;
               c: ptr cuComplex; ldc: ptr cint) {.cdecl, importc: "csyrk_",
-      dyn.}
+      dynlib: libName.}
   proc zsyrk1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
               alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
               beta: ptr cuDoubleComplex; c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl,
-      importc: "zsyrk_", dyn.}
+      importc: "zsyrk_", dynlib: libName.}
   proc ssyrk*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cfloat;
              a: ptr cfloat; lda: ptr cint; beta: ptr cfloat; c: ptr cfloat; ldc: ptr cint) {.
-      cdecl, importc: "ssyrk", dyn.}
+      cdecl, importc: "ssyrk", dynlib: libName.}
   proc dsyrk*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cdouble;
              a: ptr cdouble; lda: ptr cint; beta: ptr cdouble; c: ptr cdouble; ldc: ptr cint) {.
-      cdecl, importc: "dsyrk", dyn.}
+      cdecl, importc: "dsyrk", dynlib: libName.}
   proc csyrk*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
              alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint; beta: ptr cuComplex;
-             c: ptr cuComplex; ldc: ptr cint) {.cdecl, importc: "csyrk", dyn.}
+             c: ptr cuComplex; ldc: ptr cint) {.cdecl, importc: "csyrk", dynlib: libName.}
   proc zsyrk*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
              alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
              beta: ptr cuDoubleComplex; c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl,
-      importc: "zsyrk", dyn.}
+      importc: "zsyrk", dynlib: libName.}
   ##  HERK
   proc cherk1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cfloat;
               a: ptr cuComplex; lda: ptr cint; beta: ptr cfloat; c: ptr cuComplex;
-              ldc: ptr cint) {.cdecl, importc: "cherk_", dyn.}
+              ldc: ptr cint) {.cdecl, importc: "cherk_", dynlib: libName.}
   proc zherk1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cdouble;
               a: ptr cuDoubleComplex; lda: ptr cint; beta: ptr cdouble;
               c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zherk_",
-      dyn.}
+      dynlib: libName.}
   proc cherk*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cfloat;
              a: ptr cuComplex; lda: ptr cint; beta: ptr cfloat; c: ptr cuComplex;
-             ldc: ptr cint) {.cdecl, importc: "cherk", dyn.}
+             ldc: ptr cint) {.cdecl, importc: "cherk", dynlib: libName.}
   proc zherk*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cdouble;
              a: ptr cuDoubleComplex; lda: ptr cint; beta: ptr cdouble;
              c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zherk",
-      dyn.}
+      dynlib: libName.}
   ##  TRSM
   proc strsm1*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
               n: ptr cint; alpha: ptr cfloat; a: ptr cfloat; lda: ptr cint; b: ptr cfloat;
-              ldb: ptr cint) {.cdecl, importc: "strsm_", dyn.}
+              ldb: ptr cint) {.cdecl, importc: "strsm_", dynlib: libName.}
   proc dtrsm1*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
               n: ptr cint; alpha: ptr cdouble; a: ptr cdouble; lda: ptr cint;
-              b: ptr cdouble; ldb: ptr cint) {.cdecl, importc: "dtrsm_", dyn.}
+              b: ptr cdouble; ldb: ptr cint) {.cdecl, importc: "dtrsm_", dynlib: libName.}
   proc ctrsm1*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
               n: ptr cint; alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint;
               b: ptr cuComplex; ldb: ptr cint) {.cdecl, importc: "ctrsm_",
-      dyn.}
+      dynlib: libName.}
   proc ztrsm1*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
               n: ptr cint; alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex;
               lda: ptr cint; b: ptr cuDoubleComplex; ldb: ptr cint) {.cdecl,
-      importc: "ztrsm_", dyn.}
+      importc: "ztrsm_", dynlib: libName.}
   proc strsm*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
              n: ptr cint; alpha: ptr cfloat; a: ptr cfloat; lda: ptr cint; b: ptr cfloat;
-             ldb: ptr cint) {.cdecl, importc: "strsm", dyn.}
+             ldb: ptr cint) {.cdecl, importc: "strsm", dynlib: libName.}
   proc dtrsm*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
              n: ptr cint; alpha: ptr cdouble; a: ptr cdouble; lda: ptr cint; b: ptr cdouble;
-             ldb: ptr cint) {.cdecl, importc: "dtrsm", dyn.}
+             ldb: ptr cint) {.cdecl, importc: "dtrsm", dynlib: libName.}
   proc ctrsm*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
              n: ptr cint; alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint;
-             b: ptr cuComplex; ldb: ptr cint) {.cdecl, importc: "ctrsm", dyn.}
+             b: ptr cuComplex; ldb: ptr cint) {.cdecl, importc: "ctrsm", dynlib: libName.}
   proc ztrsm*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
              n: ptr cint; alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex;
              lda: ptr cint; b: ptr cuDoubleComplex; ldb: ptr cint) {.cdecl,
-      importc: "ztrsm", dyn.}
+      importc: "ztrsm", dynlib: libName.}
   ##  SYMM
   proc ssymm1*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint; alpha: ptr cfloat;
               a: ptr cfloat; lda: ptr cint; b: ptr cfloat; ldb: ptr cint; beta: ptr cfloat;
-              c: ptr cfloat; ldc: ptr cint) {.cdecl, importc: "ssymm_", dyn.}
+              c: ptr cfloat; ldc: ptr cint) {.cdecl, importc: "ssymm_", dynlib: libName.}
   proc dsymm1*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint; alpha: ptr cdouble;
               a: ptr cdouble; lda: ptr cint; b: ptr cdouble; ldb: ptr cint;
               beta: ptr cdouble; c: ptr cdouble; ldc: ptr cint) {.cdecl,
-      importc: "dsymm_", dyn.}
+      importc: "dsymm_", dynlib: libName.}
   proc csymm1*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint;
               alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint; b: ptr cuComplex;
               ldb: ptr cint; beta: ptr cuComplex; c: ptr cuComplex; ldc: ptr cint) {.cdecl,
-      importc: "csymm_", dyn.}
+      importc: "csymm_", dynlib: libName.}
   proc zsymm1*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint;
               alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
               b: ptr cuDoubleComplex; ldb: ptr cint; beta: ptr cuDoubleComplex;
               c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zsymm_",
-      dyn.}
+      dynlib: libName.}
   proc ssymm*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint; alpha: ptr cfloat;
              a: ptr cfloat; lda: ptr cint; b: ptr cfloat; ldb: ptr cint; beta: ptr cfloat;
-             c: ptr cfloat; ldc: ptr cint) {.cdecl, importc: "ssymm", dyn.}
+             c: ptr cfloat; ldc: ptr cint) {.cdecl, importc: "ssymm", dynlib: libName.}
   proc dsymm*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint; alpha: ptr cdouble;
              a: ptr cdouble; lda: ptr cint; b: ptr cdouble; ldb: ptr cint;
              beta: ptr cdouble; c: ptr cdouble; ldc: ptr cint) {.cdecl, importc: "dsymm",
-      dyn.}
+      dynlib: libName.}
   proc csymm*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint; alpha: ptr cuComplex;
              a: ptr cuComplex; lda: ptr cint; b: ptr cuComplex; ldb: ptr cint;
              beta: ptr cuComplex; c: ptr cuComplex; ldc: ptr cint) {.cdecl,
-      importc: "csymm", dyn.}
+      importc: "csymm", dynlib: libName.}
   proc zsymm*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint;
              alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
              b: ptr cuDoubleComplex; ldb: ptr cint; beta: ptr cuDoubleComplex;
              c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zsymm",
-      dyn.}
+      dynlib: libName.}
   ##  HEMM
   proc chemm1*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint;
               alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint; b: ptr cuComplex;
               ldb: ptr cint; beta: ptr cuComplex; c: ptr cuComplex; ldc: ptr cint) {.cdecl,
-      importc: "chemm_", dyn.}
+      importc: "chemm_", dynlib: libName.}
   proc zhemm1*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint;
               alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
               b: ptr cuDoubleComplex; ldb: ptr cint; beta: ptr cuDoubleComplex;
               c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zhemm_",
-      dyn.}
+      dynlib: libName.}
   ##  HEMM with no underscore
   proc chemm*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint; alpha: ptr cuComplex;
              a: ptr cuComplex; lda: ptr cint; b: ptr cuComplex; ldb: ptr cint;
              beta: ptr cuComplex; c: ptr cuComplex; ldc: ptr cint) {.cdecl,
-      importc: "chemm", dyn.}
+      importc: "chemm", dynlib: libName.}
   proc zhemm*(side: cstring; uplo: cstring; m: ptr cint; n: ptr cint;
              alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
              b: ptr cuDoubleComplex; ldb: ptr cint; beta: ptr cuDoubleComplex;
              c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zhemm",
-      dyn.}
+      dynlib: libName.}
   ##  SYR2K
   proc ssyr2k1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cfloat;
                a: ptr cfloat; lda: ptr cint; b: ptr cfloat; ldb: ptr cint; beta: ptr cfloat;
-               c: ptr cfloat; ldc: ptr cint) {.cdecl, importc: "ssyr2k_", dyn.}
+               c: ptr cfloat; ldc: ptr cint) {.cdecl, importc: "ssyr2k_", dynlib: libName.}
   proc dsyr2k1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
                alpha: ptr cdouble; a: ptr cdouble; lda: ptr cint; b: ptr cdouble;
                ldb: ptr cint; beta: ptr cdouble; c: ptr cdouble; ldc: ptr cint) {.cdecl,
-      importc: "dsyr2k_", dyn.}
+      importc: "dsyr2k_", dynlib: libName.}
   proc csyr2k1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
                alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint; b: ptr cuComplex;
                ldb: ptr cint; beta: ptr cuComplex; c: ptr cuComplex; ldc: ptr cint) {.cdecl,
-      importc: "csyr2k_", dyn.}
+      importc: "csyr2k_", dynlib: libName.}
   proc zsyr2k1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
                alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
                b: ptr cuDoubleComplex; ldb: ptr cint; beta: ptr cuDoubleComplex;
                c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zsyr2k_",
-      dyn.}
+      dynlib: libName.}
   ##  SYR2K no_underscore
   proc ssyr2k*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cfloat;
               a: ptr cfloat; lda: ptr cint; b: ptr cfloat; ldb: ptr cint; beta: ptr cfloat;
-              c: ptr cfloat; ldc: ptr cint) {.cdecl, importc: "ssyr2k", dyn.}
+              c: ptr cfloat; ldc: ptr cint) {.cdecl, importc: "ssyr2k", dynlib: libName.}
   proc dsyr2k*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint; alpha: ptr cdouble;
               a: ptr cdouble; lda: ptr cint; b: ptr cdouble; ldb: ptr cint;
               beta: ptr cdouble; c: ptr cdouble; ldc: ptr cint) {.cdecl,
-      importc: "dsyr2k", dyn.}
+      importc: "dsyr2k", dynlib: libName.}
   proc csyr2k*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
               alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint; b: ptr cuComplex;
               ldb: ptr cint; beta: ptr cuComplex; c: ptr cuComplex; ldc: ptr cint) {.cdecl,
-      importc: "csyr2k", dyn.}
+      importc: "csyr2k", dynlib: libName.}
   proc zsyr2k*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
               alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
               b: ptr cuDoubleComplex; ldb: ptr cint; beta: ptr cuDoubleComplex;
               c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zsyr2k",
-      dyn.}
+      dynlib: libName.}
   ##  HERK
   proc cher2k1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
                alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint; b: ptr cuComplex;
                ldb: ptr cint; beta: ptr cfloat; c: ptr cuComplex; ldc: ptr cint) {.cdecl,
-      importc: "cher2k_", dyn.}
+      importc: "cher2k_", dynlib: libName.}
   proc zher2k1*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
                alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
                b: ptr cuDoubleComplex; ldb: ptr cint; beta: ptr cdouble;
                c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zher2k_",
-      dyn.}
+      dynlib: libName.}
   ##  HER2K with no underscore
   proc cher2k*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
               alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint; b: ptr cuComplex;
               ldb: ptr cint; beta: ptr cfloat; c: ptr cuComplex; ldc: ptr cint) {.cdecl,
-      importc: "cher2k", dyn.}
+      importc: "cher2k", dynlib: libName.}
   proc zher2k*(uplo: cstring; trans: cstring; n: ptr cint; k: ptr cint;
               alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex; lda: ptr cint;
               b: ptr cuDoubleComplex; ldb: ptr cint; beta: ptr cdouble;
               c: ptr cuDoubleComplex; ldc: ptr cint) {.cdecl, importc: "zher2k",
-      dyn.}
+      dynlib: libName.}
   ##  TRMM
   proc strmm1*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
               n: ptr cint; alpha: ptr cfloat; a: ptr cfloat; lda: ptr cint; b: ptr cfloat;
-              ldb: ptr cint) {.cdecl, importc: "strmm_", dyn.}
+              ldb: ptr cint) {.cdecl, importc: "strmm_", dynlib: libName.}
   proc dtrmm1*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
               n: ptr cint; alpha: ptr cdouble; a: ptr cdouble; lda: ptr cint;
-              b: ptr cdouble; ldb: ptr cint) {.cdecl, importc: "dtrmm_", dyn.}
+              b: ptr cdouble; ldb: ptr cint) {.cdecl, importc: "dtrmm_", dynlib: libName.}
   proc ctrmm1*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
               n: ptr cint; alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint;
               b: ptr cuComplex; ldb: ptr cint) {.cdecl, importc: "ctrmm_",
-      dyn.}
+      dynlib: libName.}
   proc ztrmm1*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
               n: ptr cint; alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex;
               lda: ptr cint; b: ptr cuDoubleComplex; ldb: ptr cint) {.cdecl,
-      importc: "ztrmm_", dyn.}
+      importc: "ztrmm_", dynlib: libName.}
   proc strmm*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
              n: ptr cint; alpha: ptr cfloat; a: ptr cfloat; lda: ptr cint; b: ptr cfloat;
-             ldb: ptr cint) {.cdecl, importc: "strmm", dyn.}
+             ldb: ptr cint) {.cdecl, importc: "strmm", dynlib: libName.}
   proc dtrmm*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
              n: ptr cint; alpha: ptr cdouble; a: ptr cdouble; lda: ptr cint; b: ptr cdouble;
-             ldb: ptr cint) {.cdecl, importc: "dtrmm", dyn.}
+             ldb: ptr cint) {.cdecl, importc: "dtrmm", dynlib: libName.}
   proc ctrmm*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
              n: ptr cint; alpha: ptr cuComplex; a: ptr cuComplex; lda: ptr cint;
-             b: ptr cuComplex; ldb: ptr cint) {.cdecl, importc: "ctrmm", dyn.}
+             b: ptr cuComplex; ldb: ptr cint) {.cdecl, importc: "ctrmm", dynlib: libName.}
   proc ztrmm*(side: cstring; uplo: cstring; transa: cstring; diag: cstring; m: ptr cint;
              n: ptr cint; alpha: ptr cuDoubleComplex; a: ptr cuDoubleComplex;
              lda: ptr cint; b: ptr cuDoubleComplex; ldb: ptr cint) {.cdecl,
-      importc: "ztrmm", dyn.}
+      importc: "ztrmm", dynlib: libName.}

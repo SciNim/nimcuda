@@ -10,7 +10,7 @@ skipDirs      = @["headers", "include", "c2nim", "examples", "htmldocs"]
 
 requires "nim >= 0.16.0"
 
-import os, strutils
+import os, strutils, pegs
 
 proc fExists(f: string): bool =
   when (NimMajor, NimMinor) < (1, 4):
@@ -18,11 +18,34 @@ proc fExists(f: string): bool =
   else:
     result = fileExists(f)
 
+func renameUint64(code: string): string =
+  ## C2nim has trouble with the `unsigned long long int` type.
+  ## This func replaces it with something that it can handle.
+  result = code.replace(peg"'unsigned long long' ' int'?", "culonglong")
+
+func renameInt64(code: string): string =
+  ## C2nim has trouble with the `unsigned long long int` type.
+  ## This func replaces it with something that it can handle.
+  result = code.replace("int64_t", "clonglong")
+
+func renameCuchar(code: string): string =
+  ## `cuchar` is depreciated.
+  ## This func replaces it.
+  result = code.replace("cuchar", "uint8")
+
+func rearrangeConstPtrTypeDefs(code: string): string =
+  ## C2nim has trouble with the a certain arrangement of `const*` typedefs.
+  ## This func replaces it with something that it can handle.
+  result = code.replacef(peg"'typedef struct ' {\ident} ' const* ' {\ident}[;]",
+                         "typedef const struct $1* $2;")
+
+
 proc patch(libName: string): string =
   when defined(windows):
     let libpath = getEnv("CUDA_PATH") / "include" / libName
   else:
-    let libpath = "/usr/local/cuda/include" / libName
+    let libpath = if libName == "cudnn_v9.h": "/usr/include/x86_64-linux-gnu" / libName
+                  else: "/usr/local/cuda/include" / libName
 
   let
     simpleLibPath = "include" / libName
@@ -32,7 +55,13 @@ proc patch(libName: string): string =
       if fExists(simpleLibPath): readFile(simpleLibPath)
       else: readFile(libPath) #.replace("#if defined(__cplusplus)", "#ifdef __cplusplus")
     patchContent = readFile(patchPath)
-  writeFile(outPath, patchContent & libContent)
+    unmodified = patchContent & libContent
+    modified = unmodified.renameUint64.renameInt64.renameCuchar.rearrangeConstPtrTypeDefs()
+  # typedef struct cusparseSpVecDescr const* cusparseConstSpVecDescr_t; c2nim doesnt understand
+  # typedef const struct cusparseSpVecDescr* cusparseConstSpVecDescr_t; c2nim does understand
+
+
+  writeFile(outPath, modified)
   return outPath
 
 proc process(libName: string) =
@@ -40,7 +69,7 @@ proc process(libName: string) =
     headerName = libName.addFileExt("h")
     outPath = "nimcuda" / libName.addFileExt("nim")
     headerPath = patch(headerName)
-  exec("c2nim " & headerPath & " -o:" & outPath)
+  exec("c2nim --debug --strict --prefix\"_\" --prefix\"__\" --suffix\"_\" --suffix\"__\" " & headerPath & " -o:" & outPath)
 
 proc compile(libName: string) =
   let libPath = "nimcuda" / libName.addFileExt("nim")
@@ -57,7 +86,7 @@ let libs = [
   "cuComplex",
   "cublas_api",
   "cublas_v2",
-  "cudnn",
+  "cudnn_v9",
   "cufft",
   "curand",
   "cusolver_common",
@@ -65,8 +94,8 @@ let libs = [
   "cusolverRf",
   "cusolverSp",
   "cusparse",
-  "nvblas",
-  "nvgraph"
+  "nvblas"
+  #"nvgraph" <- removed in cuda 11.0, adopted into cugraph
 ]
 
 proc processAll() =
@@ -74,6 +103,7 @@ proc processAll() =
   exec("mkdir -p headers")
   for lib in libs:
     process(lib)
+
   exec("rm headers/*")
 
 proc compileAll() =
@@ -84,7 +114,7 @@ proc compileAll() =
 task headers, "generate bindings from headers":
   processAll()
 
-task check, "check that generated bindings do compile":
+task checkcheck, "check that generated bindings do compile":
   compileAll()
 
 task docs, "generate documentation":
@@ -101,6 +131,7 @@ proc exampleConfig() =
     switch("clibdir", getenv("CUDA_PATH") / "lib/x64")
   else:
     --cincludes: "/usr/local/cuda/include"
+    --cincludes: "/usr/include/x86_64-linux-gnu/"
     --clibdir: "/usr/local/cuda/lib64"
   --path: "."
   --run

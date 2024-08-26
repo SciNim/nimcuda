@@ -1,23 +1,19 @@
-{.deadCodeElim: on.}
 when defined(windows):
-  import os
-  {.passL: "\"" & os.getEnv("CUDA_PATH") / "lib/x64" / "cufft.lib" & "\"".}
-  {.pragma: dyn.}
+  const
+    libName = "cufft.dll"
 elif defined(macosx):
   const
     libName = "libcufft.dylib"
-  {.pragma: dyn, dynlib: libName.}
 else:
   const
     libName = "libcufft.so"
-  {.pragma: dyn, dynlib: libName.}
 type
   cudaStream_t* = pointer
 
 import
   cuComplex, library_types
 
-##  Copyright 2005-2014 NVIDIA Corporation.  All rights reserved.
+##  Copyright 2005-2021 NVIDIA Corporation.  All rights reserved.
 ##
 ##  NOTICE TO LICENSEE:
 ##
@@ -69,23 +65,28 @@ import
 ##  \brief Public header file for the NVIDIA CUDA FFT library (CUFFT)
 ##
 
+const
+  CUFFT_VER_MAJOR* = 11
+  CUFFT_VER_MINOR* = 0
+  CUFFT_VER_PATCH* = 1
+  CUFFT_VER_BUILD* = 95
+  CUFFT_VERSION* = 11001
+
 ##  CUFFT API function return values
 
 type
   cufftResult* {.size: sizeof(cint).} = enum
-    CUFFT_SUCCESS = 0x00000000, CUFFT_INVALID_PLAN = 0x00000001,
-    CUFFT_ALLOC_FAILED = 0x00000002, CUFFT_INVALID_TYPE = 0x00000003,
-    CUFFT_INVALID_VALUE = 0x00000004, CUFFT_INTERNAL_ERROR = 0x00000005,
-    CUFFT_EXEC_FAILED = 0x00000006, CUFFT_SETUP_FAILED = 0x00000007,
-    CUFFT_INVALID_SIZE = 0x00000008, CUFFT_UNALIGNED_DATA = 0x00000009,
-    CUFFT_INCOMPLETE_PARAMETER_LIST = 0x0000000A,
-    CUFFT_INVALID_DEVICE = 0x0000000B, CUFFT_PARSE_ERROR = 0x0000000C,
-    CUFFT_NO_WORKSPACE = 0x0000000D, CUFFT_NOT_IMPLEMENTED = 0x0000000E,
-    CUFFT_LICENSE_ERROR = 0x0000000F, CUFFT_NOT_SUPPORTED = 0x00000010
+    CUFFT_SUCCESS = 0x0, CUFFT_INVALID_PLAN = 0x1, CUFFT_ALLOC_FAILED = 0x2,
+    CUFFT_INVALID_TYPE = 0x3, CUFFT_INVALID_VALUE = 0x4, CUFFT_INTERNAL_ERROR = 0x5,
+    CUFFT_EXEC_FAILED = 0x6, CUFFT_SETUP_FAILED = 0x7, CUFFT_INVALID_SIZE = 0x8,
+    CUFFT_UNALIGNED_DATA = 0x9, CUFFT_INCOMPLETE_PARAMETER_LIST = 0xA,
+    CUFFT_INVALID_DEVICE = 0xB, CUFFT_PARSE_ERROR = 0xC, CUFFT_NO_WORKSPACE = 0xD,
+    CUFFT_NOT_IMPLEMENTED = 0xE, CUFFT_LICENSE_ERROR = 0x0F,
+    CUFFT_NOT_SUPPORTED = 0x10
 
 
 const
-  MAX_CUFFT_ERROR* = 0x00000011
+  MAX_CUFFT_ERROR* = 0x11
 
 ##  CUFFT defines and supports the following data types
 ##  cufftReal is a single-precision, floating-point real data type.
@@ -106,25 +107,26 @@ type
 ##  CUFFT transform directions
 
 const
-  CUFFT_FORWARD* = - 1
+  CUFFT_FORWARD* = -1
   CUFFT_INVERSE* = 1
 
 ##  CUFFT supports the following transform types
 
 type
   cufftType* {.size: sizeof(cint).} = enum
-    CUFFT_C2C = 0x00000029,     ##  Complex to Complex, interleaved
-    CUFFT_R2C = 0x0000002A,     ##  Real to Complex (interleaved)
-    CUFFT_C2R = 0x0000002C,     ##  Complex (interleaved) to Real
-    CUFFT_Z2Z = 0x00000069, CUFFT_D2Z = 0x0000006A, ##  Double to Double-Complex
-    CUFFT_Z2D = 0x0000006C      ##  Double-Complex to Double
+    CUFFT_C2C = 0x29,           ##  Complex to Complex, interleaved
+    CUFFT_R2C = 0x2a,           ##  Real to Complex (interleaved)
+    CUFFT_C2R = 0x2c,           ##  Complex (interleaved) to Real
+    CUFFT_Z2Z = 0x69,           ##  Double-Complex to Double-Complex
+    CUFFT_D2Z = 0x6a,           ##  Double to Double-Complex
+    CUFFT_Z2D = 0x6c            ##  Double-Complex to Double
 
 
 ##  CUFFT supports the following data layouts
 
 type
   cufftCompatibility* {.size: sizeof(cint).} = enum
-    CUFFT_COMPATIBILITY_FFTW_PADDING = 0x00000001
+    CUFFT_COMPATIBILITY_FFTW_PADDING = 0x01 ##  The default value
 
 
 const
@@ -143,97 +145,96 @@ type
   cufftHandle* = cint
 
 proc cufftPlan1d*(plan: ptr cufftHandle; nx: cint; `type`: cufftType; batch: cint): cufftResult {.
-    cdecl, importc: "cufftPlan1d", dyn.}
+    cdecl, importc: "cufftPlan1d", dynlib: libName.}
 proc cufftPlan2d*(plan: ptr cufftHandle; nx: cint; ny: cint; `type`: cufftType): cufftResult {.
-    cdecl, importc: "cufftPlan2d", dyn.}
+    cdecl, importc: "cufftPlan2d", dynlib: libName.}
 proc cufftPlan3d*(plan: ptr cufftHandle; nx: cint; ny: cint; nz: cint; `type`: cufftType): cufftResult {.
-    cdecl, importc: "cufftPlan3d", dyn.}
+    cdecl, importc: "cufftPlan3d", dynlib: libName.}
 proc cufftPlanMany*(plan: ptr cufftHandle; rank: cint; n: ptr cint; inembed: ptr cint;
                    istride: cint; idist: cint; onembed: ptr cint; ostride: cint;
                    odist: cint; `type`: cufftType; batch: cint): cufftResult {.cdecl,
-    importc: "cufftPlanMany", dyn.}
+    importc: "cufftPlanMany", dynlib: libName.}
 proc cufftMakePlan1d*(plan: cufftHandle; nx: cint; `type`: cufftType; batch: cint;
-                     workSize: ptr csize): cufftResult {.cdecl,
-    importc: "cufftMakePlan1d", dyn.}
+                     workSize: ptr csize_t): cufftResult {.cdecl,
+    importc: "cufftMakePlan1d", dynlib: libName.}
 proc cufftMakePlan2d*(plan: cufftHandle; nx: cint; ny: cint; `type`: cufftType;
-                     workSize: ptr csize): cufftResult {.cdecl,
-    importc: "cufftMakePlan2d", dyn.}
+                     workSize: ptr csize_t): cufftResult {.cdecl,
+    importc: "cufftMakePlan2d", dynlib: libName.}
 proc cufftMakePlan3d*(plan: cufftHandle; nx: cint; ny: cint; nz: cint; `type`: cufftType;
-                     workSize: ptr csize): cufftResult {.cdecl,
-    importc: "cufftMakePlan3d", dyn.}
+                     workSize: ptr csize_t): cufftResult {.cdecl,
+    importc: "cufftMakePlan3d", dynlib: libName.}
 proc cufftMakePlanMany*(plan: cufftHandle; rank: cint; n: ptr cint; inembed: ptr cint;
                        istride: cint; idist: cint; onembed: ptr cint; ostride: cint;
                        odist: cint; `type`: cufftType; batch: cint;
-                       workSize: ptr csize): cufftResult {.cdecl,
-    importc: "cufftMakePlanMany", dyn.}
+                       workSize: ptr csize_t): cufftResult {.cdecl,
+    importc: "cufftMakePlanMany", dynlib: libName.}
 proc cufftMakePlanMany64*(plan: cufftHandle; rank: cint; n: ptr clonglong;
                          inembed: ptr clonglong; istride: clonglong;
                          idist: clonglong; onembed: ptr clonglong;
                          ostride: clonglong; odist: clonglong; `type`: cufftType;
-                         batch: clonglong; workSize: ptr csize): cufftResult {.cdecl,
-    importc: "cufftMakePlanMany64", dyn.}
+                         batch: clonglong; workSize: ptr csize_t): cufftResult {.
+    cdecl, importc: "cufftMakePlanMany64", dynlib: libName.}
 proc cufftGetSizeMany64*(plan: cufftHandle; rank: cint; n: ptr clonglong;
                         inembed: ptr clonglong; istride: clonglong; idist: clonglong;
                         onembed: ptr clonglong; ostride: clonglong; odist: clonglong;
-                        `type`: cufftType; batch: clonglong; workSize: ptr csize): cufftResult {.
-    cdecl, importc: "cufftGetSizeMany64", dyn.}
-proc cufftEstimate1d*(nx: cint; `type`: cufftType; batch: cint; workSize: ptr csize): cufftResult {.
-    cdecl, importc: "cufftEstimate1d", dyn.}
-proc cufftEstimate2d*(nx: cint; ny: cint; `type`: cufftType; workSize: ptr csize): cufftResult {.
-    cdecl, importc: "cufftEstimate2d", dyn.}
+                        `type`: cufftType; batch: clonglong; workSize: ptr csize_t): cufftResult {.
+    cdecl, importc: "cufftGetSizeMany64", dynlib: libName.}
+proc cufftEstimate1d*(nx: cint; `type`: cufftType; batch: cint; workSize: ptr csize_t): cufftResult {.
+    cdecl, importc: "cufftEstimate1d", dynlib: libName.}
+proc cufftEstimate2d*(nx: cint; ny: cint; `type`: cufftType; workSize: ptr csize_t): cufftResult {.
+    cdecl, importc: "cufftEstimate2d", dynlib: libName.}
 proc cufftEstimate3d*(nx: cint; ny: cint; nz: cint; `type`: cufftType;
-                     workSize: ptr csize): cufftResult {.cdecl,
-    importc: "cufftEstimate3d", dyn.}
+                     workSize: ptr csize_t): cufftResult {.cdecl,
+    importc: "cufftEstimate3d", dynlib: libName.}
 proc cufftEstimateMany*(rank: cint; n: ptr cint; inembed: ptr cint; istride: cint;
                        idist: cint; onembed: ptr cint; ostride: cint; odist: cint;
-                       `type`: cufftType; batch: cint; workSize: ptr csize): cufftResult {.
-    cdecl, importc: "cufftEstimateMany", dyn.}
+                       `type`: cufftType; batch: cint; workSize: ptr csize_t): cufftResult {.
+    cdecl, importc: "cufftEstimateMany", dynlib: libName.}
 proc cufftCreate*(handle: ptr cufftHandle): cufftResult {.cdecl,
-    importc: "cufftCreate", dyn.}
+    importc: "cufftCreate", dynlib: libName.}
 proc cufftGetSize1d*(handle: cufftHandle; nx: cint; `type`: cufftType; batch: cint;
-                    workSize: ptr csize): cufftResult {.cdecl,
-    importc: "cufftGetSize1d", dyn.}
+                    workSize: ptr csize_t): cufftResult {.cdecl,
+    importc: "cufftGetSize1d", dynlib: libName.}
 proc cufftGetSize2d*(handle: cufftHandle; nx: cint; ny: cint; `type`: cufftType;
-                    workSize: ptr csize): cufftResult {.cdecl,
-    importc: "cufftGetSize2d", dyn.}
+                    workSize: ptr csize_t): cufftResult {.cdecl,
+    importc: "cufftGetSize2d", dynlib: libName.}
 proc cufftGetSize3d*(handle: cufftHandle; nx: cint; ny: cint; nz: cint;
-                    `type`: cufftType; workSize: ptr csize): cufftResult {.cdecl,
-    importc: "cufftGetSize3d", dyn.}
+                    `type`: cufftType; workSize: ptr csize_t): cufftResult {.cdecl,
+    importc: "cufftGetSize3d", dynlib: libName.}
 proc cufftGetSizeMany*(handle: cufftHandle; rank: cint; n: ptr cint; inembed: ptr cint;
                       istride: cint; idist: cint; onembed: ptr cint; ostride: cint;
-                      odist: cint; `type`: cufftType; batch: cint; workArea: ptr csize): cufftResult {.
-    cdecl, importc: "cufftGetSizeMany", dyn.}
-proc cufftGetSize*(handle: cufftHandle; workSize: ptr csize): cufftResult {.cdecl,
-    importc: "cufftGetSize", dyn.}
+                      odist: cint; `type`: cufftType; batch: cint;
+                      workArea: ptr csize_t): cufftResult {.cdecl,
+    importc: "cufftGetSizeMany", dynlib: libName.}
+proc cufftGetSize*(handle: cufftHandle; workSize: ptr csize_t): cufftResult {.cdecl,
+    importc: "cufftGetSize", dynlib: libName.}
 proc cufftSetWorkArea*(plan: cufftHandle; workArea: pointer): cufftResult {.cdecl,
-    importc: "cufftSetWorkArea", dyn.}
+    importc: "cufftSetWorkArea", dynlib: libName.}
 proc cufftSetAutoAllocation*(plan: cufftHandle; autoAllocate: cint): cufftResult {.
-    cdecl, importc: "cufftSetAutoAllocation", dyn.}
+    cdecl, importc: "cufftSetAutoAllocation", dynlib: libName.}
 proc cufftExecC2C*(plan: cufftHandle; idata: ptr cufftComplex;
                   odata: ptr cufftComplex; direction: cint): cufftResult {.cdecl,
-    importc: "cufftExecC2C", dyn.}
+    importc: "cufftExecC2C", dynlib: libName.}
 proc cufftExecR2C*(plan: cufftHandle; idata: ptr cufftReal; odata: ptr cufftComplex): cufftResult {.
-    cdecl, importc: "cufftExecR2C", dyn.}
+    cdecl, importc: "cufftExecR2C", dynlib: libName.}
 proc cufftExecC2R*(plan: cufftHandle; idata: ptr cufftComplex; odata: ptr cufftReal): cufftResult {.
-    cdecl, importc: "cufftExecC2R", dyn.}
+    cdecl, importc: "cufftExecC2R", dynlib: libName.}
 proc cufftExecZ2Z*(plan: cufftHandle; idata: ptr cufftDoubleComplex;
                   odata: ptr cufftDoubleComplex; direction: cint): cufftResult {.
-    cdecl, importc: "cufftExecZ2Z", dyn.}
+    cdecl, importc: "cufftExecZ2Z", dynlib: libName.}
 proc cufftExecD2Z*(plan: cufftHandle; idata: ptr cufftDoubleReal;
                   odata: ptr cufftDoubleComplex): cufftResult {.cdecl,
-    importc: "cufftExecD2Z", dyn.}
+    importc: "cufftExecD2Z", dynlib: libName.}
 proc cufftExecZ2D*(plan: cufftHandle; idata: ptr cufftDoubleComplex;
                   odata: ptr cufftDoubleReal): cufftResult {.cdecl,
-    importc: "cufftExecZ2D", dyn.}
+    importc: "cufftExecZ2D", dynlib: libName.}
 ##  utility functions
 
 proc cufftSetStream*(plan: cufftHandle; stream: cudaStream_t): cufftResult {.cdecl,
-    importc: "cufftSetStream", dyn.}
-proc cufftSetCompatibilityMode*(plan: cufftHandle; mode: cufftCompatibility): cufftResult {.
-    cdecl, importc: "cufftSetCompatibilityMode", dyn.}
+    importc: "cufftSetStream", dynlib: libName.}
 proc cufftDestroy*(plan: cufftHandle): cufftResult {.cdecl, importc: "cufftDestroy",
-    dyn.}
+    dynlib: libName.}
 proc cufftGetVersion*(version: ptr cint): cufftResult {.cdecl,
-    importc: "cufftGetVersion", dyn.}
+    importc: "cufftGetVersion", dynlib: libName.}
 proc cufftGetProperty*(`type`: libraryPropertyType; value: ptr cint): cufftResult {.
-    cdecl, importc: "cufftGetProperty", dyn.}
+    cdecl, importc: "cufftGetProperty", dynlib: libName.}

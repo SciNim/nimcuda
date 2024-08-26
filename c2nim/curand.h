@@ -3,6 +3,8 @@
 
   #mangle CURAND_H_ CURAND_H
 
+  #assumedef __CUDACC_RTC__
+
   #dynlib libName
   #private libName
   #cdecl

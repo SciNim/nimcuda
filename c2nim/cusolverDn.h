@@ -3,6 +3,8 @@
 
   #def CUSOLVERAPI
 
+  #define CUSOLVER_DEPRECATED(new_func)
+
   #dynlib libName
   #private libName
   #cdecl
@@ -17,5 +19,6 @@
   #include "cuComplex.h"
   #include "cublas_api.h"
   #include "cusolver_common.h"
+  #include "library_types.h"
   #skipinclude
 #endif

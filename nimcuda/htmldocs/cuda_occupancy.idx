@@ -1,0 +1,55 @@
+nimTitle	cuda_occupancy	cuda_occupancy.html	module nimcuda/cuda_occupancy		0
+nim	CUDA_OCC_SUCCESS	cuda_occupancy.html#CUDA_OCC_SUCCESS	cudaOccError_enum.CUDA_OCC_SUCCESS		48
+nim	CUDA_OCC_ERROR_INVALID_INPUT	cuda_occupancy.html#CUDA_OCC_ERROR_INVALID_INPUT	cudaOccError_enum.CUDA_OCC_ERROR_INVALID_INPUT		48
+nim	CUDA_OCC_ERROR_UNKNOWN_DEVICE	cuda_occupancy.html#CUDA_OCC_ERROR_UNKNOWN_DEVICE	cudaOccError_enum.CUDA_OCC_ERROR_UNKNOWN_DEVICE		48
+nim	cudaOccError_enum	cuda_occupancy.html#cudaOccError_enum	enum cudaOccError_enum		48
+nim	cudaOccError	cuda_occupancy.html#cudaOccError	type cudaOccError		57
+nim	cudaOccDeviceProp	cuda_occupancy.html#cudaOccDeviceProp	object cudaOccDeviceProp		74
+nim	PARTITIONED_GC_OFF	cuda_occupancy.html#PARTITIONED_GC_OFF	cudaOccPartitionedGCConfig.PARTITIONED_GC_OFF		96
+nim	PARTITIONED_GC_ON	cuda_occupancy.html#PARTITIONED_GC_ON	cudaOccPartitionedGCConfig.PARTITIONED_GC_ON		96
+nim	PARTITIONED_GC_ON_STRICT	cuda_occupancy.html#PARTITIONED_GC_ON_STRICT	cudaOccPartitionedGCConfig.PARTITIONED_GC_ON_STRICT		96
+nim	cudaOccPartitionedGCConfig	cuda_occupancy.html#cudaOccPartitionedGCConfig	enum cudaOccPartitionedGCConfig		96
+nim	cudaOccFuncAttributes	cuda_occupancy.html#cudaOccFuncAttributes	object cudaOccFuncAttributes		109
+nim	CACHE_PREFER_NONE	cuda_occupancy.html#CACHE_PREFER_NONE	cudaOccCacheConfig.CACHE_PREFER_NONE		133
+nim	CACHE_PREFER_SHARED	cuda_occupancy.html#CACHE_PREFER_SHARED	cudaOccCacheConfig.CACHE_PREFER_SHARED		133
+nim	CACHE_PREFER_L1	cuda_occupancy.html#CACHE_PREFER_L1	cudaOccCacheConfig.CACHE_PREFER_L1		133
+nim	CACHE_PREFER_EQUAL	cuda_occupancy.html#CACHE_PREFER_EQUAL	cudaOccCacheConfig.CACHE_PREFER_EQUAL		133
+nim	cudaOccCacheConfig	cuda_occupancy.html#cudaOccCacheConfig	enum cudaOccCacheConfig		133
+nim	cudaOccDeviceState	cuda_occupancy.html#cudaOccDeviceState	object cudaOccDeviceState		147
+nim	OCC_LIMIT_WARPS	cuda_occupancy.html#OCC_LIMIT_WARPS	cudaOccLimitingFactor.OCC_LIMIT_WARPS		151
+nim	OCC_LIMIT_REGISTERS	cuda_occupancy.html#OCC_LIMIT_REGISTERS	cudaOccLimitingFactor.OCC_LIMIT_REGISTERS		151
+nim	OCC_LIMIT_SHARED_MEMORY	cuda_occupancy.html#OCC_LIMIT_SHARED_MEMORY	cudaOccLimitingFactor.OCC_LIMIT_SHARED_MEMORY		151
+nim	OCC_LIMIT_BLOCKS	cuda_occupancy.html#OCC_LIMIT_BLOCKS	cudaOccLimitingFactor.OCC_LIMIT_BLOCKS		151
+nim	cudaOccLimitingFactor	cuda_occupancy.html#cudaOccLimitingFactor	enum cudaOccLimitingFactor		151
+nim	cudaOccResult	cuda_occupancy.html#cudaOccResult	object cudaOccResult		165
+nim	PARTITIONED_GC_NOT_SUPPORTED	cuda_occupancy.html#PARTITIONED_GC_NOT_SUPPORTED	cudaOccPartitionedGCSupport.PARTITIONED_GC_NOT_SUPPORTED		194
+nim	PARTITIONED_GC_SUPPORTED	cuda_occupancy.html#PARTITIONED_GC_SUPPORTED	cudaOccPartitionedGCSupport.PARTITIONED_GC_SUPPORTED		194
+nim	PARTITIONED_GC_ALWAYS_ON	cuda_occupancy.html#PARTITIONED_GC_ALWAYS_ON	cudaOccPartitionedGCSupport.PARTITIONED_GC_ALWAYS_ON		194
+nim	cudaOccPartitionedGCSupport	cuda_occupancy.html#cudaOccPartitionedGCSupport	enum cudaOccPartitionedGCSupport		194
+nim	CUDA_OCC_MAJOR	cuda_occupancy.html#CUDA_OCC_MAJOR	const CUDA_OCC_MAJOR		332
+nim	CUDA_OCC_MINOR	cuda_occupancy.html#CUDA_OCC_MINOR	const CUDA_OCC_MINOR		333
+nim	occMin	cuda_occupancy.html#occMin,cint,cint	proc occMin(lhs: cint; rhs: cint): cint		339
+nim	occDivideRoundUp	cuda_occupancy.html#occDivideRoundUp,cint,cint	proc occDivideRoundUp(x: cint; y: cint): cint		342
+nim	occRoundUp	cuda_occupancy.html#occRoundUp,cint,cint	proc occRoundUp(x: cint; y: cint): cint		345
+nim	cudaOccSMemAllocationGranularity	cuda_occupancy.html#cudaOccSMemAllocationGranularity,ptr.cint,ptr.cudaOccDeviceProp	proc cudaOccSMemAllocationGranularity(limit: ptr cint;\n                                 properties: ptr cudaOccDeviceProp): cudaOccError		355
+nim	cudaOccRegAllocationGranularity	cuda_occupancy.html#cudaOccRegAllocationGranularity,ptr.cint,ptr.cudaOccDeviceProp,cint	proc cudaOccRegAllocationGranularity(limit: ptr cint;\n                                properties: ptr cudaOccDeviceProp;\n                                regsPerThread: cint): cudaOccError		373
+nim	cudaOccSubPartitionsPerMultiprocessor	cuda_occupancy.html#cudaOccSubPartitionsPerMultiprocessor,ptr.cint,ptr.cudaOccDeviceProp	proc cudaOccSubPartitionsPerMultiprocessor(limit: ptr cint;\n                                      properties: ptr cudaOccDeviceProp): cudaOccError		396
+nim	cudaOccMaxBlocksPerMultiprocessor	cuda_occupancy.html#cudaOccMaxBlocksPerMultiprocessor,ptr.cint,ptr.cudaOccDeviceProp	proc cudaOccMaxBlocksPerMultiprocessor(limit: ptr cint;\n                                  properties: ptr cudaOccDeviceProp): cudaOccError		415
+nim	cudaOccSMemPerMultiprocessor	cuda_occupancy.html#cudaOccSMemPerMultiprocessor,ptr.csize,ptr.cudaOccDeviceProp,cudaOccCacheConfig	proc cudaOccSMemPerMultiprocessor(limit: ptr csize;\n                             properties: ptr cudaOccDeviceProp;\n                             cacheConfig: cudaOccCacheConfig): cudaOccError		437
+nim	cudaOccPartitionedGlobalCachingModeSupport	cuda_occupancy.html#cudaOccPartitionedGlobalCachingModeSupport,ptr.cudaOccPartitionedGCSupport,ptr.cudaOccDeviceProp	proc cudaOccPartitionedGlobalCachingModeSupport(\n    limit: ptr cudaOccPartitionedGCSupport; properties: ptr cudaOccDeviceProp): cudaOccError		487
+nim	cudaOccDevicePropCheck	cuda_occupancy.html#cudaOccDevicePropCheck,ptr.cudaOccDeviceProp	proc cudaOccDevicePropCheck(properties: ptr cudaOccDeviceProp): cudaOccError		503
+nim	cudaOccFuncAttributesCheck	cuda_occupancy.html#cudaOccFuncAttributesCheck,ptr.cudaOccFuncAttributes	proc cudaOccFuncAttributesCheck(attributes: ptr cudaOccFuncAttributes): cudaOccError		519
+nim	cudaOccDeviceStateCheck	cuda_occupancy.html#cudaOccDeviceStateCheck,ptr.cudaOccDeviceState	proc cudaOccDeviceStateCheck(state: ptr cudaOccDeviceState): cudaOccError		530
+nim	cudaOccInputCheck	cuda_occupancy.html#cudaOccInputCheck,ptr.cudaOccDeviceProp,ptr.cudaOccFuncAttributes,ptr.cudaOccDeviceState	proc cudaOccInputCheck(properties: ptr cudaOccDeviceProp;\n                  attributes: ptr cudaOccFuncAttributes;\n                  state: ptr cudaOccDeviceState): cudaOccError		535
+nim	cudaOccPartitionedGCForced	cuda_occupancy.html#cudaOccPartitionedGCForced,ptr.cudaOccDeviceProp	proc cudaOccPartitionedGCForced(properties: ptr cudaOccDeviceProp): bool		554
+nim	cudaOccPartitionedGCExpected	cuda_occupancy.html#cudaOccPartitionedGCExpected,ptr.cudaOccDeviceProp,ptr.cudaOccFuncAttributes	proc cudaOccPartitionedGCExpected(properties: ptr cudaOccDeviceProp;\n                             attributes: ptr cudaOccFuncAttributes): cudaOccPartitionedGCConfig		559
+nim	cudaOccMaxBlocksPerSMWarpsLimit	cuda_occupancy.html#cudaOccMaxBlocksPerSMWarpsLimit,ptr.cint,cudaOccPartitionedGCConfig,ptr.cudaOccDeviceProp,ptr.cudaOccFuncAttributes,cint	proc cudaOccMaxBlocksPerSMWarpsLimit(limit: ptr cint;\n                                gcConfig: cudaOccPartitionedGCConfig;\n                                properties: ptr cudaOccDeviceProp;\n                                attributes: ptr cudaOccFuncAttributes;\n                                blockSize: cint): cudaOccError		575
+nim	cudaOccMaxBlocksPerSMSmemLimit	cuda_occupancy.html#cudaOccMaxBlocksPerSMSmemLimit,ptr.cint,ptr.cudaOccResult,ptr.cudaOccDeviceProp,ptr.cudaOccFuncAttributes,ptr.cudaOccDeviceState,cint,csize	proc cudaOccMaxBlocksPerSMSmemLimit(limit: ptr cint; res: ptr cudaOccResult;\n                               properties: ptr cudaOccDeviceProp;\n                               attributes: ptr cudaOccFuncAttributes;\n                               state: ptr cudaOccDeviceState; blockSize: cint;\n                               dynamicSmemSize: csize): cudaOccError		609
+nim	cudaOccMaxBlocksPerSMRegsLimit	cuda_occupancy.html#cudaOccMaxBlocksPerSMRegsLimit,ptr.cint,ptr.cudaOccPartitionedGCConfig,ptr.cudaOccResult,ptr.cudaOccDeviceProp,ptr.cudaOccFuncAttributes,cint	proc cudaOccMaxBlocksPerSMRegsLimit(limit: ptr cint;\n                               gcConfig: ptr cudaOccPartitionedGCConfig;\n                               res: ptr cudaOccResult;\n                               properties: ptr cudaOccDeviceProp;\n                               attributes: ptr cudaOccFuncAttributes;\n                               blockSize: cint): cudaOccError		651
+nim	cudaOccMaxActiveBlocksPerMultiprocessor	cuda_occupancy.html#cudaOccMaxActiveBlocksPerMultiprocessor,ptr.cudaOccResult,ptr.cudaOccDeviceProp,ptr.cudaOccFuncAttributes,ptr.cudaOccDeviceState,cint,csize	proc cudaOccMaxActiveBlocksPerMultiprocessor(res: ptr cudaOccResult;\n                                        properties: ptr cudaOccDeviceProp;\n                                        attributes: ptr cudaOccFuncAttributes;\n                                        state: ptr cudaOccDeviceState;\n                                        blockSize: cint; dynamicSmemSize: csize): cudaOccError		740
+nim	cudaOccMaxPotentialOccupancyBlockSize	cuda_occupancy.html#cudaOccMaxPotentialOccupancyBlockSize,ptr.cint,ptr.cint,ptr.cudaOccDeviceProp,ptr.cudaOccFuncAttributes,ptr.cudaOccDeviceState,proc(cint),csize	proc cudaOccMaxPotentialOccupancyBlockSize(minGridSize: ptr cint;\n                                      blockSize: ptr cint;\n                                      properties: ptr cudaOccDeviceProp;\n                                      attributes: ptr cudaOccFuncAttributes;\n                                      state: ptr cudaOccDeviceState;\n    blockSizeToDynamicSMemSize: proc (a2: cint): csize;\n                                      dynamicSMemSize: var csize): cudaOccError		804
+heading	Mathematical Helper Functions     //	cuda_occupancy.html#mathematical-helper-functions-slashslash	 Mathematical Helper Functions     //		0
+heading	Architectural Properties        //	cuda_occupancy.html#architectural-properties-slashslash	 Architectural Properties        //		0
+heading	User Input Sanity              //	cuda_occupancy.html#user-input-sanity-slashslash	 User Input Sanity              //		0
+heading	Occupancy calculation Functions        //	cuda_occupancy.html#occupancy-calculation-functions-slashslash	 Occupancy calculation Functions        //		0
+heading	API Implementations      //	cuda_occupancy.html#api-implementations-slashslash	 API Implementations      //		0

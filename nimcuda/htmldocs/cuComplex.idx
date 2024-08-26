@@ -1,0 +1,27 @@
+nimTitle	cuComplex	cuComplex.html	module nimcuda/cuComplex		0
+nim	cuFloatComplex	cuComplex.html#cuFloatComplex	type cuFloatComplex		71
+nim	cuCrealf	cuComplex.html#cuCrealf,float2	proc cuCrealf(x: cuFloatComplex): cfloat		72
+nim	cuCimagf	cuComplex.html#cuCimagf,float2	proc cuCimagf(x: cuFloatComplex): cfloat		75
+nim	make_cuFloatComplex	cuComplex.html#make_cuFloatComplex,cfloat,cfloat	proc make_cuFloatComplex(r: cfloat; i: cfloat): cuFloatComplex		78
+nim	cuConjf	cuComplex.html#cuConjf,float2	proc cuConjf(x: cuFloatComplex): cuFloatComplex		84
+nim	cuCaddf	cuComplex.html#cuCaddf,float2,float2	proc cuCaddf(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex		87
+nim	cuCsubf	cuComplex.html#cuCsubf,float2,float2	proc cuCsubf(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex		90
+nim	cuCmulf	cuComplex.html#cuCmulf,float2,float2	proc cuCmulf(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex		98
+nim	cuCdivf	cuComplex.html#cuCdivf,float2,float2	proc cuCdivf(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex		110
+nim	cuCabsf	cuComplex.html#cuCabsf,float2	proc cuCabsf(x: cuFloatComplex): cfloat		132
+nim	cuDoubleComplex	cuComplex.html#cuDoubleComplex	type cuDoubleComplex		156
+nim	cuCreal	cuComplex.html#cuCreal,double2	proc cuCreal(x: cuDoubleComplex): cdouble		157
+nim	cuCimag	cuComplex.html#cuCimag,double2	proc cuCimag(x: cuDoubleComplex): cdouble		160
+nim	make_cuDoubleComplex	cuComplex.html#make_cuDoubleComplex,cdouble,cdouble	proc make_cuDoubleComplex(r: cdouble; i: cdouble): cuDoubleComplex		163
+nim	cuConj	cuComplex.html#cuConj,double2	proc cuConj(x: cuDoubleComplex): cuDoubleComplex		169
+nim	cuCadd	cuComplex.html#cuCadd,double2,double2	proc cuCadd(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex		172
+nim	cuCsub	cuComplex.html#cuCsub,double2,double2	proc cuCsub(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex		175
+nim	cuCmul	cuComplex.html#cuCmul,double2,double2	proc cuCmul(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex		183
+nim	cuCdiv	cuComplex.html#cuCdiv,double2,double2	proc cuCdiv(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex		195
+nim	cuCabs	cuComplex.html#cuCabs,double2	proc cuCabs(x: cuDoubleComplex): cdouble		215
+nim	cuComplex	cuComplex.html#cuComplex	type cuComplex		239
+nim	make_cuComplex	cuComplex.html#make_cuComplex,cfloat,cfloat	proc make_cuComplex(x: cfloat; y: cfloat): cuComplex		240
+nim	cuComplexFloatToDouble	cuComplex.html#cuComplexFloatToDouble,float2	proc cuComplexFloatToDouble(c: cuFloatComplex): cuDoubleComplex		244
+nim	cuComplexDoubleToFloat	cuComplex.html#cuComplexDoubleToFloat,double2	proc cuComplexDoubleToFloat(c: cuDoubleComplex): cuFloatComplex		248
+nim	cuCfmaf	cuComplex.html#cuCfmaf,float2,float2,float2	proc cuCfmaf(x: cuComplex; y: cuComplex; d: cuComplex): cuComplex		251
+nim	cuCfma	cuComplex.html#cuCfma,double2,double2,double2	proc cuCfma(x: cuDoubleComplex; y: cuDoubleComplex; d: cuDoubleComplex): cuDoubleComplex		260

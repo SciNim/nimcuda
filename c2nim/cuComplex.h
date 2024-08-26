@@ -1,6 +1,9 @@
 #ifdef C2NIM
   #mangle CU_COMPLEX_H_ CU_COMPLEX_H
 
+  #assumedef __CUDACC_RTC__
+  #assumedef __CUDACC__
+
   #def __host__
   #def __device__
   #def __inline__
