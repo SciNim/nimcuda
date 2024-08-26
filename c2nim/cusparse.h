@@ -3,6 +3,8 @@
 
   #mangle cudaDataType_t cudaDataType
   #mangle CUSPARSE_H_ CUSPARSE_H
+  #mangle _MSC_VER MSC_VER
+  #mangle __cplusplus cplusplus
 
   // #prefix cusparse
   // #prefix cusparse_
@@ -17,6 +19,8 @@
   #else
   #  define libName "libcusparse.so"
   #endif
+
+  #define DISABLE_CUSPARSE_DEPRECATED
 
   typedef void* cudaStream_t;
 

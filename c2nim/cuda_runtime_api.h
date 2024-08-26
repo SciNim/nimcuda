@@ -5,7 +5,6 @@
   #assumendef __CUDA_API_VERSION_INTERNAL
   #assumedef __CUDACC_INTEGRATED__
   #assumendef CUDA_API_PER_THREAD_DEFAULT_STREAM
-  #assumedef __CUDACC_INTEGRATED__
 
   #def CUDARTAPI
   #def __host__

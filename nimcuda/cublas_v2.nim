@@ -1,12 +1,12 @@
-## 
-##  Copyright 1993-2014 NVIDIA Corporation.  All rights reserved.
-## 
+##
+##  Copyright 1993-2019 NVIDIA Corporation. All rights reserved.
+##
 ##  NOTICE TO LICENSEE:
-## 
+##
 ##  This source code and/or documentation ("Licensed Deliverables") are
 ##  subject to NVIDIA intellectual property rights under U.S. and
 ##  international Copyright laws.
-## 
+##
 ##  These Licensed Deliverables contained herein is PROPRIETARY and
 ##  CONFIDENTIAL to NVIDIA and is being provided under the terms and
 ##  conditions of a form of NVIDIA software license agreement by and
@@ -15,7 +15,7 @@
 ##  the contrary in the License Agreement, reproduction or disclosure
 ##  of the Licensed Deliverables to any third party without the express
 ##  written consent of NVIDIA is prohibited.
-## 
+##
 ##  NOTWITHSTANDING ANY TERMS OR CONDITIONS TO THE CONTRARY IN THE
 ##  LICENSE AGREEMENT, NVIDIA MAKES NO REPRESENTATION ABOUT THE
 ##  SUITABILITY OF THESE LICENSED DELIVERABLES FOR ANY PURPOSE.  IT IS
@@ -30,7 +30,7 @@
 ##  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
 ##  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 ##  OF THESE LICENSED DELIVERABLES.
-## 
+##
 ##  U.S. Government End Users.  These Licensed Deliverables are a
 ##  "commercial item" as that term is defined at 48 C.F.R. 2.101 (OCT
 ##  1995), consisting of "commercial computer software" and "commercial
@@ -40,20 +40,20 @@
 ##  48 C.F.R. 227.7202-1 through 227.7202-4 (JUNE 1995), all
 ##  U.S. Government End Users acquire the Licensed Deliverables with
 ##  only those rights set forth herein.
-## 
+##
 ##  Any use of the Licensed Deliverables in individual and commercial
 ##  software must include, in the user documentation and internal
 ##  comments to the code, the above Disclaimer and U.S. Government End
 ##  Users Notice.
-## 
-## 
-##  This is the public header file for the new CUBLAS library API, it mapped the generic 
+##
+##
+##  This is the public header file for the new CUBLAS library API, it mapped the generic
 ##  Cublas name functions to the actual _v2 implementations.
-## 
+##
 
 when not defined(CUBLAS_V2_H):
-  const
-    CUBLAS_V2_H* = true
+  when defined(CUBLAS_H):
+    discard
   import
     cublas_api
 
@@ -61,11 +61,13 @@ when not defined(CUBLAS_V2_H):
     cublasCreate* = cublasCreate_v2
     cublasDestroy* = cublasDestroy_v2
     cublasGetVersion* = cublasGetVersion_v2
+    cublasSetWorkspace* = cublasSetWorkspace_v2
     cublasSetStream* = cublasSetStream_v2
     cublasGetStream* = cublasGetStream_v2
     cublasGetPointerMode* = cublasGetPointerMode_v2
     cublasSetPointerMode* = cublasSetPointerMode_v2
-  ##  Blas3 Routines
+  ##  32-bit integer
+  ##  Blas1 Routines
   const
     cublasSnrm2* = cublasSnrm2_v2
     cublasDnrm2* = cublasDnrm2_v2
@@ -227,3 +229,166 @@ when not defined(CUBLAS_V2_H):
     cublasDtrmm* = cublasDtrmm_v2
     cublasCtrmm* = cublasCtrmm_v2
     cublasZtrmm* = cublasZtrmm_v2
+  ##  64-bit integer
+  ##  Blas1 Routines
+  const
+    cublasSnrm2_64* = cublasSnrm2_v2_64
+    cublasDnrm2_64* = cublasDnrm2_v2_64
+    cublasScnrm2_64* = cublasScnrm2_v2_64
+    cublasDznrm2_64* = cublasDznrm2_v2_64
+    cublasSdot_64* = cublasSdot_v2_64
+    cublasDdot_64* = cublasDdot_v2_64
+    cublasCdotu_64* = cublasCdotu_v2_64
+    cublasCdotc_64* = cublasCdotc_v2_64
+    cublasZdotu_64* = cublasZdotu_v2_64
+    cublasZdotc_64* = cublasZdotc_v2_64
+    cublasSscal_64* = cublasSscal_v2_64
+    cublasDscal_64* = cublasDscal_v2_64
+    cublasCscal_64* = cublasCscal_v2_64
+    cublasCsscal_64* = cublasCsscal_v2_64
+    cublasZscal_64* = cublasZscal_v2_64
+    cublasZdscal_64* = cublasZdscal_v2_64
+    cublasSaxpy_64* = cublasSaxpy_v2_64
+    cublasDaxpy_64* = cublasDaxpy_v2_64
+    cublasCaxpy_64* = cublasCaxpy_v2_64
+    cublasZaxpy_64* = cublasZaxpy_v2_64
+    cublasScopy_64* = cublasScopy_v2_64
+    cublasDcopy_64* = cublasDcopy_v2_64
+    cublasCcopy_64* = cublasCcopy_v2_64
+    cublasZcopy_64* = cublasZcopy_v2_64
+    cublasSswap_64* = cublasSswap_v2_64
+    cublasDswap_64* = cublasDswap_v2_64
+    cublasCswap_64* = cublasCswap_v2_64
+    cublasZswap_64* = cublasZswap_v2_64
+    cublasIsamax_64* = cublasIsamax_v2_64
+    cublasIdamax_64* = cublasIdamax_v2_64
+    cublasIcamax_64* = cublasIcamax_v2_64
+    cublasIzamax_64* = cublasIzamax_v2_64
+    cublasIsamin_64* = cublasIsamin_v2_64
+    cublasIdamin_64* = cublasIdamin_v2_64
+    cublasIcamin_64* = cublasIcamin_v2_64
+    cublasIzamin_64* = cublasIzamin_v2_64
+    cublasSasum_64* = cublasSasum_v2_64
+    cublasDasum_64* = cublasDasum_v2_64
+    cublasScasum_64* = cublasScasum_v2_64
+    cublasDzasum_64* = cublasDzasum_v2_64
+    cublasSrot_64* = cublasSrot_v2_64
+    cublasDrot_64* = cublasDrot_v2_64
+    cublasCrot_64* = cublasCrot_v2_64
+    cublasCsrot_64* = cublasCsrot_v2_64
+    cublasZrot_64* = cublasZrot_v2_64
+    cublasZdrot_64* = cublasZdrot_v2_64
+    #cublasSrotg_64* = cublasSrotg_v2_64
+    #cublasDrotg_64* = cublasDrotg_v2_64
+    #cublasCrotg_64* = cublasCrotg_v2_64
+    #cublasZrotg_64* = cublasZrotg_v2_64
+    cublasSrotm_64* = cublasSrotm_v2_64
+    cublasDrotm_64* = cublasDrotm_v2_64
+    #cublasSrotmg_64* = cublasSrotmg_v2_64
+    #cublasDrotmg_64* = cublasDrotmg_v2_64
+  ##  Blas2 Routines
+  const
+    cublasSgemv_64* = cublasSgemv_v2_64
+    cublasDgemv_64* = cublasDgemv_v2_64
+    cublasCgemv_64* = cublasCgemv_v2_64
+    cublasZgemv_64* = cublasZgemv_v2_64
+    cublasSgbmv_64* = cublasSgbmv_v2_64
+    cublasDgbmv_64* = cublasDgbmv_v2_64
+    cublasCgbmv_64* = cublasCgbmv_v2_64
+    cublasZgbmv_64* = cublasZgbmv_v2_64
+    cublasStrmv_64* = cublasStrmv_v2_64
+    cublasDtrmv_64* = cublasDtrmv_v2_64
+    cublasCtrmv_64* = cublasCtrmv_v2_64
+    cublasZtrmv_64* = cublasZtrmv_v2_64
+    cublasStbmv_64* = cublasStbmv_v2_64
+    cublasDtbmv_64* = cublasDtbmv_v2_64
+    cublasCtbmv_64* = cublasCtbmv_v2_64
+    cublasZtbmv_64* = cublasZtbmv_v2_64
+    cublasStpmv_64* = cublasStpmv_v2_64
+    cublasDtpmv_64* = cublasDtpmv_v2_64
+    cublasCtpmv_64* = cublasCtpmv_v2_64
+    cublasZtpmv_64* = cublasZtpmv_v2_64
+    cublasStrsv_64* = cublasStrsv_v2_64
+    cublasDtrsv_64* = cublasDtrsv_v2_64
+    cublasCtrsv_64* = cublasCtrsv_v2_64
+    cublasZtrsv_64* = cublasZtrsv_v2_64
+    cublasStpsv_64* = cublasStpsv_v2_64
+    cublasDtpsv_64* = cublasDtpsv_v2_64
+    cublasCtpsv_64* = cublasCtpsv_v2_64
+    cublasZtpsv_64* = cublasZtpsv_v2_64
+    cublasStbsv_64* = cublasStbsv_v2_64
+    cublasDtbsv_64* = cublasDtbsv_v2_64
+    cublasCtbsv_64* = cublasCtbsv_v2_64
+    cublasZtbsv_64* = cublasZtbsv_v2_64
+    cublasSsymv_64* = cublasSsymv_v2_64
+    cublasDsymv_64* = cublasDsymv_v2_64
+    cublasCsymv_64* = cublasCsymv_v2_64
+    cublasZsymv_64* = cublasZsymv_v2_64
+    cublasChemv_64* = cublasChemv_v2_64
+    cublasZhemv_64* = cublasZhemv_v2_64
+    cublasSsbmv_64* = cublasSsbmv_v2_64
+    cublasDsbmv_64* = cublasDsbmv_v2_64
+    cublasChbmv_64* = cublasChbmv_v2_64
+    cublasZhbmv_64* = cublasZhbmv_v2_64
+    cublasSspmv_64* = cublasSspmv_v2_64
+    cublasDspmv_64* = cublasDspmv_v2_64
+    cublasChpmv_64* = cublasChpmv_v2_64
+    cublasZhpmv_64* = cublasZhpmv_v2_64
+    cublasSger_64* = cublasSger_v2_64
+    cublasDger_64* = cublasDger_v2_64
+    cublasCgeru_64* = cublasCgeru_v2_64
+    cublasCgerc_64* = cublasCgerc_v2_64
+    cublasZgeru_64* = cublasZgeru_v2_64
+    cublasZgerc_64* = cublasZgerc_v2_64
+    cublasSsyr_64* = cublasSsyr_v2_64
+    cublasDsyr_64* = cublasDsyr_v2_64
+    cublasCsyr_64* = cublasCsyr_v2_64
+    cublasZsyr_64* = cublasZsyr_v2_64
+    cublasCher_64* = cublasCher_v2_64
+    cublasZher_64* = cublasZher_v2_64
+    cublasSspr_64* = cublasSspr_v2_64
+    cublasDspr_64* = cublasDspr_v2_64
+    cublasChpr_64* = cublasChpr_v2_64
+    cublasZhpr_64* = cublasZhpr_v2_64
+    cublasSsyr2_64* = cublasSsyr2_v2_64
+    cublasDsyr2_64* = cublasDsyr2_v2_64
+    cublasCsyr2_64* = cublasCsyr2_v2_64
+    cublasZsyr2_64* = cublasZsyr2_v2_64
+    cublasCher2_64* = cublasCher2_v2_64
+    cublasZher2_64* = cublasZher2_v2_64
+    cublasSspr2_64* = cublasSspr2_v2_64
+    cublasDspr2_64* = cublasDspr2_v2_64
+    cublasChpr2_64* = cublasChpr2_v2_64
+    cublasZhpr2_64* = cublasZhpr2_v2_64
+  ##  Blas3 Routines
+  const
+    cublasSgemm_64* = cublasSgemm_v2_64
+    cublasDgemm_64* = cublasDgemm_v2_64
+    cublasCgemm_64* = cublasCgemm_v2_64
+    cublasZgemm_64* = cublasZgemm_v2_64
+    cublasSsyrk_64* = cublasSsyrk_v2_64
+    cublasDsyrk_64* = cublasDsyrk_v2_64
+    cublasCsyrk_64* = cublasCsyrk_v2_64
+    cublasZsyrk_64* = cublasZsyrk_v2_64
+    cublasCherk_64* = cublasCherk_v2_64
+    cublasZherk_64* = cublasZherk_v2_64
+    cublasSsyr2k_64* = cublasSsyr2k_v2_64
+    cublasDsyr2k_64* = cublasDsyr2k_v2_64
+    cublasCsyr2k_64* = cublasCsyr2k_v2_64
+    cublasZsyr2k_64* = cublasZsyr2k_v2_64
+    cublasCher2k_64* = cublasCher2k_v2_64
+    cublasZher2k_64* = cublasZher2k_v2_64
+    cublasSsymm_64* = cublasSsymm_v2_64
+    cublasDsymm_64* = cublasDsymm_v2_64
+    cublasCsymm_64* = cublasCsymm_v2_64
+    cublasZsymm_64* = cublasZsymm_v2_64
+    cublasChemm_64* = cublasChemm_v2_64
+    cublasZhemm_64* = cublasZhemm_v2_64
+    cublasStrsm_64* = cublasStrsm_v2_64
+    cublasDtrsm_64* = cublasDtrsm_v2_64
+    cublasCtrsm_64* = cublasCtrsm_v2_64
+    cublasZtrsm_64* = cublasZtrsm_v2_64
+    cublasStrmm_64* = cublasStrmm_v2_64
+    cublasDtrmm_64* = cublasDtrmm_v2_64
+    cublasCtrmm_64* = cublasCtrmm_v2_64
+    cublasZtrmm_64* = cublasZtrmm_v2_64

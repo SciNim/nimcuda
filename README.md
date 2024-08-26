@@ -3,8 +3,8 @@
 Nim bindings for the [CUDA](https://developer.nvidia.com/cuda-toolkit)
 libraries. The versions currently in use are
 
-* CUDA 8.0
-* CuDNN 5.1
+* CUDA 12.0
+* CuDNN 9.3
 
 ## Status
 

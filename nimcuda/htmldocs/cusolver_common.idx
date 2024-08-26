@@ -1,0 +1,20 @@
+nimTitle	cusolver_common	cusolver_common.html	module nimcuda/cusolver_common		0
+nim	cusolver_int_t	cusolver_common.html#cusolver_int_t	type cusolver_int_t		69
+nim	CUSOLVER_VER_MAJOR	cusolver_common.html#CUSOLVER_VER_MAJOR	const CUSOLVER_VER_MAJOR		71
+nim	CUSOLVER_VER_MINOR	cusolver_common.html#CUSOLVER_VER_MINOR	const CUSOLVER_VER_MINOR		72
+nim	CUSOLVER_VER_PATCH	cusolver_common.html#CUSOLVER_VER_PATCH	const CUSOLVER_VER_PATCH		73
+nim	CUSOLVER_VER_BUILD	cusolver_common.html#CUSOLVER_VER_BUILD	const CUSOLVER_VER_BUILD		74
+nim	CUSOLVER_VERSION	cusolver_common.html#CUSOLVER_VERSION	const CUSOLVER_VERSION		75
+nim	cplusplus	cusolver_common.html#cplusplus	const cplusplus		85
+nim	cusolverStatus_t	cusolver_common.html#cusolverStatus_t	enum cusolverStatus_t		88
+nim	cusolverEigType_t	cusolver_common.html#cusolverEigType_t	enum cusolverEigType_t		109
+nim	cusolverEigMode_t	cusolver_common.html#cusolverEigMode_t	enum cusolverEigMode_t		111
+nim	cusolverEigRange_t	cusolver_common.html#cusolverEigRange_t	enum cusolverEigRange_t		113
+nim	cusolverNorm_t	cusolver_common.html#cusolverNorm_t	enum cusolverNorm_t		116
+nim	cusolverIRSRefinement_t	cusolver_common.html#cusolverIRSRefinement_t	enum cusolverIRSRefinement_t		119
+nim	cusolverPrecType_t	cusolver_common.html#cusolverPrecType_t	enum cusolverPrecType_t		126
+nim	cusolverAlgMode_t	cusolver_common.html#cusolverAlgMode_t	enum cusolverAlgMode_t		133
+nim	cusolverStorevMode_t	cusolver_common.html#cusolverStorevMode_t	enum cusolverStorevMode_t		136
+nim	cusolverDirectMode_t	cusolver_common.html#cusolverDirectMode_t	enum cusolverDirectMode_t		138
+nim	cusolverGetProperty	cusolver_common.html#cusolverGetProperty,libraryPropertyType,ptr.cint	proc cusolverGetProperty(type: libraryPropertyType; value: ptr cint): cusolverStatus_t		140
+nim	cusolverGetVersion	cusolver_common.html#cusolverGetVersion,ptr.cint	proc cusolverGetVersion(version: ptr cint): cusolverStatus_t		142
