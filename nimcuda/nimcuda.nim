@@ -17,7 +17,7 @@ import ./cublas_v2
 import ./cuComplex
 import ./cuda_occupancy
 import ./cuda_runtime_api
-import ./cudnn
+# import ./cudnn
 import ./cufft
 import ./curand
 import ./cusolver_common
@@ -28,7 +28,7 @@ import ./cusparse
 import ./driver_types
 import ./library_types
 import ./nvblas
-import ./nvgraph
+# import ./nvgraph
 import ./surface_types
 import ./texture_types
 import ./vector_types
@@ -79,12 +79,12 @@ template check*(a: curandStatus) =
   if y != CURAND_STATUS_SUCCESS:
     raise newException(CurandError, $y & " " & $int(y))
 
-template check*(a: cudnnStatus_t) =
-  let y = a # ensure we only evaluate once even if the expression has side effects
-  if y != CUDNN_STATUS_SUCCESS:
-    raise newException(CudnnError, $y & " " & $int(y))
+# template check*(a: cudnnStatus_t) =
+#   let y = a # ensure we only evaluate once even if the expression has side effects
+#   if y != CUDNN_STATUS_SUCCESS:
+#     raise newException(CudnnError, $y & " " & $int(y))
 
-template check*(a: nvgraphStatus_t) =
-  let y = a # ensure we only evaluate once even if the expression has side effects
-  if y != NVGRAPH_STATUS_SUCCESS:
-    raise newException(NVGraphError, $y & " " & $int(y))
+# template check*(a: nvgraphStatus_t) =
+#   let y = a # ensure we only evaluate once even if the expression has side effects
+#   if y != NVGRAPH_STATUS_SUCCESS:
+#     raise newException(NVGraphError, $y & " " & $int(y))

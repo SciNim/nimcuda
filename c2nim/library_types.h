@@ -1,3 +1,5 @@
 #ifdef C2NIM
-  #mangle __LIBRARY_TYPES_H__ LIBRARY_TYPES_H
+  #assumendef __LIBRARY_TYPES_H__
+
+  #assumendef __CUDACC_RTC_MINIMAL__
 #endif

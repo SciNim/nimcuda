@@ -1,10 +1,8 @@
 #ifdef C2NIM
   #def CUSPARSEAPI
 
-  #mangle cudaDataType_t cudaDataType
-  #mangle CUSPARSE_H_ CUSPARSE_H
-  #mangle _MSC_VER MSC_VER
-  #mangle __cplusplus cplusplus
+  #assumendef CUSPARSE_H_
+  #assumendef _MSC_VER
 
   // #prefix cusparse
   // #prefix cusparse_
@@ -22,9 +20,15 @@
 
   #define DISABLE_CUSPARSE_DEPRECATED
 
-  typedef void* cudaStream_t;
+  #def CUSPARSE_DEPRECATED_REPLACE_WITH(new_func)
+  #def CUSPARSE_DEPRECATED
+  #def CUSPARSE_DEPRECATED_TYPE
+  #def CUSPARSE_DEPRECATED_TYPE_MSVC
+  #def CUSPARSE_DEPRECATED_ENUM_REPLACE_WITH(new_enum)
+  #def CUSPARSE_DEPRECATED_ENUM
 
   #include "library_types.h"
+  #include "driver_types.h"
   #include "cuComplex.h"
   #skipinclude
 #endif

@@ -8,7 +8,7 @@ else:
   const
     libName = "libcusolver.so"
 import
-  cuComplex
+  cuComplex, driver_types
 
 ##
 ##  Copyright 2014 NVIDIA Corporation.  All rights reserved.
@@ -63,14 +63,12 @@ when not defined(CUSOLVERSP_H):
   import
     cusparse, cublas_v2, cusolver_common
 
-  discard "forward decl of cusolverSpContext"
+  type cusolverSpContext {.importc, nodecl.} = object
   type
-    #cusolverSpHandle_t* = ptr cusolverSpContext
-    cusolverSpHandle_t* = pointer
-  discard "forward decl of csrqrInfo"
+    cusolverSpHandle_t* = ptr cusolverSpContext
+  type csrqrInfo {.importc, nodecl.} = object
   type
-    #csrqrInfo_t* = ptr csrqrInfo
-    csrqrInfo_t* = pointer
+    csrqrInfo_t* = ptr csrqrInfo
   proc cusolverSpCreate*(handle: ptr cusolverSpHandle_t): cusolverStatus_t {.cdecl,
       importc: "cusolverSpCreate", dynlib: libName.}
   proc cusolverSpDestroy*(handle: cusolverSpHandle_t): cusolverStatus_t {.cdecl,

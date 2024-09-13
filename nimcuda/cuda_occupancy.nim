@@ -1,9 +1,54 @@
-##  typedef struct {} cudaOccResult;
-##  typedef struct {} cudaOccDeviceProp;
-##  typedef struct {} cudaOccFuncAttributes;
-##  typedef struct {} cudaOccDeviceState;
+import ./helpers
 
-## *
+##
+##  Copyright 1993-2017 NVIDIA Corporation.  All rights reserved.
+##
+##  NOTICE TO LICENSEE:
+##
+##  This source code and/or documentation ("Licensed Deliverables") are
+##  subject to NVIDIA intellectual property rights under U.S. and
+##  international Copyright laws.
+##
+##  These Licensed Deliverables contained herein is PROPRIETARY and
+##  CONFIDENTIAL to NVIDIA and is being provided under the terms and
+##  conditions of a form of NVIDIA software license agreement by and
+##  between NVIDIA and Licensee ("License Agreement") or electronically
+##  accepted by Licensee.  Notwithstanding any terms or conditions to
+##  the contrary in the License Agreement, reproduction or disclosure
+##  of the Licensed Deliverables to any third party without the express
+##  written consent of NVIDIA is prohibited.
+##
+##  NOTWITHSTANDING ANY TERMS OR CONDITIONS TO THE CONTRARY IN THE
+##  LICENSE AGREEMENT, NVIDIA MAKES NO REPRESENTATION ABOUT THE
+##  SUITABILITY OF THESE LICENSED DELIVERABLES FOR ANY PURPOSE.  IT IS
+##  PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED WARRANTY OF ANY KIND.
+##  NVIDIA DISCLAIMS ALL WARRANTIES WITH REGARD TO THESE LICENSED
+##  DELIVERABLES, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY,
+##  NONINFRINGEMENT, AND FITNESS FOR A PARTICULAR PURPOSE.
+##  NOTWITHSTANDING ANY TERMS OR CONDITIONS TO THE CONTRARY IN THE
+##  LICENSE AGREEMENT, IN NO EVENT SHALL NVIDIA BE LIABLE FOR ANY
+##  SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, OR ANY
+##  DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+##  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
+##  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
+##  OF THESE LICENSED DELIVERABLES.
+##
+##  U.S. Government End Users.  These Licensed Deliverables are a
+##  "commercial item" as that term is defined at 48 C.F.R. 2.101 (OCT
+##  1995), consisting of "commercial computer software" and "commercial
+##  computer software documentation" as such terms are used in 48
+##  C.F.R. 12.212 (SEPT 1995) and is provided to the U.S. Government
+##  only as a commercial end item.  Consistent with 48 C.F.R.12.212 and
+##  48 C.F.R. 227.7202-1 through 227.7202-4 (JUNE 1995), all
+##  U.S. Government End Users acquire the Licensed Deliverables with
+##  only those rights set forth herein.
+##
+##  Any use of the Licensed Deliverables in individual and commercial
+##  software must include, in the user documentation and internal
+##  comments to the code, the above Disclaimer and U.S. Government End
+##  Users Notice.
+##
+##
 ##  CUDA Occupancy Calculator
 ##
 ##  NAME
@@ -11,6 +56,7 @@
 ##    cudaOccMaxActiveBlocksPerMultiprocessor,
 ##    cudaOccMaxPotentialOccupancyBlockSize,
 ##    cudaOccMaxPotentialOccupancyBlockSizeVariableSMem
+##    cudaOccAvailableDynamicSMemPerBlock
 ##
 ##  DESCRIPTION
 ##
@@ -57,150 +103,7 @@ type
   cudaOccError* = cudaOccError_enum
 
 
-## *
-##  Data structures
 ##
-##  These structures are subject to change for future architecture and CUDA
-##  releases. C users should initialize the structure as {0}.
-##
-##
-## *
-##  Device descriptor
-##
-##  This structure describes a device.
-##
-
-type
-  cudaOccDeviceProp* = object
-    computeMajor*: cint        ##  Compute capability major version
-    computeMinor*: cint        ##  Compute capability minor
-                      ##  version. None supported minor version
-                      ##  may cause error
-    maxThreadsPerBlock*: cint  ##  Maximum number of threads per block
-    maxThreadsPerMultiprocessor*: cint ##  Maximum number of threads per SM
-                                     ##  i.e. (Max. number of warps) x (warp
-                                     ##  size)
-    regsPerBlock*: cint        ##  Maximum number of registers per block
-    regsPerMultiprocessor*: cint ##  Maximum number of registers per SM
-    warpSize*: cint            ##  Warp size
-    sharedMemPerBlock*: csize  ##  Maximum shared memory size per block
-    sharedMemPerMultiprocessor*: csize ##  Maximum shared memory size per SM
-    numSms*: cint              ##  Number of SMs available
-
-
-## *
-##  Partitioned global caching option
-##
-
-type
-  cudaOccPartitionedGCConfig* = enum
-    PARTITIONED_GC_OFF,       ##  Disable partitioned global caching
-    PARTITIONED_GC_ON,        ##  Prefer partitioned global caching
-    PARTITIONED_GC_ON_STRICT  ##  Force partitioned global caching
-
-
-## *
-##  Function descriptor
-##
-##  This structure describes a CUDA function.
-##
-
-type
-  cudaOccFuncAttributes* = object
-    maxThreadsPerBlock*: cint  ##  Maximum block size the function can work with. If
-                            ##  unlimited, use INT_MAX or any value greater than
-                            ##  or equal to maxThreadsPerBlock of the device
-    numRegs*: cint             ##  Number of registers used. When the function is
-                 ##  launched on device, the register count may change
-                 ##  due to internal tools requirements.
-    sharedSizeBytes*: csize    ##  Number of static shared memory used
-    partitionedGCConfig*: cudaOccPartitionedGCConfig ##  Partitioned global caching is required to enable
-                                                   ##  caching on certain chips, such as sm_52
-                                                   ##  devices. Partitioned global caching can be
-                                                   ##  automatically disabled if the occupancy
-                                                   ##  requirement of the launch cannot support caching.
-                                                   ##
-                                                   ##  To override this behavior with caching on and
-                                                   ##  calculate occupancy strictly according to the
-                                                   ##  preference, set partitionedGCConfig to
-                                                   ##  PARTITIONED_GC_ON_STRICT. This is especially
-                                                   ##  useful for experimenting and finding launch
-                                                   ##  configurations (MaxPotentialOccupancyBlockSize)
-                                                   ##  that allow global caching to take effect.
-                                                   ##
-                                                   ##  This flag only affects the occupancy calculation.
-
-  cudaOccCacheConfig* = enum
-    CACHE_PREFER_NONE = 0x00000000, ##  no preference for shared memory or L1 (default)
-    CACHE_PREFER_SHARED = 0x00000001, ##  prefer larger shared memory and smaller L1 cache
-    CACHE_PREFER_L1 = 0x00000002, ##  prefer larger L1 cache and smaller shared memory
-    CACHE_PREFER_EQUAL = 0x00000003
-
-
-## *
-##  Device state descriptor
-##
-##  This structure describes device settings that affect occupancy calculation.
-##
-
-type
-  cudaOccDeviceState* = object
-    cacheConfig*: cudaOccCacheConfig ##  Cache / L1 split preference. Ignored for
-                                   ##  sm1x/5x (Tesla/Maxwell)
-
-  cudaOccLimitingFactor* = enum
-    OCC_LIMIT_WARPS = 0x00000001, ##  - warps available
-    OCC_LIMIT_REGISTERS = 0x00000002, ##  - registers available
-    OCC_LIMIT_SHARED_MEMORY = 0x00000004, ##  - shared memory available
-    OCC_LIMIT_BLOCKS = 0x00000008
-
-
-## *
-##  Occupancy output
-##
-##  This structure contains occupancy calculator's output.
-##
-
-type
-  cudaOccResult* = object
-    activeBlocksPerMultiprocessor*: cint ##  Occupancy
-    limitingFactors*: cuint    ##  Factors that limited occupancy. A bit
-                          ##  field that counts the limiting
-                          ##  factors, see cudaOccLimitingFactor
-    blockLimitRegs*: cint      ##  Occupancy due to register
-                        ##  usage, INT_MAX if the kernel does not
-                        ##  use any register.
-    blockLimitSharedMem*: cint ##  Occupancy due to shared memory
-                             ##  usage, INT_MAX if the kernel does not
-                             ##  use shared memory.
-    blockLimitWarps*: cint     ##  Occupancy due to block size limit
-    blockLimitBlocks*: cint    ##  Occupancy due to maximum number of blocks
-                          ##  managable per SM
-    allocatedRegistersPerBlock*: cint ##  Actual number of registers allocated per
-                                    ##  block
-    allocatedSharedMemPerBlock*: csize ##  Actual size of shared memory allocated
-                                     ##  per block
-    partitionedGCConfig*: cudaOccPartitionedGCConfig ##  Report if partitioned global caching
-                                                   ##  is actually enabled.
-
-
-## *
-##  Partitioned global caching support
-##
-##  See cudaOccPartitionedGlobalCachingModeSupport
-##
-
-type
-  cudaOccPartitionedGCSupport* = enum
-    PARTITIONED_GC_NOT_SUPPORTED, ##  Partitioned global caching is not supported
-    PARTITIONED_GC_SUPPORTED, ##  Partitioned global caching is supported
-    PARTITIONED_GC_ALWAYS_ON  ##  This is only needed for Pascal. This, and
-                            ##  all references / explanations for this,
-                            ##  should be removed from the header before
-                            ##  exporting to toolkit.
-
-
-## *
 ##  The CUDA occupancy calculator computes the occupancy of the function
 ##  described by attributes with the given block size (blockSize), static device
 ##  properties (properties), dynamic device states (states) and per-block dynamic
@@ -223,9 +126,9 @@ type
 ##      current implementation or device is invalid
 ##
 
-# proc cudaOccMaxActiveBlocksPerMultiprocessor(result: ptr cudaOccResult;
+# proc cudaOccMaxActiveBlocksPerMultiprocessor*(result: ptr cudaOccResult;
 #     properties: ptr cudaOccDeviceProp; attributes: ptr cudaOccFuncAttributes;
-#     state: ptr cudaOccDeviceState; blockSize: cint; dynamicSmemSize: csize): cudaOccError {.
+#     state: ptr cudaOccDeviceState; blockSize: cint; dynamicSmemSize: csize_t): cudaOccError {.
 #     inline.}
 ##  out
 ##  in
@@ -233,7 +136,7 @@ type
 ##  in
 ##  in
 ##  in
-## *
+##
 ##  The CUDA launch configurator C API suggests a grid / block size pair (in
 ##  minGridSize and blockSize) that achieves the best potential occupancy
 ##  (i.e. maximum number of active warps with the smallest number of blocks) for
@@ -262,7 +165,7 @@ type
 ##  The suggested block size and the minimum number of blocks needed to achieve
 ##  the maximum occupancy are returned through blockSize and minGridSize.
 ##
-##  If `*blockSize` is 0, then the given combination cannot run on the device.
+##  If *blockSize is 0, then the given combination cannot run on the device.
 ##
 ##  ERRORS
 ##
@@ -272,10 +175,10 @@ type
 ##
 ##
 
-# proc cudaOccMaxPotentialOccupancyBlockSize(minGridSize: ptr cint;
+# proc cudaOccMaxPotentialOccupancyBlockSize*(minGridSize: ptr cint;
 #     blockSize: ptr cint; properties: ptr cudaOccDeviceProp;
 #     attributes: ptr cudaOccFuncAttributes; state: ptr cudaOccDeviceState;
-#     blockSizeToDynamicSMemSize: proc (a2: cint): csize; dynamicSMemSize: csize): cudaOccError {.
+#     blockSizeToDynamicSMemSize: proc (a1: cint): csize_t; dynamicSMemSize: csize_t): cudaOccError {.
 #     inline.}
 ##  out
 ##  out
@@ -284,7 +187,7 @@ type
 ##  in
 ##  in
 ##  in
-## *
+##
 ##  The CUDA launch configurator C++ API suggests a grid / block size pair (in
 ##  minGridSize and blockSize) that achieves the best potential occupancy
 ##  (i.e. the maximum number of active warps with the smallest number of blocks)
@@ -311,7 +214,7 @@ type
 ##  The suggested block size and the minimum number of blocks needed to achieve
 ##  the maximum occupancy are returned through blockSize and minGridSize.
 ##
-##  If `*blockSize` is 0, then the given combination cannot run on the device.
+##  If *blockSize is 0, then the given combination cannot run on the device.
 ##
 ##  ERRORS
 ##
@@ -321,20 +224,299 @@ type
 ##
 ##
 
-## *
+##
+##
+##  The CUDA dynamic shared memory calculator computes the maximum size of
+##  per-block dynamic shared memory if we want to place numBlocks blocks
+##  on an SM.
+##
+##  RETURN VALUE
+##
+##  Returns in *dynamicSmemSize the maximum size of dynamic shared memory to allow
+##  numBlocks blocks per SM.
+##
+##  ERRORS
+##
+##      CUDA_OCC_ERROR_INVALID_INPUT   input parameter is invalid.
+##      CUDA_OCC_ERROR_UNKNOWN_DEVICE  requested device is not supported in
+##      current implementation or device is invalid
+##
+##
+
+# proc cudaOccAvailableDynamicSMemPerBlock*(dynamicSmemSize: ptr csize_t;
+#     properties: ptr cudaOccDeviceProp; attributes: ptr cudaOccFuncAttributes;
+#     state: ptr cudaOccDeviceState; numBlocks: cint; blockSize: cint): cudaOccError {.
+#     inline.}
+##
+##  Data structures
+##
+##  These structures are subject to change for future architecture and CUDA
+##  releases. C users should initialize the structure as {0}.
+##
+##
+##
+##  Device descriptor
+##
+##  This structure describes a device.
+##
+
+type
+  cudaOccDeviceProp* {.bycopy.} = object
+    computeMajor*: cint
+    ##  Compute capability major version
+    computeMinor*: cint
+    ##  Compute capability minor
+    ##  version. None supported minor version
+    ##  may cause error
+    maxThreadsPerBlock*: cint
+    ##  Maximum number of threads per block
+    maxThreadsPerMultiprocessor*: cint
+    ##  Maximum number of threads per SM
+    ##  i.e. (Max. number of warps) x (warp
+    ##  size)
+    regsPerBlock*: cint
+    ##  Maximum number of registers per block
+    regsPerMultiprocessor*: cint
+    ##  Maximum number of registers per SM
+    warpSize*: cint
+    ##  Warp size
+    sharedMemPerBlock*: csize_t
+    ##  Maximum shared memory size per block
+    sharedMemPerMultiprocessor*: csize_t
+    ##  Maximum shared memory size per SM
+    numSms*: cint
+    ##  Number of SMs available
+    sharedMemPerBlockOptin*: csize_t
+    ##  Maximum optin shared memory size per block
+    reservedSharedMemPerBlock*: csize_t
+    ##  Shared memory per block reserved by driver
+    ##  #ifdef __cplusplus
+    ##  This structure can be converted from a cudaDeviceProp structure for users
+    ##  that use this header in their CUDA applications.
+    ##
+    ##  If the application have access to the CUDA Runtime API, the application
+    ##  can obtain the device properties of a CUDA device through
+    ##  cudaGetDeviceProperties, and initialize a cudaOccDeviceProp with the
+    ##  cudaDeviceProp structure.
+    ##
+    ##  Example:
+    ##
+    ##      {
+    ##          cudaDeviceProp prop;
+    ##
+    ##          cudaGetDeviceProperties(&prop, ...);
+    ##
+    ##          cudaOccDeviceProp occProp = prop;
+    ##
+    ##          ...
+    ##
+    ##          cudaOccMaxPotentialOccupancyBlockSize(..., &occProp, ...);
+    ##      }
+    ##
+    ##
+    ##  template<typename DeviceProp>
+    ##  __OCC_INLINE
+    ##  cudaOccDeviceProp(const DeviceProp &props)
+    ##  :   computeMajor                (props.major),
+    ##      computeMinor                (props.minor),
+    ##      maxThreadsPerBlock          (props.maxThreadsPerBlock),
+    ##      maxThreadsPerMultiprocessor (props.maxThreadsPerMultiProcessor),
+    ##      regsPerBlock                (props.regsPerBlock),
+    ##      regsPerMultiprocessor       (props.regsPerMultiprocessor),
+    ##      warpSize                    (props.warpSize),
+    ##      sharedMemPerBlock           (props.sharedMemPerBlock),
+    ##      sharedMemPerMultiprocessor  (props.sharedMemPerMultiprocessor),
+    ##      numSms                      (props.multiProcessorCount),
+    ##      sharedMemPerBlockOptin      (props.sharedMemPerBlockOptin),
+    ##      reservedSharedMemPerBlock   (props.reservedSharedMemPerBlock)
+    ##  {}
+    ##
+    ##  __OCC_INLINE
+    ##  cudaOccDeviceProp()
+    ##  :   computeMajor                (0),
+    ##      computeMinor                (0),
+    ##      maxThreadsPerBlock          (0),
+    ##      maxThreadsPerMultiprocessor (0),
+    ##      regsPerBlock                (0),
+    ##      regsPerMultiprocessor       (0),
+    ##      warpSize                    (0),
+    ##      sharedMemPerBlock           (0),
+    ##      sharedMemPerMultiprocessor  (0),
+    ##      numSms                      (0),
+    ##      sharedMemPerBlockOptin      (0),
+    ##      reservedSharedMemPerBlock   (0)
+    ##  {}
+    ##  #endif // __cplusplus
+
+
+##
+##  Partitioned global caching option
+##
+
+type
+  cudaOccPartitionedGCConfig* = enum
+    PARTITIONED_GC_OFF,       ##  Disable partitioned global caching
+    PARTITIONED_GC_ON,        ##  Prefer partitioned global caching
+    PARTITIONED_GC_ON_STRICT  ##  Force partitioned global caching
+
+
+##
+##  Per function opt in maximum dynamic shared memory limit
+##
+
+type
+  cudaOccFuncShmemConfig* = enum
+    FUNC_SHMEM_LIMIT_DEFAULT, ##  Default shmem limit
+    FUNC_SHMEM_LIMIT_OPTIN    ##  Use the optin shmem limit
+
+
+##
+##  Function descriptor
+##
+##  This structure describes a CUDA function.
+##
+
+type
+  cudaOccFuncAttributes* {.bycopy.} = object
+    maxThreadsPerBlock*: cint
+    ##  Maximum block size the function can work with. If
+    ##  unlimited, use INT_MAX or any value greater than
+    ##  or equal to maxThreadsPerBlock of the device
+    numRegs*: cint
+    ##  Number of registers used. When the function is
+    ##  launched on device, the register count may change
+    ##  due to internal tools requirements.
+    sharedSizeBytes*: csize_t
+    ##  Number of static shared memory used
+    partitionedGCConfig*: cudaOccPartitionedGCConfig
+    ##  Partitioned global caching is required to enable
+    ##  caching on certain chips, such as sm_52
+    ##  devices. Partitioned global caching can be
+    ##  automatically disabled if the occupancy
+    ##  requirement of the launch cannot support caching.
+    ##
+    ##  To override this behavior with caching on and
+    ##  calculate occupancy strictly according to the
+    ##  preference, set partitionedGCConfig to
+    ##  PARTITIONED_GC_ON_STRICT. This is especially
+    ##  useful for experimenting and finding launch
+    ##  configurations (MaxPotentialOccupancyBlockSize)
+    ##  that allow global caching to take effect.
+    ##
+    ##  This flag only affects the occupancy calculation.
+    shmemLimitConfig*: cudaOccFuncShmemConfig
+    ##  Certain chips like sm_70 allow a user to opt into
+    ##  a higher per block limit of dynamic shared memory
+    ##  This optin is performed on a per function basis
+    ##  using the cuFuncSetAttribute function
+    maxDynamicSharedSizeBytes*: csize_t
+    ##  User set limit on maximum dynamic shared memory
+    ##  usable by the kernel
+    ##  This limit is set using the cuFuncSetAttribute
+    ##  function.
+    numBlockBarriers*: cint
+    ##  Number of block barriers used (default to 1)
+
+  cudaOccCacheConfig* = enum
+    CACHE_PREFER_NONE = 0x00,   ##  no preference for shared memory or L1 (default)
+    CACHE_PREFER_SHARED = 0x01, ##  prefer larger shared memory and smaller L1 cache
+    CACHE_PREFER_L1 = 0x02,     ##  prefer larger L1 cache and smaller shared memory
+    CACHE_PREFER_EQUAL = 0x03   ##  prefer equal sized L1 cache and shared memory
+  cudaOccCarveoutConfig* = enum
+    SHAREDMEM_CARVEOUT_DEFAULT = -1, ##  no preference for shared memory or L1 (default)
+    SHAREDMEM_CARVEOUT_MAX_L1 = 0, ##  prefer maximum available L1 cache, minimum shared memory
+    SHAREDMEM_CARVEOUT_HALF = 50, ##  prefer half of maximum available shared memory, with the rest as L1 cache
+    SHAREDMEM_CARVEOUT_MAX_SHARED = 100 ##  prefer maximum available shared memory, minimum L1 cache
+
+
+
+##
+##  Device state descriptor
+##
+##  This structure describes device settings that affect occupancy calculation.
+##
+
+type
+  cudaOccDeviceState* {.bycopy.} = object
+    ##  Cache / shared memory split preference. Deprecated on Volta
+    cacheConfig*: cudaOccCacheConfig
+    ##  Shared memory / L1 split preference. Supported on only Volta
+    carveoutConfig*: cint
+
+  cudaOccLimitingFactor* = enum
+    OCC_LIMIT_WARPS = 0x01,     ##  - warps available
+    OCC_LIMIT_REGISTERS = 0x02, ##  - registers available
+    OCC_LIMIT_SHARED_MEMORY = 0x04, ##  - shared memory available
+    OCC_LIMIT_BLOCKS = 0x08,    ##  - blocks available
+    OCC_LIMIT_BARRIERS = 0x10   ##  - barrier available
+
+
+##
+##  Occupancy output
+##
+##  This structure contains occupancy calculator's output.
+##
+
+type
+  cudaOccResult* {.bycopy.} = object
+    activeBlocksPerMultiprocessor*: cint
+    ##  Occupancy
+    limitingFactors*: cuint
+    ##  Factors that limited occupancy. A bit
+    ##  field that counts the limiting
+    ##  factors, see cudaOccLimitingFactor
+    blockLimitRegs*: cint
+    ##  Occupancy due to register
+    ##  usage, INT_MAX if the kernel does not
+    ##  use any register.
+    blockLimitSharedMem*: cint
+    ##  Occupancy due to shared memory
+    ##  usage, INT_MAX if the kernel does not
+    ##  use shared memory.
+    blockLimitWarps*: cint
+    ##  Occupancy due to block size limit
+    blockLimitBlocks*: cint
+    ##  Occupancy due to maximum number of blocks
+    ##  managable per SM
+    blockLimitBarriers*: cint
+    ##  Occupancy due to block barrier usage
+    allocatedRegistersPerBlock*: cint
+    ##  Actual number of registers allocated per
+    ##  block
+    allocatedSharedMemPerBlock*: csize_t
+    ##  Actual size of shared memory allocated
+    ##  per block
+    partitionedGCConfig*: cudaOccPartitionedGCConfig
+    ##  Report if partitioned global caching
+    ##  is actually enabled.
+
+
+##
+##  Partitioned global caching support
+##
+##  See cudaOccPartitionedGlobalCachingModeSupport
+##
+
+type
+  cudaOccPartitionedGCSupport* = enum
+    PARTITIONED_GC_NOT_SUPPORTED, ##  Partitioned global caching is not supported
+    PARTITIONED_GC_SUPPORTED  ##  Partitioned global caching is supported
+
+
+##
 ##  Implementation
 ##
-## *
+##
 ##  Max compute capability supported
 ##
 
 const
-  CUDA_OCC_MAJOR* = 6
+  CUDA_OCC_MAJOR* = 9
   CUDA_OCC_MINOR* = 0
 
-## ////////////////////////////////////////
+## ///////////////////////////////////////
 ##     Mathematical Helper Functions     //
-## ////////////////////////////////////////
+## ///////////////////////////////////////
 
 proc occMin*(lhs: cint; rhs: cint): cint {.inline.} =
   return if rhs < lhs: rhs else: lhs
@@ -345,10 +527,10 @@ proc occDivideRoundUp*(x: cint; y: cint): cint {.inline.} =
 proc occRoundUp*(x: cint; y: cint): cint {.inline.} =
   return y * occDivideRoundUp(x, y)
 
-## ////////////////////////////////////////
+## ///////////////////////////////////////
 ##       Architectural Properties        //
-## ////////////////////////////////////////
-## *
+## ///////////////////////////////////////
+##
 ##  Granularity of shared memory allocation
 ##
 
@@ -357,39 +539,50 @@ proc cudaOccSMemAllocationGranularity*(limit: ptr cint;
     inline.} =
   var value: cint
   case properties.computeMajor
-  of 2:
+  of 3, 5, 6, 7:
+    value = 256
+  of 8, 9:
     value = 128
+  else:
+    return CUDA_OCC_ERROR_UNKNOWN_DEVICE
+  limit[] = value
+  return CUDA_OCC_SUCCESS
+
+##
+##  Maximum number of registers per thread
+##
+
+proc cudaOccRegAllocationMaxPerThread*(limit: ptr cint;
+                                      properties: ptr cudaOccDeviceProp): cudaOccError {.
+    inline.} =
+  var value: cint
+  case properties.computeMajor
   of 3, 5, 6:
+    value = 255
+  of 7, 8, 9:
     value = 256
   else:
     return CUDA_OCC_ERROR_UNKNOWN_DEVICE
   limit[] = value
   return CUDA_OCC_SUCCESS
 
-## *
+##
 ##  Granularity of register allocation
 ##
 
 proc cudaOccRegAllocationGranularity*(limit: ptr cint;
-                                     properties: ptr cudaOccDeviceProp;
-                                     regsPerThread: cint): cudaOccError {.inline.} =
+                                     properties: ptr cudaOccDeviceProp): cudaOccError {.
+    inline.} =
   var value: cint
   case properties.computeMajor
-  of 2:                        ##  Fermi+ allocates registers to warps
-      ##
-    case regsPerThread
-    of 21, 22, 29, 30, 37, 38, 45, 46:
-      value = 128
-    else:
-      value = 64
-  of 3, 5, 6:
+  of 3, 5, 6, 7, 8, 9:
     value = 256
   else:
     return CUDA_OCC_ERROR_UNKNOWN_DEVICE
   limit[] = value
   return CUDA_OCC_SUCCESS
 
-## *
+##
 ##  Number of sub-partitions
 ##
 
@@ -397,18 +590,16 @@ proc cudaOccSubPartitionsPerMultiprocessor*(limit: ptr cint;
     properties: ptr cudaOccDeviceProp): cudaOccError {.inline.} =
   var value: cint
   case properties.computeMajor
-  of 2:
-    value = 2
-  of 3, 5:
+  of 3, 5, 7, 8, 9:
     value = 4
   of 6:
-    value = 4
+    value = if properties.computeMinor: 4 else: 2
   else:
     return CUDA_OCC_ERROR_UNKNOWN_DEVICE
   limit[] = value
   return CUDA_OCC_SUCCESS
 
-## *
+##
 ##  Maximum number of blocks that can run simultaneously on a multiprocessor
 ##
 
@@ -417,51 +608,185 @@ proc cudaOccMaxBlocksPerMultiprocessor*(limit: ptr cint;
     inline.} =
   var value: cint
   case properties.computeMajor
-  of 2:
-    value = 8
   of 3:
     value = 16
-  of 5:
+  of 5, 6:
     value = 32
-  of 6:
+  of 7:
+    var isTuring: cint = properties.computeMinor == 5
+    value = if (isTuring): 16 else: 32
+  of 8:
+    if properties.computeMinor == 0:
+      value = 32
+    elif properties.computeMinor == 9:
+      value = 24
+    else:
+      value = 16
+  of 9:
     value = 32
   else:
     return CUDA_OCC_ERROR_UNKNOWN_DEVICE
   limit[] = value
   return CUDA_OCC_SUCCESS
 
-## *
-##  Shared memory based on config requested by User
+##
+##  Align up shared memory based on compute major configurations
 ##
 
-proc cudaOccSMemPerMultiprocessor*(limit: ptr csize;
-                                  properties: ptr cudaOccDeviceProp;
-                                  cacheConfig: cudaOccCacheConfig): cudaOccError {.
+proc cudaOccAlignUpShmemSizeVoltaPlus*(shMemSize: ptr csize_t;
+                                      properties: ptr cudaOccDeviceProp): cudaOccError {.
     inline.} =
-  var bytes: csize = 0
-  var sharedMemPerMultiprocessorHigh: csize = properties.sharedMemPerMultiprocessor
-  ##  Fermi and Kepler has shared L1 cache / shared memory, and support cache
+  ##  Volta and Turing have shared L1 cache / shared memory, and support cache
+  ##  configuration to trade one for the other. These values are needed to
+  ##  map carveout config ratio to the next available architecture size
+  var size: csize_t = shMemSize[]
+  case properties.computeMajor
+  of 7:
+    ##  Turing supports 32KB and 64KB shared mem.
+    var isTuring: cint = properties.computeMinor == 5
+    if isTuring:
+      if size <= 32 * 1024:
+        shMemSize[] = 32 * 1024
+      elif size <= 64 * 1024:
+        shMemSize[] = 64 * 1024
+      else:
+        return CUDA_OCC_ERROR_INVALID_INPUT
+    else:
+      if size == 0:
+        shMemSize[] = 0
+      elif size <= 8 * 1024:
+        shMemSize[] = 8 * 1024
+      elif size <= 16 * 1024:
+        shMemSize[] = 16 * 1024
+      elif size <= 32 * 1024:
+        shMemSize[] = 32 * 1024
+      elif size <= 64 * 1024:
+        shMemSize[] = 64 * 1024
+      elif size <= 96 * 1024:
+        shMemSize[] = 96 * 1024
+      else:
+        return CUDA_OCC_ERROR_INVALID_INPUT
+  of 8:
+    if properties.computeMinor == 0 or properties.computeMinor == 7:
+      if size == 0:
+        shMemSize[] = 0
+      elif size <= 8 * 1024:
+        shMemSize[] = 8 * 1024
+      elif size <= 16 * 1024:
+        shMemSize[] = 16 * 1024
+      elif size <= 32 * 1024:
+        shMemSize[] = 32 * 1024
+      elif size <= 64 * 1024:
+        shMemSize[] = 64 * 1024
+      elif size <= 100 * 1024:
+        shMemSize[] = 100 * 1024
+      elif size <= 132 * 1024:
+        shMemSize[] = 132 * 1024
+      elif size <= 164 * 1024:
+        shMemSize[] = 164 * 1024
+      else:
+        return CUDA_OCC_ERROR_INVALID_INPUT
+    else:
+      if size == 0:
+        shMemSize[] = 0
+      elif size <= 8 * 1024:
+        shMemSize[] = 8 * 1024
+      elif size <= 16 * 1024:
+        shMemSize[] = 16 * 1024
+      elif size <= 32 * 1024:
+        shMemSize[] = 32 * 1024
+      elif size <= 64 * 1024:
+        shMemSize[] = 64 * 1024
+      elif size <= 100 * 1024:
+        shMemSize[] = 100 * 1024
+      else:
+        return CUDA_OCC_ERROR_INVALID_INPUT
+  of 9:
+    if size == 0:
+      shMemSize[] = 0
+    elif size <= 8 * 1024:
+      shMemSize[] = 8 * 1024
+    elif size <= 16 * 1024:
+      shMemSize[] = 16 * 1024
+    elif size <= 32 * 1024:
+      shMemSize[] = 32 * 1024
+    elif size <= 64 * 1024:
+      shMemSize[] = 64 * 1024
+    elif size <= 100 * 1024:
+      shMemSize[] = 100 * 1024
+    elif size <= 132 * 1024:
+      shMemSize[] = 132 * 1024
+    elif size <= 164 * 1024:
+      shMemSize[] = 164 * 1024
+    elif size <= 196 * 1024:
+      shMemSize[] = 196 * 1024
+    elif size <= 228 * 1024:
+      shMemSize[] = 228 * 1024
+    else:
+      return CUDA_OCC_ERROR_INVALID_INPUT
+  else:
+    return CUDA_OCC_ERROR_UNKNOWN_DEVICE
+  return CUDA_OCC_SUCCESS
+
+##
+##  Shared memory based on the new carveoutConfig API introduced with Volta
+##
+
+proc cudaOccSMemPreferenceVoltaPlus*(limit: ptr csize_t;
+                                    properties: ptr cudaOccDeviceProp;
+                                    state: ptr cudaOccDeviceState): cudaOccError {.
+    inline.} =
+  var status: cudaOccError = CUDA_OCC_SUCCESS
+  var preferenceShmemSize: csize_t
+  ##  CUDA 9.0 introduces a new API to set shared memory - L1 configuration on supported
+  ##  devices. This preference will take precedence over the older cacheConfig setting.
+  ##  Map cacheConfig to its effective preference value.
+  var effectivePreference: cint = state.carveoutConfig
+  if (effectivePreference < SHAREDMEM_CARVEOUT_DEFAULT) or
+      (effectivePreference > SHAREDMEM_CARVEOUT_MAX_SHARED):
+    return CUDA_OCC_ERROR_INVALID_INPUT
+  if effectivePreference == SHAREDMEM_CARVEOUT_DEFAULT:
+    case state.cacheConfig
+    of CACHE_PREFER_L1:
+      effectivePreference = SHAREDMEM_CARVEOUT_MAX_L1
+    of CACHE_PREFER_SHARED:
+      effectivePreference = SHAREDMEM_CARVEOUT_MAX_SHARED
+    of CACHE_PREFER_EQUAL:
+      effectivePreference = SHAREDMEM_CARVEOUT_HALF
+    else:
+      effectivePreference = SHAREDMEM_CARVEOUT_DEFAULT
+  if effectivePreference == SHAREDMEM_CARVEOUT_DEFAULT:
+    preferenceShmemSize = properties.sharedMemPerMultiprocessor
+  else:
+    preferenceShmemSize = ((csize_t)(effectivePreference) *
+        properties.sharedMemPerMultiprocessor) div 100
+  status = cudaOccAlignUpShmemSizeVoltaPlus(addr(preferenceShmemSize), properties)
+  limit[] = preferenceShmemSize
+  return status
+
+##
+##  Shared memory based on the cacheConfig
+##
+
+proc cudaOccSMemPreference*(limit: ptr csize_t; properties: ptr cudaOccDeviceProp;
+                           state: ptr cudaOccDeviceState): cudaOccError {.inline.} =
+  var bytes: csize_t = 0
+  var sharedMemPerMultiprocessorHigh: csize_t = properties.sharedMemPerMultiprocessor
+  var cacheConfig: cudaOccCacheConfig = state.cacheConfig
+  ##  Kepler has shared L1 cache / shared memory, and support cache
   ##  configuration to trade one for the other. These values are needed to
   ##  calculate the correct shared memory size for user requested cache
   ##  configuration.
   ##
-  var minCacheSize: csize = 16384
-  var maxCacheSize: csize = 49152
-  var cacheAndSharedTotal: csize = sharedMemPerMultiprocessorHigh + minCacheSize
-  var sharedMemPerMultiprocessorLow: csize = cacheAndSharedTotal - maxCacheSize
+  var minCacheSize: csize_t = 16384
+  var maxCacheSize: csize_t = 49152
+  var cacheAndSharedTotal: csize_t = sharedMemPerMultiprocessorHigh + minCacheSize
+  var sharedMemPerMultiprocessorLow: csize_t = cacheAndSharedTotal - maxCacheSize
   case properties.computeMajor
-  of 2: ##  Fermi supports 48KB / 16KB or 16KB / 48KB partitions for shared /
-      ##  L1.
-      ##
-    case cacheConfig
-    of CACHE_PREFER_NONE, CACHE_PREFER_SHARED, CACHE_PREFER_EQUAL:
-      bytes = sharedMemPerMultiprocessorHigh
-    of CACHE_PREFER_L1:
-      bytes = sharedMemPerMultiprocessorLow
   of 3: ##  Kepler supports 16KB, 32KB, or 48KB partitions for L1. The rest
       ##  is shared memory.
       ##
-    case cacheConfig
+    case cacheConfig           ##  default :
     of CACHE_PREFER_NONE, CACHE_PREFER_SHARED:
       bytes = sharedMemPerMultiprocessorHigh
     of CACHE_PREFER_L1:
@@ -471,22 +796,65 @@ proc cudaOccSMemPerMultiprocessor*(limit: ptr csize;
                          ##
       bytes = (sharedMemPerMultiprocessorHigh + sharedMemPerMultiprocessorLow) div
           2
-  of 5, 6:
-    ##  Maxwell and Pascal have dedicated shared memory.
-    ##
+    else:
+      bytes = sharedMemPerMultiprocessorHigh
+  of 5, 6:                      ##  Maxwell and Pascal have dedicated shared memory.
+        ##
     bytes = sharedMemPerMultiprocessorHigh
   else:
     return CUDA_OCC_ERROR_UNKNOWN_DEVICE
   limit[] = bytes
   return CUDA_OCC_SUCCESS
 
-## *
+##
+##  Shared memory based on config requested by User
+##
+
+proc cudaOccSMemPerMultiprocessor*(limit: ptr csize_t;
+                                  properties: ptr cudaOccDeviceProp;
+                                  state: ptr cudaOccDeviceState): cudaOccError {.
+    inline, discardable.} =
+  ##  Volta introduces a new API that allows for shared memory carveout preference. Because it is a shared memory preference,
+  ##  it is handled separately from the cache config preference.
+  if properties.computeMajor >= 7:
+    return cudaOccSMemPreferenceVoltaPlus(limit, properties, state)
+  return cudaOccSMemPreference(limit, properties, state)
+
+##
+##  Return the per block shared memory limit based on function config
+##
+
+proc cudaOccSMemPerBlock*(limit: ptr csize_t; properties: ptr cudaOccDeviceProp;
+                         shmemLimitConfig: cudaOccFuncShmemConfig;
+                         smemPerCta: csize_t): cudaOccError {.inline.} =
+  case properties.computeMajor
+  of 2, 3, 4, 5, 6:
+    limit[] = properties.sharedMemPerBlock
+  of 7, 8, 9:
+    case shmemLimitConfig      ##  default:
+    of FUNC_SHMEM_LIMIT_DEFAULT:
+      limit[] = properties.sharedMemPerBlock
+    of FUNC_SHMEM_LIMIT_OPTIN:
+      if smemPerCta > properties.sharedMemPerBlock:
+        limit[] = properties.sharedMemPerBlockOptin
+      else:
+        limit[] = properties.sharedMemPerBlock
+    else:
+      limit[] = properties.sharedMemPerBlock
+  else:
+    return CUDA_OCC_ERROR_UNKNOWN_DEVICE
+  ##  Starting Ampere, CUDA driver reserves additional shared memory per block
+  if properties.computeMajor >= 8:
+    inc(limit[], properties.reservedSharedMemPerBlock)
+  return CUDA_OCC_SUCCESS
+
+##
 ##  Partitioned global caching mode support
 ##
 
 proc cudaOccPartitionedGlobalCachingModeSupport*(
     limit: ptr cudaOccPartitionedGCSupport; properties: ptr cudaOccDeviceProp): cudaOccError {.
-    inline.} =
+    inline, discardable.} =
   limit[] = PARTITIONED_GC_NOT_SUPPORTED
   if (properties.computeMajor == 5 and
       (properties.computeMinor == 2 or properties.computeMinor == 3)) or
@@ -496,9 +864,9 @@ proc cudaOccPartitionedGlobalCachingModeSupport*(
     limit[] = PARTITIONED_GC_NOT_SUPPORTED
   return CUDA_OCC_SUCCESS
 
-## /////////////////////////////////////////////
+## ////////////////////////////////////////////
 ##             User Input Sanity              //
-## /////////////////////////////////////////////
+## ////////////////////////////////////////////
 
 proc cudaOccDevicePropCheck*(properties: ptr cudaOccDeviceProp): cudaOccError {.
     inline.} =
@@ -528,6 +896,8 @@ proc cudaOccFuncAttributesCheck*(attributes: ptr cudaOccFuncAttributes): cudaOcc
   return CUDA_OCC_SUCCESS
 
 proc cudaOccDeviceStateCheck*(state: ptr cudaOccDeviceState): cudaOccError {.inline.} =
+  # cast[nil](state)
+  ##  silence unused-variable warning
   ##  Placeholder
   ##
   return CUDA_OCC_SUCCESS
@@ -547,26 +917,19 @@ proc cudaOccInputCheck*(properties: ptr cudaOccDeviceProp;
     return status
   return status
 
-## /////////////////////////////////////////////
+## ////////////////////////////////////////////
 ##     Occupancy calculation Functions        //
-## /////////////////////////////////////////////
-
-proc cudaOccPartitionedGCForced*(properties: ptr cudaOccDeviceProp): bool {.inline.} =
-  var gcSupport: cudaOccPartitionedGCSupport
-  discard cudaOccPartitionedGlobalCachingModeSupport(addr(gcSupport), properties)
-  return gcSupport == PARTITIONED_GC_ALWAYS_ON
+## ////////////////////////////////////////////
 
 proc cudaOccPartitionedGCExpected*(properties: ptr cudaOccDeviceProp;
                                   attributes: ptr cudaOccFuncAttributes): cudaOccPartitionedGCConfig {.
     inline.} =
   var gcSupport: cudaOccPartitionedGCSupport
   var gcConfig: cudaOccPartitionedGCConfig
-  discard cudaOccPartitionedGlobalCachingModeSupport(addr(gcSupport), properties)
+  cudaOccPartitionedGlobalCachingModeSupport(addr(gcSupport), properties)
   gcConfig = attributes.partitionedGCConfig
   if gcSupport == PARTITIONED_GC_NOT_SUPPORTED:
     gcConfig = PARTITIONED_GC_OFF
-  if cudaOccPartitionedGCForced(properties):
-    gcConfig = PARTITIONED_GC_ON
   return gcConfig
 
 ##  Warp limit
@@ -581,6 +944,8 @@ proc cudaOccMaxBlocksPerSMWarpsLimit*(limit: ptr cint;
   var maxWarpsPerSm: cint
   var warpsAllocatedPerCTA: cint
   var maxBlocks: cint
+  # cast[nil](attributes)
+  ##  silence unused-variable warning
   if blockSize > properties.maxThreadsPerBlock:
     maxBlocks = 0
   else:
@@ -606,51 +971,83 @@ proc cudaOccMaxBlocksPerSMWarpsLimit*(limit: ptr cint;
 ##  Shared memory limit
 ##
 
-proc cudaOccMaxBlocksPerSMSmemLimit*(limit: ptr cint; res: ptr cudaOccResult;
+proc cudaOccMaxBlocksPerSMSmemLimit*(limit: ptr cint; resultVar: ptr cudaOccResult;
                                     properties: ptr cudaOccDeviceProp;
                                     attributes: ptr cudaOccFuncAttributes;
                                     state: ptr cudaOccDeviceState; blockSize: cint;
-                                    dynamicSmemSize: csize): cudaOccError {.inline.} =
+                                    dynamicSmemSize: csize_t): cudaOccError {.
+    inline.} =
   var status: cudaOccError = CUDA_OCC_SUCCESS
   var allocationGranularity: cint
-  var userSmemPreference: csize
-  var totalSmemUsagePerCTA: csize
-  var smemAllocatedPerCTA: csize
-  var sharedMemPerMultiprocessor: csize
+  var userSmemPreference: csize_t = 0
+  var totalSmemUsagePerCTA: csize_t
+  var maxSmemUsagePerCTA: csize_t
+  var smemAllocatedPerCTA: csize_t
+  var staticSmemSize: csize_t
+  var sharedMemPerMultiprocessor: csize_t
+  var smemLimitPerCTA: csize_t
   var maxBlocks: cint
+  var dynamicSmemSizeExceeded: cint = 0
+  var totalSmemSizeExceeded: cint = 0
+  # cast[nil](blockSize)
+  ##  silence unused-variable warning
   status = cudaOccSMemAllocationGranularity(addr(allocationGranularity), properties)
   if status != CUDA_OCC_SUCCESS:
     return status
-  status = cudaOccSMemPerMultiprocessor(addr(userSmemPreference), properties,
-                                      state.cacheConfig)
+  status = cudaOccSMemPerMultiprocessor(addr(userSmemPreference), properties, state)
   if status != CUDA_OCC_SUCCESS:
     return status
-  totalSmemUsagePerCTA = attributes.sharedSizeBytes + dynamicSmemSize
-  smemAllocatedPerCTA = occRoundUp(cast[cint](totalSmemUsagePerCTA),
+  staticSmemSize = attributes.sharedSizeBytes +
+      properties.reservedSharedMemPerBlock
+  totalSmemUsagePerCTA = staticSmemSize + dynamicSmemSize
+  smemAllocatedPerCTA = csize_t occRoundUp(cast[cint](totalSmemUsagePerCTA),
                                  cast[cint](allocationGranularity))
-  if smemAllocatedPerCTA > properties.sharedMemPerBlock:
+  maxSmemUsagePerCTA = staticSmemSize + attributes.maxDynamicSharedSizeBytes
+  dynamicSmemSizeExceeded = 0
+  totalSmemSizeExceeded = 0
+  ##  Obtain the user set maximum dynamic size if it exists
+  ##  If so, the current launch dynamic shared memory must not
+  ##  exceed the set limit
+  if attributes.shmemLimitConfig != FUNC_SHMEM_LIMIT_DEFAULT and
+      dynamicSmemSize > attributes.maxDynamicSharedSizeBytes:
+    dynamicSmemSizeExceeded = 1
+  status = cudaOccSMemPerBlock(addr(smemLimitPerCTA), properties,
+                             attributes.shmemLimitConfig, maxSmemUsagePerCTA)
+  if status != CUDA_OCC_SUCCESS:
+    return status
+  if smemAllocatedPerCTA > smemLimitPerCTA:
+    totalSmemSizeExceeded = 1
+  if dynamicSmemSizeExceeded or totalSmemSizeExceeded:
     maxBlocks = 0
   else:
     ##  User requested shared memory limit is used as long as it is greater
     ##  than the total shared memory used per CTA, i.e. as long as at least
-    ##  one CTA can be launched. Otherwise, the maximum shared memory limit
-    ##  is used instead.
-    ##
+    ##  one CTA can be launched.
     if userSmemPreference >= smemAllocatedPerCTA:
       sharedMemPerMultiprocessor = userSmemPreference
     else:
-      sharedMemPerMultiprocessor = properties.sharedMemPerMultiprocessor
+      ##  On Volta+, user requested shared memory will limit occupancy
+      ##  if it's less than shared memory per CTA. Otherwise, the
+      ##  maximum shared memory limit is used.
+      if properties.computeMajor >= 7:
+        sharedMemPerMultiprocessor = smemAllocatedPerCTA
+        status = cudaOccAlignUpShmemSizeVoltaPlus(
+            addr(sharedMemPerMultiprocessor), properties)
+        if status != CUDA_OCC_SUCCESS:
+          return status
+      else:
+        sharedMemPerMultiprocessor = properties.sharedMemPerMultiprocessor
     if smemAllocatedPerCTA > 0:
       maxBlocks = (cint)(sharedMemPerMultiprocessor div smemAllocatedPerCTA)
     else:
-      maxBlocks = high(cint)
-  res.allocatedSharedMemPerBlock = smemAllocatedPerCTA
+      maxBlocks = cint.high
+  resultVar.allocatedSharedMemPerBlock = smemAllocatedPerCTA
   limit[] = maxBlocks
   return status
 
 proc cudaOccMaxBlocksPerSMRegsLimit*(limit: ptr cint;
                                     gcConfig: ptr cudaOccPartitionedGCConfig;
-                                    res: ptr cudaOccResult;
+                                    resultVar: ptr cudaOccResult;
                                     properties: ptr cudaOccDeviceProp;
                                     attributes: ptr cudaOccFuncAttributes;
                                     blockSize: cint): cudaOccError {.inline.} =
@@ -666,9 +1063,11 @@ proc cudaOccMaxBlocksPerSMRegsLimit*(limit: ptr cint;
   var numWarpsPerSubPartition: cint
   var numWarpsPerSM: cint
   var maxBlocks: cint
-  status = cudaOccRegAllocationGranularity(addr(allocationGranularity), properties,
-      attributes.numRegs)
-  ##  Fermi requires special handling of certain register usage
+  var maxRegsPerThread: cint
+  status = cudaOccRegAllocationGranularity(addr(allocationGranularity), properties)
+  if status != CUDA_OCC_SUCCESS:
+    return status
+  status = cudaOccRegAllocationMaxPerThread(addr(maxRegsPerThread), properties)
   if status != CUDA_OCC_SUCCESS:
     return status
   status = cudaOccSubPartitionsPerMultiprocessor(addr(numSubPartitions), properties)
@@ -692,8 +1091,10 @@ proc cudaOccMaxBlocksPerSMRegsLimit*(limit: ptr cint;
   regsAssumedPerCTA = regsAllocatedPerWarp *
       occRoundUp(warpsAllocatedPerCTA, numSubPartitions)
   if properties.regsPerBlock < regsAssumedPerCTA or
-      properties.regsPerBlock < regsAllocatedPerCTA: ##  Hardware check
-    ##  Software check
+      properties.regsPerBlock < regsAllocatedPerCTA or
+      attributes.numRegs > maxRegsPerThread: ##  Software check
+  ##  Hardware check
+    ##  Per thread limit check
     maxBlocks = 0
   else:
     if regsAllocatedPerWarp > 0:
@@ -719,52 +1120,79 @@ proc cudaOccMaxBlocksPerSMRegsLimit*(limit: ptr cint;
         maxBlocksPerSmPartition = numWarpsPerSmPartition div
             warpsAllocatedPerCTA
         maxBlocks = maxBlocksPerSmPartition * 2
-      var gcOff = (gcConfig[] == PARTITIONED_GC_OFF)
-      var zeroOccupancy = (maxBlocks == 0)
-      var cachingForced = (gcConfig[] == PARTITIONED_GC_ON_STRICT or
-          cudaOccPartitionedGCForced(properties))
-      if gcOff or (zeroOccupancy and (not cachingForced)):
+      if maxBlocks == 0 and gcConfig[] != PARTITIONED_GC_ON_STRICT:
+        ##  In case *gcConfig was PARTITIONED_GC_ON flip it OFF since
+        ##  this is what it will be if we spread CTA across partitions.
+        ##
         gcConfig[] = PARTITIONED_GC_OFF
         numWarpsPerSM = numWarpsPerSubPartition * numSubPartitions
         maxBlocks = numWarpsPerSM div warpsAllocatedPerCTA
     else:
-      maxBlocks = high(cint)
-  res.allocatedRegistersPerBlock = regsAllocatedPerCTA
+      maxBlocks = cint.high
+  resultVar.allocatedRegistersPerBlock = regsAllocatedPerCTA
   limit[] = maxBlocks
   return status
 
-## /////////////////////////////////
-##       API Implementations      //
-## /////////////////////////////////
+##  Barrier limit
+##
 
-proc cudaOccMaxActiveBlocksPerMultiprocessor*(res: ptr cudaOccResult;
+proc cudaOccMaxBlocksPerSMBlockBarrierLimit*(limit: ptr cint; ctaLimitBlocks: cint;
+    attributes: ptr cudaOccFuncAttributes): cudaOccError {.inline.} =
+  var status: cudaOccError = CUDA_OCC_SUCCESS
+  var numBarriersAvailable: cint = ctaLimitBlocks * 2
+  var numBarriersUsed: cint = attributes.numBlockBarriers
+  var maxBlocks: cint = cint.high
+  if numBarriersUsed:
+    maxBlocks = numBarriersAvailable div numBarriersUsed
+  limit[] = maxBlocks
+  return status
+
+## ////////////////////////////////
+##       API Implementations      //
+## ////////////////////////////////
+
+proc cudaOccMaxActiveBlocksPerMultiprocessor*(resultVar: ptr cudaOccResult;
     properties: ptr cudaOccDeviceProp; attributes: ptr cudaOccFuncAttributes;
-    state: ptr cudaOccDeviceState; blockSize: cint; dynamicSmemSize: csize): cudaOccError {.
+    state: ptr cudaOccDeviceState; blockSize: cint; dynamicSmemSize: csize_t): cudaOccError {.
     inline.} =
   var status: cudaOccError = CUDA_OCC_SUCCESS
   var ctaLimitWarps: cint = 0
   var ctaLimitBlocks: cint = 0
   var ctaLimitSMem: cint = 0
   var ctaLimitRegs: cint = 0
+  var ctaLimitBars: cint = 0
   var ctaLimit: cint = 0
   var limitingFactors: cuint = 0
   var gcConfig: cudaOccPartitionedGCConfig = PARTITIONED_GC_OFF
-  if res.isNil or properties.isNil or attributes.isNil or state.isNil or blockSize <= 0:
+  if not resultVar or not properties or not attributes or not state or blockSize <= 0:
     return CUDA_OCC_ERROR_INVALID_INPUT
   status = cudaOccInputCheck(properties, attributes, state)
   if status != CUDA_OCC_SUCCESS:
     return status
   gcConfig = cudaOccPartitionedGCExpected(properties, attributes)
-  ## /////////////////////////
+  ## ////////////////////////
   ##  Compute occupancy
-  ## /////////////////////////
+  ## ////////////////////////
   ##  Limits due to registers/SM
   ##  Also compute if partitioned global caching has to be turned off
   ##
   status = cudaOccMaxBlocksPerSMRegsLimit(addr(ctaLimitRegs), addr(gcConfig),
-                                        res, properties, attributes, blockSize)
+                                        resultVar, properties, attributes, blockSize)
   if status != CUDA_OCC_SUCCESS:
     return status
+  if properties.computeMajor == 6 and properties.computeMinor == 0 and ctaLimitRegs:
+    var propertiesGP10x: cudaOccDeviceProp
+    var gcConfigGP10x: cudaOccPartitionedGCConfig = gcConfig
+    var ctaLimitRegsGP10x: cint = 0
+    ##  Set up properties for GP10x
+    copyMem(addr(propertiesGP10x), properties, sizeof((propertiesGP10x)))
+    propertiesGP10x.computeMinor = 1
+    status = cudaOccMaxBlocksPerSMRegsLimit(addr(ctaLimitRegsGP10x),
+        addr(gcConfigGP10x), resultVar, addr(propertiesGP10x), attributes, blockSize)
+    if status != CUDA_OCC_SUCCESS:
+      return status
+    if ctaLimitRegsGP10x == 0:
+      ctaLimitRegs = 0
   status = cudaOccMaxBlocksPerSMWarpsLimit(addr(ctaLimitWarps), gcConfig,
       properties, attributes, blockSize)
   if status != CUDA_OCC_SUCCESS:
@@ -772,42 +1200,112 @@ proc cudaOccMaxActiveBlocksPerMultiprocessor*(res: ptr cudaOccResult;
   status = cudaOccMaxBlocksPerMultiprocessor(addr(ctaLimitBlocks), properties)
   if status != CUDA_OCC_SUCCESS:
     return status
-  status = cudaOccMaxBlocksPerSMSmemLimit(addr(ctaLimitSMem), res, properties,
+  status = cudaOccMaxBlocksPerSMSmemLimit(addr(ctaLimitSMem), resultVar, properties,
                                         attributes, state, blockSize,
                                         dynamicSmemSize)
   if status != CUDA_OCC_SUCCESS:
     return status
   ctaLimit = occMin(ctaLimitRegs,
                   occMin(ctaLimitSMem, occMin(ctaLimitWarps, ctaLimitBlocks)))
-  ##  Fill in the return values
-  ##
   ##  Determine occupancy limiting factors
   ##
   if ctaLimit == ctaLimitWarps:
-    limitingFactors = limitingFactors or OCC_LIMIT_WARPS.cuint
+    limitingFactors = limitingFactors or OCC_LIMIT_WARPS
   if ctaLimit == ctaLimitRegs:
-    limitingFactors = limitingFactors or OCC_LIMIT_REGISTERS.cuint
+    limitingFactors = limitingFactors or OCC_LIMIT_REGISTERS
   if ctaLimit == ctaLimitSMem:
-    limitingFactors = limitingFactors or OCC_LIMIT_SHARED_MEMORY.cuint
+    limitingFactors = limitingFactors or OCC_LIMIT_SHARED_MEMORY
   if ctaLimit == ctaLimitBlocks:
-    limitingFactors = limitingFactors or OCC_LIMIT_BLOCKS.cuint
-  res.limitingFactors = limitingFactors
-  res.blockLimitRegs = ctaLimitRegs
-  res.blockLimitSharedMem = ctaLimitSMem
-  res.blockLimitWarps = ctaLimitWarps
-  res.blockLimitBlocks = ctaLimitBlocks
-  res.partitionedGCConfig = gcConfig
+    limitingFactors = limitingFactors or OCC_LIMIT_BLOCKS
+  if properties.computeMajor >= 9 and attributes.numBlockBarriers > 0:
+    ##  Limits due to barrier/SM
+    ##
+    status = cudaOccMaxBlocksPerSMBlockBarrierLimit(addr(ctaLimitBars),
+        ctaLimitBlocks, attributes)
+    if status != CUDA_OCC_SUCCESS:
+      return status
+    ctaLimit = occMin(ctaLimitBars, ctaLimit)
+    ##  Determine if this is occupancy limiting factor
+    ##
+    if ctaLimit == ctaLimitBars:
+      limitingFactors = limitingFactors or OCC_LIMIT_BARRIERS
+  else:
+    ctaLimitBars = INT_MAX
+  ##  Fill in the return values
+  ##
+  resultVar.limitingFactors = limitingFactors
+  resultVar.blockLimitRegs = ctaLimitRegs
+  resultVar.blockLimitSharedMem = ctaLimitSMem
+  resultVar.blockLimitWarps = ctaLimitWarps
+  resultVar.blockLimitBlocks = ctaLimitBlocks
+  resultVar.blockLimitBarriers = ctaLimitBars
+  resultVar.partitionedGCConfig = gcConfig
   ##  Final occupancy
-  res.activeBlocksPerMultiprocessor = ctaLimit
+  resultVar.activeBlocksPerMultiprocessor = ctaLimit
+  return CUDA_OCC_SUCCESS
+
+proc cudaOccAvailableDynamicSMemPerBlock*(bytesAvailable: ptr csize_t;
+    properties: ptr cudaOccDeviceProp; attributes: ptr cudaOccFuncAttributes;
+    state: ptr cudaOccDeviceState; numBlocks: cint; blockSize: cint): cudaOccError {.
+    inline.} =
+  var allocationGranularity: cint
+  var smemLimitPerBlock: csize_t
+  var smemAvailableForDynamic: csize_t
+  var userSmemPreference: csize_t = 0
+  var sharedMemPerMultiprocessor: csize_t
+  var resultVar: cudaOccResult
+  var status: cudaOccError = CUDA_OCC_SUCCESS
+  if numBlocks <= 0:
+    return CUDA_OCC_ERROR_INVALID_INPUT
+  status = cudaOccMaxActiveBlocksPerMultiprocessor(addr(resultVar), properties,
+      attributes, state, blockSize, 0)
+  if status != CUDA_OCC_SUCCESS:
+    return status
+  if resultVar.activeBlocksPerMultiprocessor < numBlocks:
+    return CUDA_OCC_ERROR_INVALID_INPUT
+  status = cudaOccSMemAllocationGranularity(addr(allocationGranularity), properties)
+  if status != CUDA_OCC_SUCCESS:
+    return status
+  status = cudaOccSMemPerBlock(addr(smemLimitPerBlock), properties,
+                             attributes.shmemLimitConfig,
+                             properties.sharedMemPerMultiprocessor)
+  if status != CUDA_OCC_SUCCESS:
+    return status
+  cudaOccSMemPerMultiprocessor(addr(userSmemPreference), properties, state)
+  if numBlocks == 1:
+    sharedMemPerMultiprocessor = smemLimitPerBlock
+  else:
+    if not userSmemPreference:
+      userSmemPreference = 1
+      status = cudaOccAlignUpShmemSizeVoltaPlus(addr(userSmemPreference),
+          properties)
+      if status != CUDA_OCC_SUCCESS:
+        return status
+    sharedMemPerMultiprocessor = userSmemPreference
+  ##  Compute total shared memory available per SM
+  ##
+  smemAvailableForDynamic = sharedMemPerMultiprocessor div numBlocks
+  smemAvailableForDynamic = (smemAvailableForDynamic div allocationGranularity) *
+      allocationGranularity
+  ##  Cap shared memory
+  ##
+  if smemAvailableForDynamic > smemLimitPerBlock:
+    smemAvailableForDynamic = smemLimitPerBlock
+  smemAvailableForDynamic = smemAvailableForDynamic - attributes.sharedSizeBytes
+  ##  Cap computed dynamic SM by user requested limit specified via cuFuncSetAttribute()
+  ##
+  if smemAvailableForDynamic > attributes.maxDynamicSharedSizeBytes:
+    smemAvailableForDynamic = attributes.maxDynamicSharedSizeBytes
+  bytesAvailable[] = smemAvailableForDynamic
   return CUDA_OCC_SUCCESS
 
 proc cudaOccMaxPotentialOccupancyBlockSize*(minGridSize: ptr cint;
     blockSize: ptr cint; properties: ptr cudaOccDeviceProp;
     attributes: ptr cudaOccFuncAttributes; state: ptr cudaOccDeviceState;
-    blockSizeToDynamicSMemSize: proc (a2: cint): csize; dynamicSMemSize: var csize): cudaOccError {.
+    blockSizeToDynamicSMemSize: proc (a1: cint): csize_t; dynamicSMemSize: csize_t): cudaOccError {.
     inline.} =
   var status: cudaOccError = CUDA_OCC_SUCCESS
-  var res: cudaOccResult
+  var resultVar: cudaOccResult
   ##  Limits
   var occupancyLimit: cint
   var granularity: cint
@@ -822,10 +1320,10 @@ proc cudaOccMaxPotentialOccupancyBlockSize*(minGridSize: ptr cint;
   var blockSizeLimitAligned: cint
   var occupancyInBlocks: cint
   var occupancyInThreads: cint
-  ## /////////////////////////
+  ## ////////////////////////
   ##  Check user input
-  ## /////////////////////////
-  if minGridSize.isNil or blockSize.isNil or properties.isNil or attributes.isNil or state.isNil:
+  ## ////////////////////////
+  if not minGridSize or not blockSize or not properties or not attributes or not state:
     return CUDA_OCC_ERROR_INVALID_INPUT
   status = cudaOccInputCheck(properties, attributes, state)
   if status != CUDA_OCC_SUCCESS:
@@ -836,17 +1334,19 @@ proc cudaOccMaxPotentialOccupancyBlockSize*(minGridSize: ptr cint;
                         attributes.maxThreadsPerBlock)
   blockSizeLimitAligned = occRoundUp(blockSizeLimit, granularity)
   blockSizeToTryAligned = blockSizeLimitAligned
+
+  var dynamicSMemSizeVar = dynamicSMemSize
   while blockSizeToTryAligned > 0:
     blockSizeToTry = occMin(blockSizeLimit, blockSizeToTryAligned)
     ##  Ignore dynamicSMemSize if the user provides a mapping
     ##
-    if not blockSizeToDynamicSMemSize.isNil:
-      dynamicSMemSize = blockSizeToDynamicSMemSize(blockSizeToTry)
-    status = cudaOccMaxActiveBlocksPerMultiprocessor(addr(res), properties,
-        attributes, state, blockSizeToTry, dynamicSMemSize)
+    if blockSizeToDynamicSMemSize:
+      dynamicSMemSizeVar = blockSizeToDynamicSMemSize(blockSizeToTry)
+    status = cudaOccMaxActiveBlocksPerMultiprocessor(addr(resultVar), properties,
+        attributes, state, blockSizeToTry, dynamicSMemSizeVar)
     if status != CUDA_OCC_SUCCESS:
       return status
-    occupancyInBlocks = res.activeBlocksPerMultiprocessor
+    occupancyInBlocks = resultVar.activeBlocksPerMultiprocessor
     occupancyInThreads = blockSizeToTry * occupancyInBlocks
     if occupancyInThreads > maxOccupancy:
       maxBlockSize = blockSizeToTry
@@ -855,9 +1355,9 @@ proc cudaOccMaxPotentialOccupancyBlockSize*(minGridSize: ptr cint;
     if occupancyLimit == maxOccupancy:
       break
     dec(blockSizeToTryAligned, granularity)
-  ## /////////////////////////
+  ## ////////////////////////
   ##  Return best available
-  ## /////////////////////////
+  ## ////////////////////////
   ##  Suggested min grid size to achieve a full machine launch
   ##
   minGridSize[] = numBlocks * properties.numSms

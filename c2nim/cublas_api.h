@@ -26,9 +26,11 @@
      unsigned int x;
   } __half2;
 
-  typedef void* cudaStream_t;
+
+
+  #assumendef CUBLAS_API_H
 
   #include "library_types.h"
-  #include "cuComplex.h"
-  #skipinclude
+  // #include "cuComplex.h"
+  //#skipinclude
 #endif

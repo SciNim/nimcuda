@@ -10,7 +10,7 @@ skipDirs      = @["headers", "include", "c2nim", "examples", "htmldocs"]
 
 requires "nim >= 0.16.0"
 
-import os, strutils, pegs
+import os
 
 proc fExists(f: string): bool =
   when (NimMajor, NimMinor) < (1, 4):
@@ -18,26 +18,12 @@ proc fExists(f: string): bool =
   else:
     result = fileExists(f)
 
-func renameUint64(code: string): string =
-  ## C2nim has trouble with the `unsigned long long int` type.
-  ## This func replaces it with something that it can handle.
-  result = code.replace(peg"'unsigned long long' ' int'?", "culonglong")
+func makeExe(name: string): string =
+  when defined(windows):
+    result = name.addFileExt("exe")
+  else:
+    result = name
 
-func renameInt64(code: string): string =
-  ## C2nim has trouble with the `unsigned long long int` type.
-  ## This func replaces it with something that it can handle.
-  result = code.replace("int64_t", "clonglong")
-
-func renameCuchar(code: string): string =
-  ## `cuchar` is depreciated.
-  ## This func replaces it.
-  result = code.replace("cuchar", "uint8")
-
-func rearrangeConstPtrTypeDefs(code: string): string =
-  ## C2nim has trouble with the a certain arrangement of `const*` typedefs.
-  ## This func replaces it with something that it can handle.
-  result = code.replacef(peg"'typedef struct ' {\ident} ' const* ' {\ident}[;]",
-                         "typedef const struct $1* $2;")
 
 
 proc patch(libName: string): string =
@@ -45,7 +31,7 @@ proc patch(libName: string): string =
     let libpath = getEnv("CUDA_PATH") / "include" / libName
   else:
     let libpath = if libName == "cudnn_v9.h": "/usr/include/x86_64-linux-gnu" / libName
-                  else: "/usr/local/cuda/include" / libName
+                    else: "/usr/local/cuda/include" / libName
 
   let
     simpleLibPath = "include" / libName
@@ -55,38 +41,61 @@ proc patch(libName: string): string =
       if fExists(simpleLibPath): readFile(simpleLibPath)
       else: readFile(libPath) #.replace("#if defined(__cplusplus)", "#ifdef __cplusplus")
     patchContent = readFile(patchPath)
-    unmodified = patchContent & libContent
-    modified = unmodified.renameUint64.renameInt64.renameCuchar.rearrangeConstPtrTypeDefs()
-  # typedef struct cusparseSpVecDescr const* cusparseConstSpVecDescr_t; c2nim doesnt understand
-  # typedef const struct cusparseSpVecDescr* cusparseConstSpVecDescr_t; c2nim does understand
 
-
-  writeFile(outPath, modified)
+  writeFile(outPath, patchContent & "\n" & libContent)
   return outPath
+
+
+proc preprocess(libName: string) =
+  const preprocessorExe = "utils" / "preprocessor".makeExe
+
+  if not fExists(preprocessorExe):
+    # Compile preprocessor.
+    const preprocessorSource = "utils" / "preprocessor".addFileExt("nim")
+    exec "nim c -d:release " & preprocessorSource
+
+  let libPath = "headers" / libName.addFileExt("h")
+
+  exec preprocessorExe & " " & libPath
+
+
+proc postprocess(libName: string) =
+  const postprocessorExe = "utils" / "postprocessor".makeExe
+
+  if not fExists(postprocessorExe):
+    # Compile postprocessor.
+    const postprocessorSource = "utils" / "postprocessor".addFileExt("nim")
+    exec "nim c -d:release " & postprocessorSource
+
+  let libPath = "nimcuda" / libName.addFileExt("nim")
+
+  exec postprocessorExe & " " & libPath
 
 proc process(libName: string) =
   let
     headerName = libName.addFileExt("h")
     outPath = "nimcuda" / libName.addFileExt("nim")
     headerPath = patch(headerName)
+  preprocess libName
   exec("c2nim --debug --strict --prefix\"_\" --prefix\"__\" --suffix\"_\" --suffix\"__\" " & headerPath & " -o:" & outPath)
+  postprocess libname
 
 proc compile(libName: string) =
   let libPath = "nimcuda" / libName.addFileExt("nim")
   exec("nim c -c " & libPath)
 
 let libs = [
-  "library_types",
+  # "library_types",
   "vector_types",
-  # "driver_types", # do not decomment - the nim file is manually adjusted
+  "driver_types", # do not decomment - the nim file is manually adjusted
   "surface_types",
   "texture_types",
   "cuda_runtime_api",
   # "cuda_occupancy", # do not decomment - the nim file is manually adjusted
   "cuComplex",
   "cublas_api",
-  "cublas_v2",
-  "cudnn_v9",
+  # "cublas_v2",
+  # "cudnn_v9",
   "cufft",
   "curand",
   "cusolver_common",

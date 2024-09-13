@@ -13,9 +13,8 @@
   #  define libName "libcufft.so"
   #endif
 
-  typedef void* cudaStream_t;
-
   #include "cuComplex.h"
   #include "library_types.h"
+  #include "driver_types.h"
   #skipinclude
 #endif

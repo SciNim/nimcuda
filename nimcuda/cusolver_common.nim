@@ -60,30 +60,78 @@ import
 ##
 
 when not defined(CUSOLVER_COMMON_H):
-  when false:
-    type
-      clonglong* = int64
-  else:
-    discard
   type
     cusolver_int_t* = cint
   const
     CUSOLVER_VER_MAJOR* = 11
-    CUSOLVER_VER_MINOR* = 4
+    CUSOLVER_VER_MINOR* = 6
     CUSOLVER_VER_PATCH* = 3
-    CUSOLVER_VER_BUILD* = 1
+    CUSOLVER_VER_BUILD* = 83
     CUSOLVER_VERSION* = (
       CUSOLVER_VER_MAJOR * 1000 + CUSOLVER_VER_MINOR * 100 + CUSOLVER_VER_PATCH)
-  ##
-  ##  disable this macro to proceed old API
-  ##
   ## ------------------------------------------------------------------------------
-  when false:
-    discard
-  else:
-    const
-      cplusplus* = 0
+  ##  #if !defined(_MSC_VER)
+  ##    #define CUSOLVER_CPP_VERSION __cplusplus
+  ##  #elif _MSC_FULL_VER >= 190024210 // Visual Studio 2015 Update 3
+  ##    #define CUSOLVER_CPP_VERSION _MSVC_LANG
+  ##  #else
+  ##    #define CUSOLVER_CPP_VERSION 0
+  ##  #endif
   ## ------------------------------------------------------------------------------
+  ##  #if !defined(DISABLE_CUSOLVER_DEPRECATED)
+  ##
+  ##    #if CUSOLVER_CPP_VERSION >= 201402L
+  ##
+  ##      #define CUSOLVER_DEPRECATED(new_func)                                    \
+  ##        [[deprecated("please use " #new_func " instead")]]
+  ##
+  ##    #elif defined(_MSC_VER)
+  ##
+  ##      #define CUSOLVER_DEPRECATED(new_func)                                    \
+  ##        __declspec(deprecated("please use " #new_func " instead"))
+  ##
+  ##    #elif defined(INTEL_COMPILER) || defined(clang) ||                   \
+  ##      (defined(GNUC) &&                                                    \
+  ##       (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)))
+  ##
+  ##      #define CUSOLVER_DEPRECATED(new_func)                                    \
+  ##        __attribute__((deprecated("please use " #new_func " instead")))
+  ##
+  ##    #elif defined(GNUC) || defined(xlc)
+  ##
+  ##      #define CUSOLVER_DEPRECATED(new_func) __attribute__((deprecated))
+  ##
+  ##    #else
+  ##
+  ##      #define CUSOLVER_DEPRECATED(new_func)
+  ##
+  ##    #endif // defined(cplusplus) && __cplusplus >= 201402L
+  ##  //------------------------------------------------------------------------------
+  ##
+  ##    #if CUSOLVER_CPP_VERSION >= 201703L
+  ##
+  ##      #define CUSOLVER_DEPRECATED_ENUM(new_enum)                               \
+  ##        [[deprecated("please use " #new_enum " instead")]]
+  ##
+  ##    #elif defined(clang) ||                                                \
+  ##      (defined(GNUC) && __GNUC__ >= 6 && !defined(PGI))
+  ##
+  ##      #define CUSOLVER_DEPRECATED_ENUM(new_enum)                               \
+  ##        __attribute__((deprecated("please use " #new_enum " instead")))
+  ##
+  ##    #else
+  ##
+  ##      #define CUSOLVER_DEPRECATED_ENUM(new_enum)
+  ##
+  ##    #endif // defined(cplusplus) && __cplusplus >= 201402L
+  ##
+  ##  #else // defined(DISABLE_CUSOLVER_DEPRECATED)
+  ##
+  ##    #define CUSOLVER_DEPRECATED(new_func)
+  ##    #define CUSOLVER_DEPRECATED_ENUM(new_enum)
+  ##
+  ##  #endif // !defined(DISABLE_CUSOLVER_DEPRECATED)
+  ##  #undef CUSOLVER_CPP_VERSION
   type
     cusolverStatus_t* {.size: sizeof(cint).} = enum
       CUSOLVER_STATUS_SUCCESS = 0, CUSOLVER_STATUS_NOT_INITIALIZED = 1,

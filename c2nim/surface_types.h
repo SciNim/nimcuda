@@ -1,5 +1,7 @@
 #ifdef C2NIM
-  #mangle __SURFACE_TYPES_H__ SURFACE_TYPES_H
+  #assumendef __SURFACE_TYPES_H__
+
+  #mangle __CUDACC_RTC_MINIMAL__ CUDACC_RTC_MINIMAL
 
   #def __device_builtin__
 #endif
