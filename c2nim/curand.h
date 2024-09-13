@@ -1,9 +1,9 @@
 #ifdef C2NIM
   #def CURANDAPI
 
-  #mangle CURAND_H_ CURAND_H
 
-  #assumedef __CUDACC_RTC__
+  // #assumedef __CUDACC_RTC__
+  #assumendef CURAND_H_
 
   #dynlib libName
   #private libName
