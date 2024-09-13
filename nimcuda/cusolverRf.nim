@@ -93,10 +93,9 @@ when not defined(CUSOLVERRF_H):
       CUSOLVERRF_NUMERIC_BOOST_NOT_USED = 0, ##  default
       CUSOLVERRF_NUMERIC_BOOST_USED = 1
   ##  Opaque structure holding CUSOLVERRF library common
-  discard "forward decl of cusolverRfCommon"
+  type cusolverRfCommon {.importc, nodecl.} = object
   type
-    #cusolverRfHandle_t* = ptr cusolverRfCommon
-    cusolverRfHandle_t* = pointer
+    cusolverRfHandle_t* = ptr cusolverRfCommon
   ##  CUSOLVERRF create (allocate memory) and destroy (free memory) in the handle
   ##
   proc cusolverRfCreate*(handle: ptr cusolverRfHandle_t): cusolverStatus_t {.cdecl,

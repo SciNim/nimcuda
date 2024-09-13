@@ -8,7 +8,7 @@ else:
   const
     libName = "libcusolver.so"
 import
-  cuComplex, cublas_api, cusolver_common, library_types
+  cuComplex, cublas_api, cusolver_common, library_types, driver_types
 
 ##
 ##  Copyright 2014 NVIDIA Corporation.  All rights reserved.
@@ -63,35 +63,32 @@ import
 ##
 
 when not defined(CUSOLVERDN_H):
-  discard "forward decl of cusolverDnContext"
+  type cusolverDnContext {.importc, nodecl.} = object
   type
-    cusolverDnHandle_t* = pointer
-    #cusolverDnHandle_t* = ptr cusolverDnContext
-  discard "forward decl of syevjInfo"
+    cusolverDnHandle_t* = ptr cusolverDnContext
+  type syevjInfo {.importc, nodecl.} = object
   type
-    #syevjInfo_t* = ptr syevjInfo
-    syevjInfo_t* = pointer
-  discard "forward decl of gesvdjInfo"
+    syevjInfo_t* = ptr syevjInfo
+  type gesvdjInfo {.importc, nodecl.} = object
   type
-    #gesvdjInfo_t* = ptr gesvdjInfo
-    gesvdjInfo_t* = pointer
+    gesvdjInfo_t* = ptr gesvdjInfo
   ## ------------------------------------------------------
   ##  opaque cusolverDnIRS structure for IRS solver
-  discard "forward decl of cusolverDnIRSParams"
+  type cusolverDnIRSParams {.importc, nodecl.} = object
   type
-    #cusolverDnIRSParams_t* = ptr cusolverDnIRSParams
-    cusolverDnIRSParams_t* = pointer
-  discard "forward decl of cusolverDnIRSInfos"
+    cusolverDnIRSParams_t* = ptr cusolverDnIRSParams
+  type cusolverDnIRSInfos {.importc, nodecl.} = object
   type
-    #cusolverDnIRSInfos_t* = ptr cusolverDnIRSInfos
-    cusolverDnIRSInfos_t* = pointer
+    cusolverDnIRSInfos_t* = ptr cusolverDnIRSInfos
   ## ------------------------------------------------------
-  discard "forward decl of cusolverDnParams"
+  type cusolverDnParams {.importc, nodecl.} = object
   type
-    #cusolverDnParams_t* = ptr cusolverDnParams
-    cusolverDnParams_t* = pointer
+    cusolverDnParams_t* = ptr cusolverDnParams
     cusolverDnFunction_t* {.size: sizeof(cint).} = enum
       CUSOLVERDN_GETRF = 0, CUSOLVERDN_POTRF = 1
+    cusolverDeterministicMode_t* {.size: sizeof(cint).} = enum
+      CUSOLVER_DETERMINISTIC_RESULTS = 1,
+      CUSOLVER_ALLOW_NON_DETERMINISTIC_RESULTS = 2
   ## ****************************************************************************
   proc cusolverDnCreate*(handle: ptr cusolverDnHandle_t): cusolverStatus_t {.cdecl,
       importc: "cusolverDnCreate", dynlib: libName.}
@@ -101,6 +98,15 @@ when not defined(CUSOLVERDN_H):
       cdecl, importc: "cusolverDnSetStream", dynlib: libName.}
   proc cusolverDnGetStream*(handle: cusolverDnHandle_t; streamId: ptr cudaStream_t): cusolverStatus_t {.
       cdecl, importc: "cusolverDnGetStream", dynlib: libName.}
+  ## ============================================================
+  ##  Deterministic Mode
+  ## ============================================================
+  proc cusolverDnSetDeterministicMode*(handle: cusolverDnHandle_t;
+                                      mode: cusolverDeterministicMode_t): cusolverStatus_t {.
+      cdecl, importc: "cusolverDnSetDeterministicMode", dynlib: libName.}
+  proc cusolverDnGetDeterministicMode*(handle: cusolverDnHandle_t;
+                                      mode: ptr cusolverDeterministicMode_t): cusolverStatus_t {.
+      cdecl, importc: "cusolverDnGetDeterministicMode", dynlib: libName.}
   ## ============================================================
   ##  IRS headers
   ## ============================================================
@@ -2294,6 +2300,28 @@ when not defined(CUSOLVERDN_H):
                          workspaceInBytesOnDevice: csize_t; bufferOnHost: pointer;
                          workspaceInBytesOnHost: csize_t; d_info: ptr cint): cusolverStatus_t {.
       cdecl, importc: "cusolverDnXgesvdr", dynlib: libName.}
+  proc cusolverDnXlarft_bufferSize*(handle: cusolverDnHandle_t;
+                                   params: cusolverDnParams_t;
+                                   direct: cusolverDirectMode_t;
+                                   storev: cusolverStorevMode_t; n: clonglong;
+                                   k: clonglong; dataTypeV: cudaDataType;
+                                   V: pointer; ldv: clonglong;
+                                   dataTypeTau: cudaDataType; tau: pointer;
+                                   dataTypeT: cudaDataType; T: pointer;
+                                   ldt: clonglong; computeType: cudaDataType;
+                                   workspaceInBytesOnDevice: ptr csize_t;
+                                   workspaceInBytesOnHost: ptr csize_t): cusolverStatus_t {.
+      cdecl, importc: "cusolverDnXlarft_bufferSize", dynlib: libName.}
+  proc cusolverDnXlarft*(handle: cusolverDnHandle_t; params: cusolverDnParams_t;
+                        direct: cusolverDirectMode_t;
+                        storev: cusolverStorevMode_t; n: clonglong; k: clonglong;
+                        dataTypeV: cudaDataType; V: pointer; ldv: clonglong;
+                        dataTypeTau: cudaDataType; tau: pointer;
+                        dataTypeT: cudaDataType; T: pointer; ldt: clonglong;
+                        computeType: cudaDataType; bufferOnDevice: pointer;
+                        workspaceInBytesOnDevice: csize_t; bufferOnHost: pointer;
+                        workspaceInBytesOnHost: csize_t): cusolverStatus_t {.cdecl,
+      importc: "cusolverDnXlarft", dynlib: libName.}
   type
     cusolverDnLoggerCallback_t* = proc (logLevel: cint; functionName: cstring;
                                      message: cstring) {.cdecl.}

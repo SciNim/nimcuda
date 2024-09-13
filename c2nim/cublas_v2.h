@@ -3,5 +3,6 @@
   #mangle CUBLAS_H_ CUBLAS_H
 
   #assumendef __CUDACC__
+  #assumendef CUBLAS_V2_H
   #def CUBLASAPI
 #endif

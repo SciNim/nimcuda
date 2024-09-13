@@ -91,7 +91,7 @@ when not defined(CU_COMPLEX_H):
     return make_cuFloatComplex(cuCrealf(x) - cuCrealf(y), cuCimagf(x) - cuCimagf(y))
 
   ##  This implementation could suffer from intermediate overflow even though
-  ##  the final result would be in range. However, various implementations do
+  ##  the final resultNotKeyWord would be in range. However, various implementations do
   ##  not guard against this (presumably to avoid losing performance), so we
   ##  don't do it either to stay competitive.
   ##
@@ -176,7 +176,7 @@ when not defined(CU_COMPLEX_H):
     return make_cuDoubleComplex(cuCreal(x) - cuCreal(y), cuCimag(x) - cuCimag(y))
 
   ##  This implementation could suffer from intermediate overflow even though
-  ##  the final result would be in range. However, various implementations do
+  ##  the final resultNotKeyWord would be in range. However, various implementations do
   ##  not guard against this (presumably to avoid losing performance), so we
   ##  don't do it either to stay competitive.
   ##

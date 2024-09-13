@@ -15,4 +15,5 @@
   #endif
 
   #include "cuComplex.h"
+  #include "driver_types.h"
 #endif

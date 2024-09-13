@@ -1,5 +1,7 @@
+##  #mangle __cudaReserved cudaReserved
+
 ##
-##  Copyright 1993-2012 NVIDIA Corporation.  All rights reserved.
+##  Copyright 1993-2023 NVIDIA Corporation.  All rights reserved.
 ##
 ##  NOTICE TO LICENSEE:
 ##
@@ -47,15 +49,16 @@
 ##  Users Notice.
 ##
 
-when not defined(TEXTURE_TYPES_H):
-  ## *****************************************************************************
-  ##                                                                               *
-  ##                                                                               *
-  ##                                                                               *
-  ## *****************************************************************************
-  import
-    driver_types
+## *****************************************************************************
+##                                                                               *
+##                                                                               *
+##                                                                               *
+## *****************************************************************************
 
+import
+  driver_types
+
+when not defined(CUDACC_RTC_MINIMAL):
   ##
   ##  \addtogroup CUDART_TYPES
   ##

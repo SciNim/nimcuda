@@ -20,5 +20,6 @@
   #include "cublas_api.h"
   #include "cusolver_common.h"
   #include "library_types.h"
+  #include "driver_types.h"
   #skipinclude
 #endif

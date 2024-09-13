@@ -7,11 +7,8 @@ elif defined(macosx):
 else:
   const
     libName = "libcufft.so"
-type
-  cudaStream_t* = pointer
-
 import
-  cuComplex, library_types
+  cuComplex, library_types, driver_types
 
 ##  Copyright 2005-2021 NVIDIA Corporation.  All rights reserved.
 ##
@@ -67,10 +64,10 @@ import
 
 const
   CUFFT_VER_MAJOR* = 11
-  CUFFT_VER_MINOR* = 0
-  CUFFT_VER_PATCH* = 1
-  CUFFT_VER_BUILD* = 95
-  CUFFT_VERSION* = 11001
+  CUFFT_VER_MINOR* = 2
+  CUFFT_VER_PATCH* = 3
+  CUFFT_VER_BUILD* = 61
+  CUFFT_VERSION* = 11203
 
 ##  CUFFT API function return values
 
@@ -238,3 +235,21 @@ proc cufftGetVersion*(version: ptr cint): cufftResult {.cdecl,
     importc: "cufftGetVersion", dynlib: libName.}
 proc cufftGetProperty*(`type`: libraryPropertyType; value: ptr cint): cufftResult {.
     cdecl, importc: "cufftGetProperty", dynlib: libName.}
+##
+##  Set/Get PlanProperty APIs configures per-plan behavior
+##
+
+type
+  cufftProperty* {.size: sizeof(cint).} = enum
+    NVFFT_PLAN_PROPERTY_INT64_PATIENT_JIT = 0x1,
+    NVFFT_PLAN_PROPERTY_INT64_MAX_NUM_HOST_THREADS = 0x2
+
+
+proc cufftSetPlanPropertyInt64*(plan: cufftHandle; property: cufftProperty;
+                               inputValueInt: clonglong): cufftResult {.cdecl,
+    importc: "cufftSetPlanPropertyInt64", dynlib: libName.}
+proc cufftGetPlanPropertyInt64*(plan: cufftHandle; property: cufftProperty;
+                               returnPtrValue: ptr clonglong): cufftResult {.cdecl,
+    importc: "cufftGetPlanPropertyInt64", dynlib: libName.}
+proc cufftResetPlanProperty*(plan: cufftHandle; property: cufftProperty): cufftResult {.
+    cdecl, importc: "cufftResetPlanProperty", dynlib: libName.}

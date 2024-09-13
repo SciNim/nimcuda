@@ -3,5 +3,7 @@
 
   #def __device_builtin__
 
+  #assumendef VECTOR_TYPES_H
+
   #header "vector_types.h"
 #endif
