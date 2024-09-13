@@ -20,7 +20,7 @@ func handleForwardDecls(code: sink string): string =
   ## `discard "forward decl of {typeDesc}"`
   ## This proc replaces it with `type {typeDesc} = object`.
   result = code.replacef(peg""" 'discard "forward decl of ' {\ident} ["] """,
-                         "type $1 {.importc, nodecl.} = object")
+                         "type $1 {.nodecl.} = object")
 
 
 func removeUnusedVariableSilencing(code: sink string): string =

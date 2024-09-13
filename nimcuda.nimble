@@ -143,7 +143,7 @@ proc exampleConfig() =
     --cincludes: "/usr/include/x86_64-linux-gnu/"
     --clibdir: "/usr/local/cuda/lib64"
   --path: "."
-  --run
+  # --run
 
 task pagerank, "run pagerank example":
   exampleConfig()
