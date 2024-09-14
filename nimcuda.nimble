@@ -145,10 +145,6 @@ proc exampleConfig() =
   --path: "."
   # --run
 
-task pagerank, "run pagerank example":
-  exampleConfig()
-  setCommand "c", "examples/pagerank.nim"
-
 task fft, "run fft example":
   exampleConfig()
   setCommand "c", "examples/fft.nim"
