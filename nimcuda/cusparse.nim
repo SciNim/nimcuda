@@ -284,11 +284,11 @@ type
 ## # INITIALIZATION AND MANAGEMENT ROUTINES
 ## ##############################################################################
 
-proc cusparseCreate*(handle: ptr cusparseHandle_t): cusparseStatus_t {.cdecl,
+proc cusparseCreateUnderScore*(handle: ptr cusparseHandle_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreate", dynlib: libName.}
-proc cusparseDestroy*(handle: cusparseHandle_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyUnderScore*(handle: cusparseHandle_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroy", dynlib: libName.}
-proc cusparseGetVersion*(handle: cusparseHandle_t; version: ptr cint): cusparseStatus_t {.
+proc cusparseGetVersionUnderScore*(handle: cusparseHandle_t; version: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseGetVersion", dynlib: libName.}
 proc cusparseGetProperty*(`type`: libraryPropertyType; value: ptr cint): cusparseStatus_t {.
     cdecl, importc: "cusparseGetProperty", dynlib: libName.}
@@ -296,14 +296,14 @@ proc cusparseGetErrorName*(status: cusparseStatus_t): cstring {.cdecl,
     importc: "cusparseGetErrorName", dynlib: libName.}
 proc cusparseGetErrorString*(status: cusparseStatus_t): cstring {.cdecl,
     importc: "cusparseGetErrorString", dynlib: libName.}
-proc cusparseSetStream*(handle: cusparseHandle_t; streamId: cudaStream_t): cusparseStatus_t {.
+proc cusparseSetStreamUnderScore*(handle: cusparseHandle_t; streamId: cudaStream_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSetStream", dynlib: libName.}
-proc cusparseGetStream*(handle: cusparseHandle_t; streamId: ptr cudaStream_t): cusparseStatus_t {.
+proc cusparseGetStreamUnderScore*(handle: cusparseHandle_t; streamId: ptr cudaStream_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseGetStream", dynlib: libName.}
-proc cusparseGetPointerMode*(handle: cusparseHandle_t;
-                            mode: ptr cusparsePointerMode_t): cusparseStatus_t {.
+proc cusparseGetPointerModeUnderScore*(handle: cusparseHandle_t;
+                            mode: ptr cusparsePointerMode_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseGetPointerMode", dynlib: libName.}
-proc cusparseSetPointerMode*(handle: cusparseHandle_t; mode: cusparsePointerMode_t): cusparseStatus_t {.
+proc cusparseSetPointerModeUnderScore*(handle: cusparseHandle_t; mode: cusparsePointerMode_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSetPointerMode", dynlib: libName.}
 ## ##############################################################################
 ## # LOGGING APIs
@@ -313,15 +313,15 @@ type
   cusparseLoggerCallback_t* = proc (logLevel: cint; functionName: cstring;
                                  message: cstring) {.cdecl.}
 
-proc cusparseLoggerSetCallback*(callback: cusparseLoggerCallback_t): cusparseStatus_t {.
+proc cusparseLoggerSetCallbackUnderScore*(callback: cusparseLoggerCallback_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseLoggerSetCallback", dynlib: libName.}
-proc cusparseLoggerSetFile*(file: ptr FILE): cusparseStatus_t {.cdecl,
+proc cusparseLoggerSetFileUnderScore*(file: ptr FILE): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseLoggerSetFile", dynlib: libName.}
-proc cusparseLoggerOpenFile*(logFile: cstring): cusparseStatus_t {.cdecl,
+proc cusparseLoggerOpenFileUnderScore*(logFile: cstring): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseLoggerOpenFile", dynlib: libName.}
-proc cusparseLoggerSetLevel*(level: cint): cusparseStatus_t {.cdecl,
+proc cusparseLoggerSetLevelUnderScore*(level: cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseLoggerSetLevel", dynlib: libName.}
-proc cusparseLoggerSetMask*(mask: cint): cusparseStatus_t {.cdecl,
+proc cusparseLoggerSetMaskUnderScore*(mask: cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseLoggerSetMask", dynlib: libName.}
 proc cusparseLoggerForceDisable*(): cusparseStatus_t {.cdecl,
     importc: "cusparseLoggerForceDisable", dynlib: libName.}
@@ -329,160 +329,160 @@ proc cusparseLoggerForceDisable*(): cusparseStatus_t {.cdecl,
 ## # HELPER ROUTINES
 ## ##############################################################################
 
-proc cusparseCreateMatDescr*(descrA: ptr cusparseMatDescr_t): cusparseStatus_t {.
+proc cusparseCreateMatDescrUnderScore*(descrA: ptr cusparseMatDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateMatDescr", dynlib: libName.}
-proc cusparseDestroyMatDescr*(descrA: cusparseMatDescr_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyMatDescrUnderScore*(descrA: cusparseMatDescr_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroyMatDescr", dynlib: libName.}
 proc cusparseSetMatType*(descrA: cusparseMatDescr_t; `type`: cusparseMatrixType_t): cusparseStatus_t {.
     cdecl, importc: "cusparseSetMatType", dynlib: libName.}
 proc cusparseGetMatType*(descrA: cusparseMatDescr_t): cusparseMatrixType_t {.cdecl,
     importc: "cusparseGetMatType", dynlib: libName.}
-proc cusparseSetMatFillMode*(descrA: cusparseMatDescr_t;
-                            fillMode: cusparseFillMode_t): cusparseStatus_t {.
+proc cusparseSetMatFillModeUnderScore*(descrA: cusparseMatDescr_t;
+                            fillMode: cusparseFillMode_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSetMatFillMode", dynlib: libName.}
 proc cusparseGetMatFillMode*(descrA: cusparseMatDescr_t): cusparseFillMode_t {.
     cdecl, importc: "cusparseGetMatFillMode", dynlib: libName.}
-proc cusparseSetMatDiagType*(descrA: cusparseMatDescr_t;
-                            diagType: cusparseDiagType_t): cusparseStatus_t {.
+proc cusparseSetMatDiagTypeUnderScore*(descrA: cusparseMatDescr_t;
+                            diagType: cusparseDiagType_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSetMatDiagType", dynlib: libName.}
 proc cusparseGetMatDiagType*(descrA: cusparseMatDescr_t): cusparseDiagType_t {.
     cdecl, importc: "cusparseGetMatDiagType", dynlib: libName.}
-proc cusparseSetMatIndexBase*(descrA: cusparseMatDescr_t; base: cusparseIndexBase_t): cusparseStatus_t {.
+proc cusparseSetMatIndexBaseUnderScore*(descrA: cusparseMatDescr_t; base: cusparseIndexBase_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSetMatIndexBase", dynlib: libName.}
 proc cusparseGetMatIndexBase*(descrA: cusparseMatDescr_t): cusparseIndexBase_t {.
     cdecl, importc: "cusparseGetMatIndexBase", dynlib: libName.}
-proc cusparseCreateCsric02Info*(info: ptr csric02Info_t): cusparseStatus_t {.cdecl,
+proc cusparseCreateCsric02InfoUnderScore*(info: ptr csric02Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateCsric02Info", dynlib: libName.}
-proc cusparseDestroyCsric02Info*(info: csric02Info_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyCsric02InfoUnderScore*(info: csric02Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroyCsric02Info", dynlib: libName.}
-proc cusparseCreateBsric02Info*(info: ptr bsric02Info_t): cusparseStatus_t {.cdecl,
+proc cusparseCreateBsric02InfoUnderScore*(info: ptr bsric02Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateBsric02Info", dynlib: libName.}
-proc cusparseDestroyBsric02Info*(info: bsric02Info_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyBsric02InfoUnderScore*(info: bsric02Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroyBsric02Info", dynlib: libName.}
-proc cusparseCreateCsrilu02Info*(info: ptr csrilu02Info_t): cusparseStatus_t {.cdecl,
+proc cusparseCreateCsrilu02InfoUnderScore*(info: ptr csrilu02Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateCsrilu02Info", dynlib: libName.}
-proc cusparseDestroyCsrilu02Info*(info: csrilu02Info_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyCsrilu02InfoUnderScore*(info: csrilu02Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroyCsrilu02Info", dynlib: libName.}
-proc cusparseCreateBsrilu02Info*(info: ptr bsrilu02Info_t): cusparseStatus_t {.cdecl,
+proc cusparseCreateBsrilu02InfoUnderScore*(info: ptr bsrilu02Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateBsrilu02Info", dynlib: libName.}
-proc cusparseDestroyBsrilu02Info*(info: bsrilu02Info_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyBsrilu02InfoUnderScore*(info: bsrilu02Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroyBsrilu02Info", dynlib: libName.}
-proc cusparseCreateBsrsv2Info*(info: ptr bsrsv2Info_t): cusparseStatus_t {.cdecl,
+proc cusparseCreateBsrsv2InfoUnderScore*(info: ptr bsrsv2Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateBsrsv2Info", dynlib: libName.}
-proc cusparseDestroyBsrsv2Info*(info: bsrsv2Info_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyBsrsv2InfoUnderScore*(info: bsrsv2Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroyBsrsv2Info", dynlib: libName.}
-proc cusparseCreateBsrsm2Info*(info: ptr bsrsm2Info_t): cusparseStatus_t {.cdecl,
+proc cusparseCreateBsrsm2InfoUnderScore*(info: ptr bsrsm2Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateBsrsm2Info", dynlib: libName.}
-proc cusparseDestroyBsrsm2Info*(info: bsrsm2Info_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyBsrsm2InfoUnderScore*(info: bsrsm2Info_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroyBsrsm2Info", dynlib: libName.}
-proc cusparseCreateCsru2csrInfo*(info: ptr csru2csrInfo_t): cusparseStatus_t {.cdecl,
+proc cusparseCreateCsru2csrInfoUnderScore*(info: ptr csru2csrInfo_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateCsru2csrInfo", dynlib: libName.}
-proc cusparseDestroyCsru2csrInfo*(info: csru2csrInfo_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyCsru2csrInfoUnderScore*(info: csru2csrInfo_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroyCsru2csrInfo", dynlib: libName.}
-proc cusparseCreateColorInfo*(info: ptr cusparseColorInfo_t): cusparseStatus_t {.
+proc cusparseCreateColorInfoUnderScore*(info: ptr cusparseColorInfo_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateColorInfo", dynlib: libName.}
-proc cusparseDestroyColorInfo*(info: cusparseColorInfo_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyColorInfoUnderScore*(info: cusparseColorInfo_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroyColorInfo", dynlib: libName.}
-proc cusparseCreatePruneInfo*(info: ptr pruneInfo_t): cusparseStatus_t {.cdecl,
+proc cusparseCreatePruneInfoUnderScore*(info: ptr pruneInfo_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreatePruneInfo", dynlib: libName.}
-proc cusparseDestroyPruneInfo*(info: pruneInfo_t): cusparseStatus_t {.cdecl,
+proc cusparseDestroyPruneInfoUnderScore*(info: pruneInfo_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDestroyPruneInfo", dynlib: libName.}
 ## ##############################################################################
 ## # SPARSE LEVEL 2 ROUTINES
 ## ##############################################################################
 
-proc cusparseSgemvi*(handle: cusparseHandle_t; transA: cusparseOperation_t; m: cint;
+proc cusparseSgemviUnderScore*(handle: cusparseHandle_t; transA: cusparseOperation_t; m: cint;
                     n: cint; alpha: ptr cfloat; A: ptr cfloat; lda: cint; nnz: cint;
                     xVal: ptr cfloat; xInd: ptr cint; beta: ptr cfloat; y: ptr cfloat;
-                    idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.
+                    idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgemvi", dynlib: libName.}
-proc cusparseSgemvi_bufferSize*(handle: cusparseHandle_t;
+proc cusparseSgemvi_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                transA: cusparseOperation_t; m: cint; n: cint;
-                               nnz: cint; pBufferSize: ptr cint): cusparseStatus_t {.
+                               nnz: cint; pBufferSize: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgemvi_bufferSize", dynlib: libName.}
-proc cusparseDgemvi*(handle: cusparseHandle_t; transA: cusparseOperation_t; m: cint;
+proc cusparseDgemviUnderScore*(handle: cusparseHandle_t; transA: cusparseOperation_t; m: cint;
                     n: cint; alpha: ptr cdouble; A: ptr cdouble; lda: cint; nnz: cint;
                     xVal: ptr cdouble; xInd: ptr cint; beta: ptr cdouble; y: ptr cdouble;
-                    idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.
+                    idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgemvi", dynlib: libName.}
-proc cusparseDgemvi_bufferSize*(handle: cusparseHandle_t;
+proc cusparseDgemvi_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                transA: cusparseOperation_t; m: cint; n: cint;
-                               nnz: cint; pBufferSize: ptr cint): cusparseStatus_t {.
+                               nnz: cint; pBufferSize: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgemvi_bufferSize", dynlib: libName.}
-proc cusparseCgemvi*(handle: cusparseHandle_t; transA: cusparseOperation_t; m: cint;
+proc cusparseCgemviUnderScore*(handle: cusparseHandle_t; transA: cusparseOperation_t; m: cint;
                     n: cint; alpha: ptr cuComplex; A: ptr cuComplex; lda: cint; nnz: cint;
                     xVal: ptr cuComplex; xInd: ptr cint; beta: ptr cuComplex;
-                    y: ptr cuComplex; idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.
+                    y: ptr cuComplex; idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgemvi", dynlib: libName.}
-proc cusparseCgemvi_bufferSize*(handle: cusparseHandle_t;
+proc cusparseCgemvi_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                transA: cusparseOperation_t; m: cint; n: cint;
-                               nnz: cint; pBufferSize: ptr cint): cusparseStatus_t {.
+                               nnz: cint; pBufferSize: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgemvi_bufferSize", dynlib: libName.}
-proc cusparseZgemvi*(handle: cusparseHandle_t; transA: cusparseOperation_t; m: cint;
+proc cusparseZgemviUnderScore*(handle: cusparseHandle_t; transA: cusparseOperation_t; m: cint;
                     n: cint; alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                     lda: cint; nnz: cint; xVal: ptr cuDoubleComplex; xInd: ptr cint;
                     beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex;
-                    idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.
+                    idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgemvi", dynlib: libName.}
-proc cusparseZgemvi_bufferSize*(handle: cusparseHandle_t;
+proc cusparseZgemvi_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                transA: cusparseOperation_t; m: cint; n: cint;
-                               nnz: cint; pBufferSize: ptr cint): cusparseStatus_t {.
+                               nnz: cint; pBufferSize: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgemvi_bufferSize", dynlib: libName.}
-proc cusparseSbsrmv*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseSbsrmvUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                     transA: cusparseOperation_t; mb: cint; nb: cint; nnzb: cint;
                     alpha: ptr cfloat; descrA: cusparseMatDescr_t;
                     bsrSortedValA: ptr cfloat; bsrSortedRowPtrA: ptr cint;
                     bsrSortedColIndA: ptr cint; blockDim: cint; x: ptr cfloat;
-                    beta: ptr cfloat; y: ptr cfloat): cusparseStatus_t {.cdecl,
+                    beta: ptr cfloat; y: ptr cfloat): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSbsrmv", dynlib: libName.}
-proc cusparseDbsrmv*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDbsrmvUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                     transA: cusparseOperation_t; mb: cint; nb: cint; nnzb: cint;
                     alpha: ptr cdouble; descrA: cusparseMatDescr_t;
                     bsrSortedValA: ptr cdouble; bsrSortedRowPtrA: ptr cint;
                     bsrSortedColIndA: ptr cint; blockDim: cint; x: ptr cdouble;
-                    beta: ptr cdouble; y: ptr cdouble): cusparseStatus_t {.cdecl,
+                    beta: ptr cdouble; y: ptr cdouble): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDbsrmv", dynlib: libName.}
-proc cusparseCbsrmv*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCbsrmvUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                     transA: cusparseOperation_t; mb: cint; nb: cint; nnzb: cint;
                     alpha: ptr cuComplex; descrA: cusparseMatDescr_t;
                     bsrSortedValA: ptr cuComplex; bsrSortedRowPtrA: ptr cint;
                     bsrSortedColIndA: ptr cint; blockDim: cint; x: ptr cuComplex;
-                    beta: ptr cuComplex; y: ptr cuComplex): cusparseStatus_t {.cdecl,
+                    beta: ptr cuComplex; y: ptr cuComplex): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCbsrmv", dynlib: libName.}
-proc cusparseZbsrmv*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZbsrmvUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                     transA: cusparseOperation_t; mb: cint; nb: cint; nnzb: cint;
                     alpha: ptr cuDoubleComplex; descrA: cusparseMatDescr_t;
                     bsrSortedValA: ptr cuDoubleComplex; bsrSortedRowPtrA: ptr cint;
                     bsrSortedColIndA: ptr cint; blockDim: cint;
                     x: ptr cuDoubleComplex; beta: ptr cuDoubleComplex;
-                    y: ptr cuDoubleComplex): cusparseStatus_t {.cdecl,
+                    y: ptr cuDoubleComplex): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZbsrmv", dynlib: libName.}
-proc cusparseSbsrxmv*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseSbsrxmvUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                      transA: cusparseOperation_t; sizeOfMask: cint; mb: cint;
                      nb: cint; nnzb: cint; alpha: ptr cfloat;
                      descrA: cusparseMatDescr_t; bsrSortedValA: ptr cfloat;
                      bsrSortedMaskPtrA: ptr cint; bsrSortedRowPtrA: ptr cint;
                      bsrSortedEndPtrA: ptr cint; bsrSortedColIndA: ptr cint;
-                     blockDim: cint; x: ptr cfloat; beta: ptr cfloat; y: ptr cfloat): cusparseStatus_t {.
+                     blockDim: cint; x: ptr cfloat; beta: ptr cfloat; y: ptr cfloat): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsrxmv", dynlib: libName.}
-proc cusparseDbsrxmv*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDbsrxmvUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                      transA: cusparseOperation_t; sizeOfMask: cint; mb: cint;
                      nb: cint; nnzb: cint; alpha: ptr cdouble;
                      descrA: cusparseMatDescr_t; bsrSortedValA: ptr cdouble;
                      bsrSortedMaskPtrA: ptr cint; bsrSortedRowPtrA: ptr cint;
                      bsrSortedEndPtrA: ptr cint; bsrSortedColIndA: ptr cint;
-                     blockDim: cint; x: ptr cdouble; beta: ptr cdouble; y: ptr cdouble): cusparseStatus_t {.
+                     blockDim: cint; x: ptr cdouble; beta: ptr cdouble; y: ptr cdouble): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrxmv", dynlib: libName.}
-proc cusparseCbsrxmv*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCbsrxmvUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                      transA: cusparseOperation_t; sizeOfMask: cint; mb: cint;
                      nb: cint; nnzb: cint; alpha: ptr cuComplex;
                      descrA: cusparseMatDescr_t; bsrSortedValA: ptr cuComplex;
                      bsrSortedMaskPtrA: ptr cint; bsrSortedRowPtrA: ptr cint;
                      bsrSortedEndPtrA: ptr cint; bsrSortedColIndA: ptr cint;
                      blockDim: cint; x: ptr cuComplex; beta: ptr cuComplex;
-                     y: ptr cuComplex): cusparseStatus_t {.cdecl,
+                     y: ptr cuComplex): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCbsrxmv", dynlib: libName.}
-proc cusparseZbsrxmv*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZbsrxmvUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                      transA: cusparseOperation_t; sizeOfMask: cint; mb: cint;
                      nb: cint; nnzb: cint; alpha: ptr cuDoubleComplex;
                      descrA: cusparseMatDescr_t;
@@ -490,194 +490,194 @@ proc cusparseZbsrxmv*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                      bsrSortedMaskPtrA: ptr cint; bsrSortedRowPtrA: ptr cint;
                      bsrSortedEndPtrA: ptr cint; bsrSortedColIndA: ptr cint;
                      blockDim: cint; x: ptr cuDoubleComplex;
-                     beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex): cusparseStatus_t {.
+                     beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrxmv", dynlib: libName.}
-proc cusparseXbsrsv2_zeroPivot*(handle: cusparseHandle_t; info: bsrsv2Info_t;
-                               position: ptr cint): cusparseStatus_t {.cdecl,
+proc cusparseXbsrsv2_zeroPivotUnderScore*(handle: cusparseHandle_t; info: bsrsv2Info_t;
+                               position: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXbsrsv2_zeroPivot", dynlib: libName.}
-proc cusparseSbsrsv2_bufferSize*(handle: cusparseHandle_t;
+proc cusparseSbsrsv2_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t;
                                 transA: cusparseOperation_t; mb: cint; nnzb: cint;
                                 descrA: cusparseMatDescr_t;
                                 bsrSortedValA: ptr cfloat;
                                 bsrSortedRowPtrA: ptr cint;
                                 bsrSortedColIndA: ptr cint; blockDim: cint;
-                                info: bsrsv2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                info: bsrsv2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsrsv2_bufferSize", dynlib: libName.}
-proc cusparseDbsrsv2_bufferSize*(handle: cusparseHandle_t;
+proc cusparseDbsrsv2_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t;
                                 transA: cusparseOperation_t; mb: cint; nnzb: cint;
                                 descrA: cusparseMatDescr_t;
                                 bsrSortedValA: ptr cdouble;
                                 bsrSortedRowPtrA: ptr cint;
                                 bsrSortedColIndA: ptr cint; blockDim: cint;
-                                info: bsrsv2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                info: bsrsv2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrsv2_bufferSize", dynlib: libName.}
-proc cusparseCbsrsv2_bufferSize*(handle: cusparseHandle_t;
+proc cusparseCbsrsv2_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t;
                                 transA: cusparseOperation_t; mb: cint; nnzb: cint;
                                 descrA: cusparseMatDescr_t;
                                 bsrSortedValA: ptr cuComplex;
                                 bsrSortedRowPtrA: ptr cint;
                                 bsrSortedColIndA: ptr cint; blockDim: cint;
-                                info: bsrsv2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                info: bsrsv2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsrsv2_bufferSize", dynlib: libName.}
-proc cusparseZbsrsv2_bufferSize*(handle: cusparseHandle_t;
+proc cusparseZbsrsv2_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t;
                                 transA: cusparseOperation_t; mb: cint; nnzb: cint;
                                 descrA: cusparseMatDescr_t;
                                 bsrSortedValA: ptr cuDoubleComplex;
                                 bsrSortedRowPtrA: ptr cint;
                                 bsrSortedColIndA: ptr cint; blockDim: cint;
-                                info: bsrsv2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                info: bsrsv2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrsv2_bufferSize", dynlib: libName.}
-proc cusparseSbsrsv2_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseSbsrsv2_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t;
                                    transA: cusparseOperation_t; mb: cint;
                                    nnzb: cint; descrA: cusparseMatDescr_t;
                                    bsrSortedValA: ptr cfloat;
                                    bsrSortedRowPtrA: ptr cint;
                                    bsrSortedColIndA: ptr cint; blockSize: cint;
-                                   info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                   info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsrsv2_bufferSizeExt", dynlib: libName.}
-proc cusparseDbsrsv2_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseDbsrsv2_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t;
                                    transA: cusparseOperation_t; mb: cint;
                                    nnzb: cint; descrA: cusparseMatDescr_t;
                                    bsrSortedValA: ptr cdouble;
                                    bsrSortedRowPtrA: ptr cint;
                                    bsrSortedColIndA: ptr cint; blockSize: cint;
-                                   info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                   info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrsv2_bufferSizeExt", dynlib: libName.}
-proc cusparseCbsrsv2_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseCbsrsv2_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t;
                                    transA: cusparseOperation_t; mb: cint;
                                    nnzb: cint; descrA: cusparseMatDescr_t;
                                    bsrSortedValA: ptr cuComplex;
                                    bsrSortedRowPtrA: ptr cint;
                                    bsrSortedColIndA: ptr cint; blockSize: cint;
-                                   info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                   info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsrsv2_bufferSizeExt", dynlib: libName.}
-proc cusparseZbsrsv2_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseZbsrsv2_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t;
                                    transA: cusparseOperation_t; mb: cint;
                                    nnzb: cint; descrA: cusparseMatDescr_t;
                                    bsrSortedValA: ptr cuDoubleComplex;
                                    bsrSortedRowPtrA: ptr cint;
                                    bsrSortedColIndA: ptr cint; blockSize: cint;
-                                   info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                   info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrsv2_bufferSizeExt", dynlib: libName.}
-proc cusparseSbsrsv2_analysis*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseSbsrsv2_analysisUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                               transA: cusparseOperation_t; mb: cint; nnzb: cint;
                               descrA: cusparseMatDescr_t;
                               bsrSortedValA: ptr cfloat;
                               bsrSortedRowPtrA: ptr cint;
                               bsrSortedColIndA: ptr cint; blockDim: cint;
                               info: bsrsv2Info_t; policy: cusparseSolvePolicy_t;
-                              pBuffer: pointer): cusparseStatus_t {.cdecl,
+                              pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSbsrsv2_analysis", dynlib: libName.}
-proc cusparseDbsrsv2_analysis*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDbsrsv2_analysisUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                               transA: cusparseOperation_t; mb: cint; nnzb: cint;
                               descrA: cusparseMatDescr_t;
                               bsrSortedValA: ptr cdouble;
                               bsrSortedRowPtrA: ptr cint;
                               bsrSortedColIndA: ptr cint; blockDim: cint;
                               info: bsrsv2Info_t; policy: cusparseSolvePolicy_t;
-                              pBuffer: pointer): cusparseStatus_t {.cdecl,
+                              pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDbsrsv2_analysis", dynlib: libName.}
-proc cusparseCbsrsv2_analysis*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCbsrsv2_analysisUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                               transA: cusparseOperation_t; mb: cint; nnzb: cint;
                               descrA: cusparseMatDescr_t;
                               bsrSortedValA: ptr cuComplex;
                               bsrSortedRowPtrA: ptr cint;
                               bsrSortedColIndA: ptr cint; blockDim: cint;
                               info: bsrsv2Info_t; policy: cusparseSolvePolicy_t;
-                              pBuffer: pointer): cusparseStatus_t {.cdecl,
+                              pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCbsrsv2_analysis", dynlib: libName.}
-proc cusparseZbsrsv2_analysis*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZbsrsv2_analysisUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                               transA: cusparseOperation_t; mb: cint; nnzb: cint;
                               descrA: cusparseMatDescr_t;
                               bsrSortedValA: ptr cuDoubleComplex;
                               bsrSortedRowPtrA: ptr cint;
                               bsrSortedColIndA: ptr cint; blockDim: cint;
                               info: bsrsv2Info_t; policy: cusparseSolvePolicy_t;
-                              pBuffer: pointer): cusparseStatus_t {.cdecl,
+                              pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZbsrsv2_analysis", dynlib: libName.}
-proc cusparseSbsrsv2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseSbsrsv2_solveUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            transA: cusparseOperation_t; mb: cint; nnzb: cint;
                            alpha: ptr cfloat; descrA: cusparseMatDescr_t;
                            bsrSortedValA: ptr cfloat; bsrSortedRowPtrA: ptr cint;
                            bsrSortedColIndA: ptr cint; blockDim: cint;
                            info: bsrsv2Info_t; f: ptr cfloat; x: ptr cfloat;
-                           policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                           policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsrsv2_solve", dynlib: libName.}
-proc cusparseDbsrsv2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDbsrsv2_solveUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            transA: cusparseOperation_t; mb: cint; nnzb: cint;
                            alpha: ptr cdouble; descrA: cusparseMatDescr_t;
                            bsrSortedValA: ptr cdouble; bsrSortedRowPtrA: ptr cint;
                            bsrSortedColIndA: ptr cint; blockDim: cint;
                            info: bsrsv2Info_t; f: ptr cdouble; x: ptr cdouble;
-                           policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                           policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrsv2_solve", dynlib: libName.}
-proc cusparseCbsrsv2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCbsrsv2_solveUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            transA: cusparseOperation_t; mb: cint; nnzb: cint;
                            alpha: ptr cuComplex; descrA: cusparseMatDescr_t;
                            bsrSortedValA: ptr cuComplex;
                            bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint;
                            blockDim: cint; info: bsrsv2Info_t; f: ptr cuComplex;
                            x: ptr cuComplex; policy: cusparseSolvePolicy_t;
-                           pBuffer: pointer): cusparseStatus_t {.cdecl,
+                           pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCbsrsv2_solve", dynlib: libName.}
-proc cusparseZbsrsv2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZbsrsv2_solveUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            transA: cusparseOperation_t; mb: cint; nnzb: cint;
                            alpha: ptr cuDoubleComplex; descrA: cusparseMatDescr_t;
                            bsrSortedValA: ptr cuDoubleComplex;
                            bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint;
                            blockDim: cint; info: bsrsv2Info_t;
                            f: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
-                           policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                           policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrsv2_solve", dynlib: libName.}
 ## ##############################################################################
 ## # SPARSE LEVEL 3 ROUTINES
 ## ##############################################################################
 
-proc cusparseSbsrmm*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseSbsrmmUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                     transA: cusparseOperation_t; transB: cusparseOperation_t;
                     mb: cint; n: cint; kb: cint; nnzb: cint; alpha: ptr cfloat;
                     descrA: cusparseMatDescr_t; bsrSortedValA: ptr cfloat;
                     bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint;
                     blockSize: cint; B: ptr cfloat; ldb: cint; beta: ptr cfloat;
-                    C: ptr cfloat; ldc: cint): cusparseStatus_t {.cdecl,
+                    C: ptr cfloat; ldc: cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSbsrmm", dynlib: libName.}
-proc cusparseDbsrmm*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDbsrmmUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                     transA: cusparseOperation_t; transB: cusparseOperation_t;
                     mb: cint; n: cint; kb: cint; nnzb: cint; alpha: ptr cdouble;
                     descrA: cusparseMatDescr_t; bsrSortedValA: ptr cdouble;
                     bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint;
                     blockSize: cint; B: ptr cdouble; ldb: cint; beta: ptr cdouble;
-                    C: ptr cdouble; ldc: cint): cusparseStatus_t {.cdecl,
+                    C: ptr cdouble; ldc: cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDbsrmm", dynlib: libName.}
-proc cusparseCbsrmm*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCbsrmmUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                     transA: cusparseOperation_t; transB: cusparseOperation_t;
                     mb: cint; n: cint; kb: cint; nnzb: cint; alpha: ptr cuComplex;
                     descrA: cusparseMatDescr_t; bsrSortedValA: ptr cuComplex;
                     bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint;
                     blockSize: cint; B: ptr cuComplex; ldb: cint; beta: ptr cuComplex;
-                    C: ptr cuComplex; ldc: cint): cusparseStatus_t {.cdecl,
+                    C: ptr cuComplex; ldc: cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCbsrmm", dynlib: libName.}
-proc cusparseZbsrmm*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZbsrmmUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                     transA: cusparseOperation_t; transB: cusparseOperation_t;
                     mb: cint; n: cint; kb: cint; nnzb: cint; alpha: ptr cuDoubleComplex;
                     descrA: cusparseMatDescr_t;
                     bsrSortedValA: ptr cuDoubleComplex; bsrSortedRowPtrA: ptr cint;
                     bsrSortedColIndA: ptr cint; blockSize: cint;
                     B: ptr cuDoubleComplex; ldb: cint; beta: ptr cuDoubleComplex;
-                    C: ptr cuDoubleComplex; ldc: cint): cusparseStatus_t {.cdecl,
+                    C: ptr cuDoubleComplex; ldc: cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZbsrmm", dynlib: libName.}
-proc cusparseXbsrsm2_zeroPivot*(handle: cusparseHandle_t; info: bsrsm2Info_t;
-                               position: ptr cint): cusparseStatus_t {.cdecl,
+proc cusparseXbsrsm2_zeroPivotUnderScore*(handle: cusparseHandle_t; info: bsrsm2Info_t;
+                               position: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXbsrsm2_zeroPivot", dynlib: libName.}
-proc cusparseSbsrsm2_bufferSize*(handle: cusparseHandle_t;
+proc cusparseSbsrsm2_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t;
                                 transA: cusparseOperation_t;
                                 transXY: cusparseOperation_t; mb: cint; n: cint;
@@ -685,9 +685,9 @@ proc cusparseSbsrsm2_bufferSize*(handle: cusparseHandle_t;
                                 bsrSortedVal: ptr cfloat;
                                 bsrSortedRowPtr: ptr cint;
                                 bsrSortedColInd: ptr cint; blockSize: cint;
-                                info: bsrsm2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                info: bsrsm2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsrsm2_bufferSize", dynlib: libName.}
-proc cusparseDbsrsm2_bufferSize*(handle: cusparseHandle_t;
+proc cusparseDbsrsm2_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t;
                                 transA: cusparseOperation_t;
                                 transXY: cusparseOperation_t; mb: cint; n: cint;
@@ -695,9 +695,9 @@ proc cusparseDbsrsm2_bufferSize*(handle: cusparseHandle_t;
                                 bsrSortedVal: ptr cdouble;
                                 bsrSortedRowPtr: ptr cint;
                                 bsrSortedColInd: ptr cint; blockSize: cint;
-                                info: bsrsm2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                info: bsrsm2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrsm2_bufferSize", dynlib: libName.}
-proc cusparseCbsrsm2_bufferSize*(handle: cusparseHandle_t;
+proc cusparseCbsrsm2_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t;
                                 transA: cusparseOperation_t;
                                 transXY: cusparseOperation_t; mb: cint; n: cint;
@@ -705,9 +705,9 @@ proc cusparseCbsrsm2_bufferSize*(handle: cusparseHandle_t;
                                 bsrSortedVal: ptr cuComplex;
                                 bsrSortedRowPtr: ptr cint;
                                 bsrSortedColInd: ptr cint; blockSize: cint;
-                                info: bsrsm2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                info: bsrsm2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsrsm2_bufferSize", dynlib: libName.}
-proc cusparseZbsrsm2_bufferSize*(handle: cusparseHandle_t;
+proc cusparseZbsrsm2_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t;
                                 transA: cusparseOperation_t;
                                 transXY: cusparseOperation_t; mb: cint; n: cint;
@@ -715,9 +715,9 @@ proc cusparseZbsrsm2_bufferSize*(handle: cusparseHandle_t;
                                 bsrSortedVal: ptr cuDoubleComplex;
                                 bsrSortedRowPtr: ptr cint;
                                 bsrSortedColInd: ptr cint; blockSize: cint;
-                                info: bsrsm2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                info: bsrsm2Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrsm2_bufferSize", dynlib: libName.}
-proc cusparseSbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseSbsrsm2_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t;
                                    transA: cusparseOperation_t;
                                    transB: cusparseOperation_t; mb: cint; n: cint;
@@ -725,9 +725,9 @@ proc cusparseSbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
                                    bsrSortedVal: ptr cfloat;
                                    bsrSortedRowPtr: ptr cint;
                                    bsrSortedColInd: ptr cint; blockSize: cint;
-                                   info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                   info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsrsm2_bufferSizeExt", dynlib: libName.}
-proc cusparseDbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseDbsrsm2_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t;
                                    transA: cusparseOperation_t;
                                    transB: cusparseOperation_t; mb: cint; n: cint;
@@ -735,9 +735,9 @@ proc cusparseDbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
                                    bsrSortedVal: ptr cdouble;
                                    bsrSortedRowPtr: ptr cint;
                                    bsrSortedColInd: ptr cint; blockSize: cint;
-                                   info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                   info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrsm2_bufferSizeExt", dynlib: libName.}
-proc cusparseCbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseCbsrsm2_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t;
                                    transA: cusparseOperation_t;
                                    transB: cusparseOperation_t; mb: cint; n: cint;
@@ -745,9 +745,9 @@ proc cusparseCbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
                                    bsrSortedVal: ptr cuComplex;
                                    bsrSortedRowPtr: ptr cint;
                                    bsrSortedColInd: ptr cint; blockSize: cint;
-                                   info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                   info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsrsm2_bufferSizeExt", dynlib: libName.}
-proc cusparseZbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseZbsrsm2_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t;
                                    transA: cusparseOperation_t;
                                    transB: cusparseOperation_t; mb: cint; n: cint;
@@ -755,45 +755,45 @@ proc cusparseZbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
                                    bsrSortedVal: ptr cuDoubleComplex;
                                    bsrSortedRowPtr: ptr cint;
                                    bsrSortedColInd: ptr cint; blockSize: cint;
-                                   info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                   info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrsm2_bufferSizeExt", dynlib: libName.}
-proc cusparseSbsrsm2_analysis*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseSbsrsm2_analysisUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                               transA: cusparseOperation_t;
                               transXY: cusparseOperation_t; mb: cint; n: cint;
                               nnzb: cint; descrA: cusparseMatDescr_t;
                               bsrSortedVal: ptr cfloat; bsrSortedRowPtr: ptr cint;
                               bsrSortedColInd: ptr cint; blockSize: cint;
                               info: bsrsm2Info_t; policy: cusparseSolvePolicy_t;
-                              pBuffer: pointer): cusparseStatus_t {.cdecl,
+                              pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSbsrsm2_analysis", dynlib: libName.}
-proc cusparseDbsrsm2_analysis*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDbsrsm2_analysisUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                               transA: cusparseOperation_t;
                               transXY: cusparseOperation_t; mb: cint; n: cint;
                               nnzb: cint; descrA: cusparseMatDescr_t;
                               bsrSortedVal: ptr cdouble; bsrSortedRowPtr: ptr cint;
                               bsrSortedColInd: ptr cint; blockSize: cint;
                               info: bsrsm2Info_t; policy: cusparseSolvePolicy_t;
-                              pBuffer: pointer): cusparseStatus_t {.cdecl,
+                              pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDbsrsm2_analysis", dynlib: libName.}
-proc cusparseCbsrsm2_analysis*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCbsrsm2_analysisUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                               transA: cusparseOperation_t;
                               transXY: cusparseOperation_t; mb: cint; n: cint;
                               nnzb: cint; descrA: cusparseMatDescr_t;
                               bsrSortedVal: ptr cuComplex;
                               bsrSortedRowPtr: ptr cint; bsrSortedColInd: ptr cint;
                               blockSize: cint; info: bsrsm2Info_t;
-                              policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                              policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsrsm2_analysis", dynlib: libName.}
-proc cusparseZbsrsm2_analysis*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZbsrsm2_analysisUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                               transA: cusparseOperation_t;
                               transXY: cusparseOperation_t; mb: cint; n: cint;
                               nnzb: cint; descrA: cusparseMatDescr_t;
                               bsrSortedVal: ptr cuDoubleComplex;
                               bsrSortedRowPtr: ptr cint; bsrSortedColInd: ptr cint;
                               blockSize: cint; info: bsrsm2Info_t;
-                              policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                              policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrsm2_analysis", dynlib: libName.}
-proc cusparseSbsrsm2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseSbsrsm2_solveUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            transA: cusparseOperation_t;
                            transXY: cusparseOperation_t; mb: cint; n: cint;
                            nnzb: cint; alpha: ptr cfloat; descrA: cusparseMatDescr_t;
@@ -801,9 +801,9 @@ proc cusparseSbsrsm2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            bsrSortedColInd: ptr cint; blockSize: cint;
                            info: bsrsm2Info_t; B: ptr cfloat; ldb: cint; X: ptr cfloat;
                            ldx: cint; policy: cusparseSolvePolicy_t;
-                           pBuffer: pointer): cusparseStatus_t {.cdecl,
+                           pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSbsrsm2_solve", dynlib: libName.}
-proc cusparseDbsrsm2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDbsrsm2_solveUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            transA: cusparseOperation_t;
                            transXY: cusparseOperation_t; mb: cint; n: cint;
                            nnzb: cint; alpha: ptr cdouble;
@@ -811,9 +811,9 @@ proc cusparseDbsrsm2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            bsrSortedRowPtr: ptr cint; bsrSortedColInd: ptr cint;
                            blockSize: cint; info: bsrsm2Info_t; B: ptr cdouble;
                            ldb: cint; X: ptr cdouble; ldx: cint;
-                           policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                           policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrsm2_solve", dynlib: libName.}
-proc cusparseCbsrsm2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCbsrsm2_solveUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            transA: cusparseOperation_t;
                            transXY: cusparseOperation_t; mb: cint; n: cint;
                            nnzb: cint; alpha: ptr cuComplex;
@@ -822,9 +822,9 @@ proc cusparseCbsrsm2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            bsrSortedColInd: ptr cint; blockSize: cint;
                            info: bsrsm2Info_t; B: ptr cuComplex; ldb: cint;
                            X: ptr cuComplex; ldx: cint;
-                           policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                           policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsrsm2_solve", dynlib: libName.}
-proc cusparseZbsrsm2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZbsrsm2_solveUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            transA: cusparseOperation_t;
                            transXY: cusparseOperation_t; mb: cint; n: cint;
                            nnzb: cint; alpha: ptr cuDoubleComplex;
@@ -834,730 +834,730 @@ proc cusparseZbsrsm2_solve*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            blockSize: cint; info: bsrsm2Info_t;
                            B: ptr cuDoubleComplex; ldb: cint; X: ptr cuDoubleComplex;
                            ldx: cint; policy: cusparseSolvePolicy_t;
-                           pBuffer: pointer): cusparseStatus_t {.cdecl,
+                           pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZbsrsm2_solve", dynlib: libName.}
 ## ##############################################################################
 ## # PRECONDITIONERS
 ## ##############################################################################
 
-proc cusparseScsrilu02_numericBoost*(handle: cusparseHandle_t;
+proc cusparseScsrilu02_numericBoostUnderScore*(handle: cusparseHandle_t;
                                     info: csrilu02Info_t; enable_boost: cint;
-                                    tol: ptr cdouble; boost_val: ptr cfloat): cusparseStatus_t {.
+                                    tol: ptr cdouble; boost_val: ptr cfloat): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsrilu02_numericBoost", dynlib: libName.}
-proc cusparseDcsrilu02_numericBoost*(handle: cusparseHandle_t;
+proc cusparseDcsrilu02_numericBoostUnderScore*(handle: cusparseHandle_t;
                                     info: csrilu02Info_t; enable_boost: cint;
-                                    tol: ptr cdouble; boost_val: ptr cdouble): cusparseStatus_t {.
+                                    tol: ptr cdouble; boost_val: ptr cdouble): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsrilu02_numericBoost", dynlib: libName.}
-proc cusparseCcsrilu02_numericBoost*(handle: cusparseHandle_t;
+proc cusparseCcsrilu02_numericBoostUnderScore*(handle: cusparseHandle_t;
                                     info: csrilu02Info_t; enable_boost: cint;
-                                    tol: ptr cdouble; boost_val: ptr cuComplex): cusparseStatus_t {.
+                                    tol: ptr cdouble; boost_val: ptr cuComplex): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsrilu02_numericBoost", dynlib: libName.}
-proc cusparseZcsrilu02_numericBoost*(handle: cusparseHandle_t;
+proc cusparseZcsrilu02_numericBoostUnderScore*(handle: cusparseHandle_t;
                                     info: csrilu02Info_t; enable_boost: cint;
                                     tol: ptr cdouble;
-                                    boost_val: ptr cuDoubleComplex): cusparseStatus_t {.
+                                    boost_val: ptr cuDoubleComplex): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsrilu02_numericBoost", dynlib: libName.}
-proc cusparseXcsrilu02_zeroPivot*(handle: cusparseHandle_t; info: csrilu02Info_t;
-                                 position: ptr cint): cusparseStatus_t {.cdecl,
+proc cusparseXcsrilu02_zeroPivotUnderScore*(handle: cusparseHandle_t; info: csrilu02Info_t;
+                                 position: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXcsrilu02_zeroPivot", dynlib: libName.}
-proc cusparseScsrilu02_bufferSize*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseScsrilu02_bufferSizeUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                   descrA: cusparseMatDescr_t;
                                   csrSortedValA: ptr cfloat;
                                   csrSortedRowPtrA: ptr cint;
                                   csrSortedColIndA: ptr cint; info: csrilu02Info_t;
-                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsrilu02_bufferSize", dynlib: libName.}
-proc cusparseDcsrilu02_bufferSize*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseDcsrilu02_bufferSizeUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                   descrA: cusparseMatDescr_t;
                                   csrSortedValA: ptr cdouble;
                                   csrSortedRowPtrA: ptr cint;
                                   csrSortedColIndA: ptr cint; info: csrilu02Info_t;
-                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsrilu02_bufferSize", dynlib: libName.}
-proc cusparseCcsrilu02_bufferSize*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseCcsrilu02_bufferSizeUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                   descrA: cusparseMatDescr_t;
                                   csrSortedValA: ptr cuComplex;
                                   csrSortedRowPtrA: ptr cint;
                                   csrSortedColIndA: ptr cint; info: csrilu02Info_t;
-                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsrilu02_bufferSize", dynlib: libName.}
-proc cusparseZcsrilu02_bufferSize*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseZcsrilu02_bufferSizeUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                   descrA: cusparseMatDescr_t;
                                   csrSortedValA: ptr cuDoubleComplex;
                                   csrSortedRowPtrA: ptr cint;
                                   csrSortedColIndA: ptr cint; info: csrilu02Info_t;
-                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsrilu02_bufferSize", dynlib: libName.}
-proc cusparseScsrilu02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseScsrilu02_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                      descrA: cusparseMatDescr_t;
                                      csrSortedVal: ptr cfloat;
                                      csrSortedRowPtr: ptr cint;
                                      csrSortedColInd: ptr cint;
                                      info: csrilu02Info_t;
-                                     pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsrilu02_bufferSizeExt", dynlib: libName.}
-proc cusparseDcsrilu02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseDcsrilu02_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                      descrA: cusparseMatDescr_t;
                                      csrSortedVal: ptr cdouble;
                                      csrSortedRowPtr: ptr cint;
                                      csrSortedColInd: ptr cint;
                                      info: csrilu02Info_t;
-                                     pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsrilu02_bufferSizeExt", dynlib: libName.}
-proc cusparseCcsrilu02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseCcsrilu02_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                      descrA: cusparseMatDescr_t;
                                      csrSortedVal: ptr cuComplex;
                                      csrSortedRowPtr: ptr cint;
                                      csrSortedColInd: ptr cint;
                                      info: csrilu02Info_t;
-                                     pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsrilu02_bufferSizeExt", dynlib: libName.}
-proc cusparseZcsrilu02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseZcsrilu02_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                      descrA: cusparseMatDescr_t;
                                      csrSortedVal: ptr cuDoubleComplex;
                                      csrSortedRowPtr: ptr cint;
                                      csrSortedColInd: ptr cint;
                                      info: csrilu02Info_t;
-                                     pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsrilu02_bufferSizeExt", dynlib: libName.}
-proc cusparseScsrilu02_analysis*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseScsrilu02_analysisUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                 descrA: cusparseMatDescr_t;
                                 csrSortedValA: ptr cfloat;
                                 csrSortedRowPtrA: ptr cint;
                                 csrSortedColIndA: ptr cint; info: csrilu02Info_t;
-                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsrilu02_analysis", dynlib: libName.}
-proc cusparseDcsrilu02_analysis*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseDcsrilu02_analysisUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                 descrA: cusparseMatDescr_t;
                                 csrSortedValA: ptr cdouble;
                                 csrSortedRowPtrA: ptr cint;
                                 csrSortedColIndA: ptr cint; info: csrilu02Info_t;
-                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsrilu02_analysis", dynlib: libName.}
-proc cusparseCcsrilu02_analysis*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseCcsrilu02_analysisUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                 descrA: cusparseMatDescr_t;
                                 csrSortedValA: ptr cuComplex;
                                 csrSortedRowPtrA: ptr cint;
                                 csrSortedColIndA: ptr cint; info: csrilu02Info_t;
-                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsrilu02_analysis", dynlib: libName.}
-proc cusparseZcsrilu02_analysis*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseZcsrilu02_analysisUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                 descrA: cusparseMatDescr_t;
                                 csrSortedValA: ptr cuDoubleComplex;
                                 csrSortedRowPtrA: ptr cint;
                                 csrSortedColIndA: ptr cint; info: csrilu02Info_t;
-                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsrilu02_analysis", dynlib: libName.}
-proc cusparseScsrilu02*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseScsrilu02UnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrSortedValA_valM: ptr cfloat;
                        csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                        info: csrilu02Info_t; policy: cusparseSolvePolicy_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseScsrilu02", dynlib: libName.}
-proc cusparseDcsrilu02*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseDcsrilu02UnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                        descrA: cusparseMatDescr_t;
                        csrSortedValA_valM: ptr cdouble; csrSortedRowPtrA: ptr cint;
                        csrSortedColIndA: ptr cint; info: csrilu02Info_t;
-                       policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                       policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsrilu02", dynlib: libName.}
-proc cusparseCcsrilu02*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseCcsrilu02UnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                        descrA: cusparseMatDescr_t;
                        csrSortedValA_valM: ptr cuComplex;
                        csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                        info: csrilu02Info_t; policy: cusparseSolvePolicy_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCcsrilu02", dynlib: libName.}
-proc cusparseZcsrilu02*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseZcsrilu02UnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                        descrA: cusparseMatDescr_t;
                        csrSortedValA_valM: ptr cuDoubleComplex;
                        csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                        info: csrilu02Info_t; policy: cusparseSolvePolicy_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZcsrilu02", dynlib: libName.}
-proc cusparseSbsrilu02_numericBoost*(handle: cusparseHandle_t;
+proc cusparseSbsrilu02_numericBoostUnderScore*(handle: cusparseHandle_t;
                                     info: bsrilu02Info_t; enable_boost: cint;
-                                    tol: ptr cdouble; boost_val: ptr cfloat): cusparseStatus_t {.
+                                    tol: ptr cdouble; boost_val: ptr cfloat): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsrilu02_numericBoost", dynlib: libName.}
-proc cusparseDbsrilu02_numericBoost*(handle: cusparseHandle_t;
+proc cusparseDbsrilu02_numericBoostUnderScore*(handle: cusparseHandle_t;
                                     info: bsrilu02Info_t; enable_boost: cint;
-                                    tol: ptr cdouble; boost_val: ptr cdouble): cusparseStatus_t {.
+                                    tol: ptr cdouble; boost_val: ptr cdouble): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrilu02_numericBoost", dynlib: libName.}
-proc cusparseCbsrilu02_numericBoost*(handle: cusparseHandle_t;
+proc cusparseCbsrilu02_numericBoostUnderScore*(handle: cusparseHandle_t;
                                     info: bsrilu02Info_t; enable_boost: cint;
-                                    tol: ptr cdouble; boost_val: ptr cuComplex): cusparseStatus_t {.
+                                    tol: ptr cdouble; boost_val: ptr cuComplex): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsrilu02_numericBoost", dynlib: libName.}
-proc cusparseZbsrilu02_numericBoost*(handle: cusparseHandle_t;
+proc cusparseZbsrilu02_numericBoostUnderScore*(handle: cusparseHandle_t;
                                     info: bsrilu02Info_t; enable_boost: cint;
                                     tol: ptr cdouble;
-                                    boost_val: ptr cuDoubleComplex): cusparseStatus_t {.
+                                    boost_val: ptr cuDoubleComplex): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrilu02_numericBoost", dynlib: libName.}
-proc cusparseXbsrilu02_zeroPivot*(handle: cusparseHandle_t; info: bsrilu02Info_t;
-                                 position: ptr cint): cusparseStatus_t {.cdecl,
+proc cusparseXbsrilu02_zeroPivotUnderScore*(handle: cusparseHandle_t; info: bsrilu02Info_t;
+                                 position: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXbsrilu02_zeroPivot", dynlib: libName.}
-proc cusparseSbsrilu02_bufferSize*(handle: cusparseHandle_t;
+proc cusparseSbsrilu02_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                   dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                   descrA: cusparseMatDescr_t;
                                   bsrSortedVal: ptr cfloat;
                                   bsrSortedRowPtr: ptr cint;
                                   bsrSortedColInd: ptr cint; blockDim: cint;
                                   info: bsrilu02Info_t;
-                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsrilu02_bufferSize", dynlib: libName.}
-proc cusparseDbsrilu02_bufferSize*(handle: cusparseHandle_t;
+proc cusparseDbsrilu02_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                   dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                   descrA: cusparseMatDescr_t;
                                   bsrSortedVal: ptr cdouble;
                                   bsrSortedRowPtr: ptr cint;
                                   bsrSortedColInd: ptr cint; blockDim: cint;
                                   info: bsrilu02Info_t;
-                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrilu02_bufferSize", dynlib: libName.}
-proc cusparseCbsrilu02_bufferSize*(handle: cusparseHandle_t;
+proc cusparseCbsrilu02_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                   dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                   descrA: cusparseMatDescr_t;
                                   bsrSortedVal: ptr cuComplex;
                                   bsrSortedRowPtr: ptr cint;
                                   bsrSortedColInd: ptr cint; blockDim: cint;
                                   info: bsrilu02Info_t;
-                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsrilu02_bufferSize", dynlib: libName.}
-proc cusparseZbsrilu02_bufferSize*(handle: cusparseHandle_t;
+proc cusparseZbsrilu02_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                   dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                   descrA: cusparseMatDescr_t;
                                   bsrSortedVal: ptr cuDoubleComplex;
                                   bsrSortedRowPtr: ptr cint;
                                   bsrSortedColInd: ptr cint; blockDim: cint;
                                   info: bsrilu02Info_t;
-                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                  pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrilu02_bufferSize", dynlib: libName.}
-proc cusparseSbsrilu02_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseSbsrilu02_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t; mb: cint;
                                      nnzb: cint; descrA: cusparseMatDescr_t;
                                      bsrSortedVal: ptr cfloat;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; blockSize: cint;
                                      info: bsrilu02Info_t;
-                                     pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsrilu02_bufferSizeExt", dynlib: libName.}
-proc cusparseDbsrilu02_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseDbsrilu02_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t; mb: cint;
                                      nnzb: cint; descrA: cusparseMatDescr_t;
                                      bsrSortedVal: ptr cdouble;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; blockSize: cint;
                                      info: bsrilu02Info_t;
-                                     pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrilu02_bufferSizeExt", dynlib: libName.}
-proc cusparseCbsrilu02_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseCbsrilu02_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t; mb: cint;
                                      nnzb: cint; descrA: cusparseMatDescr_t;
                                      bsrSortedVal: ptr cuComplex;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; blockSize: cint;
                                      info: bsrilu02Info_t;
-                                     pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsrilu02_bufferSizeExt", dynlib: libName.}
-proc cusparseZbsrilu02_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseZbsrilu02_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t; mb: cint;
                                      nnzb: cint; descrA: cusparseMatDescr_t;
                                      bsrSortedVal: ptr cuDoubleComplex;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; blockSize: cint;
                                      info: bsrilu02Info_t;
-                                     pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrilu02_bufferSizeExt", dynlib: libName.}
-proc cusparseSbsrilu02_analysis*(handle: cusparseHandle_t;
+proc cusparseSbsrilu02_analysisUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                 descrA: cusparseMatDescr_t;
                                 bsrSortedVal: ptr cfloat;
                                 bsrSortedRowPtr: ptr cint;
                                 bsrSortedColInd: ptr cint; blockDim: cint;
                                 info: bsrilu02Info_t;
-                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsrilu02_analysis", dynlib: libName.}
-proc cusparseDbsrilu02_analysis*(handle: cusparseHandle_t;
+proc cusparseDbsrilu02_analysisUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                 descrA: cusparseMatDescr_t;
                                 bsrSortedVal: ptr cdouble;
                                 bsrSortedRowPtr: ptr cint;
                                 bsrSortedColInd: ptr cint; blockDim: cint;
                                 info: bsrilu02Info_t;
-                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsrilu02_analysis", dynlib: libName.}
-proc cusparseCbsrilu02_analysis*(handle: cusparseHandle_t;
+proc cusparseCbsrilu02_analysisUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                 descrA: cusparseMatDescr_t;
                                 bsrSortedVal: ptr cuComplex;
                                 bsrSortedRowPtr: ptr cint;
                                 bsrSortedColInd: ptr cint; blockDim: cint;
                                 info: bsrilu02Info_t;
-                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsrilu02_analysis", dynlib: libName.}
-proc cusparseZbsrilu02_analysis*(handle: cusparseHandle_t;
+proc cusparseZbsrilu02_analysisUnderScore*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                 descrA: cusparseMatDescr_t;
                                 bsrSortedVal: ptr cuDoubleComplex;
                                 bsrSortedRowPtr: ptr cint;
                                 bsrSortedColInd: ptr cint; blockDim: cint;
                                 info: bsrilu02Info_t;
-                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                                policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrilu02_analysis", dynlib: libName.}
-proc cusparseSbsrilu02*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseSbsrilu02UnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                        mb: cint; nnzb: cint; descrA: cusparseMatDescr_t;
                        bsrSortedVal: ptr cfloat; bsrSortedRowPtr: ptr cint;
                        bsrSortedColInd: ptr cint; blockDim: cint;
                        info: bsrilu02Info_t; policy: cusparseSolvePolicy_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSbsrilu02", dynlib: libName.}
-proc cusparseDbsrilu02*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDbsrilu02UnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                        mb: cint; nnzb: cint; descrA: cusparseMatDescr_t;
                        bsrSortedVal: ptr cdouble; bsrSortedRowPtr: ptr cint;
                        bsrSortedColInd: ptr cint; blockDim: cint;
                        info: bsrilu02Info_t; policy: cusparseSolvePolicy_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDbsrilu02", dynlib: libName.}
-proc cusparseCbsrilu02*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCbsrilu02UnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                        mb: cint; nnzb: cint; descrA: cusparseMatDescr_t;
                        bsrSortedVal: ptr cuComplex; bsrSortedRowPtr: ptr cint;
                        bsrSortedColInd: ptr cint; blockDim: cint;
                        info: bsrilu02Info_t; policy: cusparseSolvePolicy_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCbsrilu02", dynlib: libName.}
-proc cusparseZbsrilu02*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZbsrilu02UnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                        mb: cint; nnzb: cint; descrA: cusparseMatDescr_t;
                        bsrSortedVal: ptr cuDoubleComplex;
                        bsrSortedRowPtr: ptr cint; bsrSortedColInd: ptr cint;
                        blockDim: cint; info: bsrilu02Info_t;
-                       policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                       policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsrilu02", dynlib: libName.}
-proc cusparseXcsric02_zeroPivot*(handle: cusparseHandle_t; info: csric02Info_t;
-                                position: ptr cint): cusparseStatus_t {.cdecl,
+proc cusparseXcsric02_zeroPivotUnderScore*(handle: cusparseHandle_t; info: csric02Info_t;
+                                position: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXcsric02_zeroPivot", dynlib: libName.}
-proc cusparseScsric02_bufferSize*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseScsric02_bufferSizeUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                  descrA: cusparseMatDescr_t;
                                  csrSortedValA: ptr cfloat;
                                  csrSortedRowPtrA: ptr cint;
                                  csrSortedColIndA: ptr cint; info: csric02Info_t;
-                                 pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                 pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsric02_bufferSize", dynlib: libName.}
-proc cusparseDcsric02_bufferSize*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseDcsric02_bufferSizeUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                  descrA: cusparseMatDescr_t;
                                  csrSortedValA: ptr cdouble;
                                  csrSortedRowPtrA: ptr cint;
                                  csrSortedColIndA: ptr cint; info: csric02Info_t;
-                                 pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                 pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsric02_bufferSize", dynlib: libName.}
-proc cusparseCcsric02_bufferSize*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseCcsric02_bufferSizeUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                  descrA: cusparseMatDescr_t;
                                  csrSortedValA: ptr cuComplex;
                                  csrSortedRowPtrA: ptr cint;
                                  csrSortedColIndA: ptr cint; info: csric02Info_t;
-                                 pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                 pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsric02_bufferSize", dynlib: libName.}
-proc cusparseZcsric02_bufferSize*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseZcsric02_bufferSizeUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                  descrA: cusparseMatDescr_t;
                                  csrSortedValA: ptr cuDoubleComplex;
                                  csrSortedRowPtrA: ptr cint;
                                  csrSortedColIndA: ptr cint; info: csric02Info_t;
-                                 pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                 pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsric02_bufferSize", dynlib: libName.}
-proc cusparseScsric02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseScsric02_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                     descrA: cusparseMatDescr_t;
                                     csrSortedVal: ptr cfloat;
                                     csrSortedRowPtr: ptr cint;
                                     csrSortedColInd: ptr cint; info: csric02Info_t;
-                                    pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                    pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsric02_bufferSizeExt", dynlib: libName.}
-proc cusparseDcsric02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseDcsric02_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                     descrA: cusparseMatDescr_t;
                                     csrSortedVal: ptr cdouble;
                                     csrSortedRowPtr: ptr cint;
                                     csrSortedColInd: ptr cint; info: csric02Info_t;
-                                    pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                    pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsric02_bufferSizeExt", dynlib: libName.}
-proc cusparseCcsric02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseCcsric02_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                     descrA: cusparseMatDescr_t;
                                     csrSortedVal: ptr cuComplex;
                                     csrSortedRowPtr: ptr cint;
                                     csrSortedColInd: ptr cint; info: csric02Info_t;
-                                    pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                    pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsric02_bufferSizeExt", dynlib: libName.}
-proc cusparseZcsric02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseZcsric02_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                     descrA: cusparseMatDescr_t;
                                     csrSortedVal: ptr cuDoubleComplex;
                                     csrSortedRowPtr: ptr cint;
                                     csrSortedColInd: ptr cint; info: csric02Info_t;
-                                    pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                    pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsric02_bufferSizeExt", dynlib: libName.}
-proc cusparseScsric02_analysis*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseScsric02_analysisUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                descrA: cusparseMatDescr_t;
                                csrSortedValA: ptr cfloat;
                                csrSortedRowPtrA: ptr cint;
                                csrSortedColIndA: ptr cint; info: csric02Info_t;
-                               policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                               policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsric02_analysis", dynlib: libName.}
-proc cusparseDcsric02_analysis*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseDcsric02_analysisUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                descrA: cusparseMatDescr_t;
                                csrSortedValA: ptr cdouble;
                                csrSortedRowPtrA: ptr cint;
                                csrSortedColIndA: ptr cint; info: csric02Info_t;
-                               policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                               policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsric02_analysis", dynlib: libName.}
-proc cusparseCcsric02_analysis*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseCcsric02_analysisUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                descrA: cusparseMatDescr_t;
                                csrSortedValA: ptr cuComplex;
                                csrSortedRowPtrA: ptr cint;
                                csrSortedColIndA: ptr cint; info: csric02Info_t;
-                               policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                               policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsric02_analysis", dynlib: libName.}
-proc cusparseZcsric02_analysis*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseZcsric02_analysisUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                descrA: cusparseMatDescr_t;
                                csrSortedValA: ptr cuDoubleComplex;
                                csrSortedRowPtrA: ptr cint;
                                csrSortedColIndA: ptr cint; info: csric02Info_t;
-                               policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                               policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsric02_analysis", dynlib: libName.}
-proc cusparseScsric02*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseScsric02UnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                       descrA: cusparseMatDescr_t; csrSortedValA_valM: ptr cfloat;
                       csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                       info: csric02Info_t; policy: cusparseSolvePolicy_t;
-                      pBuffer: pointer): cusparseStatus_t {.cdecl,
+                      pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseScsric02", dynlib: libName.}
-proc cusparseDcsric02*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseDcsric02UnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                       descrA: cusparseMatDescr_t; csrSortedValA_valM: ptr cdouble;
                       csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                       info: csric02Info_t; policy: cusparseSolvePolicy_t;
-                      pBuffer: pointer): cusparseStatus_t {.cdecl,
+                      pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDcsric02", dynlib: libName.}
-proc cusparseCcsric02*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseCcsric02UnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                       descrA: cusparseMatDescr_t;
                       csrSortedValA_valM: ptr cuComplex;
                       csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                       info: csric02Info_t; policy: cusparseSolvePolicy_t;
-                      pBuffer: pointer): cusparseStatus_t {.cdecl,
+                      pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCcsric02", dynlib: libName.}
-proc cusparseZcsric02*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseZcsric02UnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                       descrA: cusparseMatDescr_t;
                       csrSortedValA_valM: ptr cuDoubleComplex;
                       csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                       info: csric02Info_t; policy: cusparseSolvePolicy_t;
-                      pBuffer: pointer): cusparseStatus_t {.cdecl,
+                      pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZcsric02", dynlib: libName.}
-proc cusparseXbsric02_zeroPivot*(handle: cusparseHandle_t; info: bsric02Info_t;
-                                position: ptr cint): cusparseStatus_t {.cdecl,
+proc cusparseXbsric02_zeroPivotUnderScore*(handle: cusparseHandle_t; info: bsric02Info_t;
+                                position: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXbsric02_zeroPivot", dynlib: libName.}
-proc cusparseSbsric02_bufferSize*(handle: cusparseHandle_t;
+proc cusparseSbsric02_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                  dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                  descrA: cusparseMatDescr_t;
                                  bsrSortedVal: ptr cfloat;
                                  bsrSortedRowPtr: ptr cint;
                                  bsrSortedColInd: ptr cint; blockDim: cint;
-                                 info: bsric02Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                 info: bsric02Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsric02_bufferSize", dynlib: libName.}
-proc cusparseDbsric02_bufferSize*(handle: cusparseHandle_t;
+proc cusparseDbsric02_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                  dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                  descrA: cusparseMatDescr_t;
                                  bsrSortedVal: ptr cdouble;
                                  bsrSortedRowPtr: ptr cint;
                                  bsrSortedColInd: ptr cint; blockDim: cint;
-                                 info: bsric02Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                 info: bsric02Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsric02_bufferSize", dynlib: libName.}
-proc cusparseCbsric02_bufferSize*(handle: cusparseHandle_t;
+proc cusparseCbsric02_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                  dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                  descrA: cusparseMatDescr_t;
                                  bsrSortedVal: ptr cuComplex;
                                  bsrSortedRowPtr: ptr cint;
                                  bsrSortedColInd: ptr cint; blockDim: cint;
-                                 info: bsric02Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                 info: bsric02Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsric02_bufferSize", dynlib: libName.}
-proc cusparseZbsric02_bufferSize*(handle: cusparseHandle_t;
+proc cusparseZbsric02_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                  dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                  descrA: cusparseMatDescr_t;
                                  bsrSortedVal: ptr cuDoubleComplex;
                                  bsrSortedRowPtr: ptr cint;
                                  bsrSortedColInd: ptr cint; blockDim: cint;
-                                 info: bsric02Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                 info: bsric02Info_t; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsric02_bufferSize", dynlib: libName.}
-proc cusparseSbsric02_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseSbsric02_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                     dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                     descrA: cusparseMatDescr_t;
                                     bsrSortedVal: ptr cfloat;
                                     bsrSortedRowPtr: ptr cint;
                                     bsrSortedColInd: ptr cint; blockSize: cint;
-                                    info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                    info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsric02_bufferSizeExt", dynlib: libName.}
-proc cusparseDbsric02_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseDbsric02_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                     dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                     descrA: cusparseMatDescr_t;
                                     bsrSortedVal: ptr cdouble;
                                     bsrSortedRowPtr: ptr cint;
                                     bsrSortedColInd: ptr cint; blockSize: cint;
-                                    info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                    info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsric02_bufferSizeExt", dynlib: libName.}
-proc cusparseCbsric02_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseCbsric02_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                     dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                     descrA: cusparseMatDescr_t;
                                     bsrSortedVal: ptr cuComplex;
                                     bsrSortedRowPtr: ptr cint;
                                     bsrSortedColInd: ptr cint; blockSize: cint;
-                                    info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                    info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsric02_bufferSizeExt", dynlib: libName.}
-proc cusparseZbsric02_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseZbsric02_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                     dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                     descrA: cusparseMatDescr_t;
                                     bsrSortedVal: ptr cuDoubleComplex;
                                     bsrSortedRowPtr: ptr cint;
                                     bsrSortedColInd: ptr cint; blockSize: cint;
-                                    info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                    info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsric02_bufferSizeExt", dynlib: libName.}
-proc cusparseSbsric02_analysis*(handle: cusparseHandle_t;
+proc cusparseSbsric02_analysisUnderScore*(handle: cusparseHandle_t;
                                dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                descrA: cusparseMatDescr_t;
                                bsrSortedVal: ptr cfloat; bsrSortedRowPtr: ptr cint;
                                bsrSortedColInd: ptr cint; blockDim: cint;
                                info: bsric02Info_t; policy: cusparseSolvePolicy_t;
-                               pInputBuffer: pointer): cusparseStatus_t {.cdecl,
+                               pInputBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSbsric02_analysis", dynlib: libName.}
-proc cusparseDbsric02_analysis*(handle: cusparseHandle_t;
+proc cusparseDbsric02_analysisUnderScore*(handle: cusparseHandle_t;
                                dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                descrA: cusparseMatDescr_t;
                                bsrSortedVal: ptr cdouble;
                                bsrSortedRowPtr: ptr cint;
                                bsrSortedColInd: ptr cint; blockDim: cint;
                                info: bsric02Info_t; policy: cusparseSolvePolicy_t;
-                               pInputBuffer: pointer): cusparseStatus_t {.cdecl,
+                               pInputBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDbsric02_analysis", dynlib: libName.}
-proc cusparseCbsric02_analysis*(handle: cusparseHandle_t;
+proc cusparseCbsric02_analysisUnderScore*(handle: cusparseHandle_t;
                                dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                descrA: cusparseMatDescr_t;
                                bsrSortedVal: ptr cuComplex;
                                bsrSortedRowPtr: ptr cint;
                                bsrSortedColInd: ptr cint; blockDim: cint;
                                info: bsric02Info_t; policy: cusparseSolvePolicy_t;
-                               pInputBuffer: pointer): cusparseStatus_t {.cdecl,
+                               pInputBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCbsric02_analysis", dynlib: libName.}
-proc cusparseZbsric02_analysis*(handle: cusparseHandle_t;
+proc cusparseZbsric02_analysisUnderScore*(handle: cusparseHandle_t;
                                dirA: cusparseDirection_t; mb: cint; nnzb: cint;
                                descrA: cusparseMatDescr_t;
                                bsrSortedVal: ptr cuDoubleComplex;
                                bsrSortedRowPtr: ptr cint;
                                bsrSortedColInd: ptr cint; blockDim: cint;
                                info: bsric02Info_t; policy: cusparseSolvePolicy_t;
-                               pInputBuffer: pointer): cusparseStatus_t {.cdecl,
+                               pInputBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZbsric02_analysis", dynlib: libName.}
-proc cusparseSbsric02*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
+proc cusparseSbsric02UnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
                       nnzb: cint; descrA: cusparseMatDescr_t;
                       bsrSortedVal: ptr cfloat; bsrSortedRowPtr: ptr cint;
                       bsrSortedColInd: ptr cint; blockDim: cint; info: bsric02Info_t;
-                      policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                      policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsric02", dynlib: libName.}
-proc cusparseDbsric02*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
+proc cusparseDbsric02UnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
                       nnzb: cint; descrA: cusparseMatDescr_t;
                       bsrSortedVal: ptr cdouble; bsrSortedRowPtr: ptr cint;
                       bsrSortedColInd: ptr cint; blockDim: cint; info: bsric02Info_t;
-                      policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                      policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsric02", dynlib: libName.}
-proc cusparseCbsric02*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
+proc cusparseCbsric02UnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
                       nnzb: cint; descrA: cusparseMatDescr_t;
                       bsrSortedVal: ptr cuComplex; bsrSortedRowPtr: ptr cint;
                       bsrSortedColInd: ptr cint; blockDim: cint; info: bsric02Info_t;
-                      policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                      policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsric02", dynlib: libName.}
-proc cusparseZbsric02*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
+proc cusparseZbsric02UnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
                       nnzb: cint; descrA: cusparseMatDescr_t;
                       bsrSortedVal: ptr cuDoubleComplex; bsrSortedRowPtr: ptr cint;
                       bsrSortedColInd: ptr cint; blockDim: cint; info: bsric02Info_t;
-                      policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.
+                      policy: cusparseSolvePolicy_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsric02", dynlib: libName.}
-proc cusparseSgtsv2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseSgtsv2_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                   dl: ptr cfloat; d: ptr cfloat; du: ptr cfloat;
                                   B: ptr cfloat; ldb: cint;
-                                  bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                  bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgtsv2_bufferSizeExt", dynlib: libName.}
-proc cusparseDgtsv2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseDgtsv2_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                   dl: ptr cdouble; d: ptr cdouble; du: ptr cdouble;
                                   B: ptr cdouble; ldb: cint;
-                                  bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                  bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgtsv2_bufferSizeExt", dynlib: libName.}
-proc cusparseCgtsv2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseCgtsv2_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                   dl: ptr cuComplex; d: ptr cuComplex;
                                   du: ptr cuComplex; B: ptr cuComplex; ldb: cint;
-                                  bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                  bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgtsv2_bufferSizeExt", dynlib: libName.}
-proc cusparseZgtsv2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseZgtsv2_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                   dl: ptr cuDoubleComplex; d: ptr cuDoubleComplex;
                                   du: ptr cuDoubleComplex; B: ptr cuDoubleComplex;
-                                  ldb: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                  ldb: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgtsv2_bufferSizeExt", dynlib: libName.}
-proc cusparseSgtsv2*(handle: cusparseHandle_t; m: cint; n: cint; dl: ptr cfloat;
+proc cusparseSgtsv2UnderScore*(handle: cusparseHandle_t; m: cint; n: cint; dl: ptr cfloat;
                     d: ptr cfloat; du: ptr cfloat; B: ptr cfloat; ldb: cint;
-                    pBuffer: pointer): cusparseStatus_t {.cdecl,
+                    pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSgtsv2", dynlib: libName.}
-proc cusparseDgtsv2*(handle: cusparseHandle_t; m: cint; n: cint; dl: ptr cdouble;
+proc cusparseDgtsv2UnderScore*(handle: cusparseHandle_t; m: cint; n: cint; dl: ptr cdouble;
                     d: ptr cdouble; du: ptr cdouble; B: ptr cdouble; ldb: cint;
-                    pBuffer: pointer): cusparseStatus_t {.cdecl,
+                    pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDgtsv2", dynlib: libName.}
-proc cusparseCgtsv2*(handle: cusparseHandle_t; m: cint; n: cint; dl: ptr cuComplex;
+proc cusparseCgtsv2UnderScore*(handle: cusparseHandle_t; m: cint; n: cint; dl: ptr cuComplex;
                     d: ptr cuComplex; du: ptr cuComplex; B: ptr cuComplex; ldb: cint;
-                    pBuffer: pointer): cusparseStatus_t {.cdecl,
+                    pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCgtsv2", dynlib: libName.}
-proc cusparseZgtsv2*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseZgtsv2UnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                     dl: ptr cuDoubleComplex; d: ptr cuDoubleComplex;
                     du: ptr cuDoubleComplex; B: ptr cuDoubleComplex; ldb: cint;
-                    pBuffer: pointer): cusparseStatus_t {.cdecl,
+                    pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZgtsv2", dynlib: libName.}
-proc cusparseSgtsv2_nopivot_bufferSizeExt*(handle: cusparseHandle_t; m: cint;
+proc cusparseSgtsv2_nopivot_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint;
     n: cint; dl: ptr cfloat; d: ptr cfloat; du: ptr cfloat; B: ptr cfloat; ldb: cint;
-    bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSgtsv2_nopivot_bufferSizeExt", dynlib: libName.}
-proc cusparseDgtsv2_nopivot_bufferSizeExt*(handle: cusparseHandle_t; m: cint;
+proc cusparseDgtsv2_nopivot_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint;
     n: cint; dl: ptr cdouble; d: ptr cdouble; du: ptr cdouble; B: ptr cdouble; ldb: cint;
-    bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDgtsv2_nopivot_bufferSizeExt", dynlib: libName.}
-proc cusparseCgtsv2_nopivot_bufferSizeExt*(handle: cusparseHandle_t; m: cint;
+proc cusparseCgtsv2_nopivot_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint;
     n: cint; dl: ptr cuComplex; d: ptr cuComplex; du: ptr cuComplex; B: ptr cuComplex;
-    ldb: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    ldb: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCgtsv2_nopivot_bufferSizeExt", dynlib: libName.}
-proc cusparseZgtsv2_nopivot_bufferSizeExt*(handle: cusparseHandle_t; m: cint;
+proc cusparseZgtsv2_nopivot_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint;
     n: cint; dl: ptr cuDoubleComplex; d: ptr cuDoubleComplex; du: ptr cuDoubleComplex;
-    B: ptr cuDoubleComplex; ldb: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+    B: ptr cuDoubleComplex; ldb: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgtsv2_nopivot_bufferSizeExt", dynlib: libName.}
-proc cusparseSgtsv2_nopivot*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseSgtsv2_nopivotUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                             dl: ptr cfloat; d: ptr cfloat; du: ptr cfloat; B: ptr cfloat;
-                            ldb: cint; pBuffer: pointer): cusparseStatus_t {.cdecl,
+                            ldb: cint; pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSgtsv2_nopivot", dynlib: libName.}
-proc cusparseDgtsv2_nopivot*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseDgtsv2_nopivotUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                             dl: ptr cdouble; d: ptr cdouble; du: ptr cdouble;
-                            B: ptr cdouble; ldb: cint; pBuffer: pointer): cusparseStatus_t {.
+                            B: ptr cdouble; ldb: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgtsv2_nopivot", dynlib: libName.}
-proc cusparseCgtsv2_nopivot*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseCgtsv2_nopivotUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                             dl: ptr cuComplex; d: ptr cuComplex; du: ptr cuComplex;
-                            B: ptr cuComplex; ldb: cint; pBuffer: pointer): cusparseStatus_t {.
+                            B: ptr cuComplex; ldb: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgtsv2_nopivot", dynlib: libName.}
-proc cusparseZgtsv2_nopivot*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseZgtsv2_nopivotUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                             dl: ptr cuDoubleComplex; d: ptr cuDoubleComplex;
                             du: ptr cuDoubleComplex; B: ptr cuDoubleComplex;
-                            ldb: cint; pBuffer: pointer): cusparseStatus_t {.cdecl,
+                            ldb: cint; pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZgtsv2_nopivot", dynlib: libName.}
-proc cusparseSgtsv2StridedBatch_bufferSizeExt*(handle: cusparseHandle_t; m: cint;
+proc cusparseSgtsv2StridedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint;
     dl: ptr cfloat; d: ptr cfloat; du: ptr cfloat; x: ptr cfloat; batchCount: cint;
-    batchStride: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    batchStride: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSgtsv2StridedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseDgtsv2StridedBatch_bufferSizeExt*(handle: cusparseHandle_t; m: cint;
+proc cusparseDgtsv2StridedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint;
     dl: ptr cdouble; d: ptr cdouble; du: ptr cdouble; x: ptr cdouble; batchCount: cint;
-    batchStride: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    batchStride: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDgtsv2StridedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseCgtsv2StridedBatch_bufferSizeExt*(handle: cusparseHandle_t; m: cint;
+proc cusparseCgtsv2StridedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint;
     dl: ptr cuComplex; d: ptr cuComplex; du: ptr cuComplex; x: ptr cuComplex;
-    batchCount: cint; batchStride: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+    batchCount: cint; batchStride: cint; bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgtsv2StridedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseZgtsv2StridedBatch_bufferSizeExt*(handle: cusparseHandle_t; m: cint;
+proc cusparseZgtsv2StridedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint;
     dl: ptr cuDoubleComplex; d: ptr cuDoubleComplex; du: ptr cuDoubleComplex;
     x: ptr cuDoubleComplex; batchCount: cint; batchStride: cint;
-    bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZgtsv2StridedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseSgtsv2StridedBatch*(handle: cusparseHandle_t; m: cint; dl: ptr cfloat;
+proc cusparseSgtsv2StridedBatchUnderScore*(handle: cusparseHandle_t; m: cint; dl: ptr cfloat;
                                 d: ptr cfloat; du: ptr cfloat; x: ptr cfloat;
                                 batchCount: cint; batchStride: cint;
-                                pBuffer: pointer): cusparseStatus_t {.cdecl,
+                                pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSgtsv2StridedBatch", dynlib: libName.}
-proc cusparseDgtsv2StridedBatch*(handle: cusparseHandle_t; m: cint; dl: ptr cdouble;
+proc cusparseDgtsv2StridedBatchUnderScore*(handle: cusparseHandle_t; m: cint; dl: ptr cdouble;
                                 d: ptr cdouble; du: ptr cdouble; x: ptr cdouble;
                                 batchCount: cint; batchStride: cint;
-                                pBuffer: pointer): cusparseStatus_t {.cdecl,
+                                pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDgtsv2StridedBatch", dynlib: libName.}
-proc cusparseCgtsv2StridedBatch*(handle: cusparseHandle_t; m: cint;
+proc cusparseCgtsv2StridedBatchUnderScore*(handle: cusparseHandle_t; m: cint;
                                 dl: ptr cuComplex; d: ptr cuComplex;
                                 du: ptr cuComplex; x: ptr cuComplex; batchCount: cint;
-                                batchStride: cint; pBuffer: pointer): cusparseStatus_t {.
+                                batchStride: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgtsv2StridedBatch", dynlib: libName.}
-proc cusparseZgtsv2StridedBatch*(handle: cusparseHandle_t; m: cint;
+proc cusparseZgtsv2StridedBatchUnderScore*(handle: cusparseHandle_t; m: cint;
                                 dl: ptr cuDoubleComplex; d: ptr cuDoubleComplex;
                                 du: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
                                 batchCount: cint; batchStride: cint;
-                                pBuffer: pointer): cusparseStatus_t {.cdecl,
+                                pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZgtsv2StridedBatch", dynlib: libName.}
-proc cusparseSgtsvInterleavedBatch_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseSgtsvInterleavedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     algo: cint; m: cint; dl: ptr cfloat; d: ptr cfloat; du: ptr cfloat; x: ptr cfloat;
-    batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSgtsvInterleavedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseDgtsvInterleavedBatch_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseDgtsvInterleavedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     algo: cint; m: cint; dl: ptr cdouble; d: ptr cdouble; du: ptr cdouble; x: ptr cdouble;
-    batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDgtsvInterleavedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseCgtsvInterleavedBatch_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseCgtsvInterleavedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     algo: cint; m: cint; dl: ptr cuComplex; d: ptr cuComplex; du: ptr cuComplex;
-    x: ptr cuComplex; batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+    x: ptr cuComplex; batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgtsvInterleavedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseZgtsvInterleavedBatch_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseZgtsvInterleavedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     algo: cint; m: cint; dl: ptr cuDoubleComplex; d: ptr cuDoubleComplex;
     du: ptr cuDoubleComplex; x: ptr cuDoubleComplex; batchCount: cint;
-    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZgtsvInterleavedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseSgtsvInterleavedBatch*(handle: cusparseHandle_t; algo: cint; m: cint;
+proc cusparseSgtsvInterleavedBatchUnderScore*(handle: cusparseHandle_t; algo: cint; m: cint;
                                    dl: ptr cfloat; d: ptr cfloat; du: ptr cfloat;
-                                   x: ptr cfloat; batchCount: cint; pBuffer: pointer): cusparseStatus_t {.
+                                   x: ptr cfloat; batchCount: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgtsvInterleavedBatch", dynlib: libName.}
-proc cusparseDgtsvInterleavedBatch*(handle: cusparseHandle_t; algo: cint; m: cint;
+proc cusparseDgtsvInterleavedBatchUnderScore*(handle: cusparseHandle_t; algo: cint; m: cint;
                                    dl: ptr cdouble; d: ptr cdouble; du: ptr cdouble;
-                                   x: ptr cdouble; batchCount: cint; pBuffer: pointer): cusparseStatus_t {.
+                                   x: ptr cdouble; batchCount: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgtsvInterleavedBatch", dynlib: libName.}
-proc cusparseCgtsvInterleavedBatch*(handle: cusparseHandle_t; algo: cint; m: cint;
+proc cusparseCgtsvInterleavedBatchUnderScore*(handle: cusparseHandle_t; algo: cint; m: cint;
                                    dl: ptr cuComplex; d: ptr cuComplex;
                                    du: ptr cuComplex; x: ptr cuComplex;
-                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.
+                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgtsvInterleavedBatch", dynlib: libName.}
-proc cusparseZgtsvInterleavedBatch*(handle: cusparseHandle_t; algo: cint; m: cint;
+proc cusparseZgtsvInterleavedBatchUnderScore*(handle: cusparseHandle_t; algo: cint; m: cint;
                                    dl: ptr cuDoubleComplex; d: ptr cuDoubleComplex;
                                    du: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
-                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.
+                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgtsvInterleavedBatch", dynlib: libName.}
-proc cusparseSgpsvInterleavedBatch_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseSgpsvInterleavedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     algo: cint; m: cint; ds: ptr cfloat; dl: ptr cfloat; d: ptr cfloat; du: ptr cfloat;
-    dw: ptr cfloat; x: ptr cfloat; batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+    dw: ptr cfloat; x: ptr cfloat; batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgpsvInterleavedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseDgpsvInterleavedBatch_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseDgpsvInterleavedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     algo: cint; m: cint; ds: ptr cdouble; dl: ptr cdouble; d: ptr cdouble; du: ptr cdouble;
-    dw: ptr cdouble; x: ptr cdouble; batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+    dw: ptr cdouble; x: ptr cdouble; batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgpsvInterleavedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseCgpsvInterleavedBatch_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseCgpsvInterleavedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     algo: cint; m: cint; ds: ptr cuComplex; dl: ptr cuComplex; d: ptr cuComplex;
     du: ptr cuComplex; dw: ptr cuComplex; x: ptr cuComplex; batchCount: cint;
-    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCgpsvInterleavedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseZgpsvInterleavedBatch_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseZgpsvInterleavedBatch_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     algo: cint; m: cint; ds: ptr cuDoubleComplex; dl: ptr cuDoubleComplex;
     d: ptr cuDoubleComplex; du: ptr cuDoubleComplex; dw: ptr cuDoubleComplex;
-    x: ptr cuDoubleComplex; batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+    x: ptr cuDoubleComplex; batchCount: cint; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgpsvInterleavedBatch_bufferSizeExt", dynlib: libName.}
-proc cusparseSgpsvInterleavedBatch*(handle: cusparseHandle_t; algo: cint; m: cint;
+proc cusparseSgpsvInterleavedBatchUnderScore*(handle: cusparseHandle_t; algo: cint; m: cint;
                                    ds: ptr cfloat; dl: ptr cfloat; d: ptr cfloat;
                                    du: ptr cfloat; dw: ptr cfloat; x: ptr cfloat;
-                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.
+                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgpsvInterleavedBatch", dynlib: libName.}
-proc cusparseDgpsvInterleavedBatch*(handle: cusparseHandle_t; algo: cint; m: cint;
+proc cusparseDgpsvInterleavedBatchUnderScore*(handle: cusparseHandle_t; algo: cint; m: cint;
                                    ds: ptr cdouble; dl: ptr cdouble; d: ptr cdouble;
                                    du: ptr cdouble; dw: ptr cdouble; x: ptr cdouble;
-                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.
+                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgpsvInterleavedBatch", dynlib: libName.}
-proc cusparseCgpsvInterleavedBatch*(handle: cusparseHandle_t; algo: cint; m: cint;
+proc cusparseCgpsvInterleavedBatchUnderScore*(handle: cusparseHandle_t; algo: cint; m: cint;
                                    ds: ptr cuComplex; dl: ptr cuComplex;
                                    d: ptr cuComplex; du: ptr cuComplex;
                                    dw: ptr cuComplex; x: ptr cuComplex;
-                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.
+                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgpsvInterleavedBatch", dynlib: libName.}
-proc cusparseZgpsvInterleavedBatch*(handle: cusparseHandle_t; algo: cint; m: cint;
+proc cusparseZgpsvInterleavedBatchUnderScore*(handle: cusparseHandle_t; algo: cint; m: cint;
                                    ds: ptr cuDoubleComplex;
                                    dl: ptr cuDoubleComplex; d: ptr cuDoubleComplex;
                                    du: ptr cuDoubleComplex;
                                    dw: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
-                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.
+                                   batchCount: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgpsvInterleavedBatch", dynlib: libName.}
 ## ##############################################################################
 ## # EXTRA ROUTINES
 ## ##############################################################################
 
-proc cusparseScsrgeam2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseScsrgeam2_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                      alpha: ptr cfloat; descrA: cusparseMatDescr_t;
                                      nnzA: cint; csrSortedValA: ptr cfloat;
                                      csrSortedRowPtrA: ptr cint;
@@ -1570,9 +1570,9 @@ proc cusparseScsrgeam2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint
                                      csrSortedValC: ptr cfloat;
                                      csrSortedRowPtrC: ptr cint;
                                      csrSortedColIndC: ptr cint;
-                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsrgeam2_bufferSizeExt", dynlib: libName.}
-proc cusparseDcsrgeam2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseDcsrgeam2_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                      alpha: ptr cdouble;
                                      descrA: cusparseMatDescr_t; nnzA: cint;
                                      csrSortedValA: ptr cdouble;
@@ -1586,9 +1586,9 @@ proc cusparseDcsrgeam2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint
                                      csrSortedValC: ptr cdouble;
                                      csrSortedRowPtrC: ptr cint;
                                      csrSortedColIndC: ptr cint;
-                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsrgeam2_bufferSizeExt", dynlib: libName.}
-proc cusparseCcsrgeam2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseCcsrgeam2_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                      alpha: ptr cuComplex;
                                      descrA: cusparseMatDescr_t; nnzA: cint;
                                      csrSortedValA: ptr cuComplex;
@@ -1603,9 +1603,9 @@ proc cusparseCcsrgeam2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint
                                      csrSortedValC: ptr cuComplex;
                                      csrSortedRowPtrC: ptr cint;
                                      csrSortedColIndC: ptr cint;
-                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsrgeam2_bufferSizeExt", dynlib: libName.}
-proc cusparseZcsrgeam2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseZcsrgeam2_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                      alpha: ptr cuDoubleComplex;
                                      descrA: cusparseMatDescr_t; nnzA: cint;
                                      csrSortedValA: ptr cuDoubleComplex;
@@ -1620,17 +1620,17 @@ proc cusparseZcsrgeam2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint
                                      csrSortedValC: ptr cuDoubleComplex;
                                      csrSortedRowPtrC: ptr cint;
                                      csrSortedColIndC: ptr cint;
-                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsrgeam2_bufferSizeExt", dynlib: libName.}
-proc cusparseXcsrgeam2Nnz*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseXcsrgeam2NnzUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                           descrA: cusparseMatDescr_t; nnzA: cint;
                           csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                           descrB: cusparseMatDescr_t; nnzB: cint;
                           csrSortedRowPtrB: ptr cint; csrSortedColIndB: ptr cint;
                           descrC: cusparseMatDescr_t; csrSortedRowPtrC: ptr cint;
-                          nnzTotalDevHostPtr: ptr cint; workspace: pointer): cusparseStatus_t {.
+                          nnzTotalDevHostPtr: ptr cint; workspace: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseXcsrgeam2Nnz", dynlib: libName.}
-proc cusparseScsrgeam2*(handle: cusparseHandle_t; m: cint; n: cint; alpha: ptr cfloat;
+proc cusparseScsrgeam2UnderScore*(handle: cusparseHandle_t; m: cint; n: cint; alpha: ptr cfloat;
                        descrA: cusparseMatDescr_t; nnzA: cint;
                        csrSortedValA: ptr cfloat; csrSortedRowPtrA: ptr cint;
                        csrSortedColIndA: ptr cint; beta: ptr cfloat;
@@ -1638,9 +1638,9 @@ proc cusparseScsrgeam2*(handle: cusparseHandle_t; m: cint; n: cint; alpha: ptr c
                        csrSortedValB: ptr cfloat; csrSortedRowPtrB: ptr cint;
                        csrSortedColIndB: ptr cint; descrC: cusparseMatDescr_t;
                        csrSortedValC: ptr cfloat; csrSortedRowPtrC: ptr cint;
-                       csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                       csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsrgeam2", dynlib: libName.}
-proc cusparseDcsrgeam2*(handle: cusparseHandle_t; m: cint; n: cint; alpha: ptr cdouble;
+proc cusparseDcsrgeam2UnderScore*(handle: cusparseHandle_t; m: cint; n: cint; alpha: ptr cdouble;
                        descrA: cusparseMatDescr_t; nnzA: cint;
                        csrSortedValA: ptr cdouble; csrSortedRowPtrA: ptr cint;
                        csrSortedColIndA: ptr cint; beta: ptr cdouble;
@@ -1648,9 +1648,9 @@ proc cusparseDcsrgeam2*(handle: cusparseHandle_t; m: cint; n: cint; alpha: ptr c
                        csrSortedValB: ptr cdouble; csrSortedRowPtrB: ptr cint;
                        csrSortedColIndB: ptr cint; descrC: cusparseMatDescr_t;
                        csrSortedValC: ptr cdouble; csrSortedRowPtrC: ptr cint;
-                       csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                       csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsrgeam2", dynlib: libName.}
-proc cusparseCcsrgeam2*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseCcsrgeam2UnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                        alpha: ptr cuComplex; descrA: cusparseMatDescr_t; nnzA: cint;
                        csrSortedValA: ptr cuComplex; csrSortedRowPtrA: ptr cint;
                        csrSortedColIndA: ptr cint; beta: ptr cuComplex;
@@ -1658,9 +1658,9 @@ proc cusparseCcsrgeam2*(handle: cusparseHandle_t; m: cint; n: cint;
                        csrSortedValB: ptr cuComplex; csrSortedRowPtrB: ptr cint;
                        csrSortedColIndB: ptr cint; descrC: cusparseMatDescr_t;
                        csrSortedValC: ptr cuComplex; csrSortedRowPtrC: ptr cint;
-                       csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                       csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsrgeam2", dynlib: libName.}
-proc cusparseZcsrgeam2*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseZcsrgeam2UnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                        alpha: ptr cuDoubleComplex; descrA: cusparseMatDescr_t;
                        nnzA: cint; csrSortedValA: ptr cuDoubleComplex;
                        csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
@@ -1670,115 +1670,115 @@ proc cusparseZcsrgeam2*(handle: cusparseHandle_t; m: cint; n: cint;
                        descrC: cusparseMatDescr_t;
                        csrSortedValC: ptr cuDoubleComplex;
                        csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZcsrgeam2", dynlib: libName.}
 ## ##############################################################################
 ## # SPARSE MATRIX REORDERING
 ## ##############################################################################
 
-proc cusparseScsrcolor*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseScsrcolorUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrSortedValA: ptr cfloat;
                        csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                        fractionToColor: ptr cfloat; ncolors: ptr cint;
                        coloring: ptr cint; reordering: ptr cint;
-                       info: cusparseColorInfo_t): cusparseStatus_t {.cdecl,
+                       info: cusparseColorInfo_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseScsrcolor", dynlib: libName.}
-proc cusparseDcsrcolor*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseDcsrcolorUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrSortedValA: ptr cdouble;
                        csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                        fractionToColor: ptr cdouble; ncolors: ptr cint;
                        coloring: ptr cint; reordering: ptr cint;
-                       info: cusparseColorInfo_t): cusparseStatus_t {.cdecl,
+                       info: cusparseColorInfo_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDcsrcolor", dynlib: libName.}
-proc cusparseCcsrcolor*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseCcsrcolorUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrSortedValA: ptr cuComplex;
                        csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                        fractionToColor: ptr cfloat; ncolors: ptr cint;
                        coloring: ptr cint; reordering: ptr cint;
-                       info: cusparseColorInfo_t): cusparseStatus_t {.cdecl,
+                       info: cusparseColorInfo_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCcsrcolor", dynlib: libName.}
-proc cusparseZcsrcolor*(handle: cusparseHandle_t; m: cint; nnz: cint;
+proc cusparseZcsrcolorUnderScore*(handle: cusparseHandle_t; m: cint; nnz: cint;
                        descrA: cusparseMatDescr_t;
                        csrSortedValA: ptr cuDoubleComplex;
                        csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                        fractionToColor: ptr cdouble; ncolors: ptr cint;
                        coloring: ptr cint; reordering: ptr cint;
-                       info: cusparseColorInfo_t): cusparseStatus_t {.cdecl,
+                       info: cusparseColorInfo_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZcsrcolor", dynlib: libName.}
 ## ##############################################################################
 ## # SPARSE FORMAT CONVERSION
 ## ##############################################################################
 
-proc cusparseSnnz*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
+proc cusparseSnnzUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
                   n: cint; descrA: cusparseMatDescr_t; A: ptr cfloat; lda: cint;
-                  nnzPerRowCol: ptr cint; nnzTotalDevHostPtr: ptr cint): cusparseStatus_t {.
+                  nnzPerRowCol: ptr cint; nnzTotalDevHostPtr: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSnnz", dynlib: libName.}
-proc cusparseDnnz*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
+proc cusparseDnnzUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
                   n: cint; descrA: cusparseMatDescr_t; A: ptr cdouble; lda: cint;
-                  nnzPerRowCol: ptr cint; nnzTotalDevHostPtr: ptr cint): cusparseStatus_t {.
+                  nnzPerRowCol: ptr cint; nnzTotalDevHostPtr: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDnnz", dynlib: libName.}
-proc cusparseCnnz*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
+proc cusparseCnnzUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
                   n: cint; descrA: cusparseMatDescr_t; A: ptr cuComplex; lda: cint;
-                  nnzPerRowCol: ptr cint; nnzTotalDevHostPtr: ptr cint): cusparseStatus_t {.
+                  nnzPerRowCol: ptr cint; nnzTotalDevHostPtr: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCnnz", dynlib: libName.}
-proc cusparseZnnz*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
+proc cusparseZnnzUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
                   n: cint; descrA: cusparseMatDescr_t; A: ptr cuDoubleComplex;
-                  lda: cint; nnzPerRowCol: ptr cint; nnzTotalDevHostPtr: ptr cint): cusparseStatus_t {.
+                  lda: cint; nnzPerRowCol: ptr cint; nnzTotalDevHostPtr: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZnnz", dynlib: libName.}
 ## ##############################################################################
 ## # SPARSE FORMAT CONVERSION
 ## ##############################################################################
 
-proc cusparseSnnz_compress*(handle: cusparseHandle_t; m: cint;
+proc cusparseSnnz_compressUnderScore*(handle: cusparseHandle_t; m: cint;
                            descr: cusparseMatDescr_t; csrSortedValA: ptr cfloat;
                            csrSortedRowPtrA: ptr cint; nnzPerRow: ptr cint;
-                           nnzC: ptr cint; tol: cfloat): cusparseStatus_t {.cdecl,
+                           nnzC: ptr cint; tol: cfloat): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSnnz_compress", dynlib: libName.}
-proc cusparseDnnz_compress*(handle: cusparseHandle_t; m: cint;
+proc cusparseDnnz_compressUnderScore*(handle: cusparseHandle_t; m: cint;
                            descr: cusparseMatDescr_t; csrSortedValA: ptr cdouble;
                            csrSortedRowPtrA: ptr cint; nnzPerRow: ptr cint;
-                           nnzC: ptr cint; tol: cdouble): cusparseStatus_t {.cdecl,
+                           nnzC: ptr cint; tol: cdouble): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDnnz_compress", dynlib: libName.}
-proc cusparseCnnz_compress*(handle: cusparseHandle_t; m: cint;
+proc cusparseCnnz_compressUnderScore*(handle: cusparseHandle_t; m: cint;
                            descr: cusparseMatDescr_t;
                            csrSortedValA: ptr cuComplex;
                            csrSortedRowPtrA: ptr cint; nnzPerRow: ptr cint;
-                           nnzC: ptr cint; tol: cuComplex): cusparseStatus_t {.cdecl,
+                           nnzC: ptr cint; tol: cuComplex): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCnnz_compress", dynlib: libName.}
-proc cusparseZnnz_compress*(handle: cusparseHandle_t; m: cint;
+proc cusparseZnnz_compressUnderScore*(handle: cusparseHandle_t; m: cint;
                            descr: cusparseMatDescr_t;
                            csrSortedValA: ptr cuDoubleComplex;
                            csrSortedRowPtrA: ptr cint; nnzPerRow: ptr cint;
-                           nnzC: ptr cint; tol: cuDoubleComplex): cusparseStatus_t {.
+                           nnzC: ptr cint; tol: cuDoubleComplex): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZnnz_compress", dynlib: libName.}
-proc cusparseScsr2csr_compress*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseScsr2csr_compressUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                descrA: cusparseMatDescr_t;
                                csrSortedValA: ptr cfloat;
                                csrSortedColIndA: ptr cint;
                                csrSortedRowPtrA: ptr cint; nnzA: cint;
                                nnzPerRow: ptr cint; csrSortedValC: ptr cfloat;
                                csrSortedColIndC: ptr cint;
-                               csrSortedRowPtrC: ptr cint; tol: cfloat): cusparseStatus_t {.
+                               csrSortedRowPtrC: ptr cint; tol: cfloat): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsr2csr_compress", dynlib: libName.}
-proc cusparseDcsr2csr_compress*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseDcsr2csr_compressUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                descrA: cusparseMatDescr_t;
                                csrSortedValA: ptr cdouble;
                                csrSortedColIndA: ptr cint;
                                csrSortedRowPtrA: ptr cint; nnzA: cint;
                                nnzPerRow: ptr cint; csrSortedValC: ptr cdouble;
                                csrSortedColIndC: ptr cint;
-                               csrSortedRowPtrC: ptr cint; tol: cdouble): cusparseStatus_t {.
+                               csrSortedRowPtrC: ptr cint; tol: cdouble): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsr2csr_compress", dynlib: libName.}
-proc cusparseCcsr2csr_compress*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseCcsr2csr_compressUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                descrA: cusparseMatDescr_t;
                                csrSortedValA: ptr cuComplex;
                                csrSortedColIndA: ptr cint;
                                csrSortedRowPtrA: ptr cint; nnzA: cint;
                                nnzPerRow: ptr cint; csrSortedValC: ptr cuComplex;
                                csrSortedColIndC: ptr cint;
-                               csrSortedRowPtrC: ptr cint; tol: cuComplex): cusparseStatus_t {.
+                               csrSortedRowPtrC: ptr cint; tol: cuComplex): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsr2csr_compress", dynlib: libName.}
-proc cusparseZcsr2csr_compress*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseZcsr2csr_compressUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                descrA: cusparseMatDescr_t;
                                csrSortedValA: ptr cuDoubleComplex;
                                csrSortedColIndA: ptr cint;
@@ -1786,320 +1786,320 @@ proc cusparseZcsr2csr_compress*(handle: cusparseHandle_t; m: cint; n: cint;
                                nnzPerRow: ptr cint;
                                csrSortedValC: ptr cuDoubleComplex;
                                csrSortedColIndC: ptr cint;
-                               csrSortedRowPtrC: ptr cint; tol: cuDoubleComplex): cusparseStatus_t {.
+                               csrSortedRowPtrC: ptr cint; tol: cuDoubleComplex): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsr2csr_compress", dynlib: libName.}
-proc cusparseXcoo2csr*(handle: cusparseHandle_t; cooRowInd: ptr cint; nnz: cint;
+proc cusparseXcoo2csrUnderScore*(handle: cusparseHandle_t; cooRowInd: ptr cint; nnz: cint;
                       m: cint; csrSortedRowPtr: ptr cint;
-                      idxBase: cusparseIndexBase_t): cusparseStatus_t {.cdecl,
+                      idxBase: cusparseIndexBase_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXcoo2csr", dynlib: libName.}
-proc cusparseXcsr2coo*(handle: cusparseHandle_t; csrSortedRowPtr: ptr cint; nnz: cint;
-                      m: cint; cooRowInd: ptr cint; idxBase: cusparseIndexBase_t): cusparseStatus_t {.
+proc cusparseXcsr2cooUnderScore*(handle: cusparseHandle_t; csrSortedRowPtr: ptr cint; nnz: cint;
+                      m: cint; cooRowInd: ptr cint; idxBase: cusparseIndexBase_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseXcsr2coo", dynlib: libName.}
-proc cusparseXcsr2bsrNnz*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseXcsr2bsrNnzUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                          m: cint; n: cint; descrA: cusparseMatDescr_t;
                          csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                          blockDim: cint; descrC: cusparseMatDescr_t;
-                         bsrSortedRowPtrC: ptr cint; nnzTotalDevHostPtr: ptr cint): cusparseStatus_t {.
+                         bsrSortedRowPtrC: ptr cint; nnzTotalDevHostPtr: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseXcsr2bsrNnz", dynlib: libName.}
-proc cusparseScsr2bsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
+proc cusparseScsr2bsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
                       n: cint; descrA: cusparseMatDescr_t;
                       csrSortedValA: ptr cfloat; csrSortedRowPtrA: ptr cint;
                       csrSortedColIndA: ptr cint; blockDim: cint;
                       descrC: cusparseMatDescr_t; bsrSortedValC: ptr cfloat;
-                      bsrSortedRowPtrC: ptr cint; bsrSortedColIndC: ptr cint): cusparseStatus_t {.
+                      bsrSortedRowPtrC: ptr cint; bsrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsr2bsr", dynlib: libName.}
-proc cusparseDcsr2bsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
+proc cusparseDcsr2bsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
                       n: cint; descrA: cusparseMatDescr_t;
                       csrSortedValA: ptr cdouble; csrSortedRowPtrA: ptr cint;
                       csrSortedColIndA: ptr cint; blockDim: cint;
                       descrC: cusparseMatDescr_t; bsrSortedValC: ptr cdouble;
-                      bsrSortedRowPtrC: ptr cint; bsrSortedColIndC: ptr cint): cusparseStatus_t {.
+                      bsrSortedRowPtrC: ptr cint; bsrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsr2bsr", dynlib: libName.}
-proc cusparseCcsr2bsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
+proc cusparseCcsr2bsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
                       n: cint; descrA: cusparseMatDescr_t;
                       csrSortedValA: ptr cuComplex; csrSortedRowPtrA: ptr cint;
                       csrSortedColIndA: ptr cint; blockDim: cint;
                       descrC: cusparseMatDescr_t; bsrSortedValC: ptr cuComplex;
-                      bsrSortedRowPtrC: ptr cint; bsrSortedColIndC: ptr cint): cusparseStatus_t {.
+                      bsrSortedRowPtrC: ptr cint; bsrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsr2bsr", dynlib: libName.}
-proc cusparseZcsr2bsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
+proc cusparseZcsr2bsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; m: cint;
                       n: cint; descrA: cusparseMatDescr_t;
                       csrSortedValA: ptr cuDoubleComplex;
                       csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                       blockDim: cint; descrC: cusparseMatDescr_t;
                       bsrSortedValC: ptr cuDoubleComplex;
-                      bsrSortedRowPtrC: ptr cint; bsrSortedColIndC: ptr cint): cusparseStatus_t {.
+                      bsrSortedRowPtrC: ptr cint; bsrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsr2bsr", dynlib: libName.}
-proc cusparseSbsr2csr*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
+proc cusparseSbsr2csrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
                       nb: cint; descrA: cusparseMatDescr_t;
                       bsrSortedValA: ptr cfloat; bsrSortedRowPtrA: ptr cint;
                       bsrSortedColIndA: ptr cint; blockDim: cint;
                       descrC: cusparseMatDescr_t; csrSortedValC: ptr cfloat;
-                      csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint): cusparseStatus_t {.
+                      csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSbsr2csr", dynlib: libName.}
-proc cusparseDbsr2csr*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
+proc cusparseDbsr2csrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
                       nb: cint; descrA: cusparseMatDescr_t;
                       bsrSortedValA: ptr cdouble; bsrSortedRowPtrA: ptr cint;
                       bsrSortedColIndA: ptr cint; blockDim: cint;
                       descrC: cusparseMatDescr_t; csrSortedValC: ptr cdouble;
-                      csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint): cusparseStatus_t {.
+                      csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDbsr2csr", dynlib: libName.}
-proc cusparseCbsr2csr*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
+proc cusparseCbsr2csrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
                       nb: cint; descrA: cusparseMatDescr_t;
                       bsrSortedValA: ptr cuComplex; bsrSortedRowPtrA: ptr cint;
                       bsrSortedColIndA: ptr cint; blockDim: cint;
                       descrC: cusparseMatDescr_t; csrSortedValC: ptr cuComplex;
-                      csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint): cusparseStatus_t {.
+                      csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCbsr2csr", dynlib: libName.}
-proc cusparseZbsr2csr*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
+proc cusparseZbsr2csrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t; mb: cint;
                       nb: cint; descrA: cusparseMatDescr_t;
                       bsrSortedValA: ptr cuDoubleComplex;
                       bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint;
                       blockDim: cint; descrC: cusparseMatDescr_t;
                       csrSortedValC: ptr cuDoubleComplex;
-                      csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint): cusparseStatus_t {.
+                      csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZbsr2csr", dynlib: libName.}
-proc cusparseSgebsr2gebsc_bufferSize*(handle: cusparseHandle_t; mb: cint; nb: cint;
+proc cusparseSgebsr2gebsc_bufferSizeUnderScore*(handle: cusparseHandle_t; mb: cint; nb: cint;
                                      nnzb: cint; bsrSortedVal: ptr cfloat;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; rowBlockDim: cint;
                                      colBlockDim: cint;
-                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgebsr2gebsc_bufferSize", dynlib: libName.}
-proc cusparseDgebsr2gebsc_bufferSize*(handle: cusparseHandle_t; mb: cint; nb: cint;
+proc cusparseDgebsr2gebsc_bufferSizeUnderScore*(handle: cusparseHandle_t; mb: cint; nb: cint;
                                      nnzb: cint; bsrSortedVal: ptr cdouble;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; rowBlockDim: cint;
                                      colBlockDim: cint;
-                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgebsr2gebsc_bufferSize", dynlib: libName.}
-proc cusparseCgebsr2gebsc_bufferSize*(handle: cusparseHandle_t; mb: cint; nb: cint;
+proc cusparseCgebsr2gebsc_bufferSizeUnderScore*(handle: cusparseHandle_t; mb: cint; nb: cint;
                                      nnzb: cint; bsrSortedVal: ptr cuComplex;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; rowBlockDim: cint;
                                      colBlockDim: cint;
-                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgebsr2gebsc_bufferSize", dynlib: libName.}
-proc cusparseZgebsr2gebsc_bufferSize*(handle: cusparseHandle_t; mb: cint; nb: cint;
+proc cusparseZgebsr2gebsc_bufferSizeUnderScore*(handle: cusparseHandle_t; mb: cint; nb: cint;
                                      nnzb: cint;
                                      bsrSortedVal: ptr cuDoubleComplex;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; rowBlockDim: cint;
                                      colBlockDim: cint;
-                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgebsr2gebsc_bufferSize", dynlib: libName.}
-proc cusparseSgebsr2gebsc_bufferSizeExt*(handle: cusparseHandle_t; mb: cint;
+proc cusparseSgebsr2gebsc_bufferSizeExtUnderScore*(handle: cusparseHandle_t; mb: cint;
                                         nb: cint; nnzb: cint;
                                         bsrSortedVal: ptr cfloat;
                                         bsrSortedRowPtr: ptr cint;
                                         bsrSortedColInd: ptr cint;
                                         rowBlockDim: cint; colBlockDim: cint;
-                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgebsr2gebsc_bufferSizeExt", dynlib: libName.}
-proc cusparseDgebsr2gebsc_bufferSizeExt*(handle: cusparseHandle_t; mb: cint;
+proc cusparseDgebsr2gebsc_bufferSizeExtUnderScore*(handle: cusparseHandle_t; mb: cint;
                                         nb: cint; nnzb: cint;
                                         bsrSortedVal: ptr cdouble;
                                         bsrSortedRowPtr: ptr cint;
                                         bsrSortedColInd: ptr cint;
                                         rowBlockDim: cint; colBlockDim: cint;
-                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgebsr2gebsc_bufferSizeExt", dynlib: libName.}
-proc cusparseCgebsr2gebsc_bufferSizeExt*(handle: cusparseHandle_t; mb: cint;
+proc cusparseCgebsr2gebsc_bufferSizeExtUnderScore*(handle: cusparseHandle_t; mb: cint;
                                         nb: cint; nnzb: cint;
                                         bsrSortedVal: ptr cuComplex;
                                         bsrSortedRowPtr: ptr cint;
                                         bsrSortedColInd: ptr cint;
                                         rowBlockDim: cint; colBlockDim: cint;
-                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgebsr2gebsc_bufferSizeExt", dynlib: libName.}
-proc cusparseZgebsr2gebsc_bufferSizeExt*(handle: cusparseHandle_t; mb: cint;
+proc cusparseZgebsr2gebsc_bufferSizeExtUnderScore*(handle: cusparseHandle_t; mb: cint;
                                         nb: cint; nnzb: cint;
                                         bsrSortedVal: ptr cuDoubleComplex;
                                         bsrSortedRowPtr: ptr cint;
                                         bsrSortedColInd: ptr cint;
                                         rowBlockDim: cint; colBlockDim: cint;
-                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgebsr2gebsc_bufferSizeExt", dynlib: libName.}
-proc cusparseSgebsr2gebsc*(handle: cusparseHandle_t; mb: cint; nb: cint; nnzb: cint;
+proc cusparseSgebsr2gebscUnderScore*(handle: cusparseHandle_t; mb: cint; nb: cint; nnzb: cint;
                           bsrSortedVal: ptr cfloat; bsrSortedRowPtr: ptr cint;
                           bsrSortedColInd: ptr cint; rowBlockDim: cint;
                           colBlockDim: cint; bscVal: ptr cfloat; bscRowInd: ptr cint;
                           bscColPtr: ptr cint; copyValues: cusparseAction_t;
-                          idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.
+                          idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgebsr2gebsc", dynlib: libName.}
-proc cusparseDgebsr2gebsc*(handle: cusparseHandle_t; mb: cint; nb: cint; nnzb: cint;
+proc cusparseDgebsr2gebscUnderScore*(handle: cusparseHandle_t; mb: cint; nb: cint; nnzb: cint;
                           bsrSortedVal: ptr cdouble; bsrSortedRowPtr: ptr cint;
                           bsrSortedColInd: ptr cint; rowBlockDim: cint;
                           colBlockDim: cint; bscVal: ptr cdouble;
                           bscRowInd: ptr cint; bscColPtr: ptr cint;
                           copyValues: cusparseAction_t;
-                          idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.
+                          idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgebsr2gebsc", dynlib: libName.}
-proc cusparseCgebsr2gebsc*(handle: cusparseHandle_t; mb: cint; nb: cint; nnzb: cint;
+proc cusparseCgebsr2gebscUnderScore*(handle: cusparseHandle_t; mb: cint; nb: cint; nnzb: cint;
                           bsrSortedVal: ptr cuComplex; bsrSortedRowPtr: ptr cint;
                           bsrSortedColInd: ptr cint; rowBlockDim: cint;
                           colBlockDim: cint; bscVal: ptr cuComplex;
                           bscRowInd: ptr cint; bscColPtr: ptr cint;
                           copyValues: cusparseAction_t;
-                          idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.
+                          idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgebsr2gebsc", dynlib: libName.}
-proc cusparseZgebsr2gebsc*(handle: cusparseHandle_t; mb: cint; nb: cint; nnzb: cint;
+proc cusparseZgebsr2gebscUnderScore*(handle: cusparseHandle_t; mb: cint; nb: cint; nnzb: cint;
                           bsrSortedVal: ptr cuDoubleComplex;
                           bsrSortedRowPtr: ptr cint; bsrSortedColInd: ptr cint;
                           rowBlockDim: cint; colBlockDim: cint;
                           bscVal: ptr cuDoubleComplex; bscRowInd: ptr cint;
                           bscColPtr: ptr cint; copyValues: cusparseAction_t;
-                          idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.
+                          idxBase: cusparseIndexBase_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgebsr2gebsc", dynlib: libName.}
-proc cusparseXgebsr2csr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseXgebsr2csrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                         mb: cint; nb: cint; descrA: cusparseMatDescr_t;
                         bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint;
                         rowBlockDim: cint; colBlockDim: cint;
                         descrC: cusparseMatDescr_t; csrSortedRowPtrC: ptr cint;
-                        csrSortedColIndC: ptr cint): cusparseStatus_t {.cdecl,
+                        csrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXgebsr2csr", dynlib: libName.}
-proc cusparseSgebsr2csr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseSgebsr2csrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                         mb: cint; nb: cint; descrA: cusparseMatDescr_t;
                         bsrSortedValA: ptr cfloat; bsrSortedRowPtrA: ptr cint;
                         bsrSortedColIndA: ptr cint; rowBlockDim: cint;
                         colBlockDim: cint; descrC: cusparseMatDescr_t;
                         csrSortedValC: ptr cfloat; csrSortedRowPtrC: ptr cint;
-                        csrSortedColIndC: ptr cint): cusparseStatus_t {.cdecl,
+                        csrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSgebsr2csr", dynlib: libName.}
-proc cusparseDgebsr2csr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDgebsr2csrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                         mb: cint; nb: cint; descrA: cusparseMatDescr_t;
                         bsrSortedValA: ptr cdouble; bsrSortedRowPtrA: ptr cint;
                         bsrSortedColIndA: ptr cint; rowBlockDim: cint;
                         colBlockDim: cint; descrC: cusparseMatDescr_t;
                         csrSortedValC: ptr cdouble; csrSortedRowPtrC: ptr cint;
-                        csrSortedColIndC: ptr cint): cusparseStatus_t {.cdecl,
+                        csrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDgebsr2csr", dynlib: libName.}
-proc cusparseCgebsr2csr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCgebsr2csrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                         mb: cint; nb: cint; descrA: cusparseMatDescr_t;
                         bsrSortedValA: ptr cuComplex; bsrSortedRowPtrA: ptr cint;
                         bsrSortedColIndA: ptr cint; rowBlockDim: cint;
                         colBlockDim: cint; descrC: cusparseMatDescr_t;
                         csrSortedValC: ptr cuComplex; csrSortedRowPtrC: ptr cint;
-                        csrSortedColIndC: ptr cint): cusparseStatus_t {.cdecl,
+                        csrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCgebsr2csr", dynlib: libName.}
-proc cusparseZgebsr2csr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZgebsr2csrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                         mb: cint; nb: cint; descrA: cusparseMatDescr_t;
                         bsrSortedValA: ptr cuDoubleComplex;
                         bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint;
                         rowBlockDim: cint; colBlockDim: cint;
                         descrC: cusparseMatDescr_t;
                         csrSortedValC: ptr cuDoubleComplex;
-                        csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint): cusparseStatus_t {.
+                        csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgebsr2csr", dynlib: libName.}
-proc cusparseScsr2gebsr_bufferSize*(handle: cusparseHandle_t;
+proc cusparseScsr2gebsr_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t; m: cint; n: cint;
                                    descrA: cusparseMatDescr_t;
                                    csrSortedValA: ptr cfloat;
                                    csrSortedRowPtrA: ptr cint;
                                    csrSortedColIndA: ptr cint; rowBlockDim: cint;
-                                   colBlockDim: cint; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                   colBlockDim: cint; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsr2gebsr_bufferSize", dynlib: libName.}
-proc cusparseDcsr2gebsr_bufferSize*(handle: cusparseHandle_t;
+proc cusparseDcsr2gebsr_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t; m: cint; n: cint;
                                    descrA: cusparseMatDescr_t;
                                    csrSortedValA: ptr cdouble;
                                    csrSortedRowPtrA: ptr cint;
                                    csrSortedColIndA: ptr cint; rowBlockDim: cint;
-                                   colBlockDim: cint; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                   colBlockDim: cint; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsr2gebsr_bufferSize", dynlib: libName.}
-proc cusparseCcsr2gebsr_bufferSize*(handle: cusparseHandle_t;
+proc cusparseCcsr2gebsr_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t; m: cint; n: cint;
                                    descrA: cusparseMatDescr_t;
                                    csrSortedValA: ptr cuComplex;
                                    csrSortedRowPtrA: ptr cint;
                                    csrSortedColIndA: ptr cint; rowBlockDim: cint;
-                                   colBlockDim: cint; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                   colBlockDim: cint; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsr2gebsr_bufferSize", dynlib: libName.}
-proc cusparseZcsr2gebsr_bufferSize*(handle: cusparseHandle_t;
+proc cusparseZcsr2gebsr_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                    dirA: cusparseDirection_t; m: cint; n: cint;
                                    descrA: cusparseMatDescr_t;
                                    csrSortedValA: ptr cuDoubleComplex;
                                    csrSortedRowPtrA: ptr cint;
                                    csrSortedColIndA: ptr cint; rowBlockDim: cint;
-                                   colBlockDim: cint; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                   colBlockDim: cint; pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsr2gebsr_bufferSize", dynlib: libName.}
-proc cusparseScsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseScsr2gebsr_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                       dirA: cusparseDirection_t; m: cint; n: cint;
                                       descrA: cusparseMatDescr_t;
                                       csrSortedValA: ptr cfloat;
                                       csrSortedRowPtrA: ptr cint;
                                       csrSortedColIndA: ptr cint;
                                       rowBlockDim: cint; colBlockDim: cint;
-                                      pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                      pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsr2gebsr_bufferSizeExt", dynlib: libName.}
-proc cusparseDcsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseDcsr2gebsr_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                       dirA: cusparseDirection_t; m: cint; n: cint;
                                       descrA: cusparseMatDescr_t;
                                       csrSortedValA: ptr cdouble;
                                       csrSortedRowPtrA: ptr cint;
                                       csrSortedColIndA: ptr cint;
                                       rowBlockDim: cint; colBlockDim: cint;
-                                      pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                      pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsr2gebsr_bufferSizeExt", dynlib: libName.}
-proc cusparseCcsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseCcsr2gebsr_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                       dirA: cusparseDirection_t; m: cint; n: cint;
                                       descrA: cusparseMatDescr_t;
                                       csrSortedValA: ptr cuComplex;
                                       csrSortedRowPtrA: ptr cint;
                                       csrSortedColIndA: ptr cint;
                                       rowBlockDim: cint; colBlockDim: cint;
-                                      pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                      pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsr2gebsr_bufferSizeExt", dynlib: libName.}
-proc cusparseZcsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseZcsr2gebsr_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                       dirA: cusparseDirection_t; m: cint; n: cint;
                                       descrA: cusparseMatDescr_t;
                                       csrSortedValA: ptr cuDoubleComplex;
                                       csrSortedRowPtrA: ptr cint;
                                       csrSortedColIndA: ptr cint;
                                       rowBlockDim: cint; colBlockDim: cint;
-                                      pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                      pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsr2gebsr_bufferSizeExt", dynlib: libName.}
-proc cusparseXcsr2gebsrNnz*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseXcsr2gebsrNnzUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                            m: cint; n: cint; descrA: cusparseMatDescr_t;
                            csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                            descrC: cusparseMatDescr_t; bsrSortedRowPtrC: ptr cint;
                            rowBlockDim: cint; colBlockDim: cint;
-                           nnzTotalDevHostPtr: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                           nnzTotalDevHostPtr: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseXcsr2gebsrNnz", dynlib: libName.}
-proc cusparseScsr2gebsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseScsr2gebsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                         m: cint; n: cint; descrA: cusparseMatDescr_t;
                         csrSortedValA: ptr cfloat; csrSortedRowPtrA: ptr cint;
                         csrSortedColIndA: ptr cint; descrC: cusparseMatDescr_t;
                         bsrSortedValC: ptr cfloat; bsrSortedRowPtrC: ptr cint;
                         bsrSortedColIndC: ptr cint; rowBlockDim: cint;
-                        colBlockDim: cint; pBuffer: pointer): cusparseStatus_t {.
+                        colBlockDim: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsr2gebsr", dynlib: libName.}
-proc cusparseDcsr2gebsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDcsr2gebsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                         m: cint; n: cint; descrA: cusparseMatDescr_t;
                         csrSortedValA: ptr cdouble; csrSortedRowPtrA: ptr cint;
                         csrSortedColIndA: ptr cint; descrC: cusparseMatDescr_t;
                         bsrSortedValC: ptr cdouble; bsrSortedRowPtrC: ptr cint;
                         bsrSortedColIndC: ptr cint; rowBlockDim: cint;
-                        colBlockDim: cint; pBuffer: pointer): cusparseStatus_t {.
+                        colBlockDim: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsr2gebsr", dynlib: libName.}
-proc cusparseCcsr2gebsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCcsr2gebsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                         m: cint; n: cint; descrA: cusparseMatDescr_t;
                         csrSortedValA: ptr cuComplex; csrSortedRowPtrA: ptr cint;
                         csrSortedColIndA: ptr cint; descrC: cusparseMatDescr_t;
                         bsrSortedValC: ptr cuComplex; bsrSortedRowPtrC: ptr cint;
                         bsrSortedColIndC: ptr cint; rowBlockDim: cint;
-                        colBlockDim: cint; pBuffer: pointer): cusparseStatus_t {.
+                        colBlockDim: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsr2gebsr", dynlib: libName.}
-proc cusparseZcsr2gebsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZcsr2gebsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                         m: cint; n: cint; descrA: cusparseMatDescr_t;
                         csrSortedValA: ptr cuDoubleComplex;
                         csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                         descrC: cusparseMatDescr_t;
                         bsrSortedValC: ptr cuDoubleComplex;
                         bsrSortedRowPtrC: ptr cint; bsrSortedColIndC: ptr cint;
-                        rowBlockDim: cint; colBlockDim: cint; pBuffer: pointer): cusparseStatus_t {.
+                        rowBlockDim: cint; colBlockDim: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsr2gebsr", dynlib: libName.}
-proc cusparseSgebsr2gebsr_bufferSize*(handle: cusparseHandle_t;
+proc cusparseSgebsr2gebsr_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t; mb: cint; nb: cint;
                                      nnzb: cint; descrA: cusparseMatDescr_t;
                                      bsrSortedValA: ptr cfloat;
@@ -2107,9 +2107,9 @@ proc cusparseSgebsr2gebsr_bufferSize*(handle: cusparseHandle_t;
                                      bsrSortedColIndA: ptr cint;
                                      rowBlockDimA: cint; colBlockDimA: cint;
                                      rowBlockDimC: cint; colBlockDimC: cint;
-                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgebsr2gebsr_bufferSize", dynlib: libName.}
-proc cusparseDgebsr2gebsr_bufferSize*(handle: cusparseHandle_t;
+proc cusparseDgebsr2gebsr_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t; mb: cint; nb: cint;
                                      nnzb: cint; descrA: cusparseMatDescr_t;
                                      bsrSortedValA: ptr cdouble;
@@ -2117,9 +2117,9 @@ proc cusparseDgebsr2gebsr_bufferSize*(handle: cusparseHandle_t;
                                      bsrSortedColIndA: ptr cint;
                                      rowBlockDimA: cint; colBlockDimA: cint;
                                      rowBlockDimC: cint; colBlockDimC: cint;
-                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgebsr2gebsr_bufferSize", dynlib: libName.}
-proc cusparseCgebsr2gebsr_bufferSize*(handle: cusparseHandle_t;
+proc cusparseCgebsr2gebsr_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t; mb: cint; nb: cint;
                                      nnzb: cint; descrA: cusparseMatDescr_t;
                                      bsrSortedValA: ptr cuComplex;
@@ -2127,9 +2127,9 @@ proc cusparseCgebsr2gebsr_bufferSize*(handle: cusparseHandle_t;
                                      bsrSortedColIndA: ptr cint;
                                      rowBlockDimA: cint; colBlockDimA: cint;
                                      rowBlockDimC: cint; colBlockDimC: cint;
-                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgebsr2gebsr_bufferSize", dynlib: libName.}
-proc cusparseZgebsr2gebsr_bufferSize*(handle: cusparseHandle_t;
+proc cusparseZgebsr2gebsr_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t; mb: cint; nb: cint;
                                      nnzb: cint; descrA: cusparseMatDescr_t;
                                      bsrSortedValA: ptr cuDoubleComplex;
@@ -2137,9 +2137,9 @@ proc cusparseZgebsr2gebsr_bufferSize*(handle: cusparseHandle_t;
                                      bsrSortedColIndA: ptr cint;
                                      rowBlockDimA: cint; colBlockDimA: cint;
                                      rowBlockDimC: cint; colBlockDimC: cint;
-                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr cint): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgebsr2gebsr_bufferSize", dynlib: libName.}
-proc cusparseSgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseSgebsr2gebsr_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                         dirA: cusparseDirection_t; mb: cint;
                                         nb: cint; nnzb: cint;
                                         descrA: cusparseMatDescr_t;
@@ -2148,9 +2148,9 @@ proc cusparseSgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
                                         bsrSortedColIndA: ptr cint;
                                         rowBlockDimA: cint; colBlockDimA: cint;
                                         rowBlockDimC: cint; colBlockDimC: cint;
-                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgebsr2gebsr_bufferSizeExt", dynlib: libName.}
-proc cusparseDgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseDgebsr2gebsr_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                         dirA: cusparseDirection_t; mb: cint;
                                         nb: cint; nnzb: cint;
                                         descrA: cusparseMatDescr_t;
@@ -2159,9 +2159,9 @@ proc cusparseDgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
                                         bsrSortedColIndA: ptr cint;
                                         rowBlockDimA: cint; colBlockDimA: cint;
                                         rowBlockDimC: cint; colBlockDimC: cint;
-                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgebsr2gebsr_bufferSizeExt", dynlib: libName.}
-proc cusparseCgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseCgebsr2gebsr_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                         dirA: cusparseDirection_t; mb: cint;
                                         nb: cint; nnzb: cint;
                                         descrA: cusparseMatDescr_t;
@@ -2170,9 +2170,9 @@ proc cusparseCgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
                                         bsrSortedColIndA: ptr cint;
                                         rowBlockDimA: cint; colBlockDimA: cint;
                                         rowBlockDimC: cint; colBlockDimC: cint;
-                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgebsr2gebsr_bufferSizeExt", dynlib: libName.}
-proc cusparseZgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseZgebsr2gebsr_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
                                         dirA: cusparseDirection_t; mb: cint;
                                         nb: cint; nnzb: cint;
                                         descrA: cusparseMatDescr_t;
@@ -2181,9 +2181,9 @@ proc cusparseZgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
                                         bsrSortedColIndA: ptr cint;
                                         rowBlockDimA: cint; colBlockDimA: cint;
                                         rowBlockDimC: cint; colBlockDimC: cint;
-                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgebsr2gebsr_bufferSizeExt", dynlib: libName.}
-proc cusparseXgebsr2gebsrNnz*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseXgebsr2gebsrNnzUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                              mb: cint; nb: cint; nnzb: cint;
                              descrA: cusparseMatDescr_t;
                              bsrSortedRowPtrA: ptr cint;
@@ -2191,36 +2191,36 @@ proc cusparseXgebsr2gebsrNnz*(handle: cusparseHandle_t; dirA: cusparseDirection_
                              colBlockDimA: cint; descrC: cusparseMatDescr_t;
                              bsrSortedRowPtrC: ptr cint; rowBlockDimC: cint;
                              colBlockDimC: cint; nnzTotalDevHostPtr: ptr cint;
-                             pBuffer: pointer): cusparseStatus_t {.cdecl,
+                             pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXgebsr2gebsrNnz", dynlib: libName.}
-proc cusparseSgebsr2gebsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseSgebsr2gebsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                           mb: cint; nb: cint; nnzb: cint; descrA: cusparseMatDescr_t;
                           bsrSortedValA: ptr cfloat; bsrSortedRowPtrA: ptr cint;
                           bsrSortedColIndA: ptr cint; rowBlockDimA: cint;
                           colBlockDimA: cint; descrC: cusparseMatDescr_t;
                           bsrSortedValC: ptr cfloat; bsrSortedRowPtrC: ptr cint;
                           bsrSortedColIndC: ptr cint; rowBlockDimC: cint;
-                          colBlockDimC: cint; pBuffer: pointer): cusparseStatus_t {.
+                          colBlockDimC: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSgebsr2gebsr", dynlib: libName.}
-proc cusparseDgebsr2gebsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseDgebsr2gebsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                           mb: cint; nb: cint; nnzb: cint; descrA: cusparseMatDescr_t;
                           bsrSortedValA: ptr cdouble; bsrSortedRowPtrA: ptr cint;
                           bsrSortedColIndA: ptr cint; rowBlockDimA: cint;
                           colBlockDimA: cint; descrC: cusparseMatDescr_t;
                           bsrSortedValC: ptr cdouble; bsrSortedRowPtrC: ptr cint;
                           bsrSortedColIndC: ptr cint; rowBlockDimC: cint;
-                          colBlockDimC: cint; pBuffer: pointer): cusparseStatus_t {.
+                          colBlockDimC: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDgebsr2gebsr", dynlib: libName.}
-proc cusparseCgebsr2gebsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseCgebsr2gebsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                           mb: cint; nb: cint; nnzb: cint; descrA: cusparseMatDescr_t;
                           bsrSortedValA: ptr cuComplex; bsrSortedRowPtrA: ptr cint;
                           bsrSortedColIndA: ptr cint; rowBlockDimA: cint;
                           colBlockDimA: cint; descrC: cusparseMatDescr_t;
                           bsrSortedValC: ptr cuComplex; bsrSortedRowPtrC: ptr cint;
                           bsrSortedColIndC: ptr cint; rowBlockDimC: cint;
-                          colBlockDimC: cint; pBuffer: pointer): cusparseStatus_t {.
+                          colBlockDimC: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCgebsr2gebsr", dynlib: libName.}
-proc cusparseZgebsr2gebsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
+proc cusparseZgebsr2gebsrUnderScore*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                           mb: cint; nb: cint; nnzb: cint; descrA: cusparseMatDescr_t;
                           bsrSortedValA: ptr cuDoubleComplex;
                           bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint;
@@ -2228,251 +2228,251 @@ proc cusparseZgebsr2gebsr*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                           descrC: cusparseMatDescr_t;
                           bsrSortedValC: ptr cuDoubleComplex;
                           bsrSortedRowPtrC: ptr cint; bsrSortedColIndC: ptr cint;
-                          rowBlockDimC: cint; colBlockDimC: cint; pBuffer: pointer): cusparseStatus_t {.
+                          rowBlockDimC: cint; colBlockDimC: cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZgebsr2gebsr", dynlib: libName.}
 ## ##############################################################################
 ## # SPARSE MATRIX SORTING
 ## ##############################################################################
 
-proc cusparseCreateIdentityPermutation*(handle: cusparseHandle_t; n: cint;
-                                       p: ptr cint): cusparseStatus_t {.cdecl,
+proc cusparseCreateIdentityPermutationUnderScore*(handle: cusparseHandle_t; n: cint;
+                                       p: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateIdentityPermutation", dynlib: libName.}
-proc cusparseXcoosort_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseXcoosort_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                     nnz: cint; cooRowsA: ptr cint;
                                     cooColsA: ptr cint;
-                                    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseXcoosort_bufferSizeExt", dynlib: libName.}
-proc cusparseXcoosortByRow*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseXcoosortByRowUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                            cooRowsA: ptr cint; cooColsA: ptr cint; P: ptr cint;
-                           pBuffer: pointer): cusparseStatus_t {.cdecl,
+                           pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXcoosortByRow", dynlib: libName.}
-proc cusparseXcoosortByColumn*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseXcoosortByColumnUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                               cooRowsA: ptr cint; cooColsA: ptr cint; P: ptr cint;
-                              pBuffer: pointer): cusparseStatus_t {.cdecl,
+                              pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseXcoosortByColumn", dynlib: libName.}
-proc cusparseXcsrsort_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseXcsrsort_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                     nnz: cint; csrRowPtrA: ptr cint;
                                     csrColIndA: ptr cint;
-                                    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseXcsrsort_bufferSizeExt", dynlib: libName.}
-proc cusparseXcsrsort*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseXcsrsortUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                       descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
-                      csrColIndA: ptr cint; P: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                      csrColIndA: ptr cint; P: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseXcsrsort", dynlib: libName.}
-proc cusparseXcscsort_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseXcscsort_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                     nnz: cint; cscColPtrA: ptr cint;
                                     cscRowIndA: ptr cint;
-                                    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseXcscsort_bufferSizeExt", dynlib: libName.}
-proc cusparseXcscsort*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseXcscsortUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                       descrA: cusparseMatDescr_t; cscColPtrA: ptr cint;
-                      cscRowIndA: ptr cint; P: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                      cscRowIndA: ptr cint; P: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseXcscsort", dynlib: libName.}
-proc cusparseScsru2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseScsru2csr_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                      nnz: cint; csrVal: ptr cfloat;
                                      csrRowPtr: ptr cint; csrColInd: ptr cint;
                                      info: csru2csrInfo_t;
-                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseScsru2csr_bufferSizeExt", dynlib: libName.}
-proc cusparseDcsru2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseDcsru2csr_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                      nnz: cint; csrVal: ptr cdouble;
                                      csrRowPtr: ptr cint; csrColInd: ptr cint;
                                      info: csru2csrInfo_t;
-                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDcsru2csr_bufferSizeExt", dynlib: libName.}
-proc cusparseCcsru2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseCcsru2csr_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                      nnz: cint; csrVal: ptr cuComplex;
                                      csrRowPtr: ptr cint; csrColInd: ptr cint;
                                      info: csru2csrInfo_t;
-                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCcsru2csr_bufferSizeExt", dynlib: libName.}
-proc cusparseZcsru2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseZcsru2csr_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                      nnz: cint; csrVal: ptr cuDoubleComplex;
                                      csrRowPtr: ptr cint; csrColInd: ptr cint;
                                      info: csru2csrInfo_t;
-                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+                                     pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseZcsru2csr_bufferSizeExt", dynlib: libName.}
-proc cusparseScsru2csr*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseScsru2csrUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrVal: ptr cfloat;
                        csrRowPtr: ptr cint; csrColInd: ptr cint; info: csru2csrInfo_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseScsru2csr", dynlib: libName.}
-proc cusparseDcsru2csr*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseDcsru2csrUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrVal: ptr cdouble;
                        csrRowPtr: ptr cint; csrColInd: ptr cint; info: csru2csrInfo_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDcsru2csr", dynlib: libName.}
-proc cusparseCcsru2csr*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseCcsru2csrUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrVal: ptr cuComplex;
                        csrRowPtr: ptr cint; csrColInd: ptr cint; info: csru2csrInfo_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCcsru2csr", dynlib: libName.}
-proc cusparseZcsru2csr*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseZcsru2csrUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrVal: ptr cuDoubleComplex;
                        csrRowPtr: ptr cint; csrColInd: ptr cint; info: csru2csrInfo_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZcsru2csr", dynlib: libName.}
-proc cusparseScsr2csru*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseScsr2csruUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrVal: ptr cfloat;
                        csrRowPtr: ptr cint; csrColInd: ptr cint; info: csru2csrInfo_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseScsr2csru", dynlib: libName.}
-proc cusparseDcsr2csru*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseDcsr2csruUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrVal: ptr cdouble;
                        csrRowPtr: ptr cint; csrColInd: ptr cint; info: csru2csrInfo_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDcsr2csru", dynlib: libName.}
-proc cusparseCcsr2csru*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseCcsr2csruUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrVal: ptr cuComplex;
                        csrRowPtr: ptr cint; csrColInd: ptr cint; info: csru2csrInfo_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCcsr2csru", dynlib: libName.}
-proc cusparseZcsr2csru*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseZcsr2csruUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                        descrA: cusparseMatDescr_t; csrVal: ptr cuDoubleComplex;
                        csrRowPtr: ptr cint; csrColInd: ptr cint; info: csru2csrInfo_t;
-                       pBuffer: pointer): cusparseStatus_t {.cdecl,
+                       pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseZcsr2csru", dynlib: libName.}
-proc cusparseSpruneDense2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint;
+proc cusparseSpruneDense2csr_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint;
     n: cint; A: ptr cfloat; lda: cint; threshold: ptr cfloat; descrC: cusparseMatDescr_t;
     csrSortedValC: ptr cfloat; csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint;
-    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpruneDense2csr_bufferSizeExt", dynlib: libName.}
-proc cusparseDpruneDense2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint;
+proc cusparseDpruneDense2csr_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint;
     n: cint; A: ptr cdouble; lda: cint; threshold: ptr cdouble;
     descrC: cusparseMatDescr_t; csrSortedValC: ptr cdouble;
     csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint;
-    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDpruneDense2csr_bufferSizeExt", dynlib: libName.}
-proc cusparseSpruneDense2csrNnz*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseSpruneDense2csrNnzUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                 A: ptr cfloat; lda: cint; threshold: ptr cfloat;
                                 descrC: cusparseMatDescr_t; csrRowPtrC: ptr cint;
-                                nnzTotalDevHostPtr: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                                nnzTotalDevHostPtr: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpruneDense2csrNnz", dynlib: libName.}
-proc cusparseDpruneDense2csrNnz*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseDpruneDense2csrNnzUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                 A: ptr cdouble; lda: cint; threshold: ptr cdouble;
                                 descrC: cusparseMatDescr_t;
                                 csrSortedRowPtrC: ptr cint;
-                                nnzTotalDevHostPtr: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                                nnzTotalDevHostPtr: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDpruneDense2csrNnz", dynlib: libName.}
-proc cusparseSpruneDense2csr*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseSpruneDense2csrUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                              A: ptr cfloat; lda: cint; threshold: ptr cfloat;
                              descrC: cusparseMatDescr_t;
                              csrSortedValC: ptr cfloat; csrSortedRowPtrC: ptr cint;
-                             csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                             csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpruneDense2csr", dynlib: libName.}
-proc cusparseDpruneDense2csr*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseDpruneDense2csrUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                              A: ptr cdouble; lda: cint; threshold: ptr cdouble;
                              descrC: cusparseMatDescr_t;
                              csrSortedValC: ptr cdouble;
                              csrSortedRowPtrC: ptr cint;
-                             csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                             csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDpruneDense2csr", dynlib: libName.}
-proc cusparseSpruneCsr2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseSpruneCsr2csr_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
     nnzA: cint; descrA: cusparseMatDescr_t; csrSortedValA: ptr cfloat;
     csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint; threshold: ptr cfloat;
     descrC: cusparseMatDescr_t; csrSortedValC: ptr cfloat;
     csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint;
-    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpruneCsr2csr_bufferSizeExt", dynlib: libName.}
-proc cusparseDpruneCsr2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseDpruneCsr2csr_bufferSizeExtUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
     nnzA: cint; descrA: cusparseMatDescr_t; csrSortedValA: ptr cdouble;
     csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint; threshold: ptr cdouble;
     descrC: cusparseMatDescr_t; csrSortedValC: ptr cdouble;
     csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint;
-    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDpruneCsr2csr_bufferSizeExt", dynlib: libName.}
-proc cusparseSpruneCsr2csrNnz*(handle: cusparseHandle_t; m: cint; n: cint; nnzA: cint;
+proc cusparseSpruneCsr2csrNnzUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnzA: cint;
                               descrA: cusparseMatDescr_t;
                               csrSortedValA: ptr cfloat;
                               csrSortedRowPtrA: ptr cint;
                               csrSortedColIndA: ptr cint; threshold: ptr cfloat;
                               descrC: cusparseMatDescr_t;
                               csrSortedRowPtrC: ptr cint;
-                              nnzTotalDevHostPtr: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                              nnzTotalDevHostPtr: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpruneCsr2csrNnz", dynlib: libName.}
-proc cusparseDpruneCsr2csrNnz*(handle: cusparseHandle_t; m: cint; n: cint; nnzA: cint;
+proc cusparseDpruneCsr2csrNnzUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnzA: cint;
                               descrA: cusparseMatDescr_t;
                               csrSortedValA: ptr cdouble;
                               csrSortedRowPtrA: ptr cint;
                               csrSortedColIndA: ptr cint; threshold: ptr cdouble;
                               descrC: cusparseMatDescr_t;
                               csrSortedRowPtrC: ptr cint;
-                              nnzTotalDevHostPtr: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                              nnzTotalDevHostPtr: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDpruneCsr2csrNnz", dynlib: libName.}
-proc cusparseSpruneCsr2csr*(handle: cusparseHandle_t; m: cint; n: cint; nnzA: cint;
+proc cusparseSpruneCsr2csrUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnzA: cint;
                            descrA: cusparseMatDescr_t; csrSortedValA: ptr cfloat;
                            csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                            threshold: ptr cfloat; descrC: cusparseMatDescr_t;
                            csrSortedValC: ptr cfloat; csrSortedRowPtrC: ptr cint;
-                           csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                           csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpruneCsr2csr", dynlib: libName.}
-proc cusparseDpruneCsr2csr*(handle: cusparseHandle_t; m: cint; n: cint; nnzA: cint;
+proc cusparseDpruneCsr2csrUnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnzA: cint;
                            descrA: cusparseMatDescr_t; csrSortedValA: ptr cdouble;
                            csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint;
                            threshold: ptr cdouble; descrC: cusparseMatDescr_t;
                            csrSortedValC: ptr cdouble; csrSortedRowPtrC: ptr cint;
-                           csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.
+                           csrSortedColIndC: ptr cint; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDpruneCsr2csr", dynlib: libName.}
-proc cusparseSpruneDense2csrByPercentage_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseSpruneDense2csrByPercentage_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     m: cint; n: cint; A: ptr cfloat; lda: cint; percentage: cfloat;
     descrC: cusparseMatDescr_t; csrSortedValC: ptr cfloat;
     csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint; info: pruneInfo_t;
-    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpruneDense2csrByPercentage_bufferSizeExt", dynlib: libName.}
-proc cusparseDpruneDense2csrByPercentage_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseDpruneDense2csrByPercentage_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     m: cint; n: cint; A: ptr cdouble; lda: cint; percentage: cfloat;
     descrC: cusparseMatDescr_t; csrSortedValC: ptr cdouble;
     csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint; info: pruneInfo_t;
-    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseDpruneDense2csrByPercentage_bufferSizeExt", dynlib: libName.}
-proc cusparseSpruneDense2csrNnzByPercentage*(handle: cusparseHandle_t; m: cint;
+proc cusparseSpruneDense2csrNnzByPercentageUnderScore*(handle: cusparseHandle_t; m: cint;
     n: cint; A: ptr cfloat; lda: cint; percentage: cfloat; descrC: cusparseMatDescr_t;
     csrRowPtrC: ptr cint; nnzTotalDevHostPtr: ptr cint; info: pruneInfo_t;
-    pBuffer: pointer): cusparseStatus_t {.cdecl, importc: "cusparseSpruneDense2csrNnzByPercentage",
+    pBuffer: pointer): cusparseStatus_t {.discardable, cdecl, importc: "cusparseSpruneDense2csrNnzByPercentage",
                                        dynlib: libName.}
-proc cusparseDpruneDense2csrNnzByPercentage*(handle: cusparseHandle_t; m: cint;
+proc cusparseDpruneDense2csrNnzByPercentageUnderScore*(handle: cusparseHandle_t; m: cint;
     n: cint; A: ptr cdouble; lda: cint; percentage: cfloat; descrC: cusparseMatDescr_t;
     csrRowPtrC: ptr cint; nnzTotalDevHostPtr: ptr cint; info: pruneInfo_t;
-    pBuffer: pointer): cusparseStatus_t {.cdecl, importc: "cusparseDpruneDense2csrNnzByPercentage",
+    pBuffer: pointer): cusparseStatus_t {.discardable, cdecl, importc: "cusparseDpruneDense2csrNnzByPercentage",
                                        dynlib: libName.}
-proc cusparseSpruneDense2csrByPercentage*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseSpruneDense2csrByPercentageUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
     A: ptr cfloat; lda: cint; percentage: cfloat; descrC: cusparseMatDescr_t;
     csrSortedValC: ptr cfloat; csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint;
-    info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.cdecl,
+    info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpruneDense2csrByPercentage", dynlib: libName.}
-proc cusparseDpruneDense2csrByPercentage*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseDpruneDense2csrByPercentageUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
     A: ptr cdouble; lda: cint; percentage: cfloat; descrC: cusparseMatDescr_t;
     csrSortedValC: ptr cdouble; csrSortedRowPtrC: ptr cint;
-    csrSortedColIndC: ptr cint; info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.
+    csrSortedColIndC: ptr cint; info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDpruneDense2csrByPercentage", dynlib: libName.}
-proc cusparseSpruneCsr2csrByPercentage_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseSpruneCsr2csrByPercentage_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     m: cint; n: cint; nnzA: cint; descrA: cusparseMatDescr_t; csrSortedValA: ptr cfloat;
     csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint; percentage: cfloat;
     descrC: cusparseMatDescr_t; csrSortedValC: ptr cfloat;
     csrSortedRowPtrC: ptr cint; csrSortedColIndC: ptr cint; info: pruneInfo_t;
-    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.cdecl,
+    pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpruneCsr2csrByPercentage_bufferSizeExt", dynlib: libName.}
-proc cusparseDpruneCsr2csrByPercentage_bufferSizeExt*(handle: cusparseHandle_t;
+proc cusparseDpruneCsr2csrByPercentage_bufferSizeExtUnderScore*(handle: cusparseHandle_t;
     m: cint; n: cint; nnzA: cint; descrA: cusparseMatDescr_t;
     csrSortedValA: ptr cdouble; csrSortedRowPtrA: ptr cint;
     csrSortedColIndA: ptr cint; percentage: cfloat; descrC: cusparseMatDescr_t;
     csrSortedValC: ptr cdouble; csrSortedRowPtrC: ptr cint;
-    csrSortedColIndC: ptr cint; info: pruneInfo_t; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
+    csrSortedColIndC: ptr cint; info: pruneInfo_t; pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDpruneCsr2csrByPercentage_bufferSizeExt",
     dynlib: libName.}
-proc cusparseSpruneCsr2csrNnzByPercentage*(handle: cusparseHandle_t; m: cint;
+proc cusparseSpruneCsr2csrNnzByPercentageUnderScore*(handle: cusparseHandle_t; m: cint;
     n: cint; nnzA: cint; descrA: cusparseMatDescr_t; csrSortedValA: ptr cfloat;
     csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint; percentage: cfloat;
     descrC: cusparseMatDescr_t; csrSortedRowPtrC: ptr cint;
-    nnzTotalDevHostPtr: ptr cint; info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.
+    nnzTotalDevHostPtr: ptr cint; info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpruneCsr2csrNnzByPercentage", dynlib: libName.}
-proc cusparseDpruneCsr2csrNnzByPercentage*(handle: cusparseHandle_t; m: cint;
+proc cusparseDpruneCsr2csrNnzByPercentageUnderScore*(handle: cusparseHandle_t; m: cint;
     n: cint; nnzA: cint; descrA: cusparseMatDescr_t; csrSortedValA: ptr cdouble;
     csrSortedRowPtrA: ptr cint; csrSortedColIndA: ptr cint; percentage: cfloat;
     descrC: cusparseMatDescr_t; csrSortedRowPtrC: ptr cint;
-    nnzTotalDevHostPtr: ptr cint; info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.
+    nnzTotalDevHostPtr: ptr cint; info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDpruneCsr2csrNnzByPercentage", dynlib: libName.}
-proc cusparseSpruneCsr2csrByPercentage*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseSpruneCsr2csrByPercentageUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                        nnzA: cint; descrA: cusparseMatDescr_t;
                                        csrSortedValA: ptr cfloat;
                                        csrSortedRowPtrA: ptr cint;
@@ -2482,9 +2482,9 @@ proc cusparseSpruneCsr2csrByPercentage*(handle: cusparseHandle_t; m: cint; n: ci
                                        csrSortedValC: ptr cfloat;
                                        csrSortedRowPtrC: ptr cint;
                                        csrSortedColIndC: ptr cint;
-                                       info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.
+                                       info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpruneCsr2csrByPercentage", dynlib: libName.}
-proc cusparseDpruneCsr2csrByPercentage*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseDpruneCsr2csrByPercentageUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                        nnzA: cint; descrA: cusparseMatDescr_t;
                                        csrSortedValA: ptr cdouble;
                                        csrSortedRowPtrA: ptr cint;
@@ -2494,7 +2494,7 @@ proc cusparseDpruneCsr2csrByPercentage*(handle: cusparseHandle_t; m: cint; n: ci
                                        csrSortedValC: ptr cdouble;
                                        csrSortedRowPtrC: ptr cint;
                                        csrSortedColIndC: ptr cint;
-                                       info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.
+                                       info: pruneInfo_t; pBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDpruneCsr2csrByPercentage", dynlib: libName.}
 ## ##############################################################################
 ## # CSR2CSC
@@ -2507,14 +2507,14 @@ type
 const
   CUSPARSE_CSR2CSC_ALG1 = CUSPARSE_CSR2CSC_ALG_DEFAULT
 
-proc cusparseCsr2cscEx2*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
+proc cusparseCsr2cscEx2UnderScore*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                         csrVal: pointer; csrRowPtr: ptr cint; csrColInd: ptr cint;
                         cscVal: pointer; cscColPtr: ptr cint; cscRowInd: ptr cint;
                         valType: cudaDataType; copyValues: cusparseAction_t;
                         idxBase: cusparseIndexBase_t; alg: cusparseCsr2CscAlg_t;
-                        buffer: pointer): cusparseStatus_t {.cdecl,
+                        buffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCsr2cscEx2", dynlib: libName.}
-proc cusparseCsr2cscEx2_bufferSize*(handle: cusparseHandle_t; m: cint; n: cint;
+proc cusparseCsr2cscEx2_bufferSizeUnderScore*(handle: cusparseHandle_t; m: cint; n: cint;
                                    nnz: cint; csrVal: pointer; csrRowPtr: ptr cint;
                                    csrColInd: ptr cint; cscVal: pointer;
                                    cscColPtr: ptr cint; cscRowInd: ptr cint;
@@ -2522,7 +2522,7 @@ proc cusparseCsr2cscEx2_bufferSize*(handle: cusparseHandle_t; m: cint; n: cint;
                                    copyValues: cusparseAction_t;
                                    idxBase: cusparseIndexBase_t;
                                    alg: cusparseCsr2CscAlg_t;
-                                   bufferSize: ptr csize_t): cusparseStatus_t {.
+                                   bufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCsr2cscEx2_bufferSize", dynlib: libName.}
 ##  #############################################################################
 ##  # GENERIC APIs - Enumerators and Opaque Data Structures
@@ -2568,206 +2568,206 @@ type
 ##  # SPARSE VECTOR DESCRIPTOR
 ##  #############################################################################
 
-proc cusparseCreateSpVec*(spVecDescr: ptr cusparseSpVecDescr_t; size: clonglong;
+proc cusparseCreateSpVecUnderScore*(spVecDescr: ptr cusparseSpVecDescr_t; size: clonglong;
                          nnz: clonglong; indices: pointer; values: pointer;
                          idxType: cusparseIndexType_t;
-                         idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.
+                         idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateSpVec", dynlib: libName.}
-proc cusparseCreateConstSpVec*(spVecDescr: ptr cusparseConstSpVecDescr_t;
+proc cusparseCreateConstSpVecUnderScore*(spVecDescr: ptr cusparseConstSpVecDescr_t;
                               size: clonglong; nnz: clonglong; indices: pointer;
                               values: pointer; idxType: cusparseIndexType_t;
                               idxBase: cusparseIndexBase_t;
-                              valueType: cudaDataType): cusparseStatus_t {.cdecl,
+                              valueType: cudaDataType): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateConstSpVec", dynlib: libName.}
-proc cusparseDestroySpVec*(spVecDescr: cusparseConstSpVecDescr_t): cusparseStatus_t {.
+proc cusparseDestroySpVecUnderScore*(spVecDescr: cusparseConstSpVecDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDestroySpVec", dynlib: libName.}
-proc cusparseSpVecGet*(spVecDescr: cusparseSpVecDescr_t; size: ptr clonglong;
+proc cusparseSpVecGetUnderScore*(spVecDescr: cusparseSpVecDescr_t; size: ptr clonglong;
                       nnz: ptr clonglong; indices: ptr pointer; values: ptr pointer;
                       idxType: ptr cusparseIndexType_t;
-                      idxBase: ptr cusparseIndexBase_t; valueType: ptr cudaDataType): cusparseStatus_t {.
+                      idxBase: ptr cusparseIndexBase_t; valueType: ptr cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpVecGet", dynlib: libName.}
-proc cusparseConstSpVecGet*(spVecDescr: cusparseConstSpVecDescr_t;
+proc cusparseConstSpVecGetUnderScore*(spVecDescr: cusparseConstSpVecDescr_t;
                            size: ptr clonglong; nnz: ptr clonglong;
                            indices: ptr pointer; values: ptr pointer;
                            idxType: ptr cusparseIndexType_t;
                            idxBase: ptr cusparseIndexBase_t;
-                           valueType: ptr cudaDataType): cusparseStatus_t {.cdecl,
+                           valueType: ptr cudaDataType): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseConstSpVecGet", dynlib: libName.}
-proc cusparseSpVecGetIndexBase*(spVecDescr: cusparseConstSpVecDescr_t;
-                               idxBase: ptr cusparseIndexBase_t): cusparseStatus_t {.
+proc cusparseSpVecGetIndexBaseUnderScore*(spVecDescr: cusparseConstSpVecDescr_t;
+                               idxBase: ptr cusparseIndexBase_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpVecGetIndexBase", dynlib: libName.}
-proc cusparseSpVecGetValues*(spVecDescr: cusparseSpVecDescr_t; values: ptr pointer): cusparseStatus_t {.
+proc cusparseSpVecGetValuesUnderScore*(spVecDescr: cusparseSpVecDescr_t; values: ptr pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpVecGetValues", dynlib: libName.}
-proc cusparseConstSpVecGetValues*(spVecDescr: cusparseConstSpVecDescr_t;
-                                 values: ptr pointer): cusparseStatus_t {.cdecl,
+proc cusparseConstSpVecGetValuesUnderScore*(spVecDescr: cusparseConstSpVecDescr_t;
+                                 values: ptr pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseConstSpVecGetValues", dynlib: libName.}
-proc cusparseSpVecSetValues*(spVecDescr: cusparseSpVecDescr_t; values: pointer): cusparseStatus_t {.
+proc cusparseSpVecSetValuesUnderScore*(spVecDescr: cusparseSpVecDescr_t; values: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpVecSetValues", dynlib: libName.}
 ##  #############################################################################
 ##  # DENSE VECTOR DESCRIPTOR
 ##  #############################################################################
 
-proc cusparseCreateDnVec*(dnVecDescr: ptr cusparseDnVecDescr_t; size: clonglong;
-                         values: pointer; valueType: cudaDataType): cusparseStatus_t {.
+proc cusparseCreateDnVecUnderScore*(dnVecDescr: ptr cusparseDnVecDescr_t; size: clonglong;
+                         values: pointer; valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateDnVec", dynlib: libName.}
-proc cusparseCreateConstDnVec*(dnVecDescr: ptr cusparseConstDnVecDescr_t;
+proc cusparseCreateConstDnVecUnderScore*(dnVecDescr: ptr cusparseConstDnVecDescr_t;
                               size: clonglong; values: pointer;
-                              valueType: cudaDataType): cusparseStatus_t {.cdecl,
+                              valueType: cudaDataType): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateConstDnVec", dynlib: libName.}
-proc cusparseDestroyDnVec*(dnVecDescr: cusparseConstDnVecDescr_t): cusparseStatus_t {.
+proc cusparseDestroyDnVecUnderScore*(dnVecDescr: cusparseConstDnVecDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDestroyDnVec", dynlib: libName.}
-proc cusparseDnVecGet*(dnVecDescr: cusparseDnVecDescr_t; size: ptr clonglong;
-                      values: ptr pointer; valueType: ptr cudaDataType): cusparseStatus_t {.
+proc cusparseDnVecGetUnderScore*(dnVecDescr: cusparseDnVecDescr_t; size: ptr clonglong;
+                      values: ptr pointer; valueType: ptr cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDnVecGet", dynlib: libName.}
-proc cusparseConstDnVecGet*(dnVecDescr: cusparseConstDnVecDescr_t;
+proc cusparseConstDnVecGetUnderScore*(dnVecDescr: cusparseConstDnVecDescr_t;
                            size: ptr clonglong; values: ptr pointer;
-                           valueType: ptr cudaDataType): cusparseStatus_t {.cdecl,
+                           valueType: ptr cudaDataType): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseConstDnVecGet", dynlib: libName.}
-proc cusparseDnVecGetValues*(dnVecDescr: cusparseDnVecDescr_t; values: ptr pointer): cusparseStatus_t {.
+proc cusparseDnVecGetValuesUnderScore*(dnVecDescr: cusparseDnVecDescr_t; values: ptr pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDnVecGetValues", dynlib: libName.}
-proc cusparseConstDnVecGetValues*(dnVecDescr: cusparseConstDnVecDescr_t;
-                                 values: ptr pointer): cusparseStatus_t {.cdecl,
+proc cusparseConstDnVecGetValuesUnderScore*(dnVecDescr: cusparseConstDnVecDescr_t;
+                                 values: ptr pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseConstDnVecGetValues", dynlib: libName.}
-proc cusparseDnVecSetValues*(dnVecDescr: cusparseDnVecDescr_t; values: pointer): cusparseStatus_t {.
+proc cusparseDnVecSetValuesUnderScore*(dnVecDescr: cusparseDnVecDescr_t; values: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDnVecSetValues", dynlib: libName.}
 ##  #############################################################################
 ##  # SPARSE MATRIX DESCRIPTOR
 ##  #############################################################################
 
-proc cusparseDestroySpMat*(spMatDescr: cusparseConstSpMatDescr_t): cusparseStatus_t {.
+proc cusparseDestroySpMatUnderScore*(spMatDescr: cusparseConstSpMatDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDestroySpMat", dynlib: libName.}
-proc cusparseSpMatGetFormat*(spMatDescr: cusparseConstSpMatDescr_t;
-                            format: ptr cusparseFormat_t): cusparseStatus_t {.cdecl,
+proc cusparseSpMatGetFormatUnderScore*(spMatDescr: cusparseConstSpMatDescr_t;
+                            format: ptr cusparseFormat_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpMatGetFormat", dynlib: libName.}
-proc cusparseSpMatGetIndexBase*(spMatDescr: cusparseConstSpMatDescr_t;
-                               idxBase: ptr cusparseIndexBase_t): cusparseStatus_t {.
+proc cusparseSpMatGetIndexBaseUnderScore*(spMatDescr: cusparseConstSpMatDescr_t;
+                               idxBase: ptr cusparseIndexBase_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpMatGetIndexBase", dynlib: libName.}
-proc cusparseSpMatGetValues*(spMatDescr: cusparseSpMatDescr_t; values: ptr pointer): cusparseStatus_t {.
+proc cusparseSpMatGetValuesUnderScore*(spMatDescr: cusparseSpMatDescr_t; values: ptr pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpMatGetValues", dynlib: libName.}
-proc cusparseConstSpMatGetValues*(spMatDescr: cusparseConstSpMatDescr_t;
-                                 values: ptr pointer): cusparseStatus_t {.cdecl,
+proc cusparseConstSpMatGetValuesUnderScore*(spMatDescr: cusparseConstSpMatDescr_t;
+                                 values: ptr pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseConstSpMatGetValues", dynlib: libName.}
-proc cusparseSpMatSetValues*(spMatDescr: cusparseSpMatDescr_t; values: pointer): cusparseStatus_t {.
+proc cusparseSpMatSetValuesUnderScore*(spMatDescr: cusparseSpMatDescr_t; values: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpMatSetValues", dynlib: libName.}
-proc cusparseSpMatGetSize*(spMatDescr: cusparseConstSpMatDescr_t;
-                          rows: ptr clonglong; cols: ptr clonglong; nnz: ptr clonglong): cusparseStatus_t {.
+proc cusparseSpMatGetSizeUnderScore*(spMatDescr: cusparseConstSpMatDescr_t;
+                          rows: ptr clonglong; cols: ptr clonglong; nnz: ptr clonglong): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpMatGetSize", dynlib: libName.}
-proc cusparseSpMatGetStridedBatch*(spMatDescr: cusparseConstSpMatDescr_t;
-                                  batchCount: ptr cint): cusparseStatus_t {.cdecl,
+proc cusparseSpMatGetStridedBatchUnderScore*(spMatDescr: cusparseConstSpMatDescr_t;
+                                  batchCount: ptr cint): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpMatGetStridedBatch", dynlib: libName.}
-proc cusparseCooSetStridedBatch*(spMatDescr: cusparseSpMatDescr_t;
-                                batchCount: cint; batchStride: clonglong): cusparseStatus_t {.
+proc cusparseCooSetStridedBatchUnderScore*(spMatDescr: cusparseSpMatDescr_t;
+                                batchCount: cint; batchStride: clonglong): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCooSetStridedBatch", dynlib: libName.}
-proc cusparseCsrSetStridedBatch*(spMatDescr: cusparseSpMatDescr_t;
+proc cusparseCsrSetStridedBatchUnderScore*(spMatDescr: cusparseSpMatDescr_t;
                                 batchCount: cint; offsetsBatchStride: clonglong;
-                                columnsValuesBatchStride: clonglong): cusparseStatus_t {.
+                                columnsValuesBatchStride: clonglong): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCsrSetStridedBatch", dynlib: libName.}
-proc cusparseBsrSetStridedBatch*(spMatDescr: cusparseSpMatDescr_t;
+proc cusparseBsrSetStridedBatchUnderScore*(spMatDescr: cusparseSpMatDescr_t;
                                 batchCount: cint; offsetsBatchStride: clonglong;
                                 columnsBatchStride: clonglong;
-                                ValuesBatchStride: clonglong): cusparseStatus_t {.
+                                ValuesBatchStride: clonglong): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseBsrSetStridedBatch", dynlib: libName.}
 type
   cusparseSpMatAttribute_t* {.size: sizeof(cint).} = enum
     CUSPARSE_SPMAT_FILL_MODE, CUSPARSE_SPMAT_DIAG_TYPE
 
 
-proc cusparseSpMatGetAttribute*(spMatDescr: cusparseConstSpMatDescr_t;
+proc cusparseSpMatGetAttributeUnderScore*(spMatDescr: cusparseConstSpMatDescr_t;
                                attribute: cusparseSpMatAttribute_t; data: pointer;
-                               dataSize: csize_t): cusparseStatus_t {.cdecl,
+                               dataSize: csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpMatGetAttribute", dynlib: libName.}
-proc cusparseSpMatSetAttribute*(spMatDescr: cusparseSpMatDescr_t;
+proc cusparseSpMatSetAttributeUnderScore*(spMatDescr: cusparseSpMatDescr_t;
                                attribute: cusparseSpMatAttribute_t; data: pointer;
-                               dataSize: csize_t): cusparseStatus_t {.cdecl,
+                               dataSize: csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpMatSetAttribute", dynlib: libName.}
 ## ------------------------------------------------------------------------------
 ##  ### CSR ###
 
-proc cusparseCreateCsr*(spMatDescr: ptr cusparseSpMatDescr_t; rows: clonglong;
+proc cusparseCreateCsrUnderScore*(spMatDescr: ptr cusparseSpMatDescr_t; rows: clonglong;
                        cols: clonglong; nnz: clonglong; csrRowOffsets: pointer;
                        csrColInd: pointer; csrValues: pointer;
                        csrRowOffsetsType: cusparseIndexType_t;
                        csrColIndType: cusparseIndexType_t;
-                       idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.
+                       idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateCsr", dynlib: libName.}
-proc cusparseCreateConstCsr*(spMatDescr: ptr cusparseConstSpMatDescr_t;
+proc cusparseCreateConstCsrUnderScore*(spMatDescr: ptr cusparseConstSpMatDescr_t;
                             rows: clonglong; cols: clonglong; nnz: clonglong;
                             csrRowOffsets: pointer; csrColInd: pointer;
                             csrValues: pointer;
                             csrRowOffsetsType: cusparseIndexType_t;
                             csrColIndType: cusparseIndexType_t;
-                            idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.
+                            idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateConstCsr", dynlib: libName.}
-proc cusparseCreateCsc*(spMatDescr: ptr cusparseSpMatDescr_t; rows: clonglong;
+proc cusparseCreateCscUnderScore*(spMatDescr: ptr cusparseSpMatDescr_t; rows: clonglong;
                        cols: clonglong; nnz: clonglong; cscColOffsets: pointer;
                        cscRowInd: pointer; cscValues: pointer;
                        cscColOffsetsType: cusparseIndexType_t;
                        cscRowIndType: cusparseIndexType_t;
-                       idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.
+                       idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateCsc", dynlib: libName.}
-proc cusparseCreateConstCsc*(spMatDescr: ptr cusparseConstSpMatDescr_t;
+proc cusparseCreateConstCscUnderScore*(spMatDescr: ptr cusparseConstSpMatDescr_t;
                             rows: clonglong; cols: clonglong; nnz: clonglong;
                             cscColOffsets: pointer; cscRowInd: pointer;
                             cscValues: pointer;
                             cscColOffsetsType: cusparseIndexType_t;
                             cscRowIndType: cusparseIndexType_t;
-                            idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.
+                            idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateConstCsc", dynlib: libName.}
-proc cusparseCsrGet*(spMatDescr: cusparseSpMatDescr_t; rows: ptr clonglong;
+proc cusparseCsrGetUnderScore*(spMatDescr: cusparseSpMatDescr_t; rows: ptr clonglong;
                     cols: ptr clonglong; nnz: ptr clonglong;
                     csrRowOffsets: ptr pointer; csrColInd: ptr pointer;
                     csrValues: ptr pointer;
                     csrRowOffsetsType: ptr cusparseIndexType_t;
                     csrColIndType: ptr cusparseIndexType_t;
-                    idxBase: ptr cusparseIndexBase_t; valueType: ptr cudaDataType): cusparseStatus_t {.
+                    idxBase: ptr cusparseIndexBase_t; valueType: ptr cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCsrGet", dynlib: libName.}
-proc cusparseConstCsrGet*(spMatDescr: cusparseConstSpMatDescr_t;
+proc cusparseConstCsrGetUnderScore*(spMatDescr: cusparseConstSpMatDescr_t;
                          rows: ptr clonglong; cols: ptr clonglong; nnz: ptr clonglong;
                          csrRowOffsets: ptr pointer; csrColInd: ptr pointer;
                          csrValues: ptr pointer;
                          csrRowOffsetsType: ptr cusparseIndexType_t;
                          csrColIndType: ptr cusparseIndexType_t;
                          idxBase: ptr cusparseIndexBase_t;
-                         valueType: ptr cudaDataType): cusparseStatus_t {.cdecl,
+                         valueType: ptr cudaDataType): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseConstCsrGet", dynlib: libName.}
-proc cusparseCscGet*(spMatDescr: cusparseSpMatDescr_t; rows: ptr clonglong;
+proc cusparseCscGetUnderScore*(spMatDescr: cusparseSpMatDescr_t; rows: ptr clonglong;
                     cols: ptr clonglong; nnz: ptr clonglong;
                     cscColOffsets: ptr pointer; cscRowInd: ptr pointer;
                     cscValues: ptr pointer;
                     cscColOffsetsType: ptr cusparseIndexType_t;
                     cscRowIndType: ptr cusparseIndexType_t;
-                    idxBase: ptr cusparseIndexBase_t; valueType: ptr cudaDataType): cusparseStatus_t {.
+                    idxBase: ptr cusparseIndexBase_t; valueType: ptr cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCscGet", dynlib: libName.}
-proc cusparseConstCscGet*(spMatDescr: cusparseConstSpMatDescr_t;
+proc cusparseConstCscGetUnderScore*(spMatDescr: cusparseConstSpMatDescr_t;
                          rows: ptr clonglong; cols: ptr clonglong; nnz: ptr clonglong;
                          cscColOffsets: ptr pointer; cscRowInd: ptr pointer;
                          cscValues: ptr pointer;
                          cscColOffsetsType: ptr cusparseIndexType_t;
                          cscRowIndType: ptr cusparseIndexType_t;
                          idxBase: ptr cusparseIndexBase_t;
-                         valueType: ptr cudaDataType): cusparseStatus_t {.cdecl,
+                         valueType: ptr cudaDataType): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseConstCscGet", dynlib: libName.}
-proc cusparseCsrSetPointers*(spMatDescr: cusparseSpMatDescr_t;
+proc cusparseCsrSetPointersUnderScore*(spMatDescr: cusparseSpMatDescr_t;
                             csrRowOffsets: pointer; csrColInd: pointer;
-                            csrValues: pointer): cusparseStatus_t {.cdecl,
+                            csrValues: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCsrSetPointers", dynlib: libName.}
-proc cusparseCscSetPointers*(spMatDescr: cusparseSpMatDescr_t;
+proc cusparseCscSetPointersUnderScore*(spMatDescr: cusparseSpMatDescr_t;
                             cscColOffsets: pointer; cscRowInd: pointer;
-                            cscValues: pointer): cusparseStatus_t {.cdecl,
+                            cscValues: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCscSetPointers", dynlib: libName.}
 ## ------------------------------------------------------------------------------
 ##  ### BSR ###
 
-proc cusparseCreateBsr*(spMatDescr: ptr cusparseSpMatDescr_t; brows: clonglong;
+proc cusparseCreateBsrUnderScore*(spMatDescr: ptr cusparseSpMatDescr_t; brows: clonglong;
                        bcols: clonglong; bnnz: clonglong; rowBlockSize: clonglong;
                        colBlockSize: clonglong; bsrRowOffsets: pointer;
                        bsrColInd: pointer; bsrValues: pointer;
                        bsrRowOffsetsType: cusparseIndexType_t;
                        bsrColIndType: cusparseIndexType_t;
                        idxBase: cusparseIndexBase_t; valueType: cudaDataType;
-                       order: cusparseOrder_t): cusparseStatus_t {.cdecl,
+                       order: cusparseOrder_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateBsr", dynlib: libName.}
-proc cusparseCreateConstBsr*(spMatDescr: ptr cusparseConstSpMatDescr_t;
+proc cusparseCreateConstBsrUnderScore*(spMatDescr: ptr cusparseConstSpMatDescr_t;
                             brows: clonglong; bcols: clonglong; bnnz: clonglong;
                             rowBlockDim: clonglong; colBlockDim: clonglong;
                             bsrRowOffsets: pointer; bsrColInd: pointer;
@@ -2775,94 +2775,94 @@ proc cusparseCreateConstBsr*(spMatDescr: ptr cusparseConstSpMatDescr_t;
                             bsrRowOffsetsType: cusparseIndexType_t;
                             bsrColIndType: cusparseIndexType_t;
                             idxBase: cusparseIndexBase_t; valueType: cudaDataType;
-                            order: cusparseOrder_t): cusparseStatus_t {.cdecl,
+                            order: cusparseOrder_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateConstBsr", dynlib: libName.}
 ## ------------------------------------------------------------------------------
 ##  ### COO ###
 
-proc cusparseCreateCoo*(spMatDescr: ptr cusparseSpMatDescr_t; rows: clonglong;
+proc cusparseCreateCooUnderScore*(spMatDescr: ptr cusparseSpMatDescr_t; rows: clonglong;
                        cols: clonglong; nnz: clonglong; cooRowInd: pointer;
                        cooColInd: pointer; cooValues: pointer;
                        cooIdxType: cusparseIndexType_t;
-                       idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.
+                       idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateCoo", dynlib: libName.}
-proc cusparseCreateConstCoo*(spMatDescr: ptr cusparseConstSpMatDescr_t;
+proc cusparseCreateConstCooUnderScore*(spMatDescr: ptr cusparseConstSpMatDescr_t;
                             rows: clonglong; cols: clonglong; nnz: clonglong;
                             cooRowInd: pointer; cooColInd: pointer;
                             cooValues: pointer; cooIdxType: cusparseIndexType_t;
-                            idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.
+                            idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateConstCoo", dynlib: libName.}
-proc cusparseCooGet*(spMatDescr: cusparseSpMatDescr_t; rows: ptr clonglong;
+proc cusparseCooGetUnderScore*(spMatDescr: cusparseSpMatDescr_t; rows: ptr clonglong;
                     cols: ptr clonglong; nnz: ptr clonglong; cooRowInd: ptr pointer;
                     cooColInd: ptr pointer; cooValues: ptr pointer;
                     idxType: ptr cusparseIndexType_t;
-                    idxBase: ptr cusparseIndexBase_t; valueType: ptr cudaDataType): cusparseStatus_t {.
+                    idxBase: ptr cusparseIndexBase_t; valueType: ptr cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCooGet", dynlib: libName.}
   ##  COO row indices
   ##  COO column indices
   ##  COO values
-proc cusparseConstCooGet*(spMatDescr: cusparseConstSpMatDescr_t;
+proc cusparseConstCooGetUnderScore*(spMatDescr: cusparseConstSpMatDescr_t;
                          rows: ptr clonglong; cols: ptr clonglong; nnz: ptr clonglong;
                          cooRowInd: ptr pointer; cooColInd: ptr pointer;
                          cooValues: ptr pointer; idxType: ptr cusparseIndexType_t;
                          idxBase: ptr cusparseIndexBase_t;
-                         valueType: ptr cudaDataType): cusparseStatus_t {.cdecl,
+                         valueType: ptr cudaDataType): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseConstCooGet", dynlib: libName.}
   ##  COO row indices
   ##  COO column indices
   ##  COO values
-proc cusparseCooSetPointers*(spMatDescr: cusparseSpMatDescr_t; cooRows: pointer;
-                            cooColumns: pointer; cooValues: pointer): cusparseStatus_t {.
+proc cusparseCooSetPointersUnderScore*(spMatDescr: cusparseSpMatDescr_t; cooRows: pointer;
+                            cooColumns: pointer; cooValues: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCooSetPointers", dynlib: libName.}
 ## ------------------------------------------------------------------------------
 ##  ### BLOCKED ELL ###
 
-proc cusparseCreateBlockedEll*(spMatDescr: ptr cusparseSpMatDescr_t;
+proc cusparseCreateBlockedEllUnderScore*(spMatDescr: ptr cusparseSpMatDescr_t;
                               rows: clonglong; cols: clonglong;
                               ellBlockSize: clonglong; ellCols: clonglong;
                               ellColInd: pointer; ellValue: pointer;
                               ellIdxType: cusparseIndexType_t;
                               idxBase: cusparseIndexBase_t;
-                              valueType: cudaDataType): cusparseStatus_t {.cdecl,
+                              valueType: cudaDataType): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateBlockedEll", dynlib: libName.}
-proc cusparseCreateConstBlockedEll*(spMatDescr: ptr cusparseConstSpMatDescr_t;
+proc cusparseCreateConstBlockedEllUnderScore*(spMatDescr: ptr cusparseConstSpMatDescr_t;
                                    rows: clonglong; cols: clonglong;
                                    ellBlockSize: clonglong; ellCols: clonglong;
                                    ellColInd: pointer; ellValue: pointer;
                                    ellIdxType: cusparseIndexType_t;
                                    idxBase: cusparseIndexBase_t;
-                                   valueType: cudaDataType): cusparseStatus_t {.
+                                   valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateConstBlockedEll", dynlib: libName.}
-proc cusparseBlockedEllGet*(spMatDescr: cusparseSpMatDescr_t; rows: ptr clonglong;
+proc cusparseBlockedEllGetUnderScore*(spMatDescr: cusparseSpMatDescr_t; rows: ptr clonglong;
                            cols: ptr clonglong; ellBlockSize: ptr clonglong;
                            ellCols: ptr clonglong; ellColInd: ptr pointer;
                            ellValue: ptr pointer;
                            ellIdxType: ptr cusparseIndexType_t;
                            idxBase: ptr cusparseIndexBase_t;
-                           valueType: ptr cudaDataType): cusparseStatus_t {.cdecl,
+                           valueType: ptr cudaDataType): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseBlockedEllGet", dynlib: libName.}
-proc cusparseConstBlockedEllGet*(spMatDescr: cusparseConstSpMatDescr_t;
+proc cusparseConstBlockedEllGetUnderScore*(spMatDescr: cusparseConstSpMatDescr_t;
                                 rows: ptr clonglong; cols: ptr clonglong;
                                 ellBlockSize: ptr clonglong;
                                 ellCols: ptr clonglong; ellColInd: ptr pointer;
                                 ellValue: ptr pointer;
                                 ellIdxType: ptr cusparseIndexType_t;
                                 idxBase: ptr cusparseIndexBase_t;
-                                valueType: ptr cudaDataType): cusparseStatus_t {.
+                                valueType: ptr cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseConstBlockedEllGet", dynlib: libName.}
 ## ------------------------------------------------------------------------------
 ##  ### Sliced ELLPACK ###
 
-proc cusparseCreateSlicedEll*(spMatDescr: ptr cusparseSpMatDescr_t; rows: clonglong;
+proc cusparseCreateSlicedEllUnderScore*(spMatDescr: ptr cusparseSpMatDescr_t; rows: clonglong;
                              cols: clonglong; nnz: clonglong;
                              sellValuesSize: clonglong; sliceSize: clonglong;
                              sellSliceOffsets: pointer; sellColInd: pointer;
                              sellValues: pointer;
                              sellSliceOffsetsType: cusparseIndexType_t;
                              sellColIndType: cusparseIndexType_t;
-                             idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.
+                             idxBase: cusparseIndexBase_t; valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateSlicedEll", dynlib: libName.}
-proc cusparseCreateConstSlicedEll*(spMatDescr: ptr cusparseConstSpMatDescr_t;
+proc cusparseCreateConstSlicedEllUnderScore*(spMatDescr: ptr cusparseConstSpMatDescr_t;
                                   rows: clonglong; cols: clonglong; nnz: clonglong;
                                   sellValuesSize: clonglong; sliceSize: clonglong;
                                   sellSliceOffsets: pointer; sellColInd: pointer;
@@ -2870,22 +2870,22 @@ proc cusparseCreateConstSlicedEll*(spMatDescr: ptr cusparseConstSpMatDescr_t;
                                   sellSliceOffsetsType: cusparseIndexType_t;
                                   sellColIndType: cusparseIndexType_t;
                                   idxBase: cusparseIndexBase_t;
-                                  valueType: cudaDataType): cusparseStatus_t {.
+                                  valueType: cudaDataType): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateConstSlicedEll", dynlib: libName.}
 ##  #############################################################################
 ##  # DENSE MATRIX DESCRIPTOR
 ##  #############################################################################
 
-proc cusparseCreateDnMat*(dnMatDescr: ptr cusparseDnMatDescr_t; rows: clonglong;
+proc cusparseCreateDnMatUnderScore*(dnMatDescr: ptr cusparseDnMatDescr_t; rows: clonglong;
                          cols: clonglong; ld: clonglong; values: pointer;
-                         valueType: cudaDataType; order: cusparseOrder_t): cusparseStatus_t {.
+                         valueType: cudaDataType; order: cusparseOrder_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseCreateDnMat", dynlib: libName.}
-proc cusparseCreateConstDnMat*(dnMatDescr: ptr cusparseConstDnMatDescr_t;
+proc cusparseCreateConstDnMatUnderScore*(dnMatDescr: ptr cusparseConstDnMatDescr_t;
                               rows: clonglong; cols: clonglong; ld: clonglong;
                               values: pointer; valueType: cudaDataType;
-                              order: cusparseOrder_t): cusparseStatus_t {.cdecl,
+                              order: cusparseOrder_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseCreateConstDnMat", dynlib: libName.}
-proc cusparseDestroyDnMat*(dnMatDescr: cusparseConstDnMatDescr_t): cusparseStatus_t {.
+proc cusparseDestroyDnMatUnderScore*(dnMatDescr: cusparseConstDnMatDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDestroyDnMat", dynlib: libName.}
 proc cusparseDnMatGet*(dnMatDescr: cusparseDnMatDescr_t; rows: ptr clonglong;
                       cols: ptr clonglong; ld: ptr clonglong; values: ptr pointer;
@@ -2896,45 +2896,45 @@ proc cusparseConstDnMatGet*(dnMatDescr: cusparseConstDnMatDescr_t;
                            ld: ptr clonglong; values: ptr pointer;
                            `type`: ptr cudaDataType; order: ptr cusparseOrder_t): cusparseStatus_t {.
     cdecl, importc: "cusparseConstDnMatGet", dynlib: libName.}
-proc cusparseDnMatGetValues*(dnMatDescr: cusparseDnMatDescr_t; values: ptr pointer): cusparseStatus_t {.
+proc cusparseDnMatGetValuesUnderScore*(dnMatDescr: cusparseDnMatDescr_t; values: ptr pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDnMatGetValues", dynlib: libName.}
-proc cusparseConstDnMatGetValues*(dnMatDescr: cusparseConstDnMatDescr_t;
-                                 values: ptr pointer): cusparseStatus_t {.cdecl,
+proc cusparseConstDnMatGetValuesUnderScore*(dnMatDescr: cusparseConstDnMatDescr_t;
+                                 values: ptr pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseConstDnMatGetValues", dynlib: libName.}
-proc cusparseDnMatSetValues*(dnMatDescr: cusparseDnMatDescr_t; values: pointer): cusparseStatus_t {.
+proc cusparseDnMatSetValuesUnderScore*(dnMatDescr: cusparseDnMatDescr_t; values: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDnMatSetValues", dynlib: libName.}
-proc cusparseDnMatSetStridedBatch*(dnMatDescr: cusparseDnMatDescr_t;
-                                  batchCount: cint; batchStride: clonglong): cusparseStatus_t {.
+proc cusparseDnMatSetStridedBatchUnderScore*(dnMatDescr: cusparseDnMatDescr_t;
+                                  batchCount: cint; batchStride: clonglong): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDnMatSetStridedBatch", dynlib: libName.}
-proc cusparseDnMatGetStridedBatch*(dnMatDescr: cusparseConstDnMatDescr_t;
-                                  batchCount: ptr cint; batchStride: ptr clonglong): cusparseStatus_t {.
+proc cusparseDnMatGetStridedBatchUnderScore*(dnMatDescr: cusparseConstDnMatDescr_t;
+                                  batchCount: ptr cint; batchStride: ptr clonglong): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDnMatGetStridedBatch", dynlib: libName.}
 ##  #############################################################################
 ##  # VECTOR-VECTOR OPERATIONS
 ##  #############################################################################
 
-proc cusparseAxpby*(handle: cusparseHandle_t; alpha: pointer;
+proc cusparseAxpbyUnderScore*(handle: cusparseHandle_t; alpha: pointer;
                    vecX: cusparseConstSpVecDescr_t; beta: pointer;
-                   vecY: cusparseDnVecDescr_t): cusparseStatus_t {.cdecl,
+                   vecY: cusparseDnVecDescr_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseAxpby", dynlib: libName.}
-proc cusparseGather*(handle: cusparseHandle_t; vecY: cusparseConstDnVecDescr_t;
-                    vecX: cusparseSpVecDescr_t): cusparseStatus_t {.cdecl,
+proc cusparseGatherUnderScore*(handle: cusparseHandle_t; vecY: cusparseConstDnVecDescr_t;
+                    vecX: cusparseSpVecDescr_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseGather", dynlib: libName.}
-proc cusparseScatter*(handle: cusparseHandle_t; vecX: cusparseConstSpVecDescr_t;
-                     vecY: cusparseDnVecDescr_t): cusparseStatus_t {.cdecl,
+proc cusparseScatterUnderScore*(handle: cusparseHandle_t; vecX: cusparseConstSpVecDescr_t;
+                     vecY: cusparseDnVecDescr_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseScatter", dynlib: libName.}
-proc cusparseRot*(handle: cusparseHandle_t; c_coeff: pointer; s_coeff: pointer;
-                 vecX: cusparseSpVecDescr_t; vecY: cusparseDnVecDescr_t): cusparseStatus_t {.
+proc cusparseRotUnderScore*(handle: cusparseHandle_t; c_coeff: pointer; s_coeff: pointer;
+                 vecX: cusparseSpVecDescr_t; vecY: cusparseDnVecDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseRot", dynlib: libName.}
-proc cusparseSpVV_bufferSize*(handle: cusparseHandle_t; opX: cusparseOperation_t;
+proc cusparseSpVV_bufferSizeUnderScore*(handle: cusparseHandle_t; opX: cusparseOperation_t;
                              vecX: cusparseConstSpVecDescr_t;
                              vecY: cusparseConstDnVecDescr_t; resultNotKeyWord: pointer;
-                             computeType: cudaDataType; bufferSize: ptr csize_t): cusparseStatus_t {.
+                             computeType: cudaDataType; bufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpVV_bufferSize", dynlib: libName.}
-proc cusparseSpVV*(handle: cusparseHandle_t; opX: cusparseOperation_t;
+proc cusparseSpVVUnderScore*(handle: cusparseHandle_t; opX: cusparseOperation_t;
                   vecX: cusparseConstSpVecDescr_t;
                   vecY: cusparseConstDnVecDescr_t; resultNotKeyWord: pointer;
-                  computeType: cudaDataType; externalBuffer: pointer): cusparseStatus_t {.
+                  computeType: cudaDataType; externalBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpVV", dynlib: libName.}
 ##  #############################################################################
 ##  # SPARSE TO DENSE
@@ -2945,17 +2945,17 @@ type
     CUSPARSE_SPARSETODENSE_ALG_DEFAULT = 0
 
 
-proc cusparseSparseToDense_bufferSize*(handle: cusparseHandle_t;
+proc cusparseSparseToDense_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                       matA: cusparseConstSpMatDescr_t;
                                       matB: cusparseDnMatDescr_t;
                                       alg: cusparseSparseToDenseAlg_t;
-                                      bufferSize: ptr csize_t): cusparseStatus_t {.
+                                      bufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSparseToDense_bufferSize", dynlib: libName.}
-proc cusparseSparseToDense*(handle: cusparseHandle_t;
+proc cusparseSparseToDenseUnderScore*(handle: cusparseHandle_t;
                            matA: cusparseConstSpMatDescr_t;
                            matB: cusparseDnMatDescr_t;
                            alg: cusparseSparseToDenseAlg_t;
-                           externalBuffer: pointer): cusparseStatus_t {.cdecl,
+                           externalBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSparseToDense", dynlib: libName.}
 ##  #############################################################################
 ##  # DENSE TO SPARSE
@@ -2966,23 +2966,23 @@ type
     CUSPARSE_DENSETOSPARSE_ALG_DEFAULT = 0
 
 
-proc cusparseDenseToSparse_bufferSize*(handle: cusparseHandle_t;
+proc cusparseDenseToSparse_bufferSizeUnderScore*(handle: cusparseHandle_t;
                                       matA: cusparseConstDnMatDescr_t;
                                       matB: cusparseSpMatDescr_t;
                                       alg: cusparseDenseToSparseAlg_t;
-                                      bufferSize: ptr csize_t): cusparseStatus_t {.
+                                      bufferSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDenseToSparse_bufferSize", dynlib: libName.}
-proc cusparseDenseToSparse_analysis*(handle: cusparseHandle_t;
+proc cusparseDenseToSparse_analysisUnderScore*(handle: cusparseHandle_t;
                                     matA: cusparseConstDnMatDescr_t;
                                     matB: cusparseSpMatDescr_t;
                                     alg: cusparseDenseToSparseAlg_t;
-                                    externalBuffer: pointer): cusparseStatus_t {.
+                                    externalBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDenseToSparse_analysis", dynlib: libName.}
-proc cusparseDenseToSparse_convert*(handle: cusparseHandle_t;
+proc cusparseDenseToSparse_convertUnderScore*(handle: cusparseHandle_t;
                                    matA: cusparseConstDnMatDescr_t;
                                    matB: cusparseSpMatDescr_t;
                                    alg: cusparseDenseToSparseAlg_t;
-                                   externalBuffer: pointer): cusparseStatus_t {.
+                                   externalBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseDenseToSparse_convert", dynlib: libName.}
 ##  #############################################################################
 ##  # SPARSE MATRIX-VECTOR MULTIPLICATION
@@ -2995,25 +2995,25 @@ type
     CUSPARSE_SPMV_COO_ALG2 = 4, CUSPARSE_SPMV_SELL_ALG1 = 5
 
 
-proc cusparseSpMV*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpMVUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                   alpha: pointer; matA: cusparseConstSpMatDescr_t;
                   vecX: cusparseConstDnVecDescr_t; beta: pointer;
                   vecY: cusparseDnVecDescr_t; computeType: cudaDataType;
-                  alg: cusparseSpMVAlg_t; externalBuffer: pointer): cusparseStatus_t {.
+                  alg: cusparseSpMVAlg_t; externalBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpMV", dynlib: libName.}
-proc cusparseSpMV_bufferSize*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpMV_bufferSizeUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                              alpha: pointer; matA: cusparseConstSpMatDescr_t;
                              vecX: cusparseConstDnVecDescr_t; beta: pointer;
                              vecY: cusparseDnVecDescr_t;
                              computeType: cudaDataType; alg: cusparseSpMVAlg_t;
-                             bufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
+                             bufferSize: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpMV_bufferSize", dynlib: libName.}
-proc cusparseSpMV_preprocess*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpMV_preprocessUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                              alpha: pointer; matA: cusparseConstSpMatDescr_t;
                              vecX: cusparseConstDnVecDescr_t; beta: pointer;
                              vecY: cusparseDnVecDescr_t;
                              computeType: cudaDataType; alg: cusparseSpMVAlg_t;
-                             externalBuffer: pointer): cusparseStatus_t {.cdecl,
+                             externalBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpMV_preprocess", dynlib: libName.}
 ##  #############################################################################
 ##  # SPARSE TRIANGULAR VECTOR SOLVE
@@ -3031,34 +3031,34 @@ type cusparseSpSVDescr {.nodecl.} = object
 type
   cusparseSpSVDescr_t* = ptr cusparseSpSVDescr
 
-proc cusparseSpSV_createDescr*(descr: ptr cusparseSpSVDescr_t): cusparseStatus_t {.
+proc cusparseSpSV_createDescrUnderScore*(descr: ptr cusparseSpSVDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpSV_createDescr", dynlib: libName.}
-proc cusparseSpSV_destroyDescr*(descr: cusparseSpSVDescr_t): cusparseStatus_t {.
+proc cusparseSpSV_destroyDescrUnderScore*(descr: cusparseSpSVDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpSV_destroyDescr", dynlib: libName.}
-proc cusparseSpSV_bufferSize*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpSV_bufferSizeUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                              alpha: pointer; matA: cusparseConstSpMatDescr_t;
                              vecX: cusparseConstDnVecDescr_t;
                              vecY: cusparseDnVecDescr_t;
                              computeType: cudaDataType; alg: cusparseSpSVAlg_t;
                              spsvDescr: cusparseSpSVDescr_t;
-                             bufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
+                             bufferSize: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpSV_bufferSize", dynlib: libName.}
-proc cusparseSpSV_analysis*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpSV_analysisUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                            alpha: pointer; matA: cusparseConstSpMatDescr_t;
                            vecX: cusparseConstDnVecDescr_t;
                            vecY: cusparseDnVecDescr_t; computeType: cudaDataType;
                            alg: cusparseSpSVAlg_t; spsvDescr: cusparseSpSVDescr_t;
-                           externalBuffer: pointer): cusparseStatus_t {.cdecl,
+                           externalBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpSV_analysis", dynlib: libName.}
-proc cusparseSpSV_solve*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpSV_solveUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                         alpha: pointer; matA: cusparseConstSpMatDescr_t;
                         vecX: cusparseConstDnVecDescr_t;
                         vecY: cusparseDnVecDescr_t; computeType: cudaDataType;
-                        alg: cusparseSpSVAlg_t; spsvDescr: cusparseSpSVDescr_t): cusparseStatus_t {.
+                        alg: cusparseSpSVAlg_t; spsvDescr: cusparseSpSVDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpSV_solve", dynlib: libName.}
-proc cusparseSpSV_updateMatrix*(handle: cusparseHandle_t;
+proc cusparseSpSV_updateMatrixUnderScore*(handle: cusparseHandle_t;
                                spsvDescr: cusparseSpSVDescr_t; newValues: pointer;
-                               updatePart: cusparseSpSVUpdate_t): cusparseStatus_t {.
+                               updatePart: cusparseSpSVUpdate_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpSV_updateMatrix", dynlib: libName.}
 ##  #############################################################################
 ##  # SPARSE TRIANGULAR MATRIX SOLVE
@@ -3076,37 +3076,37 @@ type cusparseSpSMDescr {.nodecl.} = object
 type
   cusparseSpSMDescr_t* = ptr cusparseSpSMDescr
 
-proc cusparseSpSM_createDescr*(descr: ptr cusparseSpSMDescr_t): cusparseStatus_t {.
+proc cusparseSpSM_createDescrUnderScore*(descr: ptr cusparseSpSMDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpSM_createDescr", dynlib: libName.}
-proc cusparseSpSM_destroyDescr*(descr: cusparseSpSMDescr_t): cusparseStatus_t {.
+proc cusparseSpSM_destroyDescrUnderScore*(descr: cusparseSpSMDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpSM_destroyDescr", dynlib: libName.}
-proc cusparseSpSM_bufferSize*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpSM_bufferSizeUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                              opB: cusparseOperation_t; alpha: pointer;
                              matA: cusparseConstSpMatDescr_t;
                              matB: cusparseConstDnMatDescr_t;
                              matC: cusparseDnMatDescr_t;
                              computeType: cudaDataType; alg: cusparseSpSMAlg_t;
                              spsmDescr: cusparseSpSMDescr_t;
-                             bufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
+                             bufferSize: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpSM_bufferSize", dynlib: libName.}
-proc cusparseSpSM_analysis*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpSM_analysisUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                            opB: cusparseOperation_t; alpha: pointer;
                            matA: cusparseConstSpMatDescr_t;
                            matB: cusparseConstDnMatDescr_t;
                            matC: cusparseDnMatDescr_t; computeType: cudaDataType;
                            alg: cusparseSpSMAlg_t; spsmDescr: cusparseSpSMDescr_t;
-                           externalBuffer: pointer): cusparseStatus_t {.cdecl,
+                           externalBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpSM_analysis", dynlib: libName.}
-proc cusparseSpSM_solve*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpSM_solveUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                         opB: cusparseOperation_t; alpha: pointer;
                         matA: cusparseConstSpMatDescr_t;
                         matB: cusparseConstDnMatDescr_t;
                         matC: cusparseDnMatDescr_t; computeType: cudaDataType;
-                        alg: cusparseSpSMAlg_t; spsmDescr: cusparseSpSMDescr_t): cusparseStatus_t {.
+                        alg: cusparseSpSMAlg_t; spsmDescr: cusparseSpSMDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpSM_solve", dynlib: libName.}
-proc cusparseSpSM_updateMatrix*(handle: cusparseHandle_t;
+proc cusparseSpSM_updateMatrixUnderScore*(handle: cusparseHandle_t;
                                spsmDescr: cusparseSpSMDescr_t; newValues: pointer;
-                               updatePart: cusparseSpSMUpdate_t): cusparseStatus_t {.
+                               updatePart: cusparseSpSMUpdate_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpSM_updateMatrix", dynlib: libName.}
 ##  #############################################################################
 ##  # SPARSE MATRIX-MATRIX MULTIPLICATION
@@ -3121,28 +3121,28 @@ type
     CUSPARSE_SPMM_BLOCKED_ELL_ALG1 = 13, CUSPARSE_SPMM_BSR_ALG1 = 14
 
 
-proc cusparseSpMM_bufferSize*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpMM_bufferSizeUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                              opB: cusparseOperation_t; alpha: pointer;
                              matA: cusparseConstSpMatDescr_t;
                              matB: cusparseConstDnMatDescr_t; beta: pointer;
                              matC: cusparseDnMatDescr_t;
                              computeType: cudaDataType; alg: cusparseSpMMAlg_t;
-                             bufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
+                             bufferSize: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpMM_bufferSize", dynlib: libName.}
-proc cusparseSpMM_preprocess*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpMM_preprocessUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                              opB: cusparseOperation_t; alpha: pointer;
                              matA: cusparseConstSpMatDescr_t;
                              matB: cusparseConstDnMatDescr_t; beta: pointer;
                              matC: cusparseDnMatDescr_t;
                              computeType: cudaDataType; alg: cusparseSpMMAlg_t;
-                             externalBuffer: pointer): cusparseStatus_t {.cdecl,
+                             externalBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSpMM_preprocess", dynlib: libName.}
-proc cusparseSpMM*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpMMUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                   opB: cusparseOperation_t; alpha: pointer;
                   matA: cusparseConstSpMatDescr_t;
                   matB: cusparseConstDnMatDescr_t; beta: pointer;
                   matC: cusparseDnMatDescr_t; computeType: cudaDataType;
-                  alg: cusparseSpMMAlg_t; externalBuffer: pointer): cusparseStatus_t {.
+                  alg: cusparseSpMMAlg_t; externalBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpMM", dynlib: libName.}
 ##  #############################################################################
 ##  # SPARSE MATRIX - SPARSE MATRIX MULTIPLICATION (SpGEMM)
@@ -3159,11 +3159,11 @@ type cusparseSpGEMMDescr {.nodecl.} = object
 type
   cusparseSpGEMMDescr_t* = ptr cusparseSpGEMMDescr
 
-proc cusparseSpGEMM_createDescr*(descr: ptr cusparseSpGEMMDescr_t): cusparseStatus_t {.
+proc cusparseSpGEMM_createDescrUnderScore*(descr: ptr cusparseSpGEMMDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMM_createDescr", dynlib: libName.}
-proc cusparseSpGEMM_destroyDescr*(descr: cusparseSpGEMMDescr_t): cusparseStatus_t {.
+proc cusparseSpGEMM_destroyDescrUnderScore*(descr: cusparseSpGEMMDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMM_destroyDescr", dynlib: libName.}
-proc cusparseSpGEMM_workEstimation*(handle: cusparseHandle_t;
+proc cusparseSpGEMM_workEstimationUnderScore*(handle: cusparseHandle_t;
                                    opA: cusparseOperation_t;
                                    opB: cusparseOperation_t; alpha: pointer;
                                    matA: cusparseConstSpMatDescr_t;
@@ -3173,12 +3173,12 @@ proc cusparseSpGEMM_workEstimation*(handle: cusparseHandle_t;
                                    alg: cusparseSpGEMMAlg_t;
                                    spgemmDescr: cusparseSpGEMMDescr_t;
                                    bufferSize1: ptr csize_t;
-                                   externalBuffer1: pointer): cusparseStatus_t {.
+                                   externalBuffer1: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMM_workEstimation", dynlib: libName.}
-proc cusparseSpGEMM_getNumProducts*(spgemmDescr: cusparseSpGEMMDescr_t;
-                                   num_prods: ptr clonglong): cusparseStatus_t {.
+proc cusparseSpGEMM_getNumProductsUnderScore*(spgemmDescr: cusparseSpGEMMDescr_t;
+                                   num_prods: ptr clonglong): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMM_getNumProducts", dynlib: libName.}
-proc cusparseSpGEMM_estimateMemory*(handle: cusparseHandle_t;
+proc cusparseSpGEMM_estimateMemoryUnderScore*(handle: cusparseHandle_t;
                                    opA: cusparseOperation_t;
                                    opB: cusparseOperation_t; alpha: pointer;
                                    matA: cusparseConstSpMatDescr_t;
@@ -3190,30 +3190,30 @@ proc cusparseSpGEMM_estimateMemory*(handle: cusparseHandle_t;
                                    chunk_fraction: cfloat;
                                    bufferSize3: ptr csize_t;
                                    externalBuffer3: pointer;
-                                   bufferSize2: ptr csize_t): cusparseStatus_t {.
+                                   bufferSize2: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMM_estimateMemory", dynlib: libName.}
-proc cusparseSpGEMM_compute*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpGEMM_computeUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                             opB: cusparseOperation_t; alpha: pointer;
                             matA: cusparseConstSpMatDescr_t;
                             matB: cusparseConstSpMatDescr_t; beta: pointer;
                             matC: cusparseSpMatDescr_t; computeType: cudaDataType;
                             alg: cusparseSpGEMMAlg_t;
                             spgemmDescr: cusparseSpGEMMDescr_t;
-                            bufferSize2: ptr csize_t; externalBuffer2: pointer): cusparseStatus_t {.
+                            bufferSize2: ptr csize_t; externalBuffer2: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMM_compute", dynlib: libName.}
-proc cusparseSpGEMM_copy*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpGEMM_copyUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                          opB: cusparseOperation_t; alpha: pointer;
                          matA: cusparseConstSpMatDescr_t;
                          matB: cusparseConstSpMatDescr_t; beta: pointer;
                          matC: cusparseSpMatDescr_t; computeType: cudaDataType;
                          alg: cusparseSpGEMMAlg_t;
-                         spgemmDescr: cusparseSpGEMMDescr_t): cusparseStatus_t {.
+                         spgemmDescr: cusparseSpGEMMDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMM_copy", dynlib: libName.}
 ##  #############################################################################
 ##  # SPARSE MATRIX - SPARSE MATRIX MULTIPLICATION (SpGEMM) STRUCTURE REUSE
 ##  #############################################################################
 
-proc cusparseSpGEMMreuse_workEstimation*(handle: cusparseHandle_t;
+proc cusparseSpGEMMreuse_workEstimationUnderScore*(handle: cusparseHandle_t;
                                         opA: cusparseOperation_t;
                                         opB: cusparseOperation_t;
                                         matA: cusparseConstSpMatDescr_t;
@@ -3222,9 +3222,9 @@ proc cusparseSpGEMMreuse_workEstimation*(handle: cusparseHandle_t;
                                         alg: cusparseSpGEMMAlg_t;
                                         spgemmDescr: cusparseSpGEMMDescr_t;
                                         bufferSize1: ptr csize_t;
-                                        externalBuffer1: pointer): cusparseStatus_t {.
+                                        externalBuffer1: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMMreuse_workEstimation", dynlib: libName.}
-proc cusparseSpGEMMreuse_nnz*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpGEMMreuse_nnzUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                              opB: cusparseOperation_t;
                              matA: cusparseConstSpMatDescr_t;
                              matB: cusparseConstSpMatDescr_t;
@@ -3232,18 +3232,18 @@ proc cusparseSpGEMMreuse_nnz*(handle: cusparseHandle_t; opA: cusparseOperation_t
                              spgemmDescr: cusparseSpGEMMDescr_t;
                              bufferSize2: ptr csize_t; externalBuffer2: pointer;
                              bufferSize3: ptr csize_t; externalBuffer3: pointer;
-                             bufferSize4: ptr csize_t; externalBuffer4: pointer): cusparseStatus_t {.
+                             bufferSize4: ptr csize_t; externalBuffer4: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMMreuse_nnz", dynlib: libName.}
-proc cusparseSpGEMMreuse_copy*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSpGEMMreuse_copyUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                               opB: cusparseOperation_t;
                               matA: cusparseConstSpMatDescr_t;
                               matB: cusparseConstSpMatDescr_t;
                               matC: cusparseSpMatDescr_t;
                               alg: cusparseSpGEMMAlg_t;
                               spgemmDescr: cusparseSpGEMMDescr_t;
-                              bufferSize5: ptr csize_t; externalBuffer5: pointer): cusparseStatus_t {.
+                              bufferSize5: ptr csize_t; externalBuffer5: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMMreuse_copy", dynlib: libName.}
-proc cusparseSpGEMMreuse_compute*(handle: cusparseHandle_t;
+proc cusparseSpGEMMreuse_computeUnderScore*(handle: cusparseHandle_t;
                                  opA: cusparseOperation_t;
                                  opB: cusparseOperation_t; alpha: pointer;
                                  matA: cusparseConstSpMatDescr_t;
@@ -3251,7 +3251,7 @@ proc cusparseSpGEMMreuse_compute*(handle: cusparseHandle_t;
                                  matC: cusparseSpMatDescr_t;
                                  computeType: cudaDataType;
                                  alg: cusparseSpGEMMAlg_t;
-                                 spgemmDescr: cusparseSpGEMMDescr_t): cusparseStatus_t {.
+                                 spgemmDescr: cusparseSpGEMMDescr_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpGEMMreuse_compute", dynlib: libName.}
 ##  #############################################################################
 ##  # SAMPLED DENSE-DENSE MATRIX MULTIPLICATION
@@ -3262,28 +3262,28 @@ type
     CUSPARSE_SDDMM_ALG_DEFAULT = 0
 
 
-proc cusparseSDDMM_bufferSize*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSDDMM_bufferSizeUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                               opB: cusparseOperation_t; alpha: pointer;
                               matA: cusparseConstDnMatDescr_t;
                               matB: cusparseConstDnMatDescr_t; beta: pointer;
                               matC: cusparseSpMatDescr_t;
                               computeType: cudaDataType; alg: cusparseSDDMMAlg_t;
-                              bufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
+                              bufferSize: ptr csize_t): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSDDMM_bufferSize", dynlib: libName.}
-proc cusparseSDDMM_preprocess*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSDDMM_preprocessUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                               opB: cusparseOperation_t; alpha: pointer;
                               matA: cusparseConstDnMatDescr_t;
                               matB: cusparseConstDnMatDescr_t; beta: pointer;
                               matC: cusparseSpMatDescr_t;
                               computeType: cudaDataType; alg: cusparseSDDMMAlg_t;
-                              externalBuffer: pointer): cusparseStatus_t {.cdecl,
+                              externalBuffer: pointer): cusparseStatus_t {.discardable, cdecl,
     importc: "cusparseSDDMM_preprocess", dynlib: libName.}
-proc cusparseSDDMM*(handle: cusparseHandle_t; opA: cusparseOperation_t;
+proc cusparseSDDMMUnderScore*(handle: cusparseHandle_t; opA: cusparseOperation_t;
                    opB: cusparseOperation_t; alpha: pointer;
                    matA: cusparseConstDnMatDescr_t;
                    matB: cusparseConstDnMatDescr_t; beta: pointer;
                    matC: cusparseSpMatDescr_t; computeType: cudaDataType;
-                   alg: cusparseSDDMMAlg_t; externalBuffer: pointer): cusparseStatus_t {.
+                   alg: cusparseSDDMMAlg_t; externalBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSDDMM", dynlib: libName.}
 ##  #############################################################################
 ##  # GENERIC APIs WITH CUSTOM OPERATORS (PREVIEW)
@@ -3296,7 +3296,7 @@ type
     CUSPARSE_SPMM_OP_ALG_DEFAULT
 
 
-proc cusparseSpMMOp_createPlan*(handle: cusparseHandle_t;
+proc cusparseSpMMOp_createPlanUnderScore*(handle: cusparseHandle_t;
                                plan: ptr cusparseSpMMOpPlan_t;
                                opA: cusparseOperation_t; opB: cusparseOperation_t;
                                matA: cusparseConstSpMatDescr_t;
@@ -3310,11 +3310,11 @@ proc cusparseSpMMOp_createPlan*(handle: cusparseHandle_t;
                                mulOperationBufferSize: csize_t;
                                epilogueNvvmBuffer: pointer;
                                epilogueBufferSize: csize_t;
-                               SpMMWorkspaceSize: ptr csize_t): cusparseStatus_t {.
+                               SpMMWorkspaceSize: ptr csize_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpMMOp_createPlan", dynlib: libName.}
-proc cusparseSpMMOp*(plan: cusparseSpMMOpPlan_t; externalBuffer: pointer): cusparseStatus_t {.
+proc cusparseSpMMOpUnderScore*(plan: cusparseSpMMOpPlan_t; externalBuffer: pointer): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpMMOp", dynlib: libName.}
-proc cusparseSpMMOp_destroyPlan*(plan: cusparseSpMMOpPlan_t): cusparseStatus_t {.
+proc cusparseSpMMOp_destroyPlanUnderScore*(plan: cusparseSpMMOpPlan_t): cusparseStatus_t {.discardable, 
     cdecl, importc: "cusparseSpMMOp_destroyPlan", dynlib: libName.}
 ## ------------------------------------------------------------------------------
 

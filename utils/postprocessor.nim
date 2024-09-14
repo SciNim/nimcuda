@@ -80,7 +80,9 @@ proc fixProcsDecls(code: sink string): string =
 
   var needsChanged: seq[ProcToReplace] = @[]
 
-  const DiscardableReturnTypes = ["CudaOccError"]
+  const DiscardableReturnTypes = ["cudaError", "cudaOccError", "cublasStatus_t",
+                                  "cufftResult", "cusparseStatus_t",
+                                  "cusolverStatus_t", "curandStatus"]
 
   type ProcDeclarationParsingContext = object
     currentProc: string

@@ -192,1229 +192,1229 @@ type
 ##  cuBLAS Exported API {{{
 ##  --------------- CUBLAS Helper Functions  ----------------
 
-proc cublasCreate_v2*(handle: ptr cublasHandle_t): cublasStatus_t {.cdecl,
+proc cublasCreate_v2UnderScore*(handle: ptr cublasHandle_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCreate_v2", dynlib: libName.}
-proc cublasDestroy_v2*(handle: cublasHandle_t): cublasStatus_t {.cdecl,
+proc cublasDestroy_v2UnderScore*(handle: cublasHandle_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDestroy_v2", dynlib: libName.}
-proc cublasGetVersion_v2*(handle: cublasHandle_t; version: ptr cint): cublasStatus_t {.
+proc cublasGetVersion_v2UnderScore*(handle: cublasHandle_t; version: ptr cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetVersion_v2", dynlib: libName.}
 proc cublasGetProperty*(`type`: libraryPropertyType; value: ptr cint): cublasStatus_t {.
     cdecl, importc: "cublasGetProperty", dynlib: libName.}
 proc cublasGetCudartVersion*(): csize_t {.cdecl, importc: "cublasGetCudartVersion",
                                        dynlib: libName.}
-proc cublasSetWorkspace_v2*(handle: cublasHandle_t; workspace: pointer;
-                           workspaceSizeInBytes: csize_t): cublasStatus_t {.cdecl,
+proc cublasSetWorkspace_v2UnderScore*(handle: cublasHandle_t; workspace: pointer;
+                           workspaceSizeInBytes: csize_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSetWorkspace_v2", dynlib: libName.}
-proc cublasSetStream_v2*(handle: cublasHandle_t; streamId: cudaStream_t): cublasStatus_t {.
+proc cublasSetStream_v2UnderScore*(handle: cublasHandle_t; streamId: cudaStream_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSetStream_v2", dynlib: libName.}
-proc cublasGetStream_v2*(handle: cublasHandle_t; streamId: ptr cudaStream_t): cublasStatus_t {.
+proc cublasGetStream_v2UnderScore*(handle: cublasHandle_t; streamId: ptr cudaStream_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetStream_v2", dynlib: libName.}
-proc cublasGetPointerMode_v2*(handle: cublasHandle_t; mode: ptr cublasPointerMode_t): cublasStatus_t {.
+proc cublasGetPointerMode_v2UnderScore*(handle: cublasHandle_t; mode: ptr cublasPointerMode_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetPointerMode_v2", dynlib: libName.}
-proc cublasSetPointerMode_v2*(handle: cublasHandle_t; mode: cublasPointerMode_t): cublasStatus_t {.
+proc cublasSetPointerMode_v2UnderScore*(handle: cublasHandle_t; mode: cublasPointerMode_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSetPointerMode_v2", dynlib: libName.}
-proc cublasGetAtomicsMode*(handle: cublasHandle_t; mode: ptr cublasAtomicsMode_t): cublasStatus_t {.
+proc cublasGetAtomicsModeUnderScore*(handle: cublasHandle_t; mode: ptr cublasAtomicsMode_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetAtomicsMode", dynlib: libName.}
-proc cublasSetAtomicsMode*(handle: cublasHandle_t; mode: cublasAtomicsMode_t): cublasStatus_t {.
+proc cublasSetAtomicsModeUnderScore*(handle: cublasHandle_t; mode: cublasAtomicsMode_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSetAtomicsMode", dynlib: libName.}
-proc cublasGetMathMode*(handle: cublasHandle_t; mode: ptr cublasMath_t): cublasStatus_t {.
+proc cublasGetMathModeUnderScore*(handle: cublasHandle_t; mode: ptr cublasMath_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetMathMode", dynlib: libName.}
-proc cublasSetMathMode*(handle: cublasHandle_t; mode: cublasMath_t): cublasStatus_t {.
+proc cublasSetMathModeUnderScore*(handle: cublasHandle_t; mode: cublasMath_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSetMathMode", dynlib: libName.}
-proc cublasGetSmCountTarget*(handle: cublasHandle_t; smCountTarget: ptr cint): cublasStatus_t {.
+proc cublasGetSmCountTargetUnderScore*(handle: cublasHandle_t; smCountTarget: ptr cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetSmCountTarget", dynlib: libName.}
-proc cublasSetSmCountTarget*(handle: cublasHandle_t; smCountTarget: cint): cublasStatus_t {.
+proc cublasSetSmCountTargetUnderScore*(handle: cublasHandle_t; smCountTarget: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSetSmCountTarget", dynlib: libName.}
 proc cublasGetStatusName*(status: cublasStatus_t): cstring {.cdecl,
     importc: "cublasGetStatusName", dynlib: libName.}
 proc cublasGetStatusString*(status: cublasStatus_t): cstring {.cdecl,
     importc: "cublasGetStatusString", dynlib: libName.}
-proc cublasLoggerConfigure*(logIsOn: cint; logToStdOut: cint; logToStdErr: cint;
-                           logFileName: cstring): cublasStatus_t {.cdecl,
+proc cublasLoggerConfigureUnderScore*(logIsOn: cint; logToStdOut: cint; logToStdErr: cint;
+                           logFileName: cstring): cublasStatus_t {.discardable, cdecl,
     importc: "cublasLoggerConfigure", dynlib: libName.}
-proc cublasSetLoggerCallback*(userCallback: cublasLogCallback): cublasStatus_t {.
+proc cublasSetLoggerCallbackUnderScore*(userCallback: cublasLogCallback): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSetLoggerCallback", dynlib: libName.}
-proc cublasGetLoggerCallback*(userCallback: ptr cublasLogCallback): cublasStatus_t {.
+proc cublasGetLoggerCallbackUnderScore*(userCallback: ptr cublasLogCallback): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetLoggerCallback", dynlib: libName.}
-proc cublasSetVector*(n: cint; elemSize: cint; x: pointer; incx: cint;
-                     devicePtr: pointer; incy: cint): cublasStatus_t {.cdecl,
+proc cublasSetVectorUnderScore*(n: cint; elemSize: cint; x: pointer; incx: cint;
+                     devicePtr: pointer; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSetVector", dynlib: libName.}
-proc cublasSetVector_64*(n: clonglong; elemSize: clonglong; x: pointer;
-                        incx: clonglong; devicePtr: pointer; incy: clonglong): cublasStatus_t {.
+proc cublasSetVector_64UnderScore*(n: clonglong; elemSize: clonglong; x: pointer;
+                        incx: clonglong; devicePtr: pointer; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSetVector_64", dynlib: libName.}
-proc cublasGetVector*(n: cint; elemSize: cint; x: pointer; incx: cint; y: pointer;
-                     incy: cint): cublasStatus_t {.cdecl,
+proc cublasGetVectorUnderScore*(n: cint; elemSize: cint; x: pointer; incx: cint; y: pointer;
+                     incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasGetVector", dynlib: libName.}
-proc cublasGetVector_64*(n: clonglong; elemSize: clonglong; x: pointer;
-                        incx: clonglong; y: pointer; incy: clonglong): cublasStatus_t {.
+proc cublasGetVector_64UnderScore*(n: clonglong; elemSize: clonglong; x: pointer;
+                        incx: clonglong; y: pointer; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetVector_64", dynlib: libName.}
-proc cublasSetMatrix*(rows: cint; cols: cint; elemSize: cint; A: pointer; lda: cint;
-                     B: pointer; ldb: cint): cublasStatus_t {.cdecl,
+proc cublasSetMatrixUnderScore*(rows: cint; cols: cint; elemSize: cint; A: pointer; lda: cint;
+                     B: pointer; ldb: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSetMatrix", dynlib: libName.}
-proc cublasSetMatrix_64*(rows: clonglong; cols: clonglong; elemSize: clonglong;
-                        A: pointer; lda: clonglong; B: pointer; ldb: clonglong): cublasStatus_t {.
+proc cublasSetMatrix_64UnderScore*(rows: clonglong; cols: clonglong; elemSize: clonglong;
+                        A: pointer; lda: clonglong; B: pointer; ldb: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSetMatrix_64", dynlib: libName.}
-proc cublasGetMatrix*(rows: cint; cols: cint; elemSize: cint; A: pointer; lda: cint;
-                     B: pointer; ldb: cint): cublasStatus_t {.cdecl,
+proc cublasGetMatrixUnderScore*(rows: cint; cols: cint; elemSize: cint; A: pointer; lda: cint;
+                     B: pointer; ldb: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasGetMatrix", dynlib: libName.}
-proc cublasGetMatrix_64*(rows: clonglong; cols: clonglong; elemSize: clonglong;
-                        A: pointer; lda: clonglong; B: pointer; ldb: clonglong): cublasStatus_t {.
+proc cublasGetMatrix_64UnderScore*(rows: clonglong; cols: clonglong; elemSize: clonglong;
+                        A: pointer; lda: clonglong; B: pointer; ldb: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetMatrix_64", dynlib: libName.}
-proc cublasSetVectorAsync*(n: cint; elemSize: cint; hostPtr: pointer; incx: cint;
-                          devicePtr: pointer; incy: cint; stream: cudaStream_t): cublasStatus_t {.
+proc cublasSetVectorAsyncUnderScore*(n: cint; elemSize: cint; hostPtr: pointer; incx: cint;
+                          devicePtr: pointer; incy: cint; stream: cudaStream_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSetVectorAsync", dynlib: libName.}
-proc cublasSetVectorAsync_64*(n: clonglong; elemSize: clonglong; hostPtr: pointer;
+proc cublasSetVectorAsync_64UnderScore*(n: clonglong; elemSize: clonglong; hostPtr: pointer;
                              incx: clonglong; devicePtr: pointer; incy: clonglong;
-                             stream: cudaStream_t): cublasStatus_t {.cdecl,
+                             stream: cudaStream_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSetVectorAsync_64", dynlib: libName.}
-proc cublasGetVectorAsync*(n: cint; elemSize: cint; devicePtr: pointer; incx: cint;
-                          hostPtr: pointer; incy: cint; stream: cudaStream_t): cublasStatus_t {.
+proc cublasGetVectorAsyncUnderScore*(n: cint; elemSize: cint; devicePtr: pointer; incx: cint;
+                          hostPtr: pointer; incy: cint; stream: cudaStream_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetVectorAsync", dynlib: libName.}
-proc cublasGetVectorAsync_64*(n: clonglong; elemSize: clonglong; devicePtr: pointer;
+proc cublasGetVectorAsync_64UnderScore*(n: clonglong; elemSize: clonglong; devicePtr: pointer;
                              incx: clonglong; hostPtr: pointer; incy: clonglong;
-                             stream: cudaStream_t): cublasStatus_t {.cdecl,
+                             stream: cudaStream_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasGetVectorAsync_64", dynlib: libName.}
-proc cublasSetMatrixAsync*(rows: cint; cols: cint; elemSize: cint; A: pointer; lda: cint;
-                          B: pointer; ldb: cint; stream: cudaStream_t): cublasStatus_t {.
+proc cublasSetMatrixAsyncUnderScore*(rows: cint; cols: cint; elemSize: cint; A: pointer; lda: cint;
+                          B: pointer; ldb: cint; stream: cudaStream_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSetMatrixAsync", dynlib: libName.}
-proc cublasSetMatrixAsync_64*(rows: clonglong; cols: clonglong; elemSize: clonglong;
+proc cublasSetMatrixAsync_64UnderScore*(rows: clonglong; cols: clonglong; elemSize: clonglong;
                              A: pointer; lda: clonglong; B: pointer; ldb: clonglong;
-                             stream: cudaStream_t): cublasStatus_t {.cdecl,
+                             stream: cudaStream_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSetMatrixAsync_64", dynlib: libName.}
-proc cublasGetMatrixAsync*(rows: cint; cols: cint; elemSize: cint; A: pointer; lda: cint;
-                          B: pointer; ldb: cint; stream: cudaStream_t): cublasStatus_t {.
+proc cublasGetMatrixAsyncUnderScore*(rows: cint; cols: cint; elemSize: cint; A: pointer; lda: cint;
+                          B: pointer; ldb: cint; stream: cudaStream_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGetMatrixAsync", dynlib: libName.}
-proc cublasGetMatrixAsync_64*(rows: clonglong; cols: clonglong; elemSize: clonglong;
+proc cublasGetMatrixAsync_64UnderScore*(rows: clonglong; cols: clonglong; elemSize: clonglong;
                              A: pointer; lda: clonglong; B: pointer; ldb: clonglong;
-                             stream: cudaStream_t): cublasStatus_t {.cdecl,
+                             stream: cudaStream_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasGetMatrixAsync_64", dynlib: libName.}
 proc cublasXerbla*(srName: cstring; info: cint) {.cdecl, importc: "cublasXerbla",
     dynlib: libName.}
 ##  --------------- CUBLAS BLAS1 Functions  ----------------
 
-proc cublasNrm2Ex*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
+proc cublasNrm2ExUnderScore*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
                   incx: cint; resultNotKeyWord: pointer; resultType: cudaDataType;
-                  executionType: cudaDataType): cublasStatus_t {.cdecl,
+                  executionType: cudaDataType): cublasStatus_t {.discardable, cdecl,
     importc: "cublasNrm2Ex", dynlib: libName.}
-proc cublasNrm2Ex_64*(handle: cublasHandle_t; n: clonglong; x: pointer;
+proc cublasNrm2Ex_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: pointer;
                      xType: cudaDataType; incx: clonglong; resultNotKeyWord: pointer;
-                     resultType: cudaDataType; executionType: cudaDataType): cublasStatus_t {.
+                     resultType: cudaDataType; executionType: cudaDataType): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasNrm2Ex_64", dynlib: libName.}
-proc cublasSnrm2_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                    resultNotKeyWord: ptr cfloat): cublasStatus_t {.cdecl,
+proc cublasSnrm2_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
+                    resultNotKeyWord: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSnrm2_v2", dynlib: libName.}
-proc cublasSnrm2_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
-                       incx: clonglong; resultNotKeyWord: ptr cfloat): cublasStatus_t {.cdecl,
+proc cublasSnrm2_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
+                       incx: clonglong; resultNotKeyWord: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSnrm2_v2_64", dynlib: libName.}
-proc cublasDnrm2_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                    resultNotKeyWord: ptr cdouble): cublasStatus_t {.cdecl,
+proc cublasDnrm2_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
+                    resultNotKeyWord: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDnrm2_v2", dynlib: libName.}
-proc cublasDnrm2_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
-                       incx: clonglong; resultNotKeyWord: ptr cdouble): cublasStatus_t {.cdecl,
+proc cublasDnrm2_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
+                       incx: clonglong; resultNotKeyWord: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDnrm2_v2_64", dynlib: libName.}
-proc cublasScnrm2_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                     resultNotKeyWord: ptr cfloat): cublasStatus_t {.cdecl,
+proc cublasScnrm2_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
+                     resultNotKeyWord: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasScnrm2_v2", dynlib: libName.}
-proc cublasScnrm2_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
-                        incx: clonglong; resultNotKeyWord: ptr cfloat): cublasStatus_t {.cdecl,
+proc cublasScnrm2_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
+                        incx: clonglong; resultNotKeyWord: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasScnrm2_v2_64", dynlib: libName.}
-proc cublasDznrm2_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
-                     incx: cint; resultNotKeyWord: ptr cdouble): cublasStatus_t {.cdecl,
+proc cublasDznrm2_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
+                     incx: cint; resultNotKeyWord: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDznrm2_v2", dynlib: libName.}
-proc cublasDznrm2_v2_64*(handle: cublasHandle_t; n: clonglong;
-                        x: ptr cuDoubleComplex; incx: clonglong; resultNotKeyWord: ptr cdouble): cublasStatus_t {.
+proc cublasDznrm2_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong;
+                        x: ptr cuDoubleComplex; incx: clonglong; resultNotKeyWord: ptr cdouble): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDznrm2_v2_64", dynlib: libName.}
-proc cublasDotEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
+proc cublasDotExUnderScore*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
                  incx: cint; y: pointer; yType: cudaDataType; incy: cint;
                  resultNotKeyWord: pointer; resultType: cudaDataType;
-                 executionType: cudaDataType): cublasStatus_t {.cdecl,
+                 executionType: cudaDataType): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDotEx", dynlib: libName.}
-proc cublasDotEx_64*(handle: cublasHandle_t; n: clonglong; x: pointer;
+proc cublasDotEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: pointer;
                     xType: cudaDataType; incx: clonglong; y: pointer;
                     yType: cudaDataType; incy: clonglong; resultNotKeyWord: pointer;
-                    resultType: cudaDataType; executionType: cudaDataType): cublasStatus_t {.
+                    resultType: cudaDataType; executionType: cudaDataType): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDotEx_64", dynlib: libName.}
-proc cublasDotcEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
+proc cublasDotcExUnderScore*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
                   incx: cint; y: pointer; yType: cudaDataType; incy: cint;
                   resultNotKeyWord: pointer; resultType: cudaDataType;
-                  executionType: cudaDataType): cublasStatus_t {.cdecl,
+                  executionType: cudaDataType): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDotcEx", dynlib: libName.}
-proc cublasDotcEx_64*(handle: cublasHandle_t; n: clonglong; x: pointer;
+proc cublasDotcEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: pointer;
                      xType: cudaDataType; incx: clonglong; y: pointer;
                      yType: cudaDataType; incy: clonglong; resultNotKeyWord: pointer;
-                     resultType: cudaDataType; executionType: cudaDataType): cublasStatus_t {.
+                     resultType: cudaDataType; executionType: cudaDataType): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDotcEx_64", dynlib: libName.}
-proc cublasSdot_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                   y: ptr cfloat; incy: cint; resultNotKeyWord: ptr cfloat): cublasStatus_t {.
+proc cublasSdot_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
+                   y: ptr cfloat; incy: cint; resultNotKeyWord: ptr cfloat): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSdot_v2", dynlib: libName.}
-proc cublasSdot_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
+proc cublasSdot_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
                       incx: clonglong; y: ptr cfloat; incy: clonglong;
-                      resultNotKeyWord: ptr cfloat): cublasStatus_t {.cdecl,
+                      resultNotKeyWord: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSdot_v2_64", dynlib: libName.}
-proc cublasDdot_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                   y: ptr cdouble; incy: cint; resultNotKeyWord: ptr cdouble): cublasStatus_t {.
+proc cublasDdot_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
+                   y: ptr cdouble; incy: cint; resultNotKeyWord: ptr cdouble): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDdot_v2", dynlib: libName.}
-proc cublasDdot_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
+proc cublasDdot_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
                       incx: clonglong; y: ptr cdouble; incy: clonglong;
-                      resultNotKeyWord: ptr cdouble): cublasStatus_t {.cdecl,
+                      resultNotKeyWord: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDdot_v2_64", dynlib: libName.}
-proc cublasCdotu_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                    y: ptr cuComplex; incy: cint; resultNotKeyWord: ptr cuComplex): cublasStatus_t {.
+proc cublasCdotu_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
+                    y: ptr cuComplex; incy: cint; resultNotKeyWord: ptr cuComplex): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCdotu_v2", dynlib: libName.}
-proc cublasCdotu_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
+proc cublasCdotu_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
                        incx: clonglong; y: ptr cuComplex; incy: clonglong;
-                       resultNotKeyWord: ptr cuComplex): cublasStatus_t {.cdecl,
+                       resultNotKeyWord: ptr cuComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCdotu_v2_64", dynlib: libName.}
-proc cublasCdotc_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                    y: ptr cuComplex; incy: cint; resultNotKeyWord: ptr cuComplex): cublasStatus_t {.
+proc cublasCdotc_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
+                    y: ptr cuComplex; incy: cint; resultNotKeyWord: ptr cuComplex): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCdotc_v2", dynlib: libName.}
-proc cublasCdotc_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
+proc cublasCdotc_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
                        incx: clonglong; y: ptr cuComplex; incy: clonglong;
-                       resultNotKeyWord: ptr cuComplex): cublasStatus_t {.cdecl,
+                       resultNotKeyWord: ptr cuComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCdotc_v2_64", dynlib: libName.}
-proc cublasZdotu_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
+proc cublasZdotu_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
                     incx: cint; y: ptr cuDoubleComplex; incy: cint;
-                    resultNotKeyWord: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                    resultNotKeyWord: ptr cuDoubleComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZdotu_v2", dynlib: libName.}
-proc cublasZdotu_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
+proc cublasZdotu_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
                        incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong;
-                       resultNotKeyWord: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                       resultNotKeyWord: ptr cuDoubleComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZdotu_v2_64", dynlib: libName.}
-proc cublasZdotc_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
+proc cublasZdotc_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
                     incx: cint; y: ptr cuDoubleComplex; incy: cint;
-                    resultNotKeyWord: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                    resultNotKeyWord: ptr cuDoubleComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZdotc_v2", dynlib: libName.}
-proc cublasZdotc_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
+proc cublasZdotc_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
                        incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong;
-                       resultNotKeyWord: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                       resultNotKeyWord: ptr cuDoubleComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZdotc_v2_64", dynlib: libName.}
-proc cublasScalEx*(handle: cublasHandle_t; n: cint; alpha: pointer;
+proc cublasScalExUnderScore*(handle: cublasHandle_t; n: cint; alpha: pointer;
                   alphaType: cudaDataType; x: pointer; xType: cudaDataType;
-                  incx: cint; executionType: cudaDataType): cublasStatus_t {.cdecl,
+                  incx: cint; executionType: cudaDataType): cublasStatus_t {.discardable, cdecl,
     importc: "cublasScalEx", dynlib: libName.}
-proc cublasScalEx_64*(handle: cublasHandle_t; n: clonglong; alpha: pointer;
+proc cublasScalEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; alpha: pointer;
                      alphaType: cudaDataType; x: pointer; xType: cudaDataType;
-                     incx: clonglong; executionType: cudaDataType): cublasStatus_t {.
+                     incx: clonglong; executionType: cudaDataType): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasScalEx_64", dynlib: libName.}
-proc cublasSscal_v2*(handle: cublasHandle_t; n: cint; alpha: ptr cfloat; x: ptr cfloat;
-                    incx: cint): cublasStatus_t {.cdecl, importc: "cublasSscal_v2",
+proc cublasSscal_v2UnderScore*(handle: cublasHandle_t; n: cint; alpha: ptr cfloat; x: ptr cfloat;
+                    incx: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasSscal_v2",
     dynlib: libName.}
-proc cublasSscal_v2_64*(handle: cublasHandle_t; n: clonglong; alpha: ptr cfloat;
-                       x: ptr cfloat; incx: clonglong): cublasStatus_t {.cdecl,
+proc cublasSscal_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; alpha: ptr cfloat;
+                       x: ptr cfloat; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSscal_v2_64", dynlib: libName.}
-proc cublasDscal_v2*(handle: cublasHandle_t; n: cint; alpha: ptr cdouble;
-                    x: ptr cdouble; incx: cint): cublasStatus_t {.cdecl,
+proc cublasDscal_v2UnderScore*(handle: cublasHandle_t; n: cint; alpha: ptr cdouble;
+                    x: ptr cdouble; incx: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDscal_v2", dynlib: libName.}
-proc cublasDscal_v2_64*(handle: cublasHandle_t; n: clonglong; alpha: ptr cdouble;
-                       x: ptr cdouble; incx: clonglong): cublasStatus_t {.cdecl,
+proc cublasDscal_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; alpha: ptr cdouble;
+                       x: ptr cdouble; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDscal_v2_64", dynlib: libName.}
-proc cublasCscal_v2*(handle: cublasHandle_t; n: cint; alpha: ptr cuComplex;
-                    x: ptr cuComplex; incx: cint): cublasStatus_t {.cdecl,
+proc cublasCscal_v2UnderScore*(handle: cublasHandle_t; n: cint; alpha: ptr cuComplex;
+                    x: ptr cuComplex; incx: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCscal_v2", dynlib: libName.}
-proc cublasCscal_v2_64*(handle: cublasHandle_t; n: clonglong; alpha: ptr cuComplex;
-                       x: ptr cuComplex; incx: clonglong): cublasStatus_t {.cdecl,
+proc cublasCscal_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; alpha: ptr cuComplex;
+                       x: ptr cuComplex; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCscal_v2_64", dynlib: libName.}
-proc cublasCsscal_v2*(handle: cublasHandle_t; n: cint; alpha: ptr cfloat;
-                     x: ptr cuComplex; incx: cint): cublasStatus_t {.cdecl,
+proc cublasCsscal_v2UnderScore*(handle: cublasHandle_t; n: cint; alpha: ptr cfloat;
+                     x: ptr cuComplex; incx: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsscal_v2", dynlib: libName.}
-proc cublasCsscal_v2_64*(handle: cublasHandle_t; n: clonglong; alpha: ptr cfloat;
-                        x: ptr cuComplex; incx: clonglong): cublasStatus_t {.cdecl,
+proc cublasCsscal_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; alpha: ptr cfloat;
+                        x: ptr cuComplex; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsscal_v2_64", dynlib: libName.}
-proc cublasZscal_v2*(handle: cublasHandle_t; n: cint; alpha: ptr cuDoubleComplex;
-                    x: ptr cuDoubleComplex; incx: cint): cublasStatus_t {.cdecl,
+proc cublasZscal_v2UnderScore*(handle: cublasHandle_t; n: cint; alpha: ptr cuDoubleComplex;
+                    x: ptr cuDoubleComplex; incx: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZscal_v2", dynlib: libName.}
-proc cublasZscal_v2_64*(handle: cublasHandle_t; n: clonglong;
+proc cublasZscal_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong;
                        alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
-                       incx: clonglong): cublasStatus_t {.cdecl,
+                       incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZscal_v2_64", dynlib: libName.}
-proc cublasZdscal_v2*(handle: cublasHandle_t; n: cint; alpha: ptr cdouble;
-                     x: ptr cuDoubleComplex; incx: cint): cublasStatus_t {.cdecl,
+proc cublasZdscal_v2UnderScore*(handle: cublasHandle_t; n: cint; alpha: ptr cdouble;
+                     x: ptr cuDoubleComplex; incx: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZdscal_v2", dynlib: libName.}
-proc cublasZdscal_v2_64*(handle: cublasHandle_t; n: clonglong; alpha: ptr cdouble;
-                        x: ptr cuDoubleComplex; incx: clonglong): cublasStatus_t {.
+proc cublasZdscal_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; alpha: ptr cdouble;
+                        x: ptr cuDoubleComplex; incx: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZdscal_v2_64", dynlib: libName.}
-proc cublasAxpyEx*(handle: cublasHandle_t; n: cint; alpha: pointer;
+proc cublasAxpyExUnderScore*(handle: cublasHandle_t; n: cint; alpha: pointer;
                   alphaType: cudaDataType; x: pointer; xType: cudaDataType;
                   incx: cint; y: pointer; yType: cudaDataType; incy: cint;
-                  executiontype: cudaDataType): cublasStatus_t {.cdecl,
+                  executiontype: cudaDataType): cublasStatus_t {.discardable, cdecl,
     importc: "cublasAxpyEx", dynlib: libName.}
-proc cublasAxpyEx_64*(handle: cublasHandle_t; n: clonglong; alpha: pointer;
+proc cublasAxpyEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; alpha: pointer;
                      alphaType: cudaDataType; x: pointer; xType: cudaDataType;
                      incx: clonglong; y: pointer; yType: cudaDataType;
-                     incy: clonglong; executiontype: cudaDataType): cublasStatus_t {.
+                     incy: clonglong; executiontype: cudaDataType): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasAxpyEx_64", dynlib: libName.}
-proc cublasSaxpy_v2*(handle: cublasHandle_t; n: cint; alpha: ptr cfloat; x: ptr cfloat;
-                    incx: cint; y: ptr cfloat; incy: cint): cublasStatus_t {.cdecl,
+proc cublasSaxpy_v2UnderScore*(handle: cublasHandle_t; n: cint; alpha: ptr cfloat; x: ptr cfloat;
+                    incx: cint; y: ptr cfloat; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSaxpy_v2", dynlib: libName.}
-proc cublasSaxpy_v2_64*(handle: cublasHandle_t; n: clonglong; alpha: ptr cfloat;
-                       x: ptr cfloat; incx: clonglong; y: ptr cfloat; incy: clonglong): cublasStatus_t {.
+proc cublasSaxpy_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; alpha: ptr cfloat;
+                       x: ptr cfloat; incx: clonglong; y: ptr cfloat; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSaxpy_v2_64", dynlib: libName.}
-proc cublasDaxpy_v2*(handle: cublasHandle_t; n: cint; alpha: ptr cdouble;
-                    x: ptr cdouble; incx: cint; y: ptr cdouble; incy: cint): cublasStatus_t {.
+proc cublasDaxpy_v2UnderScore*(handle: cublasHandle_t; n: cint; alpha: ptr cdouble;
+                    x: ptr cdouble; incx: cint; y: ptr cdouble; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDaxpy_v2", dynlib: libName.}
-proc cublasDaxpy_v2_64*(handle: cublasHandle_t; n: clonglong; alpha: ptr cdouble;
-                       x: ptr cdouble; incx: clonglong; y: ptr cdouble; incy: clonglong): cublasStatus_t {.
+proc cublasDaxpy_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; alpha: ptr cdouble;
+                       x: ptr cdouble; incx: clonglong; y: ptr cdouble; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDaxpy_v2_64", dynlib: libName.}
-proc cublasCaxpy_v2*(handle: cublasHandle_t; n: cint; alpha: ptr cuComplex;
-                    x: ptr cuComplex; incx: cint; y: ptr cuComplex; incy: cint): cublasStatus_t {.
+proc cublasCaxpy_v2UnderScore*(handle: cublasHandle_t; n: cint; alpha: ptr cuComplex;
+                    x: ptr cuComplex; incx: cint; y: ptr cuComplex; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCaxpy_v2", dynlib: libName.}
-proc cublasCaxpy_v2_64*(handle: cublasHandle_t; n: clonglong; alpha: ptr cuComplex;
+proc cublasCaxpy_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; alpha: ptr cuComplex;
                        x: ptr cuComplex; incx: clonglong; y: ptr cuComplex;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCaxpy_v2_64", dynlib: libName.}
-proc cublasZaxpy_v2*(handle: cublasHandle_t; n: cint; alpha: ptr cuDoubleComplex;
+proc cublasZaxpy_v2UnderScore*(handle: cublasHandle_t; n: cint; alpha: ptr cuDoubleComplex;
                     x: ptr cuDoubleComplex; incx: cint; y: ptr cuDoubleComplex;
-                    incy: cint): cublasStatus_t {.cdecl, importc: "cublasZaxpy_v2",
+                    incy: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasZaxpy_v2",
     dynlib: libName.}
-proc cublasZaxpy_v2_64*(handle: cublasHandle_t; n: clonglong;
+proc cublasZaxpy_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong;
                        alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
-                       incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong): cublasStatus_t {.
+                       incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZaxpy_v2_64", dynlib: libName.}
-proc cublasCopyEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
-                  incx: cint; y: pointer; yType: cudaDataType; incy: cint): cublasStatus_t {.
+proc cublasCopyExUnderScore*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
+                  incx: cint; y: pointer; yType: cudaDataType; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCopyEx", dynlib: libName.}
-proc cublasCopyEx_64*(handle: cublasHandle_t; n: clonglong; x: pointer;
+proc cublasCopyEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: pointer;
                      xType: cudaDataType; incx: clonglong; y: pointer;
-                     yType: cudaDataType; incy: clonglong): cublasStatus_t {.cdecl,
+                     yType: cudaDataType; incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCopyEx_64", dynlib: libName.}
-proc cublasScopy_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                    y: ptr cfloat; incy: cint): cublasStatus_t {.cdecl,
+proc cublasScopy_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
+                    y: ptr cfloat; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasScopy_v2", dynlib: libName.}
-proc cublasScopy_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
-                       incx: clonglong; y: ptr cfloat; incy: clonglong): cublasStatus_t {.
+proc cublasScopy_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
+                       incx: clonglong; y: ptr cfloat; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasScopy_v2_64", dynlib: libName.}
-proc cublasDcopy_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                    y: ptr cdouble; incy: cint): cublasStatus_t {.cdecl,
+proc cublasDcopy_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
+                    y: ptr cdouble; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDcopy_v2", dynlib: libName.}
-proc cublasDcopy_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
-                       incx: clonglong; y: ptr cdouble; incy: clonglong): cublasStatus_t {.
+proc cublasDcopy_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
+                       incx: clonglong; y: ptr cdouble; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDcopy_v2_64", dynlib: libName.}
-proc cublasCcopy_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                    y: ptr cuComplex; incy: cint): cublasStatus_t {.cdecl,
+proc cublasCcopy_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
+                    y: ptr cuComplex; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCcopy_v2", dynlib: libName.}
-proc cublasCcopy_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
-                       incx: clonglong; y: ptr cuComplex; incy: clonglong): cublasStatus_t {.
+proc cublasCcopy_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
+                       incx: clonglong; y: ptr cuComplex; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCcopy_v2_64", dynlib: libName.}
-proc cublasZcopy_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
-                    incx: cint; y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.
+proc cublasZcopy_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
+                    incx: cint; y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZcopy_v2", dynlib: libName.}
-proc cublasZcopy_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
-                       incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong): cublasStatus_t {.
+proc cublasZcopy_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
+                       incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZcopy_v2_64", dynlib: libName.}
-proc cublasSswap_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                    y: ptr cfloat; incy: cint): cublasStatus_t {.cdecl,
+proc cublasSswap_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
+                    y: ptr cfloat; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSswap_v2", dynlib: libName.}
-proc cublasSswap_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
-                       incx: clonglong; y: ptr cfloat; incy: clonglong): cublasStatus_t {.
+proc cublasSswap_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
+                       incx: clonglong; y: ptr cfloat; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSswap_v2_64", dynlib: libName.}
-proc cublasDswap_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                    y: ptr cdouble; incy: cint): cublasStatus_t {.cdecl,
+proc cublasDswap_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
+                    y: ptr cdouble; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDswap_v2", dynlib: libName.}
-proc cublasDswap_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
-                       incx: clonglong; y: ptr cdouble; incy: clonglong): cublasStatus_t {.
+proc cublasDswap_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
+                       incx: clonglong; y: ptr cdouble; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDswap_v2_64", dynlib: libName.}
-proc cublasCswap_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                    y: ptr cuComplex; incy: cint): cublasStatus_t {.cdecl,
+proc cublasCswap_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
+                    y: ptr cuComplex; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCswap_v2", dynlib: libName.}
-proc cublasCswap_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
-                       incx: clonglong; y: ptr cuComplex; incy: clonglong): cublasStatus_t {.
+proc cublasCswap_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
+                       incx: clonglong; y: ptr cuComplex; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCswap_v2_64", dynlib: libName.}
-proc cublasZswap_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
-                    incx: cint; y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.
+proc cublasZswap_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
+                    incx: cint; y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZswap_v2", dynlib: libName.}
-proc cublasZswap_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
-                       incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong): cublasStatus_t {.
+proc cublasZswap_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
+                       incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZswap_v2_64", dynlib: libName.}
-proc cublasSwapEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
-                  incx: cint; y: pointer; yType: cudaDataType; incy: cint): cublasStatus_t {.
+proc cublasSwapExUnderScore*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
+                  incx: cint; y: pointer; yType: cudaDataType; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSwapEx", dynlib: libName.}
-proc cublasSwapEx_64*(handle: cublasHandle_t; n: clonglong; x: pointer;
+proc cublasSwapEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: pointer;
                      xType: cudaDataType; incx: clonglong; y: pointer;
-                     yType: cudaDataType; incy: clonglong): cublasStatus_t {.cdecl,
+                     yType: cudaDataType; incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSwapEx_64", dynlib: libName.}
-proc cublasIsamax_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                     resultNotKeyWord: ptr cint): cublasStatus_t {.cdecl,
+proc cublasIsamax_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
+                     resultNotKeyWord: ptr cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIsamax_v2", dynlib: libName.}
-proc cublasIsamax_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
-                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.
+proc cublasIsamax_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
+                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasIsamax_v2_64", dynlib: libName.}
-proc cublasIdamax_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                     resultNotKeyWord: ptr cint): cublasStatus_t {.cdecl,
+proc cublasIdamax_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
+                     resultNotKeyWord: ptr cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIdamax_v2", dynlib: libName.}
-proc cublasIdamax_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
-                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.
+proc cublasIdamax_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
+                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasIdamax_v2_64", dynlib: libName.}
-proc cublasIcamax_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                     resultNotKeyWord: ptr cint): cublasStatus_t {.cdecl,
+proc cublasIcamax_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
+                     resultNotKeyWord: ptr cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIcamax_v2", dynlib: libName.}
-proc cublasIcamax_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
-                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.
+proc cublasIcamax_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
+                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasIcamax_v2_64", dynlib: libName.}
-proc cublasIzamax_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
-                     incx: cint; resultNotKeyWord: ptr cint): cublasStatus_t {.cdecl,
+proc cublasIzamax_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
+                     incx: cint; resultNotKeyWord: ptr cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIzamax_v2", dynlib: libName.}
-proc cublasIzamax_v2_64*(handle: cublasHandle_t; n: clonglong;
+proc cublasIzamax_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong;
                         x: ptr cuDoubleComplex; incx: clonglong;
-                        resultNotKeyWord: ptr clonglong): cublasStatus_t {.cdecl,
+                        resultNotKeyWord: ptr clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIzamax_v2_64", dynlib: libName.}
-proc cublasIamaxEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
-                   incx: cint; resultNotKeyWord: ptr cint): cublasStatus_t {.cdecl,
+proc cublasIamaxExUnderScore*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
+                   incx: cint; resultNotKeyWord: ptr cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIamaxEx", dynlib: libName.}
-proc cublasIamaxEx_64*(handle: cublasHandle_t; n: clonglong; x: pointer;
-                      xType: cudaDataType; incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.
+proc cublasIamaxEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: pointer;
+                      xType: cudaDataType; incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasIamaxEx_64", dynlib: libName.}
-proc cublasIsamin_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                     resultNotKeyWord: ptr cint): cublasStatus_t {.cdecl,
+proc cublasIsamin_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
+                     resultNotKeyWord: ptr cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIsamin_v2", dynlib: libName.}
-proc cublasIsamin_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
-                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.
+proc cublasIsamin_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
+                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasIsamin_v2_64", dynlib: libName.}
-proc cublasIdamin_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                     resultNotKeyWord: ptr cint): cublasStatus_t {.cdecl,
+proc cublasIdamin_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
+                     resultNotKeyWord: ptr cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIdamin_v2", dynlib: libName.}
-proc cublasIdamin_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
-                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.
+proc cublasIdamin_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
+                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasIdamin_v2_64", dynlib: libName.}
-proc cublasIcamin_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                     resultNotKeyWord: ptr cint): cublasStatus_t {.cdecl,
+proc cublasIcamin_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
+                     resultNotKeyWord: ptr cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIcamin_v2", dynlib: libName.}
-proc cublasIcamin_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
-                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.
+proc cublasIcamin_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
+                        incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasIcamin_v2_64", dynlib: libName.}
-proc cublasIzamin_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
-                     incx: cint; resultNotKeyWord: ptr cint): cublasStatus_t {.cdecl,
+proc cublasIzamin_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
+                     incx: cint; resultNotKeyWord: ptr cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIzamin_v2", dynlib: libName.}
-proc cublasIzamin_v2_64*(handle: cublasHandle_t; n: clonglong;
+proc cublasIzamin_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong;
                         x: ptr cuDoubleComplex; incx: clonglong;
-                        resultNotKeyWord: ptr clonglong): cublasStatus_t {.cdecl,
+                        resultNotKeyWord: ptr clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIzamin_v2_64", dynlib: libName.}
-proc cublasIaminEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
-                   incx: cint; resultNotKeyWord: ptr cint): cublasStatus_t {.cdecl,
+proc cublasIaminExUnderScore*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
+                   incx: cint; resultNotKeyWord: ptr cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasIaminEx", dynlib: libName.}
-proc cublasIaminEx_64*(handle: cublasHandle_t; n: clonglong; x: pointer;
-                      xType: cudaDataType; incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.
+proc cublasIaminEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: pointer;
+                      xType: cudaDataType; incx: clonglong; resultNotKeyWord: ptr clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasIaminEx_64", dynlib: libName.}
-proc cublasAsumEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
+proc cublasAsumExUnderScore*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
                   incx: cint; resultNotKeyWord: pointer; resultType: cudaDataType;
-                  executiontype: cudaDataType): cublasStatus_t {.cdecl,
+                  executiontype: cudaDataType): cublasStatus_t {.discardable, cdecl,
     importc: "cublasAsumEx", dynlib: libName.}
-proc cublasAsumEx_64*(handle: cublasHandle_t; n: clonglong; x: pointer;
+proc cublasAsumEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: pointer;
                      xType: cudaDataType; incx: clonglong; resultNotKeyWord: pointer;
-                     resultType: cudaDataType; executiontype: cudaDataType): cublasStatus_t {.
+                     resultType: cudaDataType; executiontype: cudaDataType): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasAsumEx_64", dynlib: libName.}
-proc cublasSasum_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                    resultNotKeyWord: ptr cfloat): cublasStatus_t {.cdecl,
+proc cublasSasum_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
+                    resultNotKeyWord: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSasum_v2", dynlib: libName.}
-proc cublasSasum_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
-                       incx: clonglong; resultNotKeyWord: ptr cfloat): cublasStatus_t {.cdecl,
+proc cublasSasum_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
+                       incx: clonglong; resultNotKeyWord: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSasum_v2_64", dynlib: libName.}
-proc cublasDasum_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                    resultNotKeyWord: ptr cdouble): cublasStatus_t {.cdecl,
+proc cublasDasum_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
+                    resultNotKeyWord: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDasum_v2", dynlib: libName.}
-proc cublasDasum_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
-                       incx: clonglong; resultNotKeyWord: ptr cdouble): cublasStatus_t {.cdecl,
+proc cublasDasum_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
+                       incx: clonglong; resultNotKeyWord: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDasum_v2_64", dynlib: libName.}
-proc cublasScasum_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                     resultNotKeyWord: ptr cfloat): cublasStatus_t {.cdecl,
+proc cublasScasum_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
+                     resultNotKeyWord: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasScasum_v2", dynlib: libName.}
-proc cublasScasum_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
-                        incx: clonglong; resultNotKeyWord: ptr cfloat): cublasStatus_t {.cdecl,
+proc cublasScasum_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
+                        incx: clonglong; resultNotKeyWord: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasScasum_v2_64", dynlib: libName.}
-proc cublasDzasum_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
-                     incx: cint; resultNotKeyWord: ptr cdouble): cublasStatus_t {.cdecl,
+proc cublasDzasum_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
+                     incx: cint; resultNotKeyWord: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDzasum_v2", dynlib: libName.}
-proc cublasDzasum_v2_64*(handle: cublasHandle_t; n: clonglong;
-                        x: ptr cuDoubleComplex; incx: clonglong; resultNotKeyWord: ptr cdouble): cublasStatus_t {.
+proc cublasDzasum_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong;
+                        x: ptr cuDoubleComplex; incx: clonglong; resultNotKeyWord: ptr cdouble): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDzasum_v2_64", dynlib: libName.}
-proc cublasSrot_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                   y: ptr cfloat; incy: cint; c: ptr cfloat; s: ptr cfloat): cublasStatus_t {.
+proc cublasSrot_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
+                   y: ptr cfloat; incy: cint; c: ptr cfloat; s: ptr cfloat): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSrot_v2", dynlib: libName.}
-proc cublasSrot_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
+proc cublasSrot_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
                       incx: clonglong; y: ptr cfloat; incy: clonglong; c: ptr cfloat;
-                      s: ptr cfloat): cublasStatus_t {.cdecl,
+                      s: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSrot_v2_64", dynlib: libName.}
-proc cublasDrot_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                   y: ptr cdouble; incy: cint; c: ptr cdouble; s: ptr cdouble): cublasStatus_t {.
+proc cublasDrot_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
+                   y: ptr cdouble; incy: cint; c: ptr cdouble; s: ptr cdouble): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDrot_v2", dynlib: libName.}
-proc cublasDrot_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
+proc cublasDrot_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
                       incx: clonglong; y: ptr cdouble; incy: clonglong; c: ptr cdouble;
-                      s: ptr cdouble): cublasStatus_t {.cdecl,
+                      s: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDrot_v2_64", dynlib: libName.}
-proc cublasCrot_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                   y: ptr cuComplex; incy: cint; c: ptr cfloat; s: ptr cuComplex): cublasStatus_t {.
+proc cublasCrot_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
+                   y: ptr cuComplex; incy: cint; c: ptr cfloat; s: ptr cuComplex): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCrot_v2", dynlib: libName.}
-proc cublasCrot_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
+proc cublasCrot_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
                       incx: clonglong; y: ptr cuComplex; incy: clonglong;
-                      c: ptr cfloat; s: ptr cuComplex): cublasStatus_t {.cdecl,
+                      c: ptr cfloat; s: ptr cuComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCrot_v2_64", dynlib: libName.}
-proc cublasCsrot_v2*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
-                    y: ptr cuComplex; incy: cint; c: ptr cfloat; s: ptr cfloat): cublasStatus_t {.
+proc cublasCsrot_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuComplex; incx: cint;
+                    y: ptr cuComplex; incy: cint; c: ptr cfloat; s: ptr cfloat): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCsrot_v2", dynlib: libName.}
-proc cublasCsrot_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
+proc cublasCsrot_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuComplex;
                        incx: clonglong; y: ptr cuComplex; incy: clonglong;
-                       c: ptr cfloat; s: ptr cfloat): cublasStatus_t {.cdecl,
+                       c: ptr cfloat; s: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsrot_v2_64", dynlib: libName.}
-proc cublasZrot_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex; incx: cint;
+proc cublasZrot_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex; incx: cint;
                    y: ptr cuDoubleComplex; incy: cint; c: ptr cdouble;
-                   s: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                   s: ptr cuDoubleComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZrot_v2", dynlib: libName.}
-proc cublasZrot_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
+proc cublasZrot_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
                       incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong;
-                      c: ptr cdouble; s: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                      c: ptr cdouble; s: ptr cuDoubleComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZrot_v2_64", dynlib: libName.}
-proc cublasZdrot_v2*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
+proc cublasZdrot_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cuDoubleComplex;
                     incx: cint; y: ptr cuDoubleComplex; incy: cint; c: ptr cdouble;
-                    s: ptr cdouble): cublasStatus_t {.cdecl,
+                    s: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZdrot_v2", dynlib: libName.}
-proc cublasZdrot_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
+proc cublasZdrot_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cuDoubleComplex;
                        incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong;
-                       c: ptr cdouble; s: ptr cdouble): cublasStatus_t {.cdecl,
+                       c: ptr cdouble; s: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZdrot_v2_64", dynlib: libName.}
-proc cublasRotEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
+proc cublasRotExUnderScore*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
                  incx: cint; y: pointer; yType: cudaDataType; incy: cint; c: pointer;
-                 s: pointer; csType: cudaDataType; executiontype: cudaDataType): cublasStatus_t {.
+                 s: pointer; csType: cudaDataType; executiontype: cudaDataType): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasRotEx", dynlib: libName.}
-proc cublasRotEx_64*(handle: cublasHandle_t; n: clonglong; x: pointer;
+proc cublasRotEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: pointer;
                     xType: cudaDataType; incx: clonglong; y: pointer;
                     yType: cudaDataType; incy: clonglong; c: pointer; s: pointer;
-                    csType: cudaDataType; executiontype: cudaDataType): cublasStatus_t {.
+                    csType: cudaDataType; executiontype: cudaDataType): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasRotEx_64", dynlib: libName.}
-proc cublasSrotg_v2*(handle: cublasHandle_t; a: ptr cfloat; b: ptr cfloat; c: ptr cfloat;
-                    s: ptr cfloat): cublasStatus_t {.cdecl,
+proc cublasSrotg_v2UnderScore*(handle: cublasHandle_t; a: ptr cfloat; b: ptr cfloat; c: ptr cfloat;
+                    s: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSrotg_v2", dynlib: libName.}
-proc cublasDrotg_v2*(handle: cublasHandle_t; a: ptr cdouble; b: ptr cdouble;
-                    c: ptr cdouble; s: ptr cdouble): cublasStatus_t {.cdecl,
+proc cublasDrotg_v2UnderScore*(handle: cublasHandle_t; a: ptr cdouble; b: ptr cdouble;
+                    c: ptr cdouble; s: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDrotg_v2", dynlib: libName.}
-proc cublasCrotg_v2*(handle: cublasHandle_t; a: ptr cuComplex; b: ptr cuComplex;
-                    c: ptr cfloat; s: ptr cuComplex): cublasStatus_t {.cdecl,
+proc cublasCrotg_v2UnderScore*(handle: cublasHandle_t; a: ptr cuComplex; b: ptr cuComplex;
+                    c: ptr cfloat; s: ptr cuComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCrotg_v2", dynlib: libName.}
-proc cublasZrotg_v2*(handle: cublasHandle_t; a: ptr cuDoubleComplex;
-                    b: ptr cuDoubleComplex; c: ptr cdouble; s: ptr cuDoubleComplex): cublasStatus_t {.
+proc cublasZrotg_v2UnderScore*(handle: cublasHandle_t; a: ptr cuDoubleComplex;
+                    b: ptr cuDoubleComplex; c: ptr cdouble; s: ptr cuDoubleComplex): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZrotg_v2", dynlib: libName.}
-proc cublasRotgEx*(handle: cublasHandle_t; a: pointer; b: pointer;
+proc cublasRotgExUnderScore*(handle: cublasHandle_t; a: pointer; b: pointer;
                   abType: cudaDataType; c: pointer; s: pointer; csType: cudaDataType;
-                  executiontype: cudaDataType): cublasStatus_t {.cdecl,
+                  executiontype: cudaDataType): cublasStatus_t {.discardable, cdecl,
     importc: "cublasRotgEx", dynlib: libName.}
-proc cublasSrotm_v2*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
-                    y: ptr cfloat; incy: cint; param: ptr cfloat): cublasStatus_t {.
+proc cublasSrotm_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cfloat; incx: cint;
+                    y: ptr cfloat; incy: cint; param: ptr cfloat): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSrotm_v2", dynlib: libName.}
-proc cublasSrotm_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
+proc cublasSrotm_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cfloat;
                        incx: clonglong; y: ptr cfloat; incy: clonglong;
-                       param: ptr cfloat): cublasStatus_t {.cdecl,
+                       param: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSrotm_v2_64", dynlib: libName.}
-proc cublasDrotm_v2*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
-                    y: ptr cdouble; incy: cint; param: ptr cdouble): cublasStatus_t {.
+proc cublasDrotm_v2UnderScore*(handle: cublasHandle_t; n: cint; x: ptr cdouble; incx: cint;
+                    y: ptr cdouble; incy: cint; param: ptr cdouble): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDrotm_v2", dynlib: libName.}
-proc cublasDrotm_v2_64*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
+proc cublasDrotm_v2_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: ptr cdouble;
                        incx: clonglong; y: ptr cdouble; incy: clonglong;
-                       param: ptr cdouble): cublasStatus_t {.cdecl,
+                       param: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDrotm_v2_64", dynlib: libName.}
-proc cublasRotmEx*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
+proc cublasRotmExUnderScore*(handle: cublasHandle_t; n: cint; x: pointer; xType: cudaDataType;
                   incx: cint; y: pointer; yType: cudaDataType; incy: cint;
                   param: pointer; paramType: cudaDataType;
-                  executiontype: cudaDataType): cublasStatus_t {.cdecl,
+                  executiontype: cudaDataType): cublasStatus_t {.discardable, cdecl,
     importc: "cublasRotmEx", dynlib: libName.}
-proc cublasRotmEx_64*(handle: cublasHandle_t; n: clonglong; x: pointer;
+proc cublasRotmEx_64UnderScore*(handle: cublasHandle_t; n: clonglong; x: pointer;
                      xType: cudaDataType; incx: clonglong; y: pointer;
                      yType: cudaDataType; incy: clonglong; param: pointer;
-                     paramType: cudaDataType; executiontype: cudaDataType): cublasStatus_t {.
+                     paramType: cudaDataType; executiontype: cudaDataType): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasRotmEx_64", dynlib: libName.}
-proc cublasSrotmg_v2*(handle: cublasHandle_t; d1: ptr cfloat; d2: ptr cfloat;
-                     x1: ptr cfloat; y1: ptr cfloat; param: ptr cfloat): cublasStatus_t {.
+proc cublasSrotmg_v2UnderScore*(handle: cublasHandle_t; d1: ptr cfloat; d2: ptr cfloat;
+                     x1: ptr cfloat; y1: ptr cfloat; param: ptr cfloat): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSrotmg_v2", dynlib: libName.}
-proc cublasDrotmg_v2*(handle: cublasHandle_t; d1: ptr cdouble; d2: ptr cdouble;
-                     x1: ptr cdouble; y1: ptr cdouble; param: ptr cdouble): cublasStatus_t {.
+proc cublasDrotmg_v2UnderScore*(handle: cublasHandle_t; d1: ptr cdouble; d2: ptr cdouble;
+                     x1: ptr cdouble; y1: ptr cdouble; param: ptr cdouble): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDrotmg_v2", dynlib: libName.}
-proc cublasRotmgEx*(handle: cublasHandle_t; d1: pointer; d1Type: cudaDataType;
+proc cublasRotmgExUnderScore*(handle: cublasHandle_t; d1: pointer; d1Type: cudaDataType;
                    d2: pointer; d2Type: cudaDataType; x1: pointer;
                    x1Type: cudaDataType; y1: pointer; y1Type: cudaDataType;
                    param: pointer; paramType: cudaDataType;
-                   executiontype: cudaDataType): cublasStatus_t {.cdecl,
+                   executiontype: cudaDataType): cublasStatus_t {.discardable, cdecl,
     importc: "cublasRotmgEx", dynlib: libName.}
 ##  --------------- CUBLAS BLAS2 Functions  ----------------
 ##  GEMV
 
-proc cublasSgemv_v2*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
+proc cublasSgemv_v2UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
                     n: cint; alpha: ptr cfloat; A: ptr cfloat; lda: cint; x: ptr cfloat;
-                    incx: cint; beta: ptr cfloat; y: ptr cfloat; incy: cint): cublasStatus_t {.
+                    incx: cint; beta: ptr cfloat; y: ptr cfloat; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSgemv_v2", dynlib: libName.}
-proc cublasSgemv_v2_64*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasSgemv_v2_64UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                        m: clonglong; n: clonglong; alpha: ptr cfloat; A: ptr cfloat;
                        lda: clonglong; x: ptr cfloat; incx: clonglong;
-                       beta: ptr cfloat; y: ptr cfloat; incy: clonglong): cublasStatus_t {.
+                       beta: ptr cfloat; y: ptr cfloat; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSgemv_v2_64", dynlib: libName.}
-proc cublasDgemv_v2*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
+proc cublasDgemv_v2UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
                     n: cint; alpha: ptr cdouble; A: ptr cdouble; lda: cint;
                     x: ptr cdouble; incx: cint; beta: ptr cdouble; y: ptr cdouble;
-                    incy: cint): cublasStatus_t {.cdecl, importc: "cublasDgemv_v2",
+                    incy: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasDgemv_v2",
     dynlib: libName.}
-proc cublasDgemv_v2_64*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasDgemv_v2_64UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                        m: clonglong; n: clonglong; alpha: ptr cdouble; A: ptr cdouble;
                        lda: clonglong; x: ptr cdouble; incx: clonglong;
-                       beta: ptr cdouble; y: ptr cdouble; incy: clonglong): cublasStatus_t {.
+                       beta: ptr cdouble; y: ptr cdouble; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDgemv_v2_64", dynlib: libName.}
-proc cublasCgemv_v2*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
+proc cublasCgemv_v2UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
                     n: cint; alpha: ptr cuComplex; A: ptr cuComplex; lda: cint;
                     x: ptr cuComplex; incx: cint; beta: ptr cuComplex; y: ptr cuComplex;
-                    incy: cint): cublasStatus_t {.cdecl, importc: "cublasCgemv_v2",
+                    incy: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasCgemv_v2",
     dynlib: libName.}
-proc cublasCgemv_v2_64*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasCgemv_v2_64UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                        m: clonglong; n: clonglong; alpha: ptr cuComplex;
                        A: ptr cuComplex; lda: clonglong; x: ptr cuComplex;
                        incx: clonglong; beta: ptr cuComplex; y: ptr cuComplex;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgemv_v2_64", dynlib: libName.}
-proc cublasZgemv_v2*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
+proc cublasZgemv_v2UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
                     n: cint; alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                     lda: cint; x: ptr cuDoubleComplex; incx: cint;
-                    beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.
+                    beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZgemv_v2", dynlib: libName.}
-proc cublasZgemv_v2_64*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasZgemv_v2_64UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                        m: clonglong; n: clonglong; alpha: ptr cuDoubleComplex;
                        A: ptr cuDoubleComplex; lda: clonglong;
                        x: ptr cuDoubleComplex; incx: clonglong;
                        beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZgemv_v2_64", dynlib: libName.}
 ##  GBMV
 
-proc cublasSgbmv_v2*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
+proc cublasSgbmv_v2UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
                     n: cint; kl: cint; ku: cint; alpha: ptr cfloat; A: ptr cfloat;
                     lda: cint; x: ptr cfloat; incx: cint; beta: ptr cfloat; y: ptr cfloat;
-                    incy: cint): cublasStatus_t {.cdecl, importc: "cublasSgbmv_v2",
+                    incy: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasSgbmv_v2",
     dynlib: libName.}
-proc cublasSgbmv_v2_64*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasSgbmv_v2_64UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                        m: clonglong; n: clonglong; kl: clonglong; ku: clonglong;
                        alpha: ptr cfloat; A: ptr cfloat; lda: clonglong; x: ptr cfloat;
-                       incx: clonglong; beta: ptr cfloat; y: ptr cfloat; incy: clonglong): cublasStatus_t {.
+                       incx: clonglong; beta: ptr cfloat; y: ptr cfloat; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSgbmv_v2_64", dynlib: libName.}
-proc cublasDgbmv_v2*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
+proc cublasDgbmv_v2UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
                     n: cint; kl: cint; ku: cint; alpha: ptr cdouble; A: ptr cdouble;
                     lda: cint; x: ptr cdouble; incx: cint; beta: ptr cdouble;
-                    y: ptr cdouble; incy: cint): cublasStatus_t {.cdecl,
+                    y: ptr cdouble; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDgbmv_v2", dynlib: libName.}
-proc cublasDgbmv_v2_64*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasDgbmv_v2_64UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                        m: clonglong; n: clonglong; kl: clonglong; ku: clonglong;
                        alpha: ptr cdouble; A: ptr cdouble; lda: clonglong;
                        x: ptr cdouble; incx: clonglong; beta: ptr cdouble;
-                       y: ptr cdouble; incy: clonglong): cublasStatus_t {.cdecl,
+                       y: ptr cdouble; incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDgbmv_v2_64", dynlib: libName.}
-proc cublasCgbmv_v2*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
+proc cublasCgbmv_v2UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
                     n: cint; kl: cint; ku: cint; alpha: ptr cuComplex; A: ptr cuComplex;
                     lda: cint; x: ptr cuComplex; incx: cint; beta: ptr cuComplex;
-                    y: ptr cuComplex; incy: cint): cublasStatus_t {.cdecl,
+                    y: ptr cuComplex; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgbmv_v2", dynlib: libName.}
-proc cublasCgbmv_v2_64*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasCgbmv_v2_64UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                        m: clonglong; n: clonglong; kl: clonglong; ku: clonglong;
                        alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                        x: ptr cuComplex; incx: clonglong; beta: ptr cuComplex;
-                       y: ptr cuComplex; incy: clonglong): cublasStatus_t {.cdecl,
+                       y: ptr cuComplex; incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgbmv_v2_64", dynlib: libName.}
-proc cublasZgbmv_v2*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
+proc cublasZgbmv_v2UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t; m: cint;
                     n: cint; kl: cint; ku: cint; alpha: ptr cuDoubleComplex;
                     A: ptr cuDoubleComplex; lda: cint; x: ptr cuDoubleComplex;
                     incx: cint; beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex;
-                    incy: cint): cublasStatus_t {.cdecl, importc: "cublasZgbmv_v2",
+                    incy: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasZgbmv_v2",
     dynlib: libName.}
-proc cublasZgbmv_v2_64*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasZgbmv_v2_64UnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                        m: clonglong; n: clonglong; kl: clonglong; ku: clonglong;
                        alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                        lda: clonglong; x: ptr cuDoubleComplex; incx: clonglong;
                        beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZgbmv_v2_64", dynlib: libName.}
 ##  TRMV
 
-proc cublasStrmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStrmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint): cublasStatus_t {.
+                    A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasStrmv_v2", dynlib: libName.}
-proc cublasStrmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStrmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; A: ptr cfloat; lda: clonglong; x: ptr cfloat;
-                       incx: clonglong): cublasStatus_t {.cdecl,
+                       incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasStrmv_v2_64", dynlib: libName.}
-proc cublasDtrmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtrmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    A: ptr cdouble; lda: cint; x: ptr cdouble; incx: cint): cublasStatus_t {.
+                    A: ptr cdouble; lda: cint; x: ptr cdouble; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDtrmv_v2", dynlib: libName.}
-proc cublasDtrmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtrmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; A: ptr cdouble; lda: clonglong; x: ptr cdouble;
-                       incx: clonglong): cublasStatus_t {.cdecl,
+                       incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDtrmv_v2_64", dynlib: libName.}
-proc cublasCtrmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtrmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    A: ptr cuComplex; lda: cint; x: ptr cuComplex; incx: cint): cublasStatus_t {.
+                    A: ptr cuComplex; lda: cint; x: ptr cuComplex; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCtrmv_v2", dynlib: libName.}
-proc cublasCtrmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtrmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; A: ptr cuComplex; lda: clonglong;
-                       x: ptr cuComplex; incx: clonglong): cublasStatus_t {.cdecl,
+                       x: ptr cuComplex; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCtrmv_v2_64", dynlib: libName.}
-proc cublasZtrmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtrmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
                     A: ptr cuDoubleComplex; lda: cint; x: ptr cuDoubleComplex;
-                    incx: cint): cublasStatus_t {.cdecl, importc: "cublasZtrmv_v2",
+                    incx: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasZtrmv_v2",
     dynlib: libName.}
-proc cublasZtrmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtrmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; A: ptr cuDoubleComplex; lda: clonglong;
-                       x: ptr cuDoubleComplex; incx: clonglong): cublasStatus_t {.
+                       x: ptr cuDoubleComplex; incx: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtrmv_v2_64", dynlib: libName.}
 ##  TBMV
 
-proc cublasStbmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStbmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    k: cint; A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint): cublasStatus_t {.
+                    k: cint; A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasStbmv_v2", dynlib: libName.}
-proc cublasStbmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStbmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; k: clonglong; A: ptr cfloat; lda: clonglong;
-                       x: ptr cfloat; incx: clonglong): cublasStatus_t {.cdecl,
+                       x: ptr cfloat; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasStbmv_v2_64", dynlib: libName.}
-proc cublasDtbmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtbmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    k: cint; A: ptr cdouble; lda: cint; x: ptr cdouble; incx: cint): cublasStatus_t {.
+                    k: cint; A: ptr cdouble; lda: cint; x: ptr cdouble; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDtbmv_v2", dynlib: libName.}
-proc cublasDtbmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtbmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; k: clonglong; A: ptr cdouble; lda: clonglong;
-                       x: ptr cdouble; incx: clonglong): cublasStatus_t {.cdecl,
+                       x: ptr cdouble; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDtbmv_v2_64", dynlib: libName.}
-proc cublasCtbmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtbmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    k: cint; A: ptr cuComplex; lda: cint; x: ptr cuComplex; incx: cint): cublasStatus_t {.
+                    k: cint; A: ptr cuComplex; lda: cint; x: ptr cuComplex; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCtbmv_v2", dynlib: libName.}
-proc cublasCtbmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtbmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; k: clonglong; A: ptr cuComplex; lda: clonglong;
-                       x: ptr cuComplex; incx: clonglong): cublasStatus_t {.cdecl,
+                       x: ptr cuComplex; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCtbmv_v2_64", dynlib: libName.}
-proc cublasZtbmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtbmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
                     k: cint; A: ptr cuDoubleComplex; lda: cint; x: ptr cuDoubleComplex;
-                    incx: cint): cublasStatus_t {.cdecl, importc: "cublasZtbmv_v2",
+                    incx: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasZtbmv_v2",
     dynlib: libName.}
-proc cublasZtbmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtbmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; k: clonglong; A: ptr cuDoubleComplex;
-                       lda: clonglong; x: ptr cuDoubleComplex; incx: clonglong): cublasStatus_t {.
+                       lda: clonglong; x: ptr cuDoubleComplex; incx: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtbmv_v2_64", dynlib: libName.}
 ##  TPMV
 
-proc cublasStpmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStpmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    AP: ptr cfloat; x: ptr cfloat; incx: cint): cublasStatus_t {.cdecl,
+                    AP: ptr cfloat; x: ptr cfloat; incx: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasStpmv_v2", dynlib: libName.}
-proc cublasStpmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStpmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
-                       n: clonglong; AP: ptr cfloat; x: ptr cfloat; incx: clonglong): cublasStatus_t {.
+                       n: clonglong; AP: ptr cfloat; x: ptr cfloat; incx: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasStpmv_v2_64", dynlib: libName.}
-proc cublasDtpmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtpmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    AP: ptr cdouble; x: ptr cdouble; incx: cint): cublasStatus_t {.cdecl,
+                    AP: ptr cdouble; x: ptr cdouble; incx: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDtpmv_v2", dynlib: libName.}
-proc cublasDtpmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtpmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
-                       n: clonglong; AP: ptr cdouble; x: ptr cdouble; incx: clonglong): cublasStatus_t {.
+                       n: clonglong; AP: ptr cdouble; x: ptr cdouble; incx: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDtpmv_v2_64", dynlib: libName.}
-proc cublasCtpmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtpmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    AP: ptr cuComplex; x: ptr cuComplex; incx: cint): cublasStatus_t {.
+                    AP: ptr cuComplex; x: ptr cuComplex; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCtpmv_v2", dynlib: libName.}
-proc cublasCtpmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtpmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; AP: ptr cuComplex; x: ptr cuComplex;
-                       incx: clonglong): cublasStatus_t {.cdecl,
+                       incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCtpmv_v2_64", dynlib: libName.}
-proc cublasZtpmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtpmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    AP: ptr cuDoubleComplex; x: ptr cuDoubleComplex; incx: cint): cublasStatus_t {.
+                    AP: ptr cuDoubleComplex; x: ptr cuDoubleComplex; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtpmv_v2", dynlib: libName.}
-proc cublasZtpmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtpmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; AP: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
-                       incx: clonglong): cublasStatus_t {.cdecl,
+                       incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZtpmv_v2_64", dynlib: libName.}
 ##  TRSV
 
-proc cublasStrsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStrsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint): cublasStatus_t {.
+                    A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasStrsv_v2", dynlib: libName.}
-proc cublasStrsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStrsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; A: ptr cfloat; lda: clonglong; x: ptr cfloat;
-                       incx: clonglong): cublasStatus_t {.cdecl,
+                       incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasStrsv_v2_64", dynlib: libName.}
-proc cublasDtrsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtrsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    A: ptr cdouble; lda: cint; x: ptr cdouble; incx: cint): cublasStatus_t {.
+                    A: ptr cdouble; lda: cint; x: ptr cdouble; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDtrsv_v2", dynlib: libName.}
-proc cublasDtrsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtrsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; A: ptr cdouble; lda: clonglong; x: ptr cdouble;
-                       incx: clonglong): cublasStatus_t {.cdecl,
+                       incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDtrsv_v2_64", dynlib: libName.}
-proc cublasCtrsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtrsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    A: ptr cuComplex; lda: cint; x: ptr cuComplex; incx: cint): cublasStatus_t {.
+                    A: ptr cuComplex; lda: cint; x: ptr cuComplex; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCtrsv_v2", dynlib: libName.}
-proc cublasCtrsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtrsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; A: ptr cuComplex; lda: clonglong;
-                       x: ptr cuComplex; incx: clonglong): cublasStatus_t {.cdecl,
+                       x: ptr cuComplex; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCtrsv_v2_64", dynlib: libName.}
-proc cublasZtrsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtrsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
                     A: ptr cuDoubleComplex; lda: cint; x: ptr cuDoubleComplex;
-                    incx: cint): cublasStatus_t {.cdecl, importc: "cublasZtrsv_v2",
+                    incx: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasZtrsv_v2",
     dynlib: libName.}
-proc cublasZtrsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtrsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; A: ptr cuDoubleComplex; lda: clonglong;
-                       x: ptr cuDoubleComplex; incx: clonglong): cublasStatus_t {.
+                       x: ptr cuDoubleComplex; incx: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtrsv_v2_64", dynlib: libName.}
 ##  TPSV
 
-proc cublasStpsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStpsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    AP: ptr cfloat; x: ptr cfloat; incx: cint): cublasStatus_t {.cdecl,
+                    AP: ptr cfloat; x: ptr cfloat; incx: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasStpsv_v2", dynlib: libName.}
-proc cublasStpsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStpsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
-                       n: clonglong; AP: ptr cfloat; x: ptr cfloat; incx: clonglong): cublasStatus_t {.
+                       n: clonglong; AP: ptr cfloat; x: ptr cfloat; incx: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasStpsv_v2_64", dynlib: libName.}
-proc cublasDtpsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtpsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    AP: ptr cdouble; x: ptr cdouble; incx: cint): cublasStatus_t {.cdecl,
+                    AP: ptr cdouble; x: ptr cdouble; incx: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDtpsv_v2", dynlib: libName.}
-proc cublasDtpsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtpsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
-                       n: clonglong; AP: ptr cdouble; x: ptr cdouble; incx: clonglong): cublasStatus_t {.
+                       n: clonglong; AP: ptr cdouble; x: ptr cdouble; incx: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDtpsv_v2_64", dynlib: libName.}
-proc cublasCtpsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtpsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    AP: ptr cuComplex; x: ptr cuComplex; incx: cint): cublasStatus_t {.
+                    AP: ptr cuComplex; x: ptr cuComplex; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCtpsv_v2", dynlib: libName.}
-proc cublasCtpsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtpsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; AP: ptr cuComplex; x: ptr cuComplex;
-                       incx: clonglong): cublasStatus_t {.cdecl,
+                       incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCtpsv_v2_64", dynlib: libName.}
-proc cublasZtpsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtpsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    AP: ptr cuDoubleComplex; x: ptr cuDoubleComplex; incx: cint): cublasStatus_t {.
+                    AP: ptr cuDoubleComplex; x: ptr cuDoubleComplex; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtpsv_v2", dynlib: libName.}
-proc cublasZtpsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtpsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; AP: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
-                       incx: clonglong): cublasStatus_t {.cdecl,
+                       incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZtpsv_v2_64", dynlib: libName.}
 ##  TBSV
 
-proc cublasStbsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStbsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    k: cint; A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint): cublasStatus_t {.
+                    k: cint; A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasStbsv_v2", dynlib: libName.}
-proc cublasStbsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasStbsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; k: clonglong; A: ptr cfloat; lda: clonglong;
-                       x: ptr cfloat; incx: clonglong): cublasStatus_t {.cdecl,
+                       x: ptr cfloat; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasStbsv_v2_64", dynlib: libName.}
-proc cublasDtbsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtbsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    k: cint; A: ptr cdouble; lda: cint; x: ptr cdouble; incx: cint): cublasStatus_t {.
+                    k: cint; A: ptr cdouble; lda: cint; x: ptr cdouble; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDtbsv_v2", dynlib: libName.}
-proc cublasDtbsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDtbsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; k: clonglong; A: ptr cdouble; lda: clonglong;
-                       x: ptr cdouble; incx: clonglong): cublasStatus_t {.cdecl,
+                       x: ptr cdouble; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDtbsv_v2_64", dynlib: libName.}
-proc cublasCtbsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtbsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
-                    k: cint; A: ptr cuComplex; lda: cint; x: ptr cuComplex; incx: cint): cublasStatus_t {.
+                    k: cint; A: ptr cuComplex; lda: cint; x: ptr cuComplex; incx: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCtbsv_v2", dynlib: libName.}
-proc cublasCtbsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCtbsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; k: clonglong; A: ptr cuComplex; lda: clonglong;
-                       x: ptr cuComplex; incx: clonglong): cublasStatus_t {.cdecl,
+                       x: ptr cuComplex; incx: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCtbsv_v2_64", dynlib: libName.}
-proc cublasZtbsv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtbsv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; diag: cublasDiagType_t; n: cint;
                     k: cint; A: ptr cuDoubleComplex; lda: cint; x: ptr cuDoubleComplex;
-                    incx: cint): cublasStatus_t {.cdecl, importc: "cublasZtbsv_v2",
+                    incx: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasZtbsv_v2",
     dynlib: libName.}
-proc cublasZtbsv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZtbsv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; diag: cublasDiagType_t;
                        n: clonglong; k: clonglong; A: ptr cuDoubleComplex;
-                       lda: clonglong; x: ptr cuDoubleComplex; incx: clonglong): cublasStatus_t {.
+                       lda: clonglong; x: ptr cuDoubleComplex; incx: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtbsv_v2_64", dynlib: libName.}
 ##  SYMV/HEMV
 
-proc cublasSsymv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasSsymv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cfloat; A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint;
-                    beta: ptr cfloat; y: ptr cfloat; incy: cint): cublasStatus_t {.cdecl,
+                    beta: ptr cfloat; y: ptr cfloat; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSsymv_v2", dynlib: libName.}
-proc cublasSsymv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasSsymv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cfloat; A: ptr cfloat; lda: clonglong; x: ptr cfloat;
-                       incx: clonglong; beta: ptr cfloat; y: ptr cfloat; incy: clonglong): cublasStatus_t {.
+                       incx: clonglong; beta: ptr cfloat; y: ptr cfloat; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSsymv_v2_64", dynlib: libName.}
-proc cublasDsymv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasDsymv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cdouble; A: ptr cdouble; lda: cint; x: ptr cdouble;
-                    incx: cint; beta: ptr cdouble; y: ptr cdouble; incy: cint): cublasStatus_t {.
+                    incx: cint; beta: ptr cdouble; y: ptr cdouble; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDsymv_v2", dynlib: libName.}
-proc cublasDsymv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasDsymv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cdouble; A: ptr cdouble; lda: clonglong;
                        x: ptr cdouble; incx: clonglong; beta: ptr cdouble;
-                       y: ptr cdouble; incy: clonglong): cublasStatus_t {.cdecl,
+                       y: ptr cdouble; incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDsymv_v2_64", dynlib: libName.}
-proc cublasCsymv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasCsymv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuComplex; A: ptr cuComplex; lda: cint; x: ptr cuComplex;
-                    incx: cint; beta: ptr cuComplex; y: ptr cuComplex; incy: cint): cublasStatus_t {.
+                    incx: cint; beta: ptr cuComplex; y: ptr cuComplex; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCsymv_v2", dynlib: libName.}
-proc cublasCsymv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasCsymv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                        x: ptr cuComplex; incx: clonglong; beta: ptr cuComplex;
-                       y: ptr cuComplex; incy: clonglong): cublasStatus_t {.cdecl,
+                       y: ptr cuComplex; incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsymv_v2_64", dynlib: libName.}
-proc cublasZsymv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasZsymv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                     x: ptr cuDoubleComplex; incx: cint; beta: ptr cuDoubleComplex;
-                    y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.cdecl,
+                    y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZsymv_v2", dynlib: libName.}
-proc cublasZsymv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasZsymv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                        lda: clonglong; x: ptr cuDoubleComplex; incx: clonglong;
                        beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZsymv_v2_64", dynlib: libName.}
-proc cublasChemv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasChemv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuComplex; A: ptr cuComplex; lda: cint; x: ptr cuComplex;
-                    incx: cint; beta: ptr cuComplex; y: ptr cuComplex; incy: cint): cublasStatus_t {.
+                    incx: cint; beta: ptr cuComplex; y: ptr cuComplex; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasChemv_v2", dynlib: libName.}
-proc cublasChemv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasChemv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                        x: ptr cuComplex; incx: clonglong; beta: ptr cuComplex;
-                       y: ptr cuComplex; incy: clonglong): cublasStatus_t {.cdecl,
+                       y: ptr cuComplex; incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasChemv_v2_64", dynlib: libName.}
-proc cublasZhemv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasZhemv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                     x: ptr cuDoubleComplex; incx: cint; beta: ptr cuDoubleComplex;
-                    y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.cdecl,
+                    y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhemv_v2", dynlib: libName.}
-proc cublasZhemv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasZhemv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                        lda: clonglong; x: ptr cuDoubleComplex; incx: clonglong;
                        beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhemv_v2_64", dynlib: libName.}
 ##  SBMV/HBMV
 
-proc cublasSsbmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint; k: cint;
+proc cublasSsbmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint; k: cint;
                     alpha: ptr cfloat; A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint;
-                    beta: ptr cfloat; y: ptr cfloat; incy: cint): cublasStatus_t {.cdecl,
+                    beta: ptr cfloat; y: ptr cfloat; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSsbmv_v2", dynlib: libName.}
-proc cublasSsbmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasSsbmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        k: clonglong; alpha: ptr cfloat; A: ptr cfloat; lda: clonglong;
                        x: ptr cfloat; incx: clonglong; beta: ptr cfloat; y: ptr cfloat;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSsbmv_v2_64", dynlib: libName.}
-proc cublasDsbmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint; k: cint;
+proc cublasDsbmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint; k: cint;
                     alpha: ptr cdouble; A: ptr cdouble; lda: cint; x: ptr cdouble;
-                    incx: cint; beta: ptr cdouble; y: ptr cdouble; incy: cint): cublasStatus_t {.
+                    incx: cint; beta: ptr cdouble; y: ptr cdouble; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDsbmv_v2", dynlib: libName.}
-proc cublasDsbmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasDsbmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        k: clonglong; alpha: ptr cdouble; A: ptr cdouble; lda: clonglong;
                        x: ptr cdouble; incx: clonglong; beta: ptr cdouble;
-                       y: ptr cdouble; incy: clonglong): cublasStatus_t {.cdecl,
+                       y: ptr cdouble; incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDsbmv_v2_64", dynlib: libName.}
-proc cublasChbmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint; k: cint;
+proc cublasChbmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint; k: cint;
                     alpha: ptr cuComplex; A: ptr cuComplex; lda: cint; x: ptr cuComplex;
-                    incx: cint; beta: ptr cuComplex; y: ptr cuComplex; incy: cint): cublasStatus_t {.
+                    incx: cint; beta: ptr cuComplex; y: ptr cuComplex; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasChbmv_v2", dynlib: libName.}
-proc cublasChbmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasChbmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        k: clonglong; alpha: ptr cuComplex; A: ptr cuComplex;
                        lda: clonglong; x: ptr cuComplex; incx: clonglong;
-                       beta: ptr cuComplex; y: ptr cuComplex; incy: clonglong): cublasStatus_t {.
+                       beta: ptr cuComplex; y: ptr cuComplex; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasChbmv_v2_64", dynlib: libName.}
-proc cublasZhbmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint; k: cint;
+proc cublasZhbmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint; k: cint;
                     alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                     x: ptr cuDoubleComplex; incx: cint; beta: ptr cuDoubleComplex;
-                    y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.cdecl,
+                    y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhbmv_v2", dynlib: libName.}
-proc cublasZhbmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasZhbmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        k: clonglong; alpha: ptr cuDoubleComplex;
                        A: ptr cuDoubleComplex; lda: clonglong;
                        x: ptr cuDoubleComplex; incx: clonglong;
                        beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhbmv_v2_64", dynlib: libName.}
 ##  SPMV/HPMV
 
-proc cublasSspmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasSspmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cfloat; AP: ptr cfloat; x: ptr cfloat; incx: cint;
-                    beta: ptr cfloat; y: ptr cfloat; incy: cint): cublasStatus_t {.cdecl,
+                    beta: ptr cfloat; y: ptr cfloat; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSspmv_v2", dynlib: libName.}
-proc cublasSspmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasSspmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cfloat; AP: ptr cfloat; x: ptr cfloat; incx: clonglong;
-                       beta: ptr cfloat; y: ptr cfloat; incy: clonglong): cublasStatus_t {.
+                       beta: ptr cfloat; y: ptr cfloat; incy: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSspmv_v2_64", dynlib: libName.}
-proc cublasDspmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasDspmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cdouble; AP: ptr cdouble; x: ptr cdouble; incx: cint;
-                    beta: ptr cdouble; y: ptr cdouble; incy: cint): cublasStatus_t {.
+                    beta: ptr cdouble; y: ptr cdouble; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDspmv_v2", dynlib: libName.}
-proc cublasDspmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasDspmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cdouble; AP: ptr cdouble; x: ptr cdouble;
                        incx: clonglong; beta: ptr cdouble; y: ptr cdouble;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDspmv_v2_64", dynlib: libName.}
-proc cublasChpmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasChpmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuComplex; AP: ptr cuComplex; x: ptr cuComplex;
-                    incx: cint; beta: ptr cuComplex; y: ptr cuComplex; incy: cint): cublasStatus_t {.
+                    incx: cint; beta: ptr cuComplex; y: ptr cuComplex; incy: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasChpmv_v2", dynlib: libName.}
-proc cublasChpmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasChpmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuComplex; AP: ptr cuComplex; x: ptr cuComplex;
                        incx: clonglong; beta: ptr cuComplex; y: ptr cuComplex;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasChpmv_v2_64", dynlib: libName.}
-proc cublasZhpmv_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasZhpmv_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuDoubleComplex; AP: ptr cuDoubleComplex;
                     x: ptr cuDoubleComplex; incx: cint; beta: ptr cuDoubleComplex;
-                    y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.cdecl,
+                    y: ptr cuDoubleComplex; incy: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhpmv_v2", dynlib: libName.}
-proc cublasZhpmv_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasZhpmv_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuDoubleComplex; AP: ptr cuDoubleComplex;
                        x: ptr cuDoubleComplex; incx: clonglong;
                        beta: ptr cuDoubleComplex; y: ptr cuDoubleComplex;
-                       incy: clonglong): cublasStatus_t {.cdecl,
+                       incy: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhpmv_v2_64", dynlib: libName.}
 ##  GER
 
-proc cublasSger_v2*(handle: cublasHandle_t; m: cint; n: cint; alpha: ptr cfloat;
+proc cublasSger_v2UnderScore*(handle: cublasHandle_t; m: cint; n: cint; alpha: ptr cfloat;
                    x: ptr cfloat; incx: cint; y: ptr cfloat; incy: cint; A: ptr cfloat;
-                   lda: cint): cublasStatus_t {.cdecl, importc: "cublasSger_v2",
+                   lda: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasSger_v2",
     dynlib: libName.}
-proc cublasSger_v2_64*(handle: cublasHandle_t; m: clonglong; n: clonglong;
+proc cublasSger_v2_64UnderScore*(handle: cublasHandle_t; m: clonglong; n: clonglong;
                       alpha: ptr cfloat; x: ptr cfloat; incx: clonglong; y: ptr cfloat;
-                      incy: clonglong; A: ptr cfloat; lda: clonglong): cublasStatus_t {.
+                      incy: clonglong; A: ptr cfloat; lda: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSger_v2_64", dynlib: libName.}
-proc cublasDger_v2*(handle: cublasHandle_t; m: cint; n: cint; alpha: ptr cdouble;
+proc cublasDger_v2UnderScore*(handle: cublasHandle_t; m: cint; n: cint; alpha: ptr cdouble;
                    x: ptr cdouble; incx: cint; y: ptr cdouble; incy: cint; A: ptr cdouble;
-                   lda: cint): cublasStatus_t {.cdecl, importc: "cublasDger_v2",
+                   lda: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasDger_v2",
     dynlib: libName.}
-proc cublasDger_v2_64*(handle: cublasHandle_t; m: clonglong; n: clonglong;
+proc cublasDger_v2_64UnderScore*(handle: cublasHandle_t; m: clonglong; n: clonglong;
                       alpha: ptr cdouble; x: ptr cdouble; incx: clonglong;
-                      y: ptr cdouble; incy: clonglong; A: ptr cdouble; lda: clonglong): cublasStatus_t {.
+                      y: ptr cdouble; incy: clonglong; A: ptr cdouble; lda: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDger_v2_64", dynlib: libName.}
-proc cublasCgeru_v2*(handle: cublasHandle_t; m: cint; n: cint; alpha: ptr cuComplex;
+proc cublasCgeru_v2UnderScore*(handle: cublasHandle_t; m: cint; n: cint; alpha: ptr cuComplex;
                     x: ptr cuComplex; incx: cint; y: ptr cuComplex; incy: cint;
-                    A: ptr cuComplex; lda: cint): cublasStatus_t {.cdecl,
+                    A: ptr cuComplex; lda: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgeru_v2", dynlib: libName.}
-proc cublasCgeru_v2_64*(handle: cublasHandle_t; m: clonglong; n: clonglong;
+proc cublasCgeru_v2_64UnderScore*(handle: cublasHandle_t; m: clonglong; n: clonglong;
                        alpha: ptr cuComplex; x: ptr cuComplex; incx: clonglong;
                        y: ptr cuComplex; incy: clonglong; A: ptr cuComplex;
-                       lda: clonglong): cublasStatus_t {.cdecl,
+                       lda: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgeru_v2_64", dynlib: libName.}
-proc cublasCgerc_v2*(handle: cublasHandle_t; m: cint; n: cint; alpha: ptr cuComplex;
+proc cublasCgerc_v2UnderScore*(handle: cublasHandle_t; m: cint; n: cint; alpha: ptr cuComplex;
                     x: ptr cuComplex; incx: cint; y: ptr cuComplex; incy: cint;
-                    A: ptr cuComplex; lda: cint): cublasStatus_t {.cdecl,
+                    A: ptr cuComplex; lda: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgerc_v2", dynlib: libName.}
-proc cublasCgerc_v2_64*(handle: cublasHandle_t; m: clonglong; n: clonglong;
+proc cublasCgerc_v2_64UnderScore*(handle: cublasHandle_t; m: clonglong; n: clonglong;
                        alpha: ptr cuComplex; x: ptr cuComplex; incx: clonglong;
                        y: ptr cuComplex; incy: clonglong; A: ptr cuComplex;
-                       lda: clonglong): cublasStatus_t {.cdecl,
+                       lda: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgerc_v2_64", dynlib: libName.}
-proc cublasZgeru_v2*(handle: cublasHandle_t; m: cint; n: cint;
+proc cublasZgeru_v2UnderScore*(handle: cublasHandle_t; m: cint; n: cint;
                     alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex; incx: cint;
                     y: ptr cuDoubleComplex; incy: cint; A: ptr cuDoubleComplex;
-                    lda: cint): cublasStatus_t {.cdecl, importc: "cublasZgeru_v2",
+                    lda: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasZgeru_v2",
     dynlib: libName.}
-proc cublasZgeru_v2_64*(handle: cublasHandle_t; m: clonglong; n: clonglong;
+proc cublasZgeru_v2_64UnderScore*(handle: cublasHandle_t; m: clonglong; n: clonglong;
                        alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
                        incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong;
-                       A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.
+                       A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZgeru_v2_64", dynlib: libName.}
-proc cublasZgerc_v2*(handle: cublasHandle_t; m: cint; n: cint;
+proc cublasZgerc_v2UnderScore*(handle: cublasHandle_t; m: cint; n: cint;
                     alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex; incx: cint;
                     y: ptr cuDoubleComplex; incy: cint; A: ptr cuDoubleComplex;
-                    lda: cint): cublasStatus_t {.cdecl, importc: "cublasZgerc_v2",
+                    lda: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasZgerc_v2",
     dynlib: libName.}
-proc cublasZgerc_v2_64*(handle: cublasHandle_t; m: clonglong; n: clonglong;
+proc cublasZgerc_v2_64UnderScore*(handle: cublasHandle_t; m: clonglong; n: clonglong;
                        alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
                        incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong;
-                       A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.
+                       A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZgerc_v2_64", dynlib: libName.}
 ##  SYR/HER
 
-proc cublasSsyr_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                   alpha: ptr cfloat; x: ptr cfloat; incx: cint; A: ptr cfloat; lda: cint): cublasStatus_t {.
+proc cublasSsyr_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                   alpha: ptr cfloat; x: ptr cfloat; incx: cint; A: ptr cfloat; lda: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSsyr_v2", dynlib: libName.}
-proc cublasSsyr_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasSsyr_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                       alpha: ptr cfloat; x: ptr cfloat; incx: clonglong; A: ptr cfloat;
-                      lda: clonglong): cublasStatus_t {.cdecl,
+                      lda: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSsyr_v2_64", dynlib: libName.}
-proc cublasDsyr_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasDsyr_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                    alpha: ptr cdouble; x: ptr cdouble; incx: cint; A: ptr cdouble;
-                   lda: cint): cublasStatus_t {.cdecl, importc: "cublasDsyr_v2",
+                   lda: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasDsyr_v2",
     dynlib: libName.}
-proc cublasDsyr_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasDsyr_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                       alpha: ptr cdouble; x: ptr cdouble; incx: clonglong;
-                      A: ptr cdouble; lda: clonglong): cublasStatus_t {.cdecl,
+                      A: ptr cdouble; lda: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDsyr_v2_64", dynlib: libName.}
-proc cublasCsyr_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasCsyr_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                    alpha: ptr cuComplex; x: ptr cuComplex; incx: cint; A: ptr cuComplex;
-                   lda: cint): cublasStatus_t {.cdecl, importc: "cublasCsyr_v2",
+                   lda: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasCsyr_v2",
     dynlib: libName.}
-proc cublasCsyr_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasCsyr_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                       alpha: ptr cuComplex; x: ptr cuComplex; incx: clonglong;
-                      A: ptr cuComplex; lda: clonglong): cublasStatus_t {.cdecl,
+                      A: ptr cuComplex; lda: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsyr_v2_64", dynlib: libName.}
-proc cublasZsyr_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasZsyr_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                    alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex; incx: cint;
-                   A: ptr cuDoubleComplex; lda: cint): cublasStatus_t {.cdecl,
+                   A: ptr cuDoubleComplex; lda: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZsyr_v2", dynlib: libName.}
-proc cublasZsyr_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasZsyr_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                       alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
-                      incx: clonglong; A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.
+                      incx: clonglong; A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZsyr_v2_64", dynlib: libName.}
-proc cublasCher_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasCher_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                    alpha: ptr cfloat; x: ptr cuComplex; incx: cint; A: ptr cuComplex;
-                   lda: cint): cublasStatus_t {.cdecl, importc: "cublasCher_v2",
+                   lda: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasCher_v2",
     dynlib: libName.}
-proc cublasCher_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasCher_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                       alpha: ptr cfloat; x: ptr cuComplex; incx: clonglong;
-                      A: ptr cuComplex; lda: clonglong): cublasStatus_t {.cdecl,
+                      A: ptr cuComplex; lda: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCher_v2_64", dynlib: libName.}
-proc cublasZher_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasZher_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                    alpha: ptr cdouble; x: ptr cuDoubleComplex; incx: cint;
-                   A: ptr cuDoubleComplex; lda: cint): cublasStatus_t {.cdecl,
+                   A: ptr cuDoubleComplex; lda: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZher_v2", dynlib: libName.}
-proc cublasZher_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasZher_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                       alpha: ptr cdouble; x: ptr cuDoubleComplex; incx: clonglong;
-                      A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.cdecl,
+                      A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZher_v2_64", dynlib: libName.}
 ##  SPR/HPR
 
-proc cublasSspr_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                   alpha: ptr cfloat; x: ptr cfloat; incx: cint; AP: ptr cfloat): cublasStatus_t {.
+proc cublasSspr_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                   alpha: ptr cfloat; x: ptr cfloat; incx: cint; AP: ptr cfloat): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSspr_v2", dynlib: libName.}
-proc cublasSspr_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
-                      alpha: ptr cfloat; x: ptr cfloat; incx: clonglong; AP: ptr cfloat): cublasStatus_t {.
+proc cublasSspr_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+                      alpha: ptr cfloat; x: ptr cfloat; incx: clonglong; AP: ptr cfloat): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSspr_v2_64", dynlib: libName.}
-proc cublasDspr_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                   alpha: ptr cdouble; x: ptr cdouble; incx: cint; AP: ptr cdouble): cublasStatus_t {.
+proc cublasDspr_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                   alpha: ptr cdouble; x: ptr cdouble; incx: cint; AP: ptr cdouble): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDspr_v2", dynlib: libName.}
-proc cublasDspr_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasDspr_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                       alpha: ptr cdouble; x: ptr cdouble; incx: clonglong;
-                      AP: ptr cdouble): cublasStatus_t {.cdecl,
+                      AP: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDspr_v2_64", dynlib: libName.}
-proc cublasChpr_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                   alpha: ptr cfloat; x: ptr cuComplex; incx: cint; AP: ptr cuComplex): cublasStatus_t {.
+proc cublasChpr_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                   alpha: ptr cfloat; x: ptr cuComplex; incx: cint; AP: ptr cuComplex): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasChpr_v2", dynlib: libName.}
-proc cublasChpr_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasChpr_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                       alpha: ptr cfloat; x: ptr cuComplex; incx: clonglong;
-                      AP: ptr cuComplex): cublasStatus_t {.cdecl,
+                      AP: ptr cuComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasChpr_v2_64", dynlib: libName.}
-proc cublasZhpr_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasZhpr_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                    alpha: ptr cdouble; x: ptr cuDoubleComplex; incx: cint;
-                   AP: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                   AP: ptr cuDoubleComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhpr_v2", dynlib: libName.}
-proc cublasZhpr_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasZhpr_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                       alpha: ptr cdouble; x: ptr cuDoubleComplex; incx: clonglong;
-                      AP: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                      AP: ptr cuDoubleComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhpr_v2_64", dynlib: libName.}
 ##  SYR2/HER2
 
-proc cublasSsyr2_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasSsyr2_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cfloat; x: ptr cfloat; incx: cint; y: ptr cfloat;
-                    incy: cint; A: ptr cfloat; lda: cint): cublasStatus_t {.cdecl,
+                    incy: cint; A: ptr cfloat; lda: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSsyr2_v2", dynlib: libName.}
-proc cublasSsyr2_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasSsyr2_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cfloat; x: ptr cfloat; incx: clonglong; y: ptr cfloat;
-                       incy: clonglong; A: ptr cfloat; lda: clonglong): cublasStatus_t {.
+                       incy: clonglong; A: ptr cfloat; lda: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSsyr2_v2_64", dynlib: libName.}
-proc cublasDsyr2_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasDsyr2_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cdouble; x: ptr cdouble; incx: cint; y: ptr cdouble;
-                    incy: cint; A: ptr cdouble; lda: cint): cublasStatus_t {.cdecl,
+                    incy: cint; A: ptr cdouble; lda: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDsyr2_v2", dynlib: libName.}
-proc cublasDsyr2_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasDsyr2_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cdouble; x: ptr cdouble; incx: clonglong;
-                       y: ptr cdouble; incy: clonglong; A: ptr cdouble; lda: clonglong): cublasStatus_t {.
+                       y: ptr cdouble; incy: clonglong; A: ptr cdouble; lda: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDsyr2_v2_64", dynlib: libName.}
-proc cublasCsyr2_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasCsyr2_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuComplex; x: ptr cuComplex; incx: cint;
-                    y: ptr cuComplex; incy: cint; A: ptr cuComplex; lda: cint): cublasStatus_t {.
+                    y: ptr cuComplex; incy: cint; A: ptr cuComplex; lda: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCsyr2_v2", dynlib: libName.}
-proc cublasCsyr2_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasCsyr2_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuComplex; x: ptr cuComplex; incx: clonglong;
                        y: ptr cuComplex; incy: clonglong; A: ptr cuComplex;
-                       lda: clonglong): cublasStatus_t {.cdecl,
+                       lda: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsyr2_v2_64", dynlib: libName.}
-proc cublasZsyr2_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasZsyr2_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex; incx: cint;
                     y: ptr cuDoubleComplex; incy: cint; A: ptr cuDoubleComplex;
-                    lda: cint): cublasStatus_t {.cdecl, importc: "cublasZsyr2_v2",
+                    lda: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasZsyr2_v2",
     dynlib: libName.}
-proc cublasZsyr2_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasZsyr2_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
                        incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong;
-                       A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.
+                       A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZsyr2_v2_64", dynlib: libName.}
-proc cublasCher2_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasCher2_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuComplex; x: ptr cuComplex; incx: cint;
-                    y: ptr cuComplex; incy: cint; A: ptr cuComplex; lda: cint): cublasStatus_t {.
+                    y: ptr cuComplex; incy: cint; A: ptr cuComplex; lda: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCher2_v2", dynlib: libName.}
-proc cublasCher2_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasCher2_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuComplex; x: ptr cuComplex; incx: clonglong;
                        y: ptr cuComplex; incy: clonglong; A: ptr cuComplex;
-                       lda: clonglong): cublasStatus_t {.cdecl,
+                       lda: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCher2_v2_64", dynlib: libName.}
-proc cublasZher2_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasZher2_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex; incx: cint;
                     y: ptr cuDoubleComplex; incy: cint; A: ptr cuDoubleComplex;
-                    lda: cint): cublasStatus_t {.cdecl, importc: "cublasZher2_v2",
+                    lda: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasZher2_v2",
     dynlib: libName.}
-proc cublasZher2_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasZher2_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
                        incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong;
-                       A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.
+                       A: ptr cuDoubleComplex; lda: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZher2_v2_64", dynlib: libName.}
 ##  SPR2/HPR2
 
-proc cublasSspr2_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasSspr2_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cfloat; x: ptr cfloat; incx: cint; y: ptr cfloat;
-                    incy: cint; AP: ptr cfloat): cublasStatus_t {.cdecl,
+                    incy: cint; AP: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSspr2_v2", dynlib: libName.}
-proc cublasSspr2_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasSspr2_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cfloat; x: ptr cfloat; incx: clonglong; y: ptr cfloat;
-                       incy: clonglong; AP: ptr cfloat): cublasStatus_t {.cdecl,
+                       incy: clonglong; AP: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSspr2_v2_64", dynlib: libName.}
-proc cublasDspr2_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasDspr2_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cdouble; x: ptr cdouble; incx: cint; y: ptr cdouble;
-                    incy: cint; AP: ptr cdouble): cublasStatus_t {.cdecl,
+                    incy: cint; AP: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDspr2_v2", dynlib: libName.}
-proc cublasDspr2_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasDspr2_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cdouble; x: ptr cdouble; incx: clonglong;
-                       y: ptr cdouble; incy: clonglong; AP: ptr cdouble): cublasStatus_t {.
+                       y: ptr cdouble; incy: clonglong; AP: ptr cdouble): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDspr2_v2_64", dynlib: libName.}
-proc cublasChpr2_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasChpr2_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuComplex; x: ptr cuComplex; incx: cint;
-                    y: ptr cuComplex; incy: cint; AP: ptr cuComplex): cublasStatus_t {.
+                    y: ptr cuComplex; incy: cint; AP: ptr cuComplex): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasChpr2_v2", dynlib: libName.}
-proc cublasChpr2_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasChpr2_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuComplex; x: ptr cuComplex; incx: clonglong;
-                       y: ptr cuComplex; incy: clonglong; AP: ptr cuComplex): cublasStatus_t {.
+                       y: ptr cuComplex; incy: clonglong; AP: ptr cuComplex): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasChpr2_v2_64", dynlib: libName.}
-proc cublasZhpr2_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+proc cublasZhpr2_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
                     alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex; incx: cint;
-                    y: ptr cuDoubleComplex; incy: cint; AP: ptr cuDoubleComplex): cublasStatus_t {.
+                    y: ptr cuDoubleComplex; incy: cint; AP: ptr cuDoubleComplex): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZhpr2_v2", dynlib: libName.}
-proc cublasZhpr2_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
+proc cublasZhpr2_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: clonglong;
                        alpha: ptr cuDoubleComplex; x: ptr cuDoubleComplex;
                        incx: clonglong; y: ptr cuDoubleComplex; incy: clonglong;
-                       AP: ptr cuDoubleComplex): cublasStatus_t {.cdecl,
+                       AP: ptr cuDoubleComplex): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhpr2_v2_64", dynlib: libName.}
 ##  BATCH GEMV
 
@@ -1470,45 +1470,45 @@ proc cublasZgemvBatched_64*(handle: cublasHandle_t; trans: cublasOperation_t;
                            yarray: ptr ptr cuDoubleComplex; incy: clonglong;
                            batchCount: clonglong): cublasStatus_t {.cdecl,
     importc: "cublasZgemvBatched_64", dynlib: libName.}
-proc cublasSgemvStridedBatched*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasSgemvStridedBatchedUnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                                m: cint; n: cint; alpha: ptr cfloat; A: ptr cfloat;
                                lda: cint; strideA: clonglong; x: ptr cfloat;
                                incx: cint; stridex: clonglong; beta: ptr cfloat;
                                y: ptr cfloat; incy: cint; stridey: clonglong;
-                               batchCount: cint): cublasStatus_t {.cdecl,
+                               batchCount: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSgemvStridedBatched", dynlib: libName.}
-proc cublasSgemvStridedBatched_64*(handle: cublasHandle_t;
+proc cublasSgemvStridedBatched_64UnderScore*(handle: cublasHandle_t;
                                   trans: cublasOperation_t; m: clonglong;
                                   n: clonglong; alpha: ptr cfloat; A: ptr cfloat;
                                   lda: clonglong; strideA: clonglong; x: ptr cfloat;
                                   incx: clonglong; stridex: clonglong;
                                   beta: ptr cfloat; y: ptr cfloat; incy: clonglong;
-                                  stridey: clonglong; batchCount: clonglong): cublasStatus_t {.
+                                  stridey: clonglong; batchCount: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSgemvStridedBatched_64", dynlib: libName.}
-proc cublasDgemvStridedBatched*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasDgemvStridedBatchedUnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                                m: cint; n: cint; alpha: ptr cdouble; A: ptr cdouble;
                                lda: cint; strideA: clonglong; x: ptr cdouble;
                                incx: cint; stridex: clonglong; beta: ptr cdouble;
                                y: ptr cdouble; incy: cint; stridey: clonglong;
-                               batchCount: cint): cublasStatus_t {.cdecl,
+                               batchCount: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDgemvStridedBatched", dynlib: libName.}
-proc cublasDgemvStridedBatched_64*(handle: cublasHandle_t;
+proc cublasDgemvStridedBatched_64UnderScore*(handle: cublasHandle_t;
                                   trans: cublasOperation_t; m: clonglong;
                                   n: clonglong; alpha: ptr cdouble; A: ptr cdouble;
                                   lda: clonglong; strideA: clonglong;
                                   x: ptr cdouble; incx: clonglong;
                                   stridex: clonglong; beta: ptr cdouble;
                                   y: ptr cdouble; incy: clonglong;
-                                  stridey: clonglong; batchCount: clonglong): cublasStatus_t {.
+                                  stridey: clonglong; batchCount: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDgemvStridedBatched_64", dynlib: libName.}
-proc cublasCgemvStridedBatched*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasCgemvStridedBatchedUnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                                m: cint; n: cint; alpha: ptr cuComplex;
                                A: ptr cuComplex; lda: cint; strideA: clonglong;
                                x: ptr cuComplex; incx: cint; stridex: clonglong;
                                beta: ptr cuComplex; y: ptr cuComplex; incy: cint;
-                               stridey: clonglong; batchCount: cint): cublasStatus_t {.
+                               stridey: clonglong; batchCount: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCgemvStridedBatched", dynlib: libName.}
-proc cublasCgemvStridedBatched_64*(handle: cublasHandle_t;
+proc cublasCgemvStridedBatched_64UnderScore*(handle: cublasHandle_t;
                                   trans: cublasOperation_t; m: clonglong;
                                   n: clonglong; alpha: ptr cuComplex;
                                   A: ptr cuComplex; lda: clonglong;
@@ -1516,17 +1516,17 @@ proc cublasCgemvStridedBatched_64*(handle: cublasHandle_t;
                                   incx: clonglong; stridex: clonglong;
                                   beta: ptr cuComplex; y: ptr cuComplex;
                                   incy: clonglong; stridey: clonglong;
-                                  batchCount: clonglong): cublasStatus_t {.cdecl,
+                                  batchCount: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgemvStridedBatched_64", dynlib: libName.}
-proc cublasZgemvStridedBatched*(handle: cublasHandle_t; trans: cublasOperation_t;
+proc cublasZgemvStridedBatchedUnderScore*(handle: cublasHandle_t; trans: cublasOperation_t;
                                m: cint; n: cint; alpha: ptr cuDoubleComplex;
                                A: ptr cuDoubleComplex; lda: cint; strideA: clonglong;
                                x: ptr cuDoubleComplex; incx: cint;
                                stridex: clonglong; beta: ptr cuDoubleComplex;
                                y: ptr cuDoubleComplex; incy: cint;
-                               stridey: clonglong; batchCount: cint): cublasStatus_t {.
+                               stridey: clonglong; batchCount: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZgemvStridedBatched", dynlib: libName.}
-proc cublasZgemvStridedBatched_64*(handle: cublasHandle_t;
+proc cublasZgemvStridedBatched_64UnderScore*(handle: cublasHandle_t;
                                   trans: cublasOperation_t; m: clonglong;
                                   n: clonglong; alpha: ptr cuDoubleComplex;
                                   A: ptr cuDoubleComplex; lda: clonglong;
@@ -1534,550 +1534,550 @@ proc cublasZgemvStridedBatched_64*(handle: cublasHandle_t;
                                   incx: clonglong; stridex: clonglong;
                                   beta: ptr cuDoubleComplex;
                                   y: ptr cuDoubleComplex; incy: clonglong;
-                                  stridey: clonglong; batchCount: clonglong): cublasStatus_t {.
+                                  stridey: clonglong; batchCount: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZgemvStridedBatched_64", dynlib: libName.}
 ##  ---------------- CUBLAS BLAS3 Functions ----------------
 ##  GEMM
 
-proc cublasSgemm_v2*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasSgemm_v2UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                     transb: cublasOperation_t; m: cint; n: cint; k: cint;
                     alpha: ptr cfloat; A: ptr cfloat; lda: cint; B: ptr cfloat; ldb: cint;
-                    beta: ptr cfloat; C: ptr cfloat; ldc: cint): cublasStatus_t {.cdecl,
+                    beta: ptr cfloat; C: ptr cfloat; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSgemm_v2", dynlib: libName.}
-proc cublasSgemm_v2_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasSgemm_v2_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                        transb: cublasOperation_t; m: clonglong; n: clonglong;
                        k: clonglong; alpha: ptr cfloat; A: ptr cfloat; lda: clonglong;
                        B: ptr cfloat; ldb: clonglong; beta: ptr cfloat; C: ptr cfloat;
-                       ldc: clonglong): cublasStatus_t {.cdecl,
+                       ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSgemm_v2_64", dynlib: libName.}
-proc cublasDgemm_v2*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasDgemm_v2UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                     transb: cublasOperation_t; m: cint; n: cint; k: cint;
                     alpha: ptr cdouble; A: ptr cdouble; lda: cint; B: ptr cdouble;
-                    ldb: cint; beta: ptr cdouble; C: ptr cdouble; ldc: cint): cublasStatus_t {.
+                    ldb: cint; beta: ptr cdouble; C: ptr cdouble; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDgemm_v2", dynlib: libName.}
-proc cublasDgemm_v2_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasDgemm_v2_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                        transb: cublasOperation_t; m: clonglong; n: clonglong;
                        k: clonglong; alpha: ptr cdouble; A: ptr cdouble; lda: clonglong;
                        B: ptr cdouble; ldb: clonglong; beta: ptr cdouble;
-                       C: ptr cdouble; ldc: clonglong): cublasStatus_t {.cdecl,
+                       C: ptr cdouble; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDgemm_v2_64", dynlib: libName.}
-proc cublasCgemm_v2*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgemm_v2UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                     transb: cublasOperation_t; m: cint; n: cint; k: cint;
                     alpha: ptr cuComplex; A: ptr cuComplex; lda: cint; B: ptr cuComplex;
-                    ldb: cint; beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.
+                    ldb: cint; beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCgemm_v2", dynlib: libName.}
-proc cublasCgemm_v2_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgemm_v2_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                        transb: cublasOperation_t; m: clonglong; n: clonglong;
                        k: clonglong; alpha: ptr cuComplex; A: ptr cuComplex;
                        lda: clonglong; B: ptr cuComplex; ldb: clonglong;
-                       beta: ptr cuComplex; C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.
+                       beta: ptr cuComplex; C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCgemm_v2_64", dynlib: libName.}
-proc cublasCgemm3m*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgemm3mUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                    transb: cublasOperation_t; m: cint; n: cint; k: cint;
                    alpha: ptr cuComplex; A: ptr cuComplex; lda: cint; B: ptr cuComplex;
-                   ldb: cint; beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.
+                   ldb: cint; beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCgemm3m", dynlib: libName.}
-proc cublasCgemm3m_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgemm3m_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                       transb: cublasOperation_t; m: clonglong; n: clonglong;
                       k: clonglong; alpha: ptr cuComplex; A: ptr cuComplex;
                       lda: clonglong; B: ptr cuComplex; ldb: clonglong;
-                      beta: ptr cuComplex; C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.
+                      beta: ptr cuComplex; C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCgemm3m_64", dynlib: libName.}
-proc cublasCgemm3mEx*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgemm3mExUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                      transb: cublasOperation_t; m: cint; n: cint; k: cint;
                      alpha: ptr cuComplex; A: pointer; Atype: cudaDataType; lda: cint;
                      B: pointer; Btype: cudaDataType; ldb: cint; beta: ptr cuComplex;
-                     C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.
+                     C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCgemm3mEx", dynlib: libName.}
-proc cublasCgemm3mEx_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgemm3mEx_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                         transb: cublasOperation_t; m: clonglong; n: clonglong;
                         k: clonglong; alpha: ptr cuComplex; A: pointer;
                         Atype: cudaDataType; lda: clonglong; B: pointer;
                         Btype: cudaDataType; ldb: clonglong; beta: ptr cuComplex;
-                        C: pointer; Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.
+                        C: pointer; Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCgemm3mEx_64", dynlib: libName.}
-proc cublasZgemm_v2*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasZgemm_v2UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                     transb: cublasOperation_t; m: cint; n: cint; k: cint;
                     alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                     B: ptr cuDoubleComplex; ldb: cint; beta: ptr cuDoubleComplex;
-                    C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                    C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZgemm_v2", dynlib: libName.}
-proc cublasZgemm_v2_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasZgemm_v2_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                        transb: cublasOperation_t; m: clonglong; n: clonglong;
                        k: clonglong; alpha: ptr cuDoubleComplex;
                        A: ptr cuDoubleComplex; lda: clonglong;
                        B: ptr cuDoubleComplex; ldb: clonglong;
                        beta: ptr cuDoubleComplex; C: ptr cuDoubleComplex;
-                       ldc: clonglong): cublasStatus_t {.cdecl,
+                       ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZgemm_v2_64", dynlib: libName.}
-proc cublasZgemm3m*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasZgemm3mUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                    transb: cublasOperation_t; m: cint; n: cint; k: cint;
                    alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                    B: ptr cuDoubleComplex; ldb: cint; beta: ptr cuDoubleComplex;
-                   C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                   C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZgemm3m", dynlib: libName.}
-proc cublasZgemm3m_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasZgemm3m_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                       transb: cublasOperation_t; m: clonglong; n: clonglong;
                       k: clonglong; alpha: ptr cuDoubleComplex;
                       A: ptr cuDoubleComplex; lda: clonglong; B: ptr cuDoubleComplex;
                       ldb: clonglong; beta: ptr cuDoubleComplex;
-                      C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.cdecl,
+                      C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZgemm3m_64", dynlib: libName.}
-proc cublasSgemmEx*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasSgemmExUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                    transb: cublasOperation_t; m: cint; n: cint; k: cint;
                    alpha: ptr cfloat; A: pointer; Atype: cudaDataType; lda: cint;
                    B: pointer; Btype: cudaDataType; ldb: cint; beta: ptr cfloat;
-                   C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.cdecl,
+                   C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSgemmEx", dynlib: libName.}
-proc cublasSgemmEx_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasSgemmEx_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                       transb: cublasOperation_t; m: clonglong; n: clonglong;
                       k: clonglong; alpha: ptr cfloat; A: pointer; Atype: cudaDataType;
                       lda: clonglong; B: pointer; Btype: cudaDataType; ldb: clonglong;
-                      beta: ptr cfloat; C: pointer; Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.
+                      beta: ptr cfloat; C: pointer; Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSgemmEx_64", dynlib: libName.}
-proc cublasGemmEx*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasGemmExUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                   transb: cublasOperation_t; m: cint; n: cint; k: cint; alpha: pointer;
                   A: pointer; Atype: cudaDataType; lda: cint; B: pointer;
                   Btype: cudaDataType; ldb: cint; beta: pointer; C: pointer;
                   Ctype: cudaDataType; ldc: cint; computeType: cublasComputeType_t;
-                  algo: cublasGemmAlgo_t): cublasStatus_t {.cdecl,
+                  algo: cublasGemmAlgo_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasGemmEx", dynlib: libName.}
-proc cublasGemmEx_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasGemmEx_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                      transb: cublasOperation_t; m: clonglong; n: clonglong;
                      k: clonglong; alpha: pointer; A: pointer; Atype: cudaDataType;
                      lda: clonglong; B: pointer; Btype: cudaDataType; ldb: clonglong;
                      beta: pointer; C: pointer; Ctype: cudaDataType; ldc: clonglong;
-                     computeType: cublasComputeType_t; algo: cublasGemmAlgo_t): cublasStatus_t {.
+                     computeType: cublasComputeType_t; algo: cublasGemmAlgo_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGemmEx_64", dynlib: libName.}
-proc cublasCgemmEx*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgemmExUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                    transb: cublasOperation_t; m: cint; n: cint; k: cint;
                    alpha: ptr cuComplex; A: pointer; Atype: cudaDataType; lda: cint;
                    B: pointer; Btype: cudaDataType; ldb: cint; beta: ptr cuComplex;
-                   C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.cdecl,
+                   C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgemmEx", dynlib: libName.}
-proc cublasCgemmEx_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgemmEx_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                       transb: cublasOperation_t; m: clonglong; n: clonglong;
                       k: clonglong; alpha: ptr cuComplex; A: pointer;
                       Atype: cudaDataType; lda: clonglong; B: pointer;
                       Btype: cudaDataType; ldb: clonglong; beta: ptr cuComplex;
-                      C: pointer; Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.
+                      C: pointer; Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCgemmEx_64", dynlib: libName.}
 ##  SYRK
 
-proc cublasSsyrk_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasSsyrk_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cfloat;
-                    A: ptr cfloat; lda: cint; beta: ptr cfloat; C: ptr cfloat; ldc: cint): cublasStatus_t {.
+                    A: ptr cfloat; lda: cint; beta: ptr cfloat; C: ptr cfloat; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSsyrk_v2", dynlib: libName.}
-proc cublasSsyrk_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasSsyrk_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; n: clonglong; k: clonglong;
                        alpha: ptr cfloat; A: ptr cfloat; lda: clonglong;
-                       beta: ptr cfloat; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.
+                       beta: ptr cfloat; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSsyrk_v2_64", dynlib: libName.}
-proc cublasDsyrk_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDsyrk_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cdouble;
-                    A: ptr cdouble; lda: cint; beta: ptr cdouble; C: ptr cdouble; ldc: cint): cublasStatus_t {.
+                    A: ptr cdouble; lda: cint; beta: ptr cdouble; C: ptr cdouble; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDsyrk_v2", dynlib: libName.}
-proc cublasDsyrk_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDsyrk_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; n: clonglong; k: clonglong;
                        alpha: ptr cdouble; A: ptr cdouble; lda: clonglong;
-                       beta: ptr cdouble; C: ptr cdouble; ldc: clonglong): cublasStatus_t {.
+                       beta: ptr cdouble; C: ptr cdouble; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDsyrk_v2_64", dynlib: libName.}
-proc cublasCsyrk_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCsyrk_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cuComplex;
                     A: ptr cuComplex; lda: cint; beta: ptr cuComplex; C: ptr cuComplex;
-                    ldc: cint): cublasStatus_t {.cdecl, importc: "cublasCsyrk_v2",
+                    ldc: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasCsyrk_v2",
     dynlib: libName.}
-proc cublasCsyrk_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCsyrk_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; n: clonglong; k: clonglong;
                        alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
-                       beta: ptr cuComplex; C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.
+                       beta: ptr cuComplex; C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCsyrk_v2_64", dynlib: libName.}
-proc cublasZsyrk_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZsyrk_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; n: cint; k: cint;
                     alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
-                    beta: ptr cuDoubleComplex; C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.
+                    beta: ptr cuDoubleComplex; C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZsyrk_v2", dynlib: libName.}
-proc cublasZsyrk_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZsyrk_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; n: clonglong; k: clonglong;
                        alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                        lda: clonglong; beta: ptr cuDoubleComplex;
-                       C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.
+                       C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZsyrk_v2_64", dynlib: libName.}
-proc cublasCsyrkEx*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCsyrkExUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                    trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cuComplex;
                    A: pointer; Atype: cudaDataType; lda: cint; beta: ptr cuComplex;
-                   C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.cdecl,
+                   C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsyrkEx", dynlib: libName.}
-proc cublasCsyrkEx_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCsyrkEx_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                       trans: cublasOperation_t; n: clonglong; k: clonglong;
                       alpha: ptr cuComplex; A: pointer; Atype: cudaDataType;
                       lda: clonglong; beta: ptr cuComplex; C: pointer;
-                      Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.cdecl,
+                      Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsyrkEx_64", dynlib: libName.}
-proc cublasCsyrk3mEx*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCsyrk3mExUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cuComplex;
                      A: pointer; Atype: cudaDataType; lda: cint; beta: ptr cuComplex;
-                     C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.
+                     C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCsyrk3mEx", dynlib: libName.}
-proc cublasCsyrk3mEx_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCsyrk3mEx_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                         trans: cublasOperation_t; n: clonglong; k: clonglong;
                         alpha: ptr cuComplex; A: pointer; Atype: cudaDataType;
                         lda: clonglong; beta: ptr cuComplex; C: pointer;
-                        Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.cdecl,
+                        Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsyrk3mEx_64", dynlib: libName.}
 ##  HERK
 
-proc cublasCherk_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCherk_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cfloat;
                     A: ptr cuComplex; lda: cint; beta: ptr cfloat; C: ptr cuComplex;
-                    ldc: cint): cublasStatus_t {.cdecl, importc: "cublasCherk_v2",
+                    ldc: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasCherk_v2",
     dynlib: libName.}
-proc cublasCherk_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCherk_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; n: clonglong; k: clonglong;
                        alpha: ptr cfloat; A: ptr cuComplex; lda: clonglong;
-                       beta: ptr cfloat; C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.
+                       beta: ptr cfloat; C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCherk_v2_64", dynlib: libName.}
-proc cublasZherk_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZherk_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                     trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cdouble;
                     A: ptr cuDoubleComplex; lda: cint; beta: ptr cdouble;
-                    C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                    C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZherk_v2", dynlib: libName.}
-proc cublasZherk_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZherk_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                        trans: cublasOperation_t; n: clonglong; k: clonglong;
                        alpha: ptr cdouble; A: ptr cuDoubleComplex; lda: clonglong;
-                       beta: ptr cdouble; C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.
+                       beta: ptr cdouble; C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZherk_v2_64", dynlib: libName.}
-proc cublasCherkEx*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCherkExUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                    trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cfloat;
                    A: pointer; Atype: cudaDataType; lda: cint; beta: ptr cfloat;
-                   C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.cdecl,
+                   C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCherkEx", dynlib: libName.}
-proc cublasCherkEx_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCherkEx_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                       trans: cublasOperation_t; n: clonglong; k: clonglong;
                       alpha: ptr cfloat; A: pointer; Atype: cudaDataType;
                       lda: clonglong; beta: ptr cfloat; C: pointer;
-                      Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.cdecl,
+                      Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCherkEx_64", dynlib: libName.}
-proc cublasCherk3mEx*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCherk3mExUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cfloat;
                      A: pointer; Atype: cudaDataType; lda: cint; beta: ptr cfloat;
-                     C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.
+                     C: pointer; Ctype: cudaDataType; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCherk3mEx", dynlib: libName.}
-proc cublasCherk3mEx_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCherk3mEx_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                         trans: cublasOperation_t; n: clonglong; k: clonglong;
                         alpha: ptr cfloat; A: pointer; Atype: cudaDataType;
                         lda: clonglong; beta: ptr cfloat; C: pointer;
-                        Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.cdecl,
+                        Ctype: cudaDataType; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCherk3mEx_64", dynlib: libName.}
 ##  SYR2K / HER2K
 
-proc cublasSsyr2k_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasSsyr2k_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cfloat;
                      A: ptr cfloat; lda: cint; B: ptr cfloat; ldb: cint; beta: ptr cfloat;
-                     C: ptr cfloat; ldc: cint): cublasStatus_t {.cdecl,
+                     C: ptr cfloat; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSsyr2k_v2", dynlib: libName.}
-proc cublasSsyr2k_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasSsyr2k_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                         trans: cublasOperation_t; n: clonglong; k: clonglong;
                         alpha: ptr cfloat; A: ptr cfloat; lda: clonglong; B: ptr cfloat;
-                        ldb: clonglong; beta: ptr cfloat; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.
+                        ldb: clonglong; beta: ptr cfloat; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSsyr2k_v2_64", dynlib: libName.}
-proc cublasDsyr2k_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDsyr2k_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cdouble;
                      A: ptr cdouble; lda: cint; B: ptr cdouble; ldb: cint;
-                     beta: ptr cdouble; C: ptr cdouble; ldc: cint): cublasStatus_t {.
+                     beta: ptr cdouble; C: ptr cdouble; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDsyr2k_v2", dynlib: libName.}
-proc cublasDsyr2k_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDsyr2k_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                         trans: cublasOperation_t; n: clonglong; k: clonglong;
                         alpha: ptr cdouble; A: ptr cdouble; lda: clonglong;
                         B: ptr cdouble; ldb: clonglong; beta: ptr cdouble;
-                        C: ptr cdouble; ldc: clonglong): cublasStatus_t {.cdecl,
+                        C: ptr cdouble; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDsyr2k_v2_64", dynlib: libName.}
-proc cublasCsyr2k_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCsyr2k_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cuComplex;
                      A: ptr cuComplex; lda: cint; B: ptr cuComplex; ldb: cint;
-                     beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.
+                     beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCsyr2k_v2", dynlib: libName.}
-proc cublasCsyr2k_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCsyr2k_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                         trans: cublasOperation_t; n: clonglong; k: clonglong;
                         alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                         B: ptr cuComplex; ldb: clonglong; beta: ptr cuComplex;
-                        C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.cdecl,
+                        C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsyr2k_v2_64", dynlib: libName.}
-proc cublasZsyr2k_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZsyr2k_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: cint; k: cint;
                      alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                      B: ptr cuDoubleComplex; ldb: cint; beta: ptr cuDoubleComplex;
-                     C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                     C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZsyr2k_v2", dynlib: libName.}
-proc cublasZsyr2k_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZsyr2k_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                         trans: cublasOperation_t; n: clonglong; k: clonglong;
                         alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                         lda: clonglong; B: ptr cuDoubleComplex; ldb: clonglong;
                         beta: ptr cuDoubleComplex; C: ptr cuDoubleComplex;
-                        ldc: clonglong): cublasStatus_t {.cdecl,
+                        ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZsyr2k_v2_64", dynlib: libName.}
-proc cublasCher2k_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCher2k_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cuComplex;
                      A: ptr cuComplex; lda: cint; B: ptr cuComplex; ldb: cint;
-                     beta: ptr cfloat; C: ptr cuComplex; ldc: cint): cublasStatus_t {.
+                     beta: ptr cfloat; C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCher2k_v2", dynlib: libName.}
-proc cublasCher2k_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCher2k_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                         trans: cublasOperation_t; n: clonglong; k: clonglong;
                         alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                         B: ptr cuComplex; ldb: clonglong; beta: ptr cfloat;
-                        C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.cdecl,
+                        C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCher2k_v2_64", dynlib: libName.}
-proc cublasZher2k_v2*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZher2k_v2UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: cint; k: cint;
                      alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                      B: ptr cuDoubleComplex; ldb: cint; beta: ptr cdouble;
-                     C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                     C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZher2k_v2", dynlib: libName.}
-proc cublasZher2k_v2_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZher2k_v2_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                         trans: cublasOperation_t; n: clonglong; k: clonglong;
                         alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                         lda: clonglong; B: ptr cuDoubleComplex; ldb: clonglong;
-                        beta: ptr cdouble; C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.
+                        beta: ptr cdouble; C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZher2k_v2_64", dynlib: libName.}
 ##  SYRKX / HERKX
 
-proc cublasSsyrkx*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasSsyrkxUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                   trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cfloat;
                   A: ptr cfloat; lda: cint; B: ptr cfloat; ldb: cint; beta: ptr cfloat;
-                  C: ptr cfloat; ldc: cint): cublasStatus_t {.cdecl,
+                  C: ptr cfloat; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSsyrkx", dynlib: libName.}
-proc cublasSsyrkx_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasSsyrkx_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: clonglong; k: clonglong;
                      alpha: ptr cfloat; A: ptr cfloat; lda: clonglong; B: ptr cfloat;
-                     ldb: clonglong; beta: ptr cfloat; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.
+                     ldb: clonglong; beta: ptr cfloat; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSsyrkx_64", dynlib: libName.}
-proc cublasDsyrkx*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDsyrkxUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                   trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cdouble;
                   A: ptr cdouble; lda: cint; B: ptr cdouble; ldb: cint; beta: ptr cdouble;
-                  C: ptr cdouble; ldc: cint): cublasStatus_t {.cdecl,
+                  C: ptr cdouble; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDsyrkx", dynlib: libName.}
-proc cublasDsyrkx_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasDsyrkx_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: clonglong; k: clonglong;
                      alpha: ptr cdouble; A: ptr cdouble; lda: clonglong; B: ptr cdouble;
-                     ldb: clonglong; beta: ptr cdouble; C: ptr cdouble; ldc: clonglong): cublasStatus_t {.
+                     ldb: clonglong; beta: ptr cdouble; C: ptr cdouble; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDsyrkx_64", dynlib: libName.}
-proc cublasCsyrkx*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCsyrkxUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                   trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cuComplex;
                   A: ptr cuComplex; lda: cint; B: ptr cuComplex; ldb: cint;
-                  beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.
+                  beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCsyrkx", dynlib: libName.}
-proc cublasCsyrkx_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCsyrkx_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: clonglong; k: clonglong;
                      alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                      B: ptr cuComplex; ldb: clonglong; beta: ptr cuComplex;
-                     C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.cdecl,
+                     C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsyrkx_64", dynlib: libName.}
-proc cublasZsyrkx*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZsyrkxUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                   trans: cublasOperation_t; n: cint; k: cint;
                   alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                   B: ptr cuDoubleComplex; ldb: cint; beta: ptr cuDoubleComplex;
-                  C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                  C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZsyrkx", dynlib: libName.}
-proc cublasZsyrkx_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZsyrkx_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: clonglong; k: clonglong;
                      alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                      lda: clonglong; B: ptr cuDoubleComplex; ldb: clonglong;
-                     beta: ptr cuDoubleComplex; C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.
+                     beta: ptr cuDoubleComplex; C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZsyrkx_64", dynlib: libName.}
-proc cublasCherkx*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCherkxUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                   trans: cublasOperation_t; n: cint; k: cint; alpha: ptr cuComplex;
                   A: ptr cuComplex; lda: cint; B: ptr cuComplex; ldb: cint;
-                  beta: ptr cfloat; C: ptr cuComplex; ldc: cint): cublasStatus_t {.cdecl,
+                  beta: ptr cfloat; C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCherkx", dynlib: libName.}
-proc cublasCherkx_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasCherkx_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: clonglong; k: clonglong;
                      alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                      B: ptr cuComplex; ldb: clonglong; beta: ptr cfloat;
-                     C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.cdecl,
+                     C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCherkx_64", dynlib: libName.}
-proc cublasZherkx*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZherkxUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                   trans: cublasOperation_t; n: cint; k: cint;
                   alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                   B: ptr cuDoubleComplex; ldb: cint; beta: ptr cdouble;
-                  C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                  C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZherkx", dynlib: libName.}
-proc cublasZherkx_64*(handle: cublasHandle_t; uplo: cublasFillMode_t;
+proc cublasZherkx_64UnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t;
                      trans: cublasOperation_t; n: clonglong; k: clonglong;
                      alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                      lda: clonglong; B: ptr cuDoubleComplex; ldb: clonglong;
-                     beta: ptr cdouble; C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.
+                     beta: ptr cdouble; C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZherkx_64", dynlib: libName.}
 ##  SYMM
 
-proc cublasSsymm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasSsymm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; m: cint; n: cint; alpha: ptr cfloat;
                     A: ptr cfloat; lda: cint; B: ptr cfloat; ldb: cint; beta: ptr cfloat;
-                    C: ptr cfloat; ldc: cint): cublasStatus_t {.cdecl,
+                    C: ptr cfloat; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSsymm_v2", dynlib: libName.}
-proc cublasSsymm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasSsymm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; m: clonglong; n: clonglong;
                        alpha: ptr cfloat; A: ptr cfloat; lda: clonglong; B: ptr cfloat;
-                       ldb: clonglong; beta: ptr cfloat; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.
+                       ldb: clonglong; beta: ptr cfloat; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSsymm_v2_64", dynlib: libName.}
-proc cublasDsymm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasDsymm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; m: cint; n: cint; alpha: ptr cdouble;
                     A: ptr cdouble; lda: cint; B: ptr cdouble; ldb: cint;
-                    beta: ptr cdouble; C: ptr cdouble; ldc: cint): cublasStatus_t {.
+                    beta: ptr cdouble; C: ptr cdouble; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDsymm_v2", dynlib: libName.}
-proc cublasDsymm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasDsymm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; m: clonglong; n: clonglong;
                        alpha: ptr cdouble; A: ptr cdouble; lda: clonglong;
                        B: ptr cdouble; ldb: clonglong; beta: ptr cdouble;
-                       C: ptr cdouble; ldc: clonglong): cublasStatus_t {.cdecl,
+                       C: ptr cdouble; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDsymm_v2_64", dynlib: libName.}
-proc cublasCsymm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasCsymm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; m: cint; n: cint; alpha: ptr cuComplex;
                     A: ptr cuComplex; lda: cint; B: ptr cuComplex; ldb: cint;
-                    beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.
+                    beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCsymm_v2", dynlib: libName.}
-proc cublasCsymm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasCsymm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; m: clonglong; n: clonglong;
                        alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                        B: ptr cuComplex; ldb: clonglong; beta: ptr cuComplex;
-                       C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.cdecl,
+                       C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCsymm_v2_64", dynlib: libName.}
-proc cublasZsymm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasZsymm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; m: cint; n: cint;
                     alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                     B: ptr cuDoubleComplex; ldb: cint; beta: ptr cuDoubleComplex;
-                    C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                    C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZsymm_v2", dynlib: libName.}
-proc cublasZsymm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasZsymm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; m: clonglong; n: clonglong;
                        alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                        lda: clonglong; B: ptr cuDoubleComplex; ldb: clonglong;
                        beta: ptr cuDoubleComplex; C: ptr cuDoubleComplex;
-                       ldc: clonglong): cublasStatus_t {.cdecl,
+                       ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZsymm_v2_64", dynlib: libName.}
 ##  HEMM
 
-proc cublasChemm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasChemm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; m: cint; n: cint; alpha: ptr cuComplex;
                     A: ptr cuComplex; lda: cint; B: ptr cuComplex; ldb: cint;
-                    beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.
+                    beta: ptr cuComplex; C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasChemm_v2", dynlib: libName.}
-proc cublasChemm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasChemm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; m: clonglong; n: clonglong;
                        alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                        B: ptr cuComplex; ldb: clonglong; beta: ptr cuComplex;
-                       C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.cdecl,
+                       C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasChemm_v2_64", dynlib: libName.}
-proc cublasZhemm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasZhemm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; m: cint; n: cint;
                     alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                     B: ptr cuDoubleComplex; ldb: cint; beta: ptr cuDoubleComplex;
-                    C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                    C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhemm_v2", dynlib: libName.}
-proc cublasZhemm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasZhemm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; m: clonglong; n: clonglong;
                        alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                        lda: clonglong; B: ptr cuDoubleComplex; ldb: clonglong;
                        beta: ptr cuDoubleComplex; C: ptr cuDoubleComplex;
-                       ldc: clonglong): cublasStatus_t {.cdecl,
+                       ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZhemm_v2_64", dynlib: libName.}
 ##  TRSM
 
-proc cublasStrsm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasStrsm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; trans: cublasOperation_t;
                     diag: cublasDiagType_t; m: cint; n: cint; alpha: ptr cfloat;
-                    A: ptr cfloat; lda: cint; B: ptr cfloat; ldb: cint): cublasStatus_t {.
+                    A: ptr cfloat; lda: cint; B: ptr cfloat; ldb: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasStrsm_v2", dynlib: libName.}
-proc cublasStrsm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasStrsm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; trans: cublasOperation_t;
                        diag: cublasDiagType_t; m: clonglong; n: clonglong;
                        alpha: ptr cfloat; A: ptr cfloat; lda: clonglong; B: ptr cfloat;
-                       ldb: clonglong): cublasStatus_t {.cdecl,
+                       ldb: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasStrsm_v2_64", dynlib: libName.}
-proc cublasDtrsm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasDtrsm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; trans: cublasOperation_t;
                     diag: cublasDiagType_t; m: cint; n: cint; alpha: ptr cdouble;
-                    A: ptr cdouble; lda: cint; B: ptr cdouble; ldb: cint): cublasStatus_t {.
+                    A: ptr cdouble; lda: cint; B: ptr cdouble; ldb: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDtrsm_v2", dynlib: libName.}
-proc cublasDtrsm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasDtrsm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; trans: cublasOperation_t;
                        diag: cublasDiagType_t; m: clonglong; n: clonglong;
                        alpha: ptr cdouble; A: ptr cdouble; lda: clonglong;
-                       B: ptr cdouble; ldb: clonglong): cublasStatus_t {.cdecl,
+                       B: ptr cdouble; ldb: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDtrsm_v2_64", dynlib: libName.}
-proc cublasCtrsm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasCtrsm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; trans: cublasOperation_t;
                     diag: cublasDiagType_t; m: cint; n: cint; alpha: ptr cuComplex;
-                    A: ptr cuComplex; lda: cint; B: ptr cuComplex; ldb: cint): cublasStatus_t {.
+                    A: ptr cuComplex; lda: cint; B: ptr cuComplex; ldb: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCtrsm_v2", dynlib: libName.}
-proc cublasCtrsm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasCtrsm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; trans: cublasOperation_t;
                        diag: cublasDiagType_t; m: clonglong; n: clonglong;
                        alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
-                       B: ptr cuComplex; ldb: clonglong): cublasStatus_t {.cdecl,
+                       B: ptr cuComplex; ldb: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCtrsm_v2_64", dynlib: libName.}
-proc cublasZtrsm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasZtrsm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; trans: cublasOperation_t;
                     diag: cublasDiagType_t; m: cint; n: cint;
                     alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
-                    B: ptr cuDoubleComplex; ldb: cint): cublasStatus_t {.cdecl,
+                    B: ptr cuDoubleComplex; ldb: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZtrsm_v2", dynlib: libName.}
-proc cublasZtrsm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasZtrsm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; trans: cublasOperation_t;
                        diag: cublasDiagType_t; m: clonglong; n: clonglong;
                        alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
-                       lda: clonglong; B: ptr cuDoubleComplex; ldb: clonglong): cublasStatus_t {.
+                       lda: clonglong; B: ptr cuDoubleComplex; ldb: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtrsm_v2_64", dynlib: libName.}
 ##  TRMM
 
-proc cublasStrmm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasStrmm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; trans: cublasOperation_t;
                     diag: cublasDiagType_t; m: cint; n: cint; alpha: ptr cfloat;
                     A: ptr cfloat; lda: cint; B: ptr cfloat; ldb: cint; C: ptr cfloat;
-                    ldc: cint): cublasStatus_t {.cdecl, importc: "cublasStrmm_v2",
+                    ldc: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasStrmm_v2",
     dynlib: libName.}
-proc cublasStrmm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasStrmm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; trans: cublasOperation_t;
                        diag: cublasDiagType_t; m: clonglong; n: clonglong;
                        alpha: ptr cfloat; A: ptr cfloat; lda: clonglong; B: ptr cfloat;
-                       ldb: clonglong; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.
+                       ldb: clonglong; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasStrmm_v2_64", dynlib: libName.}
-proc cublasDtrmm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasDtrmm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; trans: cublasOperation_t;
                     diag: cublasDiagType_t; m: cint; n: cint; alpha: ptr cdouble;
                     A: ptr cdouble; lda: cint; B: ptr cdouble; ldb: cint; C: ptr cdouble;
-                    ldc: cint): cublasStatus_t {.cdecl, importc: "cublasDtrmm_v2",
+                    ldc: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasDtrmm_v2",
     dynlib: libName.}
-proc cublasDtrmm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasDtrmm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; trans: cublasOperation_t;
                        diag: cublasDiagType_t; m: clonglong; n: clonglong;
                        alpha: ptr cdouble; A: ptr cdouble; lda: clonglong;
-                       B: ptr cdouble; ldb: clonglong; C: ptr cdouble; ldc: clonglong): cublasStatus_t {.
+                       B: ptr cdouble; ldb: clonglong; C: ptr cdouble; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDtrmm_v2_64", dynlib: libName.}
-proc cublasCtrmm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasCtrmm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; trans: cublasOperation_t;
                     diag: cublasDiagType_t; m: cint; n: cint; alpha: ptr cuComplex;
                     A: ptr cuComplex; lda: cint; B: ptr cuComplex; ldb: cint;
-                    C: ptr cuComplex; ldc: cint): cublasStatus_t {.cdecl,
+                    C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCtrmm_v2", dynlib: libName.}
-proc cublasCtrmm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasCtrmm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; trans: cublasOperation_t;
                        diag: cublasDiagType_t; m: clonglong; n: clonglong;
                        alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                        B: ptr cuComplex; ldb: clonglong; C: ptr cuComplex;
-                       ldc: clonglong): cublasStatus_t {.cdecl,
+                       ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCtrmm_v2_64", dynlib: libName.}
-proc cublasZtrmm_v2*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasZtrmm_v2UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                     uplo: cublasFillMode_t; trans: cublasOperation_t;
                     diag: cublasDiagType_t; m: cint; n: cint;
                     alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
-                    B: ptr cuDoubleComplex; ldb: cint; C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.
+                    B: ptr cuDoubleComplex; ldb: cint; C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtrmm_v2", dynlib: libName.}
-proc cublasZtrmm_v2_64*(handle: cublasHandle_t; side: cublasSideMode_t;
+proc cublasZtrmm_v2_64UnderScore*(handle: cublasHandle_t; side: cublasSideMode_t;
                        uplo: cublasFillMode_t; trans: cublasOperation_t;
                        diag: cublasDiagType_t; m: clonglong; n: clonglong;
                        alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                        lda: clonglong; B: ptr cuDoubleComplex; ldb: clonglong;
-                       C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.
+                       C: ptr cuDoubleComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtrmm_v2_64", dynlib: libName.}
 ##  BATCH GEMM
 
@@ -2152,47 +2152,47 @@ proc cublasZgemmBatched_64*(handle: cublasHandle_t; transa: cublasOperation_t;
                            Carray: ptr ptr cuDoubleComplex; ldc: clonglong;
                            batchCount: clonglong): cublasStatus_t {.cdecl,
     importc: "cublasZgemmBatched_64", dynlib: libName.}
-proc cublasSgemmStridedBatched*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasSgemmStridedBatchedUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                                transb: cublasOperation_t; m: cint; n: cint; k: cint;
                                alpha: ptr cfloat; A: ptr cfloat; lda: cint;
                                strideA: clonglong; B: ptr cfloat; ldb: cint;
                                strideB: clonglong; beta: ptr cfloat; C: ptr cfloat;
-                               ldc: cint; strideC: clonglong; batchCount: cint): cublasStatus_t {.
+                               ldc: cint; strideC: clonglong; batchCount: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSgemmStridedBatched", dynlib: libName.}
-proc cublasSgemmStridedBatched_64*(handle: cublasHandle_t;
+proc cublasSgemmStridedBatched_64UnderScore*(handle: cublasHandle_t;
                                   transa: cublasOperation_t;
                                   transb: cublasOperation_t; m: clonglong;
                                   n: clonglong; k: clonglong; alpha: ptr cfloat;
                                   A: ptr cfloat; lda: clonglong; strideA: clonglong;
                                   B: ptr cfloat; ldb: clonglong; strideB: clonglong;
                                   beta: ptr cfloat; C: ptr cfloat; ldc: clonglong;
-                                  strideC: clonglong; batchCount: clonglong): cublasStatus_t {.
+                                  strideC: clonglong; batchCount: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSgemmStridedBatched_64", dynlib: libName.}
-proc cublasDgemmStridedBatched*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasDgemmStridedBatchedUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                                transb: cublasOperation_t; m: cint; n: cint; k: cint;
                                alpha: ptr cdouble; A: ptr cdouble; lda: cint;
                                strideA: clonglong; B: ptr cdouble; ldb: cint;
                                strideB: clonglong; beta: ptr cdouble; C: ptr cdouble;
-                               ldc: cint; strideC: clonglong; batchCount: cint): cublasStatus_t {.
+                               ldc: cint; strideC: clonglong; batchCount: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDgemmStridedBatched", dynlib: libName.}
-proc cublasDgemmStridedBatched_64*(handle: cublasHandle_t;
+proc cublasDgemmStridedBatched_64UnderScore*(handle: cublasHandle_t;
                                   transa: cublasOperation_t;
                                   transb: cublasOperation_t; m: clonglong;
                                   n: clonglong; k: clonglong; alpha: ptr cdouble;
                                   A: ptr cdouble; lda: clonglong; strideA: clonglong;
                                   B: ptr cdouble; ldb: clonglong; strideB: clonglong;
                                   beta: ptr cdouble; C: ptr cdouble; ldc: clonglong;
-                                  strideC: clonglong; batchCount: clonglong): cublasStatus_t {.
+                                  strideC: clonglong; batchCount: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDgemmStridedBatched_64", dynlib: libName.}
-proc cublasCgemmStridedBatched*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgemmStridedBatchedUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                                transb: cublasOperation_t; m: cint; n: cint; k: cint;
                                alpha: ptr cuComplex; A: ptr cuComplex; lda: cint;
                                strideA: clonglong; B: ptr cuComplex; ldb: cint;
                                strideB: clonglong; beta: ptr cuComplex;
                                C: ptr cuComplex; ldc: cint; strideC: clonglong;
-                               batchCount: cint): cublasStatus_t {.cdecl,
+                               batchCount: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgemmStridedBatched", dynlib: libName.}
-proc cublasCgemmStridedBatched_64*(handle: cublasHandle_t;
+proc cublasCgemmStridedBatched_64UnderScore*(handle: cublasHandle_t;
                                   transa: cublasOperation_t;
                                   transb: cublasOperation_t; m: clonglong;
                                   n: clonglong; k: clonglong; alpha: ptr cuComplex;
@@ -2201,18 +2201,18 @@ proc cublasCgemmStridedBatched_64*(handle: cublasHandle_t;
                                   ldb: clonglong; strideB: clonglong;
                                   beta: ptr cuComplex; C: ptr cuComplex;
                                   ldc: clonglong; strideC: clonglong;
-                                  batchCount: clonglong): cublasStatus_t {.cdecl,
+                                  batchCount: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgemmStridedBatched_64", dynlib: libName.}
-proc cublasCgemm3mStridedBatched*(handle: cublasHandle_t;
+proc cublasCgemm3mStridedBatchedUnderScore*(handle: cublasHandle_t;
                                  transa: cublasOperation_t;
                                  transb: cublasOperation_t; m: cint; n: cint; k: cint;
                                  alpha: ptr cuComplex; A: ptr cuComplex; lda: cint;
                                  strideA: clonglong; B: ptr cuComplex; ldb: cint;
                                  strideB: clonglong; beta: ptr cuComplex;
                                  C: ptr cuComplex; ldc: cint; strideC: clonglong;
-                                 batchCount: cint): cublasStatus_t {.cdecl,
+                                 batchCount: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgemm3mStridedBatched", dynlib: libName.}
-proc cublasCgemm3mStridedBatched_64*(handle: cublasHandle_t;
+proc cublasCgemm3mStridedBatched_64UnderScore*(handle: cublasHandle_t;
                                     transa: cublasOperation_t;
                                     transb: cublasOperation_t; m: clonglong;
                                     n: clonglong; k: clonglong;
@@ -2221,17 +2221,17 @@ proc cublasCgemm3mStridedBatched_64*(handle: cublasHandle_t;
                                     B: ptr cuComplex; ldb: clonglong;
                                     strideB: clonglong; beta: ptr cuComplex;
                                     C: ptr cuComplex; ldc: clonglong;
-                                    strideC: clonglong; batchCount: clonglong): cublasStatus_t {.
+                                    strideC: clonglong; batchCount: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCgemm3mStridedBatched_64", dynlib: libName.}
-proc cublasZgemmStridedBatched*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasZgemmStridedBatchedUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                                transb: cublasOperation_t; m: cint; n: cint; k: cint;
                                alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                                lda: cint; strideA: clonglong;
                                B: ptr cuDoubleComplex; ldb: cint; strideB: clonglong;
                                beta: ptr cuDoubleComplex; C: ptr cuDoubleComplex;
-                               ldc: cint; strideC: clonglong; batchCount: cint): cublasStatus_t {.
+                               ldc: cint; strideC: clonglong; batchCount: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZgemmStridedBatched", dynlib: libName.}
-proc cublasZgemmStridedBatched_64*(handle: cublasHandle_t;
+proc cublasZgemmStridedBatched_64UnderScore*(handle: cublasHandle_t;
                                   transa: cublasOperation_t;
                                   transb: cublasOperation_t; m: clonglong;
                                   n: clonglong; k: clonglong;
@@ -2241,17 +2241,17 @@ proc cublasZgemmStridedBatched_64*(handle: cublasHandle_t;
                                   ldb: clonglong; strideB: clonglong;
                                   beta: ptr cuDoubleComplex;
                                   C: ptr cuDoubleComplex; ldc: clonglong;
-                                  strideC: clonglong; batchCount: clonglong): cublasStatus_t {.
+                                  strideC: clonglong; batchCount: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZgemmStridedBatched_64", dynlib: libName.}
-proc cublasGemmBatchedEx*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasGemmBatchedExUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                          transb: cublasOperation_t; m: cint; n: cint; k: cint;
                          alpha: pointer; Aarray: ptr pointer; Atype: cudaDataType;
                          lda: cint; Barray: ptr pointer; Btype: cudaDataType;
                          ldb: cint; beta: pointer; Carray: ptr pointer;
                          Ctype: cudaDataType; ldc: cint; batchCount: cint;
-                         computeType: cublasComputeType_t; algo: cublasGemmAlgo_t): cublasStatus_t {.
+                         computeType: cublasComputeType_t; algo: cublasGemmAlgo_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGemmBatchedEx", dynlib: libName.}
-proc cublasGemmBatchedEx_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasGemmBatchedEx_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                             transb: cublasOperation_t; m: clonglong; n: clonglong;
                             k: clonglong; alpha: pointer; Aarray: ptr pointer;
                             Atype: cudaDataType; lda: clonglong;
@@ -2259,9 +2259,9 @@ proc cublasGemmBatchedEx_64*(handle: cublasHandle_t; transa: cublasOperation_t;
                             beta: pointer; Carray: ptr pointer; Ctype: cudaDataType;
                             ldc: clonglong; batchCount: clonglong;
                             computeType: cublasComputeType_t;
-                            algo: cublasGemmAlgo_t): cublasStatus_t {.cdecl,
+                            algo: cublasGemmAlgo_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasGemmBatchedEx_64", dynlib: libName.}
-proc cublasGemmStridedBatchedEx*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasGemmStridedBatchedExUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                                 transb: cublasOperation_t; m: cint; n: cint; k: cint;
                                 alpha: pointer; A: pointer; Atype: cudaDataType;
                                 lda: cint; strideA: clonglong; B: pointer;
@@ -2269,9 +2269,9 @@ proc cublasGemmStridedBatchedEx*(handle: cublasHandle_t; transa: cublasOperation
                                 beta: pointer; C: pointer; Ctype: cudaDataType;
                                 ldc: cint; strideC: clonglong; batchCount: cint;
                                 computeType: cublasComputeType_t;
-                                algo: cublasGemmAlgo_t): cublasStatus_t {.cdecl,
+                                algo: cublasGemmAlgo_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasGemmStridedBatchedEx", dynlib: libName.}
-proc cublasGemmStridedBatchedEx_64*(handle: cublasHandle_t;
+proc cublasGemmStridedBatchedEx_64UnderScore*(handle: cublasHandle_t;
                                    transa: cublasOperation_t;
                                    transb: cublasOperation_t; m: clonglong;
                                    n: clonglong; k: clonglong; alpha: pointer;
@@ -2282,7 +2282,7 @@ proc cublasGemmStridedBatchedEx_64*(handle: cublasHandle_t;
                                    Ctype: cudaDataType; ldc: clonglong;
                                    strideC: clonglong; batchCount: clonglong;
                                    computeType: cublasComputeType_t;
-                                   algo: cublasGemmAlgo_t): cublasStatus_t {.cdecl,
+                                   algo: cublasGemmAlgo_t): cublasStatus_t {.discardable, cdecl,
     importc: "cublasGemmStridedBatchedEx_64", dynlib: libName.}
 proc cublasSgemmGroupedBatched*(handle: cublasHandle_t;
                                transa_array: ptr cublasOperation_t;
@@ -2328,7 +2328,7 @@ proc cublasDgemmGroupedBatched_64*(handle: cublasHandle_t;
                                   ldc_array: ptr clonglong; group_count: clonglong;
                                   group_size: ptr clonglong): cublasStatus_t {.
     cdecl, importc: "cublasDgemmGroupedBatched_64", dynlib: libName.}
-proc cublasGemmGroupedBatchedEx*(handle: cublasHandle_t;
+proc cublasGemmGroupedBatchedExUnderScore*(handle: cublasHandle_t;
                                 transa_array: ptr cublasOperation_t;
                                 transb_array: ptr cublasOperation_t;
                                 m_array: ptr cint; n_array: ptr cint;
@@ -2339,9 +2339,9 @@ proc cublasGemmGroupedBatchedEx*(handle: cublasHandle_t;
                                 beta_array: pointer; Carray: ptr pointer;
                                 Ctype: cudaDataType_t; ldc_array: ptr cint;
                                 group_count: cint; group_size: ptr cint;
-                                computeType: cublasComputeType_t): cublasStatus_t {.
+                                computeType: cublasComputeType_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGemmGroupedBatchedEx", dynlib: libName.}
-proc cublasGemmGroupedBatchedEx_64*(handle: cublasHandle_t;
+proc cublasGemmGroupedBatchedEx_64UnderScore*(handle: cublasHandle_t;
                                    transa_array: ptr cublasOperation_t;
                                    transb_array: ptr cublasOperation_t;
                                    m_array: ptr clonglong; n_array: ptr clonglong;
@@ -2354,55 +2354,55 @@ proc cublasGemmGroupedBatchedEx_64*(handle: cublasHandle_t;
                                    ldc_array: ptr clonglong;
                                    group_count: clonglong;
                                    group_size: ptr clonglong;
-                                   computeType: cublasComputeType_t): cublasStatus_t {.
+                                   computeType: cublasComputeType_t): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasGemmGroupedBatchedEx_64", dynlib: libName.}
 ##  ---------------- CUBLAS BLAS-like Extension ----------------
 ##  GEAM
 
-proc cublasSgeam*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasSgeamUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                  transb: cublasOperation_t; m: cint; n: cint; alpha: ptr cfloat;
                  A: ptr cfloat; lda: cint; beta: ptr cfloat; B: ptr cfloat; ldb: cint;
-                 C: ptr cfloat; ldc: cint): cublasStatus_t {.cdecl,
+                 C: ptr cfloat; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasSgeam", dynlib: libName.}
-proc cublasSgeam_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasSgeam_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                     transb: cublasOperation_t; m: clonglong; n: clonglong;
                     alpha: ptr cfloat; A: ptr cfloat; lda: clonglong; beta: ptr cfloat;
-                    B: ptr cfloat; ldb: clonglong; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.
+                    B: ptr cfloat; ldb: clonglong; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSgeam_64", dynlib: libName.}
-proc cublasDgeam*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasDgeamUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                  transb: cublasOperation_t; m: cint; n: cint; alpha: ptr cdouble;
                  A: ptr cdouble; lda: cint; beta: ptr cdouble; B: ptr cdouble; ldb: cint;
-                 C: ptr cdouble; ldc: cint): cublasStatus_t {.cdecl,
+                 C: ptr cdouble; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDgeam", dynlib: libName.}
-proc cublasDgeam_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasDgeam_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                     transb: cublasOperation_t; m: clonglong; n: clonglong;
                     alpha: ptr cdouble; A: ptr cdouble; lda: clonglong;
                     beta: ptr cdouble; B: ptr cdouble; ldb: clonglong; C: ptr cdouble;
-                    ldc: clonglong): cublasStatus_t {.cdecl,
+                    ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDgeam_64", dynlib: libName.}
-proc cublasCgeam*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgeamUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                  transb: cublasOperation_t; m: cint; n: cint; alpha: ptr cuComplex;
                  A: ptr cuComplex; lda: cint; beta: ptr cuComplex; B: ptr cuComplex;
-                 ldb: cint; C: ptr cuComplex; ldc: cint): cublasStatus_t {.cdecl,
+                 ldb: cint; C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgeam", dynlib: libName.}
-proc cublasCgeam_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasCgeam_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                     transb: cublasOperation_t; m: clonglong; n: clonglong;
                     alpha: ptr cuComplex; A: ptr cuComplex; lda: clonglong;
                     beta: ptr cuComplex; B: ptr cuComplex; ldb: clonglong;
-                    C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.cdecl,
+                    C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCgeam_64", dynlib: libName.}
-proc cublasZgeam*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasZgeamUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                  transb: cublasOperation_t; m: cint; n: cint;
                  alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint;
                  beta: ptr cuDoubleComplex; B: ptr cuDoubleComplex; ldb: cint;
-                 C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                 C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZgeam", dynlib: libName.}
-proc cublasZgeam_64*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasZgeam_64UnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                     transb: cublasOperation_t; m: clonglong; n: clonglong;
                     alpha: ptr cuDoubleComplex; A: ptr cuDoubleComplex;
                     lda: clonglong; beta: ptr cuDoubleComplex;
                     B: ptr cuDoubleComplex; ldb: clonglong; C: ptr cuDoubleComplex;
-                    ldc: clonglong): cublasStatus_t {.cdecl,
+                    ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZgeam_64", dynlib: libName.}
 ##  TRSM - Batched Triangular Solver
 
@@ -2458,38 +2458,38 @@ proc cublasZtrsmBatched_64*(handle: cublasHandle_t; side: cublasSideMode_t;
     importc: "cublasZtrsmBatched_64", dynlib: libName.}
 ##  DGMM
 
-proc cublasSdgmm*(handle: cublasHandle_t; mode: cublasSideMode_t; m: cint; n: cint;
+proc cublasSdgmmUnderScore*(handle: cublasHandle_t; mode: cublasSideMode_t; m: cint; n: cint;
                  A: ptr cfloat; lda: cint; x: ptr cfloat; incx: cint; C: ptr cfloat;
-                 ldc: cint): cublasStatus_t {.cdecl, importc: "cublasSdgmm",
+                 ldc: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasSdgmm",
     dynlib: libName.}
-proc cublasSdgmm_64*(handle: cublasHandle_t; mode: cublasSideMode_t; m: clonglong;
+proc cublasSdgmm_64UnderScore*(handle: cublasHandle_t; mode: cublasSideMode_t; m: clonglong;
                     n: clonglong; A: ptr cfloat; lda: clonglong; x: ptr cfloat;
-                    incx: clonglong; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.
+                    incx: clonglong; C: ptr cfloat; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasSdgmm_64", dynlib: libName.}
-proc cublasDdgmm*(handle: cublasHandle_t; mode: cublasSideMode_t; m: cint; n: cint;
+proc cublasDdgmmUnderScore*(handle: cublasHandle_t; mode: cublasSideMode_t; m: cint; n: cint;
                  A: ptr cdouble; lda: cint; x: ptr cdouble; incx: cint; C: ptr cdouble;
-                 ldc: cint): cublasStatus_t {.cdecl, importc: "cublasDdgmm",
+                 ldc: cint): cublasStatus_t {.discardable, cdecl, importc: "cublasDdgmm",
     dynlib: libName.}
-proc cublasDdgmm_64*(handle: cublasHandle_t; mode: cublasSideMode_t; m: clonglong;
+proc cublasDdgmm_64UnderScore*(handle: cublasHandle_t; mode: cublasSideMode_t; m: clonglong;
                     n: clonglong; A: ptr cdouble; lda: clonglong; x: ptr cdouble;
-                    incx: clonglong; C: ptr cdouble; ldc: clonglong): cublasStatus_t {.
+                    incx: clonglong; C: ptr cdouble; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasDdgmm_64", dynlib: libName.}
-proc cublasCdgmm*(handle: cublasHandle_t; mode: cublasSideMode_t; m: cint; n: cint;
+proc cublasCdgmmUnderScore*(handle: cublasHandle_t; mode: cublasSideMode_t; m: cint; n: cint;
                  A: ptr cuComplex; lda: cint; x: ptr cuComplex; incx: cint;
-                 C: ptr cuComplex; ldc: cint): cublasStatus_t {.cdecl,
+                 C: ptr cuComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasCdgmm", dynlib: libName.}
-proc cublasCdgmm_64*(handle: cublasHandle_t; mode: cublasSideMode_t; m: clonglong;
+proc cublasCdgmm_64UnderScore*(handle: cublasHandle_t; mode: cublasSideMode_t; m: clonglong;
                     n: clonglong; A: ptr cuComplex; lda: clonglong; x: ptr cuComplex;
-                    incx: clonglong; C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.
+                    incx: clonglong; C: ptr cuComplex; ldc: clonglong): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCdgmm_64", dynlib: libName.}
-proc cublasZdgmm*(handle: cublasHandle_t; mode: cublasSideMode_t; m: cint; n: cint;
+proc cublasZdgmmUnderScore*(handle: cublasHandle_t; mode: cublasSideMode_t; m: cint; n: cint;
                  A: ptr cuDoubleComplex; lda: cint; x: ptr cuDoubleComplex; incx: cint;
-                 C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.cdecl,
+                 C: ptr cuDoubleComplex; ldc: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZdgmm", dynlib: libName.}
-proc cublasZdgmm_64*(handle: cublasHandle_t; mode: cublasSideMode_t; m: clonglong;
+proc cublasZdgmm_64UnderScore*(handle: cublasHandle_t; mode: cublasSideMode_t; m: clonglong;
                     n: clonglong; A: ptr cuDoubleComplex; lda: clonglong;
                     x: ptr cuDoubleComplex; incx: clonglong; C: ptr cuDoubleComplex;
-                    ldc: clonglong): cublasStatus_t {.cdecl,
+                    ldc: clonglong): cublasStatus_t {.discardable, cdecl,
     importc: "cublasZdgmm_64", dynlib: libName.}
 ##  Batched - MATINV
 
@@ -2553,31 +2553,31 @@ proc cublasZgelsBatched*(handle: cublasHandle_t; trans: cublasOperation_t; m: ci
     cdecl, importc: "cublasZgelsBatched", dynlib: libName.}
 ##  TPTTR : Triangular Pack format to Triangular format
 
-proc cublasStpttr*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                  AP: ptr cfloat; A: ptr cfloat; lda: cint): cublasStatus_t {.cdecl,
+proc cublasStpttrUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                  AP: ptr cfloat; A: ptr cfloat; lda: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasStpttr", dynlib: libName.}
-proc cublasDtpttr*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                  AP: ptr cdouble; A: ptr cdouble; lda: cint): cublasStatus_t {.cdecl,
+proc cublasDtpttrUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                  AP: ptr cdouble; A: ptr cdouble; lda: cint): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDtpttr", dynlib: libName.}
-proc cublasCtpttr*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                  AP: ptr cuComplex; A: ptr cuComplex; lda: cint): cublasStatus_t {.
+proc cublasCtpttrUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                  AP: ptr cuComplex; A: ptr cuComplex; lda: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCtpttr", dynlib: libName.}
-proc cublasZtpttr*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                  AP: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint): cublasStatus_t {.
+proc cublasZtpttrUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                  AP: ptr cuDoubleComplex; A: ptr cuDoubleComplex; lda: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtpttr", dynlib: libName.}
 ##  TRTTP : Triangular format to Triangular Pack format
 
-proc cublasStrttp*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                  A: ptr cfloat; lda: cint; AP: ptr cfloat): cublasStatus_t {.cdecl,
+proc cublasStrttpUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                  A: ptr cfloat; lda: cint; AP: ptr cfloat): cublasStatus_t {.discardable, cdecl,
     importc: "cublasStrttp", dynlib: libName.}
-proc cublasDtrttp*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                  A: ptr cdouble; lda: cint; AP: ptr cdouble): cublasStatus_t {.cdecl,
+proc cublasDtrttpUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                  A: ptr cdouble; lda: cint; AP: ptr cdouble): cublasStatus_t {.discardable, cdecl,
     importc: "cublasDtrttp", dynlib: libName.}
-proc cublasCtrttp*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                  A: ptr cuComplex; lda: cint; AP: ptr cuComplex): cublasStatus_t {.
+proc cublasCtrttpUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                  A: ptr cuComplex; lda: cint; AP: ptr cuComplex): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasCtrttp", dynlib: libName.}
-proc cublasZtrttp*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
-                  A: ptr cuDoubleComplex; lda: cint; AP: ptr cuDoubleComplex): cublasStatus_t {.
+proc cublasZtrttpUnderScore*(handle: cublasHandle_t; uplo: cublasFillMode_t; n: cint;
+                  A: ptr cuDoubleComplex; lda: cint; AP: ptr cuDoubleComplex): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasZtrttp", dynlib: libName.}
 ##  Batched LU - GETRF
 
@@ -2637,10 +2637,10 @@ proc cublasZgetrsBatched*(handle: cublasHandle_t; trans: cublasOperation_t; n: c
     importc: "cublasZgetrsBatched", dynlib: libName.}
 ##  Deprecated
 
-proc cublasUint8gemmBias*(handle: cublasHandle_t; transa: cublasOperation_t;
+proc cublasUint8gemmBiasUnderScore*(handle: cublasHandle_t; transa: cublasOperation_t;
                          transb: cublasOperation_t; transc: cublasOperation_t;
                          m: cint; n: cint; k: cint; A: ptr char; A_bias: cint; lda: cint;
                          B: ptr char; B_bias: cint; ldb: cint; C: ptr char;
-                         C_bias: cint; ldc: cint; C_mult: cint; C_shift: cint): cublasStatus_t {.
+                         C_bias: cint; ldc: cint; C_mult: cint; C_shift: cint): cublasStatus_t {.discardable, 
     cdecl, importc: "cublasUint8gemmBias", dynlib: libName.}
 ##  }}} cuBLAS Exported API
