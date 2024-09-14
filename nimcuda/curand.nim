@@ -1,5 +1,3 @@
-##  #assumedef __CUDACC_RTC__
-
 when defined(windows):
   const
     libName = "curand.dll"
@@ -9,19 +7,14 @@ elif defined(macosx):
 else:
   const
     libName = "libcurand.so"
-##  #private curandDistributionShift_st
-##  #private curandDistributionM2Shift_st
-##  #private curandHistogramM2_st
-##  #private curandDiscreteDistribution_st
-
 type
-  curandDistributionShift_st* {.bycopy.} = object
+  curandDistributionShift_st {.bycopy.} = object
 
-  curandDistributionM2Shift_st* {.bycopy.} = object
+  curandDistributionM2Shift_st {.bycopy.} = object
 
-  curandHistogramM2_st* {.bycopy.} = object
+  curandHistogramM2_st {.bycopy.} = object
 
-  curandDiscreteDistribution_st* {.bycopy.} = object
+  curandDiscreteDistribution_st {.bycopy.} = object
 
 
 import

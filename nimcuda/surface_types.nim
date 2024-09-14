@@ -53,9 +53,6 @@
 ##                                                                               *
 ## *****************************************************************************
 
-import
-  driver_types
-
 when not defined(CUDACC_RTC_MINIMAL):
   ##
   ##  \addtogroup CUDART_TYPES

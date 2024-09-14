@@ -12,8 +12,23 @@ import
 func mangleDefines(code: sink string): string =
   ## C2nim struggles with mangling code that looks like this:
   ## `defined(__MY_CONST__)`. This proc mangles it to normal Nim style.
-  result = code.replacef(peg"'defined(__' { (!('__' / [)]) .)+ } '__'? [)]",
+  let pegAst = peg"""definedExpr <- 'defined(' \s* middle \s* endOfDefined
+
+    middle <- leading / trailing
+
+    leading <- '_'+ identifer '_'*
+    trailing <- '_'* identifer '_'+
+
+    identifer <- { ( !(endOfIdentifier / endOfDefined) .)+ }
+
+    endOfIdentifier <- '_'+ !(\a / \d)
+    endOfDefined <- ')'
+    """
+
+  result = code.replacef(pegAst,
                          "defined($1)")
+  # result = code.replacef(peg"'defined(__' { (!('__' / [)]) .)+ } '__'? [)]",
+  #                        "defined($1)")
 
 func handleForwardDecls(code: sink string): string =
   ## C2nim handles forward declarations by outputing the following:
@@ -29,28 +44,41 @@ func removeUnusedVariableSilencing(code: sink string): string =
   result = code.replacef(matcher, "$1discard $2$3")
 
 
-proc makeProcsDiscardable(code: sink string): string =
+func fixTrailingUnderscoreProcName(name: string): string =
+  let nameNoTrailing = name.strip(chars={'_'}, leading=false, trailing=true)
+  result = fmt"{nameNoTrailing}UnderScore"
+
+
+proc fixProcsDecls(code: sink string): string =
   ## This proc makes some procs discardable that should be.
   ## Currently this is any proc returning an error code.
+  ## It also fixes trailing underscores in the name.
 
   let procDecls = peg"""procDecls <- (@procDecl)*
-    procDecl <- 'proc ' procName '*(' \s* argDecls '):' \s+ returnType \s+ pragmas? \s* '='
+    procDecl <- 'proc ' procName '*(' \s* argDecls ')' (':' \s+ returnType)? (\s+ pragmas)? (\s+ '=')? @\n
     procName <- \ident
     notLastProcArg <- procArgName ': ' procArgType ';'
     lastProcArg <- procArgName ': ' procArgType !';'
     argDecls <- (notLastProcArg \s*)* lastProcArg
     returnType <- \ident
     pragmas <- '{.' \s* (notLastPragma \s+)* lastPragma \s* '.}'
-    notLastPragma <- pragmaName ','
-    lastPragma <- pragmaName !','
+    notLastPragma <- singlePragma ','
+    lastPragma <- singlePragma !','
 
+
+    singlePragma <- pragmaName (':' \s+ ["] \ident ["])?
     pragmaName <- \ident
 
     procArgName <- \ident
     procArgType <- 'ptr '? \ident
     """
 
-  var procsThatShouldBeDiscardable: seq[tuple[start, length: int]] = @[]
+  type ProcToReplace = object
+    startF, lengthF: int # template confusion later on requires the 'F'.
+    oldName, newName: string
+    makeDiscardable: bool
+
+  var needsChanged: seq[ProcToReplace] = @[]
 
   const DiscardableReturnTypes = ["CudaOccError"]
 
@@ -77,7 +105,6 @@ proc makeProcsDiscardable(code: sink string): string =
           of "procName":
             context.currentProc = thisMatch()
 
-
           of "returnType":
             let returnType = thisMatch()
             for discardableType in DiscardableReturnTypes:
@@ -92,8 +119,12 @@ proc makeProcsDiscardable(code: sink string): string =
 
           of "procDecl":
             # Success parsing a proc declaration.
-            if context.shouldBeDiscardable:
-              procsThatShouldBeDiscardable.add (start, length)
+            if context.shouldBeDiscardable or context.currentProc.endsWith('_'):
+              let found = ProcToReplace(startF: start, lengthF: length,
+                newName: context.currentProc.fixTrailingUnderscoreProcName,
+                oldName: context.currentProc,
+                makeDiscardable: context.shouldBeDiscardable)
+              needsChanged.add found
 
             reset context
 
@@ -125,13 +156,20 @@ proc makeProcsDiscardable(code: sink string): string =
       result = fmt"{decl[0..^2]} {{.discardable.}} ="
 
   let replacePairs = collect:
-    for (start, length) in procsThatShouldBeDiscardable:
+    for procedure in needsChanged:
+
       template thisMatch(): string =
-        code[start .. start + length - 1]
-      let
-        original = thisMatch()
-        discardable = original.makeDiscardable
-      (original, discardable)
+        code[procedure.startF .. procedure.startF + procedure.lengthF - 1]
+
+      let original = thisMatch()
+      var modified = original
+
+      if procedure.makeDiscardable:
+        modified = modified.makeDiscardable
+      if procedure.newName != procedure.oldName:
+        modified = modified.replace(fmt"proc {procedure.oldName}",
+                                    fmt"proc {procedure.newName}")
+      (original, modified)
 
   result = code.multiReplace(replacePairs)
 
@@ -159,7 +197,7 @@ func escapeKeyWords(code: sink string): string =
 
 proc postprocess*(code: sink string): string =
   result = code.mangleDefines.doSimpleSwaps.handleForwardDecls.
-                makeProcsDiscardable.escapeKeyWords.
+                fixProcsDecls.escapeKeyWords.
                 removeUnusedVariableSilencing()
 
 

@@ -1,5 +1,5 @@
 #ifdef C2NIM
-  #mangle CUSOLVERRF_H_ CUSOLVERRF_H
+  #assumendef CUSOLVERRF_H_
 
   #def CUSOLVERAPI
 
@@ -14,7 +14,6 @@
   #  define libName "libcusolver.so"
   #endif
 
-  #include "cuComplex.h"
   #include "cusolver_common.h"
   #skipinclude
 #endif

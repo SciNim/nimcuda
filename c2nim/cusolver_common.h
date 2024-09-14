@@ -1,11 +1,10 @@
 #ifdef C2NIM
-  #mangle CUSOLVER_COMMON_H_ CUSOLVER_COMMON_H
-  #mangle _MSC_FULL_VER MSC_FULL_VER
-  #mangle _MSVC_LANG MSVC_LANG
+  #assumendef CUSOLVER_COMMON_H_
+  #mangle __int64 int64
 
   #def CUSOLVERAPI
 
-  #assumendef _MSC_VER
+  // #assumendef _MSC_VER
 
   #dynlib libName
   #private libName

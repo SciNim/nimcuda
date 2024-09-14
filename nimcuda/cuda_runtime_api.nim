@@ -225,7 +225,7 @@ when not defined(CUDACC_RTC_MINIMAL):
 ##  \cond impl_private
 
 ##  \endcond impl_private
-##  #if (defined(_NVHPC_CUDA) || !defined(CUDA_ARCH) || (__CUDA_ARCH__ >= 350))   /** Visible to SM>=3.5 and "__host__ __device__" only **/
+##  #if (defined(NVHPC_CUDA) || !defined(CUDA_ARCH) || (__CUDA_ARCH__ >= 350))   /** Visible to SM>=3.5 and "__host__ __device__" only **/
 ##
 ##  #define CUDART_DEVICE __device__
 ##
@@ -237,7 +237,7 @@ when not defined(CUDACC_RTC):
   ##  \cond impl_private
   ##  #if defined(DOXYGEN_ONLY) || defined(CUDA_ENABLE_DEPRECATED)
   ##  #define __CUDA_DEPRECATED
-  ##  #elif defined(_MSC_VER)
+  ##  #elif defined(MSC_VER)
   ##  #define __CUDA_DEPRECATED __declspec(deprecated)
   ##  #elif defined(GNUC)
   ##  #define __CUDA_DEPRECATED __attribute__((deprecated))

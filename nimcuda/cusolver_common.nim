@@ -1,3 +1,5 @@
+##  #assumendef _MSC_VER
+
 when defined(windows):
   const
     libName = "cusolver.dll"
@@ -59,133 +61,150 @@ import
 ##  Users Notice.
 ##
 
-when not defined(CUSOLVER_COMMON_H):
+when defined(MSC_VER):
   type
-    cusolver_int_t* = cint
-  const
-    CUSOLVER_VER_MAJOR* = 11
-    CUSOLVER_VER_MINOR* = 6
-    CUSOLVER_VER_PATCH* = 3
-    CUSOLVER_VER_BUILD* = 83
-    CUSOLVER_VERSION* = (
-      CUSOLVER_VER_MAJOR * 1000 + CUSOLVER_VER_MINOR * 100 + CUSOLVER_VER_PATCH)
-  ## ------------------------------------------------------------------------------
-  ##  #if !defined(_MSC_VER)
-  ##    #define CUSOLVER_CPP_VERSION __cplusplus
-  ##  #elif _MSC_FULL_VER >= 190024210 // Visual Studio 2015 Update 3
-  ##    #define CUSOLVER_CPP_VERSION _MSVC_LANG
-  ##  #else
-  ##    #define CUSOLVER_CPP_VERSION 0
-  ##  #endif
-  ## ------------------------------------------------------------------------------
-  ##  #if !defined(DISABLE_CUSOLVER_DEPRECATED)
-  ##
-  ##    #if CUSOLVER_CPP_VERSION >= 201402L
-  ##
-  ##      #define CUSOLVER_DEPRECATED(new_func)                                    \
-  ##        [[deprecated("please use " #new_func " instead")]]
-  ##
-  ##    #elif defined(_MSC_VER)
-  ##
-  ##      #define CUSOLVER_DEPRECATED(new_func)                                    \
-  ##        __declspec(deprecated("please use " #new_func " instead"))
-  ##
-  ##    #elif defined(INTEL_COMPILER) || defined(clang) ||                   \
-  ##      (defined(GNUC) &&                                                    \
-  ##       (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)))
-  ##
-  ##      #define CUSOLVER_DEPRECATED(new_func)                                    \
-  ##        __attribute__((deprecated("please use " #new_func " instead")))
-  ##
-  ##    #elif defined(GNUC) || defined(xlc)
-  ##
-  ##      #define CUSOLVER_DEPRECATED(new_func) __attribute__((deprecated))
-  ##
-  ##    #else
-  ##
-  ##      #define CUSOLVER_DEPRECATED(new_func)
-  ##
-  ##    #endif // defined(cplusplus) && __cplusplus >= 201402L
-  ##  //------------------------------------------------------------------------------
-  ##
-  ##    #if CUSOLVER_CPP_VERSION >= 201703L
-  ##
-  ##      #define CUSOLVER_DEPRECATED_ENUM(new_enum)                               \
-  ##        [[deprecated("please use " #new_enum " instead")]]
-  ##
-  ##    #elif defined(clang) ||                                                \
-  ##      (defined(GNUC) && __GNUC__ >= 6 && !defined(PGI))
-  ##
-  ##      #define CUSOLVER_DEPRECATED_ENUM(new_enum)                               \
-  ##        __attribute__((deprecated("please use " #new_enum " instead")))
-  ##
-  ##    #else
-  ##
-  ##      #define CUSOLVER_DEPRECATED_ENUM(new_enum)
-  ##
-  ##    #endif // defined(cplusplus) && __cplusplus >= 201402L
-  ##
-  ##  #else // defined(DISABLE_CUSOLVER_DEPRECATED)
-  ##
-  ##    #define CUSOLVER_DEPRECATED(new_func)
-  ##    #define CUSOLVER_DEPRECATED_ENUM(new_enum)
-  ##
-  ##  #endif // !defined(DISABLE_CUSOLVER_DEPRECATED)
-  ##  #undef CUSOLVER_CPP_VERSION
-  type
-    cusolverStatus_t* {.size: sizeof(cint).} = enum
-      CUSOLVER_STATUS_SUCCESS = 0, CUSOLVER_STATUS_NOT_INITIALIZED = 1,
-      CUSOLVER_STATUS_ALLOC_FAILED = 2, CUSOLVER_STATUS_INVALID_VALUE = 3,
-      CUSOLVER_STATUS_ARCH_MISMATCH = 4, CUSOLVER_STATUS_MAPPING_ERROR = 5,
-      CUSOLVER_STATUS_EXECUTION_FAILED = 6, CUSOLVER_STATUS_INTERNAL_ERROR = 7,
-      CUSOLVER_STATUS_MATRIX_TYPE_NOT_SUPPORTED = 8,
-      CUSOLVER_STATUS_NOT_SUPPORTED = 9, CUSOLVER_STATUS_ZERO_PIVOT = 10,
-      CUSOLVER_STATUS_INVALID_LICENSE = 11,
-      CUSOLVER_STATUS_IRS_PARAMS_NOT_INITIALIZED = 12,
-      CUSOLVER_STATUS_IRS_PARAMS_INVALID = 13,
-      CUSOLVER_STATUS_IRS_PARAMS_INVALID_PREC = 14,
-      CUSOLVER_STATUS_IRS_PARAMS_INVALID_REFINE = 15,
-      CUSOLVER_STATUS_IRS_PARAMS_INVALID_MAXITER = 16,
-      CUSOLVER_STATUS_IRS_INTERNAL_ERROR = 20,
-      CUSOLVER_STATUS_IRS_NOT_SUPPORTED = 21,
-      CUSOLVER_STATUS_IRS_OUT_OF_RANGE = 22,
-      CUSOLVER_STATUS_IRS_NRHS_NOT_SUPPORTED_FOR_REFINE_GMRES = 23,
-      CUSOLVER_STATUS_IRS_INFOS_NOT_INITIALIZED = 25,
-      CUSOLVER_STATUS_IRS_INFOS_NOT_DESTROYED = 26,
-      CUSOLVER_STATUS_IRS_MATRIX_SINGULAR = 30,
-      CUSOLVER_STATUS_INVALID_WORKSPACE = 31
-    cusolverEigType_t* {.size: sizeof(cint).} = enum
-      CUSOLVER_EIG_TYPE_1 = 1, CUSOLVER_EIG_TYPE_2 = 2, CUSOLVER_EIG_TYPE_3 = 3
-    cusolverEigMode_t* {.size: sizeof(cint).} = enum
-      CUSOLVER_EIG_MODE_NOVECTOR = 0, CUSOLVER_EIG_MODE_VECTOR = 1
-    cusolverEigRange_t* {.size: sizeof(cint).} = enum
-      CUSOLVER_EIG_RANGE_ALL = 1001, CUSOLVER_EIG_RANGE_I = 1002,
-      CUSOLVER_EIG_RANGE_V = 1003
-    cusolverNorm_t* {.size: sizeof(cint).} = enum
-      CUSOLVER_INF_NORM = 104, CUSOLVER_MAX_NORM = 105, CUSOLVER_ONE_NORM = 106,
-      CUSOLVER_FRO_NORM = 107
-    cusolverIRSRefinement_t* {.size: sizeof(cint).} = enum
-      CUSOLVER_IRS_REFINE_NOT_SET = 1100, CUSOLVER_IRS_REFINE_NONE = 1101,
-      CUSOLVER_IRS_REFINE_CLASSICAL = 1102,
-      CUSOLVER_IRS_REFINE_CLASSICAL_GMRES = 1103, CUSOLVER_IRS_REFINE_GMRES = 1104,
-      CUSOLVER_IRS_REFINE_GMRES_GMRES = 1105,
-      CUSOLVER_IRS_REFINE_GMRES_NOPCOND = 1106, CUSOLVER_PREC_DD = 1150,
-      CUSOLVER_PREC_SS = 1151, CUSOLVER_PREC_SHT = 1152
-    cusolverPrecType_t* {.size: sizeof(cint).} = enum
-      CUSOLVER_R_8I = 1201, CUSOLVER_R_8U = 1202, CUSOLVER_R_64F = 1203,
-      CUSOLVER_R_32F = 1204, CUSOLVER_R_16F = 1205, CUSOLVER_R_16BF = 1206,
-      CUSOLVER_R_TF32 = 1207, CUSOLVER_R_AP = 1208, CUSOLVER_C_8I = 1211,
-      CUSOLVER_C_8U = 1212, CUSOLVER_C_64F = 1213, CUSOLVER_C_32F = 1214,
-      CUSOLVER_C_16F = 1215, CUSOLVER_C_16BF = 1216, CUSOLVER_C_TF32 = 1217,
-      CUSOLVER_C_AP = 1218
-    cusolverAlgMode_t* {.size: sizeof(cint).} = enum
-      CUSOLVER_ALG_0 = 0,       ##  default algorithm
-      CUSOLVER_ALG_1 = 1, CUSOLVER_ALG_2 = 2
-    cusolverStorevMode_t* {.size: sizeof(cint).} = enum
-      CUBLAS_STOREV_COLUMNWISE = 0, CUBLAS_STOREV_ROWWISE = 1
-    cusolverDirectMode_t* {.size: sizeof(cint).} = enum
-      CUBLAS_DIRECT_FORWARD = 0, CUBLAS_DIRECT_BACKWARD = 1
-  proc cusolverGetProperty*(`type`: libraryPropertyType; value: ptr cint): cusolverStatus_t {.
-      cdecl, importc: "cusolverGetProperty", dynlib: libName.}
-  proc cusolverGetVersion*(version: ptr cint): cusolverStatus_t {.cdecl,
-      importc: "cusolverGetVersion", dynlib: libName.}
+    clonglong* = int64
+else:
+  discard
+type
+  cusolver_int_t* = cint
+
+const
+  CUSOLVER_VER_MAJOR* = 11
+  CUSOLVER_VER_MINOR* = 6
+  CUSOLVER_VER_PATCH* = 3
+  CUSOLVER_VER_BUILD* = 83
+  CUSOLVER_VERSION* = (
+    CUSOLVER_VER_MAJOR * 1000 + CUSOLVER_VER_MINOR * 100 + CUSOLVER_VER_PATCH)
+
+## ------------------------------------------------------------------------------
+##  #if !defined(MSC_VER)
+##    #define CUSOLVER_CPP_VERSION __cplusplus
+##  #elif _MSC_FULL_VER >= 190024210 // Visual Studio 2015 Update 3
+##    #define CUSOLVER_CPP_VERSION _MSVC_LANG
+##  #else
+##    #define CUSOLVER_CPP_VERSION 0
+##  #endif
+## ------------------------------------------------------------------------------
+##  #if !defined(DISABLE_CUSOLVER_DEPRECATED)
+##
+##    #if CUSOLVER_CPP_VERSION >= 201402L
+##
+##      #define CUSOLVER_DEPRECATED(new_func)                                    \
+##        [[deprecated("please use " #new_func " instead")]]
+##
+##    #elif defined(MSC_VER)
+##
+##      #define CUSOLVER_DEPRECATED(new_func)                                    \
+##        __declspec(deprecated("please use " #new_func " instead"))
+##
+##    #elif defined(INTEL_COMPILER) || defined(clang) ||                   \
+##      (defined(GNUC) &&                                                    \
+##       (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)))
+##
+##      #define CUSOLVER_DEPRECATED(new_func)                                    \
+##        __attribute__((deprecated("please use " #new_func " instead")))
+##
+##    #elif defined(GNUC) || defined(xlc)
+##
+##      #define CUSOLVER_DEPRECATED(new_func) __attribute__((deprecated))
+##
+##    #else
+##
+##      #define CUSOLVER_DEPRECATED(new_func)
+##
+##    #endif // defined(cplusplus) && __cplusplus >= 201402L
+##  //------------------------------------------------------------------------------
+##
+##    #if CUSOLVER_CPP_VERSION >= 201703L
+##
+##      #define CUSOLVER_DEPRECATED_ENUM(new_enum)                               \
+##        [[deprecated("please use " #new_enum " instead")]]
+##
+##    #elif defined(clang) ||                                                \
+##      (defined(GNUC) && __GNUC__ >= 6 && !defined(PGI))
+##
+##      #define CUSOLVER_DEPRECATED_ENUM(new_enum)                               \
+##        __attribute__((deprecated("please use " #new_enum " instead")))
+##
+##    #else
+##
+##      #define CUSOLVER_DEPRECATED_ENUM(new_enum)
+##
+##    #endif // defined(cplusplus) && __cplusplus >= 201402L
+##
+##  #else // defined(DISABLE_CUSOLVER_DEPRECATED)
+##
+##    #define CUSOLVER_DEPRECATED(new_func)
+##    #define CUSOLVER_DEPRECATED_ENUM(new_enum)
+##
+##  #endif // !defined(DISABLE_CUSOLVER_DEPRECATED)
+##  #undef CUSOLVER_CPP_VERSION
+
+type
+  cusolverStatus_t* {.size: sizeof(cint).} = enum
+    CUSOLVER_STATUS_SUCCESS = 0, CUSOLVER_STATUS_NOT_INITIALIZED = 1,
+    CUSOLVER_STATUS_ALLOC_FAILED = 2, CUSOLVER_STATUS_INVALID_VALUE = 3,
+    CUSOLVER_STATUS_ARCH_MISMATCH = 4, CUSOLVER_STATUS_MAPPING_ERROR = 5,
+    CUSOLVER_STATUS_EXECUTION_FAILED = 6, CUSOLVER_STATUS_INTERNAL_ERROR = 7,
+    CUSOLVER_STATUS_MATRIX_TYPE_NOT_SUPPORTED = 8,
+    CUSOLVER_STATUS_NOT_SUPPORTED = 9, CUSOLVER_STATUS_ZERO_PIVOT = 10,
+    CUSOLVER_STATUS_INVALID_LICENSE = 11,
+    CUSOLVER_STATUS_IRS_PARAMS_NOT_INITIALIZED = 12,
+    CUSOLVER_STATUS_IRS_PARAMS_INVALID = 13,
+    CUSOLVER_STATUS_IRS_PARAMS_INVALID_PREC = 14,
+    CUSOLVER_STATUS_IRS_PARAMS_INVALID_REFINE = 15,
+    CUSOLVER_STATUS_IRS_PARAMS_INVALID_MAXITER = 16,
+    CUSOLVER_STATUS_IRS_INTERNAL_ERROR = 20,
+    CUSOLVER_STATUS_IRS_NOT_SUPPORTED = 21, CUSOLVER_STATUS_IRS_OUT_OF_RANGE = 22,
+    CUSOLVER_STATUS_IRS_NRHS_NOT_SUPPORTED_FOR_REFINE_GMRES = 23,
+    CUSOLVER_STATUS_IRS_INFOS_NOT_INITIALIZED = 25,
+    CUSOLVER_STATUS_IRS_INFOS_NOT_DESTROYED = 26,
+    CUSOLVER_STATUS_IRS_MATRIX_SINGULAR = 30,
+    CUSOLVER_STATUS_INVALID_WORKSPACE = 31
+  cusolverEigType_t* {.size: sizeof(cint).} = enum
+    CUSOLVER_EIG_TYPE_1 = 1, CUSOLVER_EIG_TYPE_2 = 2, CUSOLVER_EIG_TYPE_3 = 3
+  cusolverEigMode_t* {.size: sizeof(cint).} = enum
+    CUSOLVER_EIG_MODE_NOVECTOR = 0, CUSOLVER_EIG_MODE_VECTOR = 1
+  cusolverEigRange_t* {.size: sizeof(cint).} = enum
+    CUSOLVER_EIG_RANGE_ALL = 1001, CUSOLVER_EIG_RANGE_I = 1002,
+    CUSOLVER_EIG_RANGE_V = 1003
+  cusolverNorm_t* {.size: sizeof(cint).} = enum
+    CUSOLVER_INF_NORM = 104, CUSOLVER_MAX_NORM = 105, CUSOLVER_ONE_NORM = 106,
+    CUSOLVER_FRO_NORM = 107
+  cusolverIRSRefinement_t* {.size: sizeof(cint).} = enum
+    CUSOLVER_IRS_REFINE_NOT_SET = 1100, CUSOLVER_IRS_REFINE_NONE = 1101,
+    CUSOLVER_IRS_REFINE_CLASSICAL = 1102,
+    CUSOLVER_IRS_REFINE_CLASSICAL_GMRES = 1103, CUSOLVER_IRS_REFINE_GMRES = 1104,
+    CUSOLVER_IRS_REFINE_GMRES_GMRES = 1105,
+    CUSOLVER_IRS_REFINE_GMRES_NOPCOND = 1106, CUSOLVER_PREC_DD = 1150,
+    CUSOLVER_PREC_SS = 1151, CUSOLVER_PREC_SHT = 1152
+  cusolverPrecType_t* {.size: sizeof(cint).} = enum
+    CUSOLVER_R_8I = 1201, CUSOLVER_R_8U = 1202, CUSOLVER_R_64F = 1203,
+    CUSOLVER_R_32F = 1204, CUSOLVER_R_16F = 1205, CUSOLVER_R_16BF = 1206,
+    CUSOLVER_R_TF32 = 1207, CUSOLVER_R_AP = 1208, CUSOLVER_C_8I = 1211,
+    CUSOLVER_C_8U = 1212, CUSOLVER_C_64F = 1213, CUSOLVER_C_32F = 1214,
+    CUSOLVER_C_16F = 1215, CUSOLVER_C_16BF = 1216, CUSOLVER_C_TF32 = 1217,
+    CUSOLVER_C_AP = 1218
+  cusolverAlgMode_t* {.size: sizeof(cint).} = enum
+    CUSOLVER_ALG_0 = 0,         ##  default algorithm
+    CUSOLVER_ALG_1 = 1, CUSOLVER_ALG_2 = 2
+  cusolverStorevMode_t* {.size: sizeof(cint).} = enum
+    CUBLAS_STOREV_COLUMNWISE = 0, CUBLAS_STOREV_ROWWISE = 1
+  cusolverDirectMode_t* {.size: sizeof(cint).} = enum
+    CUBLAS_DIRECT_FORWARD = 0, CUBLAS_DIRECT_BACKWARD = 1
+
+
+
+
+
+
+
+
+
+
+
+proc cusolverGetProperty*(`type`: libraryPropertyType; value: ptr cint): cusolverStatus_t {.
+    cdecl, importc: "cusolverGetProperty", dynlib: libName.}
+proc cusolverGetVersion*(version: ptr cint): cusolverStatus_t {.cdecl,
+    importc: "cusolverGetVersion", dynlib: libName.}

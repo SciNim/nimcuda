@@ -1,4 +1,4 @@
-## #skipinclude
+##  #pp cudaDevicePropDontCare
 
 ##
 ##  Copyright 1993-2023 NVIDIA Corporation.  All rights reserved.
@@ -68,74 +68,75 @@ when not defined(CUDACC_RTC_MINIMAL):
   ##   TYPE DEFINITIONS USED BY RUNTIME API                                        *
   ##                                                                               *
   ## *****************************************************************************
-  when not defined(CUDACC_RTC):
-    discard
-  const
-    cudaHostAllocDefault* = 0x00
-    cudaHostAllocPortable* = 0x01
-    cudaHostAllocMapped* = 0x02
-    cudaHostAllocWriteCombined* = 0x04
-    cudaHostRegisterDefault* = 0x00
-    cudaHostRegisterPortable* = 0x01
-    cudaHostRegisterMapped* = 0x02
-    cudaHostRegisterIoMemory* = 0x04
-    cudaHostRegisterReadOnly* = 0x08
-    cudaPeerAccessDefault* = 0x00
-    cudaStreamDefault* = 0x00
-    cudaStreamNonBlocking* = 0x01
-    cudaEventDefault* = 0x00
-    cudaEventBlockingSync* = 0x01
-    cudaEventDisableTiming* = 0x02
-    cudaEventInterprocess* = 0x04
-    cudaEventRecordDefault* = 0x00
-    cudaEventRecordExternal* = 0x01
-    cudaEventWaitDefault* = 0x00
-    cudaEventWaitExternal* = 0x01
-    cudaDeviceScheduleAuto* = 0x00
-    cudaDeviceScheduleSpin* = 0x01
-    cudaDeviceScheduleYield* = 0x02
-    cudaDeviceScheduleBlockingSync* = 0x04
-    cudaDeviceBlockingSync* = 0x04
-    cudaDeviceScheduleMask* = 0x07
-    cudaDeviceMapHost* = 0x08
-    cudaDeviceLmemResizeToMax* = 0x10
-    cudaDeviceSyncMemops* = 0x80
-    cudaDeviceMask* = 0xff
-    cudaArrayDefault* = 0x00
-    cudaArrayLayered* = 0x01
-    cudaArraySurfaceLoadStore* = 0x02
-    cudaArrayCubemap* = 0x04
-    cudaArrayTextureGather* = 0x08
-    cudaArrayColorAttachment* = 0x20
-    cudaArraySparse* = 0x40
-    cudaArrayDeferredMapping* = 0x80
-    cudaIpcMemLazyEnablePeerAccess* = 0x01
-    cudaMemAttachGlobal* = 0x01
-    cudaMemAttachHost* = 0x02
-    cudaMemAttachSingle* = 0x04
-    cudaOccupancyDefault* = 0x00
-    cudaOccupancyDisableCachingOverride* = 0x01
-    cudaCpuDeviceId* = (cint)(-1) ## < Device id that represents the CPU
-    cudaInvalidDeviceId* = (cint)(-2) ## < Device id that represents an invalid device
-    cudaInitDeviceFlagsAreValid* = 0x01
-  ##
-  ##  If set, each kernel launched as part of ::cudaLaunchCooperativeKernelMultiDevice only
-  ##  waits for prior work in the stream corresponding to that GPU to complete before the
-  ##  kernel begins execution.
-  ##
-  const
-    cudaCooperativeLaunchMultiDeviceNoPreSync* = 0x01
-  ##
-  ##  If set, any subsequent work pushed in a stream that participated in a call to
-  ##  ::cudaLaunchCooperativeKernelMultiDevice will only wait for the kernel launched on
-  ##  the GPU corresponding to that stream to complete before it begins execution.
-  ##
-  const
-    cudaCooperativeLaunchMultiDeviceNoPostSync* = 0x02
+  when not defined(CUDA_INTERNAL_COMPILATION):
+    when not defined(CUDACC_RTC):
+      discard
+    const
+      cudaHostAllocDefault* = 0x00
+      cudaHostAllocPortable* = 0x01
+      cudaHostAllocMapped* = 0x02
+      cudaHostAllocWriteCombined* = 0x04
+      cudaHostRegisterDefault* = 0x00
+      cudaHostRegisterPortable* = 0x01
+      cudaHostRegisterMapped* = 0x02
+      cudaHostRegisterIoMemory* = 0x04
+      cudaHostRegisterReadOnly* = 0x08
+      cudaPeerAccessDefault* = 0x00
+      cudaStreamDefault* = 0x00
+      cudaStreamNonBlocking* = 0x01
+      cudaEventDefault* = 0x00
+      cudaEventBlockingSync* = 0x01
+      cudaEventDisableTiming* = 0x02
+      cudaEventInterprocess* = 0x04
+      cudaEventRecordDefault* = 0x00
+      cudaEventRecordExternal* = 0x01
+      cudaEventWaitDefault* = 0x00
+      cudaEventWaitExternal* = 0x01
+      cudaDeviceScheduleAuto* = 0x00
+      cudaDeviceScheduleSpin* = 0x01
+      cudaDeviceScheduleYield* = 0x02
+      cudaDeviceScheduleBlockingSync* = 0x04
+      cudaDeviceBlockingSync* = 0x04
+      cudaDeviceScheduleMask* = 0x07
+      cudaDeviceMapHost* = 0x08
+      cudaDeviceLmemResizeToMax* = 0x10
+      cudaDeviceSyncMemops* = 0x80
+      cudaDeviceMask* = 0xff
+      cudaArrayDefault* = 0x00
+      cudaArrayLayered* = 0x01
+      cudaArraySurfaceLoadStore* = 0x02
+      cudaArrayCubemap* = 0x04
+      cudaArrayTextureGather* = 0x08
+      cudaArrayColorAttachment* = 0x20
+      cudaArraySparse* = 0x40
+      cudaArrayDeferredMapping* = 0x80
+      cudaIpcMemLazyEnablePeerAccess* = 0x01
+      cudaMemAttachGlobal* = 0x01
+      cudaMemAttachHost* = 0x02
+      cudaMemAttachSingle* = 0x04
+      cudaOccupancyDefault* = 0x00
+      cudaOccupancyDisableCachingOverride* = 0x01
+      cudaCpuDeviceId* = (cint)(-1) ## < Device id that represents the CPU
+      cudaInvalidDeviceId* = (cint)(-2) ## < Device id that represents an invalid device
+      cudaInitDeviceFlagsAreValid* = 0x01
+    ##
+    ##  If set, each kernel launched as part of ::cudaLaunchCooperativeKernelMultiDevice only
+    ##  waits for prior work in the stream corresponding to that GPU to complete before the
+    ##  kernel begins execution.
+    ##
+    const
+      cudaCooperativeLaunchMultiDeviceNoPreSync* = 0x01
+    ##
+    ##  If set, any subsequent work pushed in a stream that participated in a call to
+    ##  ::cudaLaunchCooperativeKernelMultiDevice will only wait for the kernel launched on
+    ##  the GPU corresponding to that stream to complete before it begins execution.
+    ##
+    const
+      cudaCooperativeLaunchMultiDeviceNoPostSync* = 0x02
   ##  \cond impl_private
   ## #if defined(DOXYGEN_ONLY) || defined(CUDA_ENABLE_DEPRECATED)
   ## #define __CUDA_DEPRECATED
-  ## #elif defined(_MSC_VER)
+  ## #elif defined(MSC_VER)
   ## #define __CUDA_DEPRECATED __declspec(deprecated)
   ## #elif defined(GNUC)
   ## #define __CUDA_DEPRECATED __attribute__((deprecated))
@@ -847,7 +848,7 @@ when not defined(CUDACC_RTC_MINIMAL):
       f*: cudaChannelFormatKind
       ## < Channel format kind
 
-  type cudaArray {.importc, nodecl.} = object
+  type cudaArray {.nodecl.} = object
   type
     cudaArray_t* = ptr cudaArray
   ##
@@ -855,7 +856,7 @@ when not defined(CUDACC_RTC_MINIMAL):
   ##
   type
     cudaArray_const_t* = ptr cudaArray
-  type cudaMipmappedArray {.importc, nodecl.} = object
+  type cudaMipmappedArray {.nodecl.} = object
   type
     cudaMipmappedArray_t* = ptr cudaMipmappedArray
   ##
@@ -1172,7 +1173,7 @@ when not defined(CUDACC_RTC_MINIMAL):
   ##
   ##  CUDA graphics interop resource
   ##
-  type cudaGraphicsResource {.importc, nodecl.} = object
+  type cudaGraphicsResource {.nodecl.} = object
   type
     cudaGraphicsRegisterFlags* = enum
       cudaGraphicsRegisterFlagsNone = 0, ## < Default
@@ -3513,7 +3514,7 @@ when not defined(CUDACC_RTC_MINIMAL):
     cudaDeviceNumaConfig* = enum
       cudaDeviceNumaConfigNone = 0, ## < The GPU is not a NUMA node
       cudaDeviceNumaConfigNumaNode ## < The GPU is a NUMA node, cudaDevAttrNumaId contains its NUMA ID
-  type cudaAsyncCallbackEntry {.importc, nodecl.} = object
+  type cudaAsyncCallbackEntry {.nodecl.} = object
   type
     cudaAsyncCallbackHandle_t* = ptr cudaAsyncCallbackEntry
   ##

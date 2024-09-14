@@ -13,25 +13,25 @@
 # limitations under the License.
 
 import ./cublas_api
-import ./cublas_v2
-import ./cuComplex
+# import ./cublas_v2
+# import ./cuComplex
 import ./cuda_occupancy
-import ./cuda_runtime_api
+# import ./cuda_runtime_api
 # import ./cudnn
 import ./cufft
 import ./curand
 import ./cusolver_common
-import ./cusolverDn
-import ./cusolverRf
-import ./cusolverSp
+# import ./cusolverDn
+# import ./cusolverRf
+# import ./cusolverSp
 import ./cusparse
 import ./driver_types
-import ./library_types
-import ./nvblas
+# import ./library_types
+# import ./nvblas
 # import ./nvgraph
-import ./surface_types
-import ./texture_types
-import ./vector_types
+# import ./surface_types
+# import ./texture_types
+# import ./vector_types
 
 type
   CudaError* = object of IOError
@@ -41,8 +41,8 @@ type
   CusparseError* = object of IOError
   CusolverError* = object of IOError
   CurandError* = object of IOError
-  CudnnError* = object of IOError
-  NVGraphError* = object of IOError
+  # CudnnError* = object of IOError
+  # NVGraphError* = object of IOError
 
 template check*(a: cudaError_t) =
   let y = a # ensure we only evaluate once even if the expression has side effects
