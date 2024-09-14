@@ -7,19 +7,8 @@ elif defined(macosx):
 else:
   const
     libName = "libcublas.so"
-type
-  half* {.bycopy.} = object
-    x*: cushort
-
-  half2* {.bycopy.} = object
-    x*: cuint
-
-
 import
   library_types
-
-##  #include "cuComplex.h"
-## #skipinclude
 
 ##
 ##  Copyright 1993-2022 NVIDIA Corporation. All rights reserved.
@@ -191,7 +180,7 @@ type
 
 ##  Opaque structure holding CUBLAS library context
 
-type cublasContext {.importc, nodecl.} = object
+type cublasContext {.nodecl.} = object
 type
   cublasHandle_t* = ptr cublasContext
 

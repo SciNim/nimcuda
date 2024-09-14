@@ -1,5 +1,3 @@
-##  #mangle __cudaReserved cudaReserved
-
 ##
 ##  Copyright 1993-2023 NVIDIA Corporation.  All rights reserved.
 ##
@@ -54,9 +52,6 @@
 ##                                                                               *
 ##                                                                               *
 ## *****************************************************************************
-
-import
-  driver_types
 
 when not defined(CUDACC_RTC_MINIMAL):
   ##

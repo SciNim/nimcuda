@@ -1,6 +1,4 @@
 #ifdef C2NIM
-  #mangle CUBLAS_API_H_ CUBLAS_API_H
-
   #def CUBLASWINAPI
   #def CUBLASAPI
 
@@ -18,19 +16,7 @@
   #  define libName "libcublas.so"
   #endif
 
-  typedef struct {
-     unsigned short x;
-  } __half;
-
-  typedef struct {
-     unsigned int x;
-  } __half2;
-
-
-
-  #assumendef CUBLAS_API_H
+  #assumendef CUBLAS_API_H_
 
   #include "library_types.h"
-  // #include "cuComplex.h"
-  //#skipinclude
 #endif

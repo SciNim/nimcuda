@@ -63,25 +63,25 @@ import
 ##
 
 when not defined(CUSOLVERDN_H):
-  type cusolverDnContext {.importc, nodecl.} = object
+  type cusolverDnContext {.nodecl.} = object
   type
     cusolverDnHandle_t* = ptr cusolverDnContext
-  type syevjInfo {.importc, nodecl.} = object
+  type syevjInfo {.nodecl.} = object
   type
     syevjInfo_t* = ptr syevjInfo
-  type gesvdjInfo {.importc, nodecl.} = object
+  type gesvdjInfo {.nodecl.} = object
   type
     gesvdjInfo_t* = ptr gesvdjInfo
   ## ------------------------------------------------------
   ##  opaque cusolverDnIRS structure for IRS solver
-  type cusolverDnIRSParams {.importc, nodecl.} = object
+  type cusolverDnIRSParams {.nodecl.} = object
   type
     cusolverDnIRSParams_t* = ptr cusolverDnIRSParams
-  type cusolverDnIRSInfos {.importc, nodecl.} = object
+  type cusolverDnIRSInfos {.nodecl.} = object
   type
     cusolverDnIRSInfos_t* = ptr cusolverDnIRSInfos
   ## ------------------------------------------------------
-  type cusolverDnParams {.importc, nodecl.} = object
+  type cusolverDnParams {.nodecl.} = object
   type
     cusolverDnParams_t* = ptr cusolverDnParams
     cusolverDnFunction_t* {.size: sizeof(cint).} = enum

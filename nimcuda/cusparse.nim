@@ -98,7 +98,7 @@ const
 ##
 ##  #       define CUSPARSE_DEPRECATED_TYPE_MSVC
 ##
-##  #   elif defined(_MSC_VER)
+##  #   elif defined(MSC_VER)
 ##
 ##  #       define CUSPARSE_DEPRECATED_REPLACE_WITH(new_func)                      \
 ##              __declspec(deprecated("please use " #new_func " instead"))

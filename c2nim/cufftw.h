@@ -1,7 +1,6 @@
 #ifdef C2NIM
-  #mangle _CUFFTW_H_ CUFFTW_H
+  #assumendef _CUFFTW_H_
 
-  #assumendef _WIN32
   #def CUFFTAPI
 
   #dynlib libName

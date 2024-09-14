@@ -1,4 +1,4 @@
-from math import sqrt
+from std/math import sqrt
 
 template sqrtf(x: cfloat): cfloat = sqrt(x)
 
@@ -58,210 +58,229 @@ template `div`(a: cfloat, b: cfloat): cfloat = a / b
 ##  Users Notice.
 ##
 
-when not defined(CU_COMPLEX_H):
-  ##  When trying to include C header file in C++ Code extern "C" is required
-  ##  But the Standard QNX headers already have ifdef extern in them when compiling C++ Code
-  ##  extern "C" cannot be nested
-  ##  Hence keep the header out of extern "C" block
-  ##
-  import
-    vector_types
+when not defined(CUDACC_RTC):
+  when defined(GNUC):
+    when defined(clang) or
+        (not defined(PGIC) and
+        (GNUC > 4 or (GNUC == 4 and GNUC_MINOR >= 2))):
+      discard
+##  When trying to include C header file in C++ Code extern "C" is required
+##  But the Standard QNX headers already have ifdef extern in them when compiling C++ Code
+##  extern "C" cannot be nested
+##  Hence keep the header out of extern "C" block
+##
 
-  type
-    cuFloatComplex* = float2
-  proc cuCrealf*(x: cuFloatComplex): cfloat =
-    return x.x
+when not defined(CUDACC):
+  discard
+import
+  vector_types
 
-  proc cuCimagf*(x: cuFloatComplex): cfloat =
-    return x.y
+type
+  cuFloatComplex* = float2
 
-  proc make_cuFloatComplex*(r: cfloat; i: cfloat): cuFloatComplex =
-    var res: cuFloatComplex
-    res.x = r
-    res.y = i
-    return res
+proc cuCrealf*(x: cuFloatComplex): cfloat =
+  return x.x
 
-  proc cuConjf*(x: cuFloatComplex): cuFloatComplex =
-    return make_cuFloatComplex(cuCrealf(x), -cuCimagf(x))
+proc cuCimagf*(x: cuFloatComplex): cfloat =
+  return x.y
 
-  proc cuCaddf*(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex =
-    return make_cuFloatComplex(cuCrealf(x) + cuCrealf(y), cuCimagf(x) + cuCimagf(y))
+proc make_cuFloatComplex*(r: cfloat; i: cfloat): cuFloatComplex =
+  var res: cuFloatComplex
+  res.x = r
+  res.y = i
+  return res
 
-  proc cuCsubf*(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex =
-    return make_cuFloatComplex(cuCrealf(x) - cuCrealf(y), cuCimagf(x) - cuCimagf(y))
+proc cuConjf*(x: cuFloatComplex): cuFloatComplex =
+  return make_cuFloatComplex(cuCrealf(x), -cuCimagf(x))
 
-  ##  This implementation could suffer from intermediate overflow even though
-  ##  the final resultNotKeyWord would be in range. However, various implementations do
-  ##  not guard against this (presumably to avoid losing performance), so we
-  ##  don't do it either to stay competitive.
-  ##
-  proc cuCmulf*(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex =
-    var prod: cuFloatComplex
-    prod = make_cuFloatComplex((cuCrealf(x) * cuCrealf(y)) -
-        (cuCimagf(x) * cuCimagf(y)), (cuCrealf(x) * cuCimagf(y)) +
-        (cuCimagf(x) * cuCrealf(y)))
-    return prod
+proc cuCaddf*(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex =
+  return make_cuFloatComplex(cuCrealf(x) + cuCrealf(y), cuCimagf(x) + cuCimagf(y))
 
-  ##  This implementation guards against intermediate underflow and overflow
-  ##  by scaling. Such guarded implementations are usually the default for
-  ##  complex library implementations, with some also offering an unguarded,
-  ##  faster version.
-  ##
-  proc cuCdivf*(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex =
-    var quot: cuFloatComplex
-    var s: cfloat = fabsf(cuCrealf(y)) + fabsf(cuCimagf(y))
-    var oos: cfloat = 1.0f div s
-    var ars: cfloat = cuCrealf(x) * oos
-    var ais: cfloat = cuCimagf(x) * oos
-    var brs: cfloat = cuCrealf(y) * oos
-    var bis: cfloat = cuCimagf(y) * oos
-    s = (brs * brs) + (bis * bis)
-    oos = 1.0f div s
-    quot = make_cuFloatComplex(((ars * brs) + (ais * bis)) * oos,
-                             ((ais * brs) - (ars * bis)) * oos)
-    return quot
+proc cuCsubf*(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex =
+  return make_cuFloatComplex(cuCrealf(x) - cuCrealf(y), cuCimagf(x) - cuCimagf(y))
 
-  ##
-  ##  We would like to call hypotf(), but it's not available on all platforms.
-  ##  This discrete implementation guards against intermediate underflow and
-  ##  overflow by scaling. Otherwise we would lose half the exponent range.
-  ##  There are various ways of doing guarded computation. For now chose the
-  ##  simplest and fastest solution, however this may suffer from inaccuracies
-  ##  if sqrt and division are not IEEE compliant.
-  ##
-  proc cuCabsf*(x: cuFloatComplex): cfloat =
-    var a: cfloat = cuCrealf(x)
-    var b: cfloat = cuCimagf(x)
-    var
-      v: cfloat
-      w: cfloat
-      t: cfloat
-    a = fabsf(a)
-    b = fabsf(b)
-    if a > b:
-      v = a
-      w = b
-    else:
-      v = b
-      w = a
-    t = w div v
-    t = 1.0f + t * t
-    t = v * sqrtf(t)
-    if (v == 0.0f) or (v > 3.402823466e38f) or (w > 3.402823466e38f):
-      t = v + w
-    return t
+##  This implementation could suffer from intermediate overflow even though
+##  the final resultNotKeyWord would be in range. However, various implementations do
+##  not guard against this (presumably to avoid losing performance), so we
+##  don't do it either to stay competitive.
+##
 
-  ##  Double precision
-  type
-    cuDoubleComplex* = double2
-  proc cuCreal*(x: cuDoubleComplex): cdouble =
-    return x.x
+proc cuCmulf*(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex =
+  var prod: cuFloatComplex
+  prod = make_cuFloatComplex((cuCrealf(x) * cuCrealf(y)) -
+      (cuCimagf(x) * cuCimagf(y)), (cuCrealf(x) * cuCimagf(y)) +
+      (cuCimagf(x) * cuCrealf(y)))
+  return prod
 
-  proc cuCimag*(x: cuDoubleComplex): cdouble =
-    return x.y
+##  This implementation guards against intermediate underflow and overflow
+##  by scaling. Such guarded implementations are usually the default for
+##  complex library implementations, with some also offering an unguarded,
+##  faster version.
+##
 
-  proc make_cuDoubleComplex*(r: cdouble; i: cdouble): cuDoubleComplex =
-    var res: cuDoubleComplex
-    res.x = r
-    res.y = i
-    return res
+proc cuCdivf*(x: cuFloatComplex; y: cuFloatComplex): cuFloatComplex =
+  var quot: cuFloatComplex
+  var s: cfloat = fabsf(cuCrealf(y)) + fabsf(cuCimagf(y))
+  var oos: cfloat = 1.0f div s
+  var ars: cfloat = cuCrealf(x) * oos
+  var ais: cfloat = cuCimagf(x) * oos
+  var brs: cfloat = cuCrealf(y) * oos
+  var bis: cfloat = cuCimagf(y) * oos
+  s = (brs * brs) + (bis * bis)
+  oos = 1.0f div s
+  quot = make_cuFloatComplex(((ars * brs) + (ais * bis)) * oos,
+                           ((ais * brs) - (ars * bis)) * oos)
+  return quot
 
-  proc cuConj*(x: cuDoubleComplex): cuDoubleComplex =
-    return make_cuDoubleComplex(cuCreal(x), -cuCimag(x))
+##
+##  We would like to call hypotf(), but it's not available on all platforms.
+##  This discrete implementation guards against intermediate underflow and
+##  overflow by scaling. Otherwise we would lose half the exponent range.
+##  There are various ways of doing guarded computation. For now chose the
+##  simplest and fastest solution, however this may suffer from inaccuracies
+##  if sqrt and division are not IEEE compliant.
+##
 
-  proc cuCadd*(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex =
-    return make_cuDoubleComplex(cuCreal(x) + cuCreal(y), cuCimag(x) + cuCimag(y))
+proc cuCabsf*(x: cuFloatComplex): cfloat =
+  var a: cfloat = cuCrealf(x)
+  var b: cfloat = cuCimagf(x)
+  var
+    v: cfloat
+    w: cfloat
+    t: cfloat
+  a = fabsf(a)
+  b = fabsf(b)
+  if a > b:
+    v = a
+    w = b
+  else:
+    v = b
+    w = a
+  t = w div v
+  t = 1.0f + t * t
+  t = v * sqrtf(t)
+  if (v == 0.0f) or (v > 3.402823466e38f) or (w > 3.402823466e38f):
+    t = v + w
+  return t
 
-  proc cuCsub*(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex =
-    return make_cuDoubleComplex(cuCreal(x) - cuCreal(y), cuCimag(x) - cuCimag(y))
+##  Double precision
 
-  ##  This implementation could suffer from intermediate overflow even though
-  ##  the final resultNotKeyWord would be in range. However, various implementations do
-  ##  not guard against this (presumably to avoid losing performance), so we
-  ##  don't do it either to stay competitive.
-  ##
-  proc cuCmul*(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex =
-    var prod: cuDoubleComplex
-    prod = make_cuDoubleComplex((cuCreal(x) * cuCreal(y)) -
-        (cuCimag(x) * cuCimag(y)), (cuCreal(x) * cuCimag(y)) +
-        (cuCimag(x) * cuCreal(y)))
-    return prod
+type
+  cuDoubleComplex* = double2
 
-  ##  This implementation guards against intermediate underflow and overflow
-  ##  by scaling. Such guarded implementations are usually the default for
-  ##  complex library implementations, with some also offering an unguarded,
-  ##  faster version.
-  ##
-  proc cuCdiv*(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex =
-    var quot: cuDoubleComplex
-    var s: cdouble = (fabs(cuCreal(y))) + (fabs(cuCimag(y)))
-    var oos: cdouble = 1.0 div s
-    var ars: cdouble = cuCreal(x) * oos
-    var ais: cdouble = cuCimag(x) * oos
-    var brs: cdouble = cuCreal(y) * oos
-    var bis: cdouble = cuCimag(y) * oos
-    s = (brs * brs) + (bis * bis)
-    oos = 1.0 div s
-    quot = make_cuDoubleComplex(((ars * brs) + (ais * bis)) * oos,
-                              ((ais * brs) - (ars * bis)) * oos)
-    return quot
+proc cuCreal*(x: cuDoubleComplex): cdouble =
+  return x.x
 
-  ##  This implementation guards against intermediate underflow and overflow
-  ##  by scaling. Otherwise we would lose half the exponent range. There are
-  ##  various ways of doing guarded computation. For now chose the simplest
-  ##  and fastest solution, however this may suffer from inaccuracies if sqrt
-  ##  and division are not IEEE compliant.
-  ##
-  proc cuCabs*(x: cuDoubleComplex): cdouble =
-    var a: cdouble = cuCreal(x)
-    var b: cdouble = cuCimag(x)
-    var
-      v: cdouble
-      w: cdouble
-      t: cdouble
-    a = fabs(a)
-    b = fabs(b)
-    if a > b:
-      v = a
-      w = b
-    else:
-      v = b
-      w = a
-    t = w div v
-    t = 1.0 + t * t
-    t = v * sqrt(t)
-    if (v == 0.0) or (v > 1.79769313486231570e+308) or (w > 1.79769313486231570e+308):
-      t = v + w
-    return t
+proc cuCimag*(x: cuDoubleComplex): cdouble =
+  return x.y
 
-  ##  aliases
-  type
-    cuComplex* = cuFloatComplex
-  proc make_cuComplex*(x: cfloat; y: cfloat): cuComplex =
-    return make_cuFloatComplex(x, y)
+proc make_cuDoubleComplex*(r: cdouble; i: cdouble): cuDoubleComplex =
+  var res: cuDoubleComplex
+  res.x = r
+  res.y = i
+  return res
 
-  ##  float-to-double promotion
-  proc cuComplexFloatToDouble*(c: cuFloatComplex): cuDoubleComplex =
-    return make_cuDoubleComplex(cast[cdouble](cuCrealf(c)),
-                               cast[cdouble](cuCimagf(c)))
+proc cuConj*(x: cuDoubleComplex): cuDoubleComplex =
+  return make_cuDoubleComplex(cuCreal(x), -cuCimag(x))
 
-  proc cuComplexDoubleToFloat*(c: cuDoubleComplex): cuFloatComplex =
-    return make_cuFloatComplex(cast[cfloat](cuCreal(c)), cast[cfloat](cuCimag(c)))
+proc cuCadd*(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex =
+  return make_cuDoubleComplex(cuCreal(x) + cuCreal(y), cuCimag(x) + cuCimag(y))
 
-  proc cuCfmaf*(x: cuComplex; y: cuComplex; d: cuComplex): cuComplex =
-    var real_res: cfloat
-    var imag_res: cfloat
-    real_res = (cuCrealf(x) * cuCrealf(y)) + cuCrealf(d)
-    imag_res = (cuCrealf(x) * cuCimagf(y)) + cuCimagf(d)
-    real_res = -(cuCimagf(x) * cuCimagf(y)) + real_res
-    imag_res = (cuCimagf(x) * cuCrealf(y)) + imag_res
-    return make_cuComplex(real_res, imag_res)
+proc cuCsub*(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex =
+  return make_cuDoubleComplex(cuCreal(x) - cuCreal(y), cuCimag(x) - cuCimag(y))
 
-  proc cuCfma*(x: cuDoubleComplex; y: cuDoubleComplex; d: cuDoubleComplex): cuDoubleComplex =
-    var real_res: cdouble
-    var imag_res: cdouble
-    real_res = (cuCreal(x) * cuCreal(y)) + cuCreal(d)
-    imag_res = (cuCreal(x) * cuCimag(y)) + cuCimag(d)
-    real_res = -(cuCimag(x) * cuCimag(y)) + real_res
-    imag_res = (cuCimag(x) * cuCreal(y)) + imag_res
-    return make_cuDoubleComplex(real_res, imag_res)
+##  This implementation could suffer from intermediate overflow even though
+##  the final resultNotKeyWord would be in range. However, various implementations do
+##  not guard against this (presumably to avoid losing performance), so we
+##  don't do it either to stay competitive.
+##
+
+proc cuCmul*(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex =
+  var prod: cuDoubleComplex
+  prod = make_cuDoubleComplex((cuCreal(x) * cuCreal(y)) - (cuCimag(x) * cuCimag(y)), (
+      cuCreal(x) * cuCimag(y)) + (cuCimag(x) * cuCreal(y)))
+  return prod
+
+##  This implementation guards against intermediate underflow and overflow
+##  by scaling. Such guarded implementations are usually the default for
+##  complex library implementations, with some also offering an unguarded,
+##  faster version.
+##
+
+proc cuCdiv*(x: cuDoubleComplex; y: cuDoubleComplex): cuDoubleComplex =
+  var quot: cuDoubleComplex
+  var s: cdouble = (fabs(cuCreal(y))) + (fabs(cuCimag(y)))
+  var oos: cdouble = 1.0 div s
+  var ars: cdouble = cuCreal(x) * oos
+  var ais: cdouble = cuCimag(x) * oos
+  var brs: cdouble = cuCreal(y) * oos
+  var bis: cdouble = cuCimag(y) * oos
+  s = (brs * brs) + (bis * bis)
+  oos = 1.0 div s
+  quot = make_cuDoubleComplex(((ars * brs) + (ais * bis)) * oos,
+                            ((ais * brs) - (ars * bis)) * oos)
+  return quot
+
+##  This implementation guards against intermediate underflow and overflow
+##  by scaling. Otherwise we would lose half the exponent range. There are
+##  various ways of doing guarded computation. For now chose the simplest
+##  and fastest solution, however this may suffer from inaccuracies if sqrt
+##  and division are not IEEE compliant.
+##
+
+proc cuCabs*(x: cuDoubleComplex): cdouble =
+  var a: cdouble = cuCreal(x)
+  var b: cdouble = cuCimag(x)
+  var
+    v: cdouble
+    w: cdouble
+    t: cdouble
+  a = fabs(a)
+  b = fabs(b)
+  if a > b:
+    v = a
+    w = b
+  else:
+    v = b
+    w = a
+  t = w div v
+  t = 1.0 + t * t
+  t = v * sqrt(t)
+  if (v == 0.0) or (v > 1.79769313486231570e+308) or (w > 1.79769313486231570e+308):
+    t = v + w
+  return t
+
+##  aliases
+
+type
+  cuComplex* = cuFloatComplex
+
+proc make_cuComplex*(x: cfloat; y: cfloat): cuComplex =
+  return make_cuFloatComplex(x, y)
+
+##  float-to-double promotion
+
+proc cuComplexFloatToDouble*(c: cuFloatComplex): cuDoubleComplex =
+  return make_cuDoubleComplex(cast[cdouble](cuCrealf(c)),
+                             cast[cdouble](cuCimagf(c)))
+
+proc cuComplexDoubleToFloat*(c: cuDoubleComplex): cuFloatComplex =
+  return make_cuFloatComplex(cast[cfloat](cuCreal(c)), cast[cfloat](cuCimag(c)))
+
+proc cuCfmaf*(x: cuComplex; y: cuComplex; d: cuComplex): cuComplex =
+  var real_res: cfloat
+  var imag_res: cfloat
+  real_res = (cuCrealf(x) * cuCrealf(y)) + cuCrealf(d)
+  imag_res = (cuCrealf(x) * cuCimagf(y)) + cuCimagf(d)
+  real_res = -(cuCimagf(x) * cuCimagf(y)) + real_res
+  imag_res = (cuCimagf(x) * cuCrealf(y)) + imag_res
+  return make_cuComplex(real_res, imag_res)
+
+proc cuCfma*(x: cuDoubleComplex; y: cuDoubleComplex; d: cuDoubleComplex): cuDoubleComplex =
+  var real_res: cdouble
+  var imag_res: cdouble
+  real_res = (cuCreal(x) * cuCreal(y)) + cuCreal(d)
+  imag_res = (cuCreal(x) * cuCimag(y)) + cuCimag(d)
+  real_res = -(cuCimag(x) * cuCimag(y)) + real_res
+  imag_res = (cuCimag(x) * cuCreal(y)) + imag_res
+  return make_cuDoubleComplex(real_res, imag_res)

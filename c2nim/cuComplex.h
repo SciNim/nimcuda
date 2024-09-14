@@ -1,15 +1,15 @@
 #ifdef C2NIM
-  #mangle CU_COMPLEX_H_ CU_COMPLEX_H
+  #assumendef CU_COMPLEX_H_
 
-  #assumedef __CUDACC_RTC__
-  #assumedef __CUDACC__
+  #mangle __GNUC__ GNUC
+  #mangle __GNUC_MINOR__ GNUC_MINOR
 
   #def __host__
   #def __device__
   #def __inline__
 
 #@
-from math import sqrt
+from std/math import sqrt
 
 template sqrtf(x: cfloat): cfloat = sqrt(x)
 

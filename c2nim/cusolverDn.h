@@ -1,5 +1,5 @@
 #ifdef C2NIM
-  #mangle CUSOLVERDN_H_ CUSOLVERDN_H
+  #asssumendef CUSOLVERDN_H_
 
   #def CUSOLVERAPI
 

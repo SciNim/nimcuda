@@ -1,5 +1,5 @@
 #ifdef C2NIM
-  #mangle CUSOLVERSP_H_ CUSOLVERSP_H
+  #assumendef CUSOLVERSP_H_
 
   #def CUSOLVERAPI
 
@@ -16,4 +16,7 @@
 
   #include "cuComplex.h"
   #include "driver_types.h"
+  #include "cusolver_common.h"
+  #include "cusparse.h"
+  #skipinclude
 #endif

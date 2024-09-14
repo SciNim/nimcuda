@@ -1,8 +1,6 @@
 #ifdef C2NIM
   #def CURANDAPI
 
-
-  // #assumedef __CUDACC_RTC__
   #assumendef CURAND_H_
 
   #dynlib libName
