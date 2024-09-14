@@ -20,7 +20,7 @@ proc main() =
     NX = 256
     NY = 128
     N = NX * NY
-  let size = sizeof(cufftComplex) * N
+  let size = sizeof(cufftComplex).csize_t * N.csize_t
   var
     plan: cufftHandle
     idata: ptr cufftComplex
