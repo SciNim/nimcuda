@@ -67,18 +67,18 @@ type csrqrInfo {.nodecl.} = object
 type
   csrqrInfo_t* = ptr csrqrInfo
 
-proc cusolverSpCreate*(handle: ptr cusolverSpHandle_t): cusolverStatus_t {.cdecl,
+proc cusolverSpCreateUnderScore*(handle: ptr cusolverSpHandle_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpCreate", dynlib: libName.}
-proc cusolverSpDestroy*(handle: cusolverSpHandle_t): cusolverStatus_t {.cdecl,
+proc cusolverSpDestroyUnderScore*(handle: cusolverSpHandle_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpDestroy", dynlib: libName.}
-proc cusolverSpSetStream*(handle: cusolverSpHandle_t; streamId: cudaStream_t): cusolverStatus_t {.
+proc cusolverSpSetStreamUnderScore*(handle: cusolverSpHandle_t; streamId: cudaStream_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpSetStream", dynlib: libName.}
-proc cusolverSpGetStream*(handle: cusolverSpHandle_t; streamId: ptr cudaStream_t): cusolverStatus_t {.
+proc cusolverSpGetStreamUnderScore*(handle: cusolverSpHandle_t; streamId: ptr cudaStream_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpGetStream", dynlib: libName.}
-proc cusolverSpXcsrissymHost*(handle: cusolverSpHandle_t; m: cint; nnzA: cint;
+proc cusolverSpXcsrissymHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnzA: cint;
                              descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
                              csrEndPtrA: ptr cint; csrColIndA: ptr cint;
-                             issym: ptr cint): cusolverStatus_t {.cdecl,
+                             issym: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpXcsrissymHost", dynlib: libName.}
 ##  -------- GPU linear solver by LU factorization
 ##        solve A*x = b, A can be singular
@@ -87,30 +87,30 @@ proc cusolverSpXcsrissymHost*(handle: cusolverSpHandle_t; m: cint; nnzA: cint;
 ##  [lu] stands for LU factorization
 ##
 
-proc cusolverSpScsrlsvluHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
+proc cusolverSpScsrlsvluHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                              descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                              csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                              b: ptr cfloat; tol: cfloat; reorder: cint; x: ptr cfloat;
-                             singularity: ptr cint): cusolverStatus_t {.cdecl,
+                             singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpScsrlsvluHost", dynlib: libName.}
-proc cusolverSpDcsrlsvluHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
+proc cusolverSpDcsrlsvluHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                              descrA: cusparseMatDescr_t; csrValA: ptr cdouble;
                              csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                              b: ptr cdouble; tol: cdouble; reorder: cint;
-                             x: ptr cdouble; singularity: ptr cint): cusolverStatus_t {.
+                             x: ptr cdouble; singularity: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpDcsrlsvluHost", dynlib: libName.}
-proc cusolverSpCcsrlsvluHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
+proc cusolverSpCcsrlsvluHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                              descrA: cusparseMatDescr_t; csrValA: ptr cuComplex;
                              csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                              b: ptr cuComplex; tol: cfloat; reorder: cint;
-                             x: ptr cuComplex; singularity: ptr cint): cusolverStatus_t {.
+                             x: ptr cuComplex; singularity: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpCcsrlsvluHost", dynlib: libName.}
-proc cusolverSpZcsrlsvluHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
+proc cusolverSpZcsrlsvluHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                              descrA: cusparseMatDescr_t;
                              csrValA: ptr cuDoubleComplex; csrRowPtrA: ptr cint;
                              csrColIndA: ptr cint; b: ptr cuDoubleComplex;
                              tol: cdouble; reorder: cint; x: ptr cuDoubleComplex;
-                             singularity: ptr cint): cusolverStatus_t {.cdecl,
+                             singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpZcsrlsvluHost", dynlib: libName.}
 ##  -------- GPU linear solver by QR factorization
 ##        solve A*x = b, A can be singular
@@ -119,29 +119,29 @@ proc cusolverSpZcsrlsvluHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
 ##  [qr] stands for QR factorization
 ##
 
-proc cusolverSpScsrlsvqr*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpScsrlsvqrUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                          descrA: cusparseMatDescr_t; csrVal: ptr cfloat;
                          csrRowPtr: ptr cint; csrColInd: ptr cint; b: ptr cfloat;
                          tol: cfloat; reorder: cint; x: ptr cfloat;
-                         singularity: ptr cint): cusolverStatus_t {.cdecl,
+                         singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpScsrlsvqr", dynlib: libName.}
-proc cusolverSpDcsrlsvqr*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpDcsrlsvqrUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                          descrA: cusparseMatDescr_t; csrVal: ptr cdouble;
                          csrRowPtr: ptr cint; csrColInd: ptr cint; b: ptr cdouble;
                          tol: cdouble; reorder: cint; x: ptr cdouble;
-                         singularity: ptr cint): cusolverStatus_t {.cdecl,
+                         singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpDcsrlsvqr", dynlib: libName.}
-proc cusolverSpCcsrlsvqr*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpCcsrlsvqrUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                          descrA: cusparseMatDescr_t; csrVal: ptr cuComplex;
                          csrRowPtr: ptr cint; csrColInd: ptr cint; b: ptr cuComplex;
                          tol: cfloat; reorder: cint; x: ptr cuComplex;
-                         singularity: ptr cint): cusolverStatus_t {.cdecl,
+                         singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpCcsrlsvqr", dynlib: libName.}
-proc cusolverSpZcsrlsvqr*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpZcsrlsvqrUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                          descrA: cusparseMatDescr_t; csrVal: ptr cuDoubleComplex;
                          csrRowPtr: ptr cint; csrColInd: ptr cint;
                          b: ptr cuDoubleComplex; tol: cdouble; reorder: cint;
-                         x: ptr cuDoubleComplex; singularity: ptr cint): cusolverStatus_t {.
+                         x: ptr cuDoubleComplex; singularity: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpZcsrlsvqr", dynlib: libName.}
 ##  -------- CPU linear solver by QR factorization
 ##        solve A*x = b, A can be singular
@@ -150,30 +150,30 @@ proc cusolverSpZcsrlsvqr*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
 ##  [qr] stands for QR factorization
 ##
 
-proc cusolverSpScsrlsvqrHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpScsrlsvqrHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                              descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                              csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                              b: ptr cfloat; tol: cfloat; reorder: cint; x: ptr cfloat;
-                             singularity: ptr cint): cusolverStatus_t {.cdecl,
+                             singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpScsrlsvqrHost", dynlib: libName.}
-proc cusolverSpDcsrlsvqrHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpDcsrlsvqrHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                              descrA: cusparseMatDescr_t; csrValA: ptr cdouble;
                              csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                              b: ptr cdouble; tol: cdouble; reorder: cint;
-                             x: ptr cdouble; singularity: ptr cint): cusolverStatus_t {.
+                             x: ptr cdouble; singularity: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpDcsrlsvqrHost", dynlib: libName.}
-proc cusolverSpCcsrlsvqrHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpCcsrlsvqrHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                              descrA: cusparseMatDescr_t; csrValA: ptr cuComplex;
                              csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                              b: ptr cuComplex; tol: cfloat; reorder: cint;
-                             x: ptr cuComplex; singularity: ptr cint): cusolverStatus_t {.
+                             x: ptr cuComplex; singularity: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpCcsrlsvqrHost", dynlib: libName.}
-proc cusolverSpZcsrlsvqrHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpZcsrlsvqrHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                              descrA: cusparseMatDescr_t;
                              csrValA: ptr cuDoubleComplex; csrRowPtrA: ptr cint;
                              csrColIndA: ptr cint; b: ptr cuDoubleComplex;
                              tol: cdouble; reorder: cint; x: ptr cuDoubleComplex;
-                             singularity: ptr cint): cusolverStatus_t {.cdecl,
+                             singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpZcsrlsvqrHost", dynlib: libName.}
 ##  -------- CPU linear solver by Cholesky factorization
 ##        solve A*x = b, A can be singular
@@ -185,30 +185,30 @@ proc cusolverSpZcsrlsvqrHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
 ##  The upper part of A is ignored.
 ##
 
-proc cusolverSpScsrlsvcholHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpScsrlsvcholHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                                descrA: cusparseMatDescr_t; csrVal: ptr cfloat;
                                csrRowPtr: ptr cint; csrColInd: ptr cint;
                                b: ptr cfloat; tol: cfloat; reorder: cint;
-                               x: ptr cfloat; singularity: ptr cint): cusolverStatus_t {.
+                               x: ptr cfloat; singularity: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpScsrlsvcholHost", dynlib: libName.}
-proc cusolverSpDcsrlsvcholHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpDcsrlsvcholHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                                descrA: cusparseMatDescr_t; csrVal: ptr cdouble;
                                csrRowPtr: ptr cint; csrColInd: ptr cint;
                                b: ptr cdouble; tol: cdouble; reorder: cint;
-                               x: ptr cdouble; singularity: ptr cint): cusolverStatus_t {.
+                               x: ptr cdouble; singularity: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpDcsrlsvcholHost", dynlib: libName.}
-proc cusolverSpCcsrlsvcholHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpCcsrlsvcholHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                                descrA: cusparseMatDescr_t; csrVal: ptr cuComplex;
                                csrRowPtr: ptr cint; csrColInd: ptr cint;
                                b: ptr cuComplex; tol: cfloat; reorder: cint;
-                               x: ptr cuComplex; singularity: ptr cint): cusolverStatus_t {.
+                               x: ptr cuComplex; singularity: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpCcsrlsvcholHost", dynlib: libName.}
-proc cusolverSpZcsrlsvcholHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpZcsrlsvcholHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                                descrA: cusparseMatDescr_t;
                                csrVal: ptr cuDoubleComplex; csrRowPtr: ptr cint;
                                csrColInd: ptr cint; b: ptr cuDoubleComplex;
                                tol: cdouble; reorder: cint; x: ptr cuDoubleComplex;
-                               singularity: ptr cint): cusolverStatus_t {.cdecl,
+                               singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpZcsrlsvcholHost", dynlib: libName.}
 ##  -------- GPU linear solver by Cholesky factorization
 ##        solve A*x = b, A can be singular
@@ -220,33 +220,33 @@ proc cusolverSpZcsrlsvcholHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
 ##  The upper part of A is ignored.
 ##
 
-proc cusolverSpScsrlsvchol*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpScsrlsvcholUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                            descrA: cusparseMatDescr_t; csrVal: ptr cfloat;
                            csrRowPtr: ptr cint; csrColInd: ptr cint; b: ptr cfloat;
                            tol: cfloat; reorder: cint; x: ptr cfloat;
-                           singularity: ptr cint): cusolverStatus_t {.cdecl,
+                           singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpScsrlsvchol", dynlib: libName.}
   ##  output
-proc cusolverSpDcsrlsvchol*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpDcsrlsvcholUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                            descrA: cusparseMatDescr_t; csrVal: ptr cdouble;
                            csrRowPtr: ptr cint; csrColInd: ptr cint; b: ptr cdouble;
                            tol: cdouble; reorder: cint; x: ptr cdouble;
-                           singularity: ptr cint): cusolverStatus_t {.cdecl,
+                           singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpDcsrlsvchol", dynlib: libName.}
   ##  output
-proc cusolverSpCcsrlsvchol*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpCcsrlsvcholUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                            descrA: cusparseMatDescr_t; csrVal: ptr cuComplex;
                            csrRowPtr: ptr cint; csrColInd: ptr cint; b: ptr cuComplex;
                            tol: cfloat; reorder: cint; x: ptr cuComplex;
-                           singularity: ptr cint): cusolverStatus_t {.cdecl,
+                           singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpCcsrlsvchol", dynlib: libName.}
   ##  output
-proc cusolverSpZcsrlsvchol*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpZcsrlsvcholUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                            descrA: cusparseMatDescr_t;
                            csrVal: ptr cuDoubleComplex; csrRowPtr: ptr cint;
                            csrColInd: ptr cint; b: ptr cuDoubleComplex; tol: cdouble;
                            reorder: cint; x: ptr cuDoubleComplex;
-                           singularity: ptr cint): cusolverStatus_t {.cdecl,
+                           singularity: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpZcsrlsvchol", dynlib: libName.}
   ##  output
 ##  ----------- CPU least square solver by QR factorization
@@ -256,30 +256,30 @@ proc cusolverSpZcsrlsvchol*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
 ##  [qr] stands for QR factorization
 ##
 
-proc cusolverSpScsrlsqvqrHost*(handle: cusolverSpHandle_t; m: cint; n: cint; nnz: cint;
+proc cusolverSpScsrlsqvqrHostUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint; nnz: cint;
                               descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                               csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                               b: ptr cfloat; tol: cfloat; rankA: ptr cint;
-                              x: ptr cfloat; p: ptr cint; min_norm: ptr cfloat): cusolverStatus_t {.
+                              x: ptr cfloat; p: ptr cint; min_norm: ptr cfloat): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpScsrlsqvqrHost", dynlib: libName.}
-proc cusolverSpDcsrlsqvqrHost*(handle: cusolverSpHandle_t; m: cint; n: cint; nnz: cint;
+proc cusolverSpDcsrlsqvqrHostUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint; nnz: cint;
                               descrA: cusparseMatDescr_t; csrValA: ptr cdouble;
                               csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                               b: ptr cdouble; tol: cdouble; rankA: ptr cint;
-                              x: ptr cdouble; p: ptr cint; min_norm: ptr cdouble): cusolverStatus_t {.
+                              x: ptr cdouble; p: ptr cint; min_norm: ptr cdouble): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpDcsrlsqvqrHost", dynlib: libName.}
-proc cusolverSpCcsrlsqvqrHost*(handle: cusolverSpHandle_t; m: cint; n: cint; nnz: cint;
+proc cusolverSpCcsrlsqvqrHostUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint; nnz: cint;
                               descrA: cusparseMatDescr_t; csrValA: ptr cuComplex;
                               csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                               b: ptr cuComplex; tol: cfloat; rankA: ptr cint;
-                              x: ptr cuComplex; p: ptr cint; min_norm: ptr cfloat): cusolverStatus_t {.
+                              x: ptr cuComplex; p: ptr cint; min_norm: ptr cfloat): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpCcsrlsqvqrHost", dynlib: libName.}
-proc cusolverSpZcsrlsqvqrHost*(handle: cusolverSpHandle_t; m: cint; n: cint; nnz: cint;
+proc cusolverSpZcsrlsqvqrHostUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint; nnz: cint;
                               descrA: cusparseMatDescr_t;
                               csrValA: ptr cuDoubleComplex; csrRowPtrA: ptr cint;
                               csrColIndA: ptr cint; b: ptr cuDoubleComplex;
                               tol: cdouble; rankA: ptr cint; x: ptr cuDoubleComplex;
-                              p: ptr cint; min_norm: ptr cdouble): cusolverStatus_t {.
+                              p: ptr cint; min_norm: ptr cdouble): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpZcsrlsqvqrHost", dynlib: libName.}
 ##  --------- CPU eigenvalue solver by shift inverse
 ##       solve A*x = lambda * x
@@ -288,30 +288,30 @@ proc cusolverSpZcsrlsqvqrHost*(handle: cusolverSpHandle_t; m: cint; n: cint; nnz
 ##  [si] stands for shift-inverse
 ##
 
-proc cusolverSpScsreigvsiHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpScsreigvsiHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                               descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                               csrRowPtrA: ptr cint; csrColIndA: ptr cint; mu0: cfloat;
                               x0: ptr cfloat; maxite: cint; tol: cfloat;
-                              mu: ptr cfloat; x: ptr cfloat): cusolverStatus_t {.cdecl,
+                              mu: ptr cfloat; x: ptr cfloat): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpScsreigvsiHost", dynlib: libName.}
-proc cusolverSpDcsreigvsiHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpDcsreigvsiHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                               descrA: cusparseMatDescr_t; csrValA: ptr cdouble;
                               csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                               mu0: cdouble; x0: ptr cdouble; maxite: cint;
-                              tol: cdouble; mu: ptr cdouble; x: ptr cdouble): cusolverStatus_t {.
+                              tol: cdouble; mu: ptr cdouble; x: ptr cdouble): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpDcsreigvsiHost", dynlib: libName.}
-proc cusolverSpCcsreigvsiHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpCcsreigvsiHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                               descrA: cusparseMatDescr_t; csrValA: ptr cuComplex;
                               csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                               mu0: cuComplex; x0: ptr cuComplex; maxite: cint;
-                              tol: cfloat; mu: ptr cuComplex; x: ptr cuComplex): cusolverStatus_t {.
+                              tol: cfloat; mu: ptr cuComplex; x: ptr cuComplex): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpCcsreigvsiHost", dynlib: libName.}
-proc cusolverSpZcsreigvsiHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpZcsreigvsiHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                               descrA: cusparseMatDescr_t;
                               csrValA: ptr cuDoubleComplex; csrRowPtrA: ptr cint;
                               csrColIndA: ptr cint; mu0: cuDoubleComplex;
                               x0: ptr cuDoubleComplex; maxite: cint; tol: cdouble;
-                              mu: ptr cuDoubleComplex; x: ptr cuDoubleComplex): cusolverStatus_t {.
+                              mu: ptr cuDoubleComplex; x: ptr cuDoubleComplex): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpZcsreigvsiHost", dynlib: libName.}
 ##  --------- GPU eigenvalue solver by shift inverse
 ##       solve A*x = lambda * x
@@ -320,205 +320,205 @@ proc cusolverSpZcsreigvsiHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
 ##  [si] stands for shift-inverse
 ##
 
-proc cusolverSpScsreigvsi*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpScsreigvsiUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                           descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                           csrRowPtrA: ptr cint; csrColIndA: ptr cint; mu0: cfloat;
                           x0: ptr cfloat; maxite: cint; eps: cfloat; mu: ptr cfloat;
-                          x: ptr cfloat): cusolverStatus_t {.cdecl,
+                          x: ptr cfloat): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpScsreigvsi", dynlib: libName.}
-proc cusolverSpDcsreigvsi*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpDcsreigvsiUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                           descrA: cusparseMatDescr_t; csrValA: ptr cdouble;
                           csrRowPtrA: ptr cint; csrColIndA: ptr cint; mu0: cdouble;
                           x0: ptr cdouble; maxite: cint; eps: cdouble; mu: ptr cdouble;
-                          x: ptr cdouble): cusolverStatus_t {.cdecl,
+                          x: ptr cdouble): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpDcsreigvsi", dynlib: libName.}
-proc cusolverSpCcsreigvsi*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpCcsreigvsiUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                           descrA: cusparseMatDescr_t; csrValA: ptr cuComplex;
                           csrRowPtrA: ptr cint; csrColIndA: ptr cint; mu0: cuComplex;
                           x0: ptr cuComplex; maxite: cint; eps: cfloat;
-                          mu: ptr cuComplex; x: ptr cuComplex): cusolverStatus_t {.
+                          mu: ptr cuComplex; x: ptr cuComplex): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpCcsreigvsi", dynlib: libName.}
-proc cusolverSpZcsreigvsi*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpZcsreigvsiUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                           descrA: cusparseMatDescr_t;
                           csrValA: ptr cuDoubleComplex; csrRowPtrA: ptr cint;
                           csrColIndA: ptr cint; mu0: cuDoubleComplex;
                           x0: ptr cuDoubleComplex; maxite: cint; eps: cdouble;
-                          mu: ptr cuDoubleComplex; x: ptr cuDoubleComplex): cusolverStatus_t {.
+                          mu: ptr cuDoubleComplex; x: ptr cuDoubleComplex): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpZcsreigvsi", dynlib: libName.}
 ##  ----------- enclosed eigenvalues
 
-proc cusolverSpScsreigsHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpScsreigsHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                             descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                             csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                             left_bottom_corner: cuComplex;
-                            right_upper_corner: cuComplex; num_eigs: ptr cint): cusolverStatus_t {.
+                            right_upper_corner: cuComplex; num_eigs: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpScsreigsHost", dynlib: libName.}
-proc cusolverSpDcsreigsHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpDcsreigsHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                             descrA: cusparseMatDescr_t; csrValA: ptr cdouble;
                             csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                             left_bottom_corner: cuDoubleComplex;
                             right_upper_corner: cuDoubleComplex;
-                            num_eigs: ptr cint): cusolverStatus_t {.cdecl,
+                            num_eigs: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpDcsreigsHost", dynlib: libName.}
-proc cusolverSpCcsreigsHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpCcsreigsHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                             descrA: cusparseMatDescr_t; csrValA: ptr cuComplex;
                             csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                             left_bottom_corner: cuComplex;
-                            right_upper_corner: cuComplex; num_eigs: ptr cint): cusolverStatus_t {.
+                            right_upper_corner: cuComplex; num_eigs: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpCcsreigsHost", dynlib: libName.}
-proc cusolverSpZcsreigsHost*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
+proc cusolverSpZcsreigsHostUnderScore*(handle: cusolverSpHandle_t; m: cint; nnz: cint;
                             descrA: cusparseMatDescr_t;
                             csrValA: ptr cuDoubleComplex; csrRowPtrA: ptr cint;
                             csrColIndA: ptr cint;
                             left_bottom_corner: cuDoubleComplex;
                             right_upper_corner: cuDoubleComplex;
-                            num_eigs: ptr cint): cusolverStatus_t {.cdecl,
+                            num_eigs: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpZcsreigsHost", dynlib: libName.}
 ##  --------- CPU symrcm
 ##    Symmetric reverse Cuthill McKee permutation
 ##
 ##
 
-proc cusolverSpXcsrsymrcmHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
+proc cusolverSpXcsrsymrcmHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                               descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
-                              csrColIndA: ptr cint; p: ptr cint): cusolverStatus_t {.
+                              csrColIndA: ptr cint; p: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpXcsrsymrcmHost", dynlib: libName.}
 ##  --------- CPU symmdq
 ##    Symmetric minimum degree algorithm by quotient graph
 ##
 ##
 
-proc cusolverSpXcsrsymmdqHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
+proc cusolverSpXcsrsymmdqHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                               descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
-                              csrColIndA: ptr cint; p: ptr cint): cusolverStatus_t {.
+                              csrColIndA: ptr cint; p: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpXcsrsymmdqHost", dynlib: libName.}
 ##  --------- CPU symmdq
 ##    Symmetric Approximate minimum degree algorithm by quotient graph
 ##
 ##
 
-proc cusolverSpXcsrsymamdHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
+proc cusolverSpXcsrsymamdHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                               descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
-                              csrColIndA: ptr cint; p: ptr cint): cusolverStatus_t {.
+                              csrColIndA: ptr cint; p: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpXcsrsymamdHost", dynlib: libName.}
 ##  --------- CPU metis
 ##    symmetric reordering
 ##
 
-proc cusolverSpXcsrmetisndHost*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
+proc cusolverSpXcsrmetisndHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnzA: cint;
                                descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
                                csrColIndA: ptr cint; options: ptr clonglong;
-                               p: ptr cint): cusolverStatus_t {.cdecl,
+                               p: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpXcsrmetisndHost", dynlib: libName.}
 ##  --------- CPU zfd
 ##   Zero free diagonal reordering
 ##
 
-proc cusolverSpScsrzfdHost*(handle: cusolverSpHandle_t; n: cint; nnz: cint;
+proc cusolverSpScsrzfdHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnz: cint;
                            descrA: cusparseMatDescr_t; csrValA: ptr cfloat;
                            csrRowPtrA: ptr cint; csrColIndA: ptr cint; P: ptr cint;
-                           numnz: ptr cint): cusolverStatus_t {.cdecl,
+                           numnz: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpScsrzfdHost", dynlib: libName.}
-proc cusolverSpDcsrzfdHost*(handle: cusolverSpHandle_t; n: cint; nnz: cint;
+proc cusolverSpDcsrzfdHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnz: cint;
                            descrA: cusparseMatDescr_t; csrValA: ptr cdouble;
                            csrRowPtrA: ptr cint; csrColIndA: ptr cint; P: ptr cint;
-                           numnz: ptr cint): cusolverStatus_t {.cdecl,
+                           numnz: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpDcsrzfdHost", dynlib: libName.}
-proc cusolverSpCcsrzfdHost*(handle: cusolverSpHandle_t; n: cint; nnz: cint;
+proc cusolverSpCcsrzfdHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnz: cint;
                            descrA: cusparseMatDescr_t; csrValA: ptr cuComplex;
                            csrRowPtrA: ptr cint; csrColIndA: ptr cint; P: ptr cint;
-                           numnz: ptr cint): cusolverStatus_t {.cdecl,
+                           numnz: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpCcsrzfdHost", dynlib: libName.}
-proc cusolverSpZcsrzfdHost*(handle: cusolverSpHandle_t; n: cint; nnz: cint;
+proc cusolverSpZcsrzfdHostUnderScore*(handle: cusolverSpHandle_t; n: cint; nnz: cint;
                            descrA: cusparseMatDescr_t;
                            csrValA: ptr cuDoubleComplex; csrRowPtrA: ptr cint;
-                           csrColIndA: ptr cint; P: ptr cint; numnz: ptr cint): cusolverStatus_t {.
+                           csrColIndA: ptr cint; P: ptr cint; numnz: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpZcsrzfdHost", dynlib: libName.}
 ##  --------- CPU permuation
 ##    P*A*Q^T
 ##
 ##
 
-proc cusolverSpXcsrperm_bufferSizeHost*(handle: cusolverSpHandle_t; m: cint; n: cint;
+proc cusolverSpXcsrperm_bufferSizeHostUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                        nnzA: cint; descrA: cusparseMatDescr_t;
                                        csrRowPtrA: ptr cint; csrColIndA: ptr cint;
                                        p: ptr cint; q: ptr cint;
-                                       bufferSizeInBytes: ptr csize_t): cusolverStatus_t {.
+                                       bufferSizeInBytes: ptr csize_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpXcsrperm_bufferSizeHost", dynlib: libName.}
-proc cusolverSpXcsrpermHost*(handle: cusolverSpHandle_t; m: cint; n: cint; nnzA: cint;
+proc cusolverSpXcsrpermHostUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint; nnzA: cint;
                             descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
                             csrColIndA: ptr cint; p: ptr cint; q: ptr cint;
-                            map: ptr cint; pBuffer: pointer): cusolverStatus_t {.
+                            map: ptr cint; pBuffer: pointer): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpXcsrpermHost", dynlib: libName.}
 ##
 ##   Low-level API: Batched QR
 ##
 ##
 
-proc cusolverSpCreateCsrqrInfo*(info: ptr csrqrInfo_t): cusolverStatus_t {.cdecl,
+proc cusolverSpCreateCsrqrInfoUnderScore*(info: ptr csrqrInfo_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpCreateCsrqrInfo", dynlib: libName.}
-proc cusolverSpDestroyCsrqrInfo*(info: csrqrInfo_t): cusolverStatus_t {.cdecl,
+proc cusolverSpDestroyCsrqrInfoUnderScore*(info: csrqrInfo_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpDestroyCsrqrInfo", dynlib: libName.}
-proc cusolverSpXcsrqrAnalysisBatched*(handle: cusolverSpHandle_t; m: cint; n: cint;
+proc cusolverSpXcsrqrAnalysisBatchedUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                      nnzA: cint; descrA: cusparseMatDescr_t;
                                      csrRowPtrA: ptr cint; csrColIndA: ptr cint;
-                                     info: csrqrInfo_t): cusolverStatus_t {.cdecl,
+                                     info: csrqrInfo_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpXcsrqrAnalysisBatched", dynlib: libName.}
-proc cusolverSpScsrqrBufferInfoBatched*(handle: cusolverSpHandle_t; m: cint; n: cint;
+proc cusolverSpScsrqrBufferInfoBatchedUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                        nnz: cint; descrA: cusparseMatDescr_t;
                                        csrVal: ptr cfloat; csrRowPtr: ptr cint;
                                        csrColInd: ptr cint; batchSize: cint;
                                        info: csrqrInfo_t;
                                        internalDataInBytes: ptr csize_t;
-                                       workspaceInBytes: ptr csize_t): cusolverStatus_t {.
+                                       workspaceInBytes: ptr csize_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpScsrqrBufferInfoBatched", dynlib: libName.}
-proc cusolverSpDcsrqrBufferInfoBatched*(handle: cusolverSpHandle_t; m: cint; n: cint;
+proc cusolverSpDcsrqrBufferInfoBatchedUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                        nnz: cint; descrA: cusparseMatDescr_t;
                                        csrVal: ptr cdouble; csrRowPtr: ptr cint;
                                        csrColInd: ptr cint; batchSize: cint;
                                        info: csrqrInfo_t;
                                        internalDataInBytes: ptr csize_t;
-                                       workspaceInBytes: ptr csize_t): cusolverStatus_t {.
+                                       workspaceInBytes: ptr csize_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpDcsrqrBufferInfoBatched", dynlib: libName.}
-proc cusolverSpCcsrqrBufferInfoBatched*(handle: cusolverSpHandle_t; m: cint; n: cint;
+proc cusolverSpCcsrqrBufferInfoBatchedUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                        nnz: cint; descrA: cusparseMatDescr_t;
                                        csrVal: ptr cuComplex; csrRowPtr: ptr cint;
                                        csrColInd: ptr cint; batchSize: cint;
                                        info: csrqrInfo_t;
                                        internalDataInBytes: ptr csize_t;
-                                       workspaceInBytes: ptr csize_t): cusolverStatus_t {.
+                                       workspaceInBytes: ptr csize_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpCcsrqrBufferInfoBatched", dynlib: libName.}
-proc cusolverSpZcsrqrBufferInfoBatched*(handle: cusolverSpHandle_t; m: cint; n: cint;
+proc cusolverSpZcsrqrBufferInfoBatchedUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                        nnz: cint; descrA: cusparseMatDescr_t;
                                        csrVal: ptr cuDoubleComplex;
                                        csrRowPtr: ptr cint; csrColInd: ptr cint;
                                        batchSize: cint; info: csrqrInfo_t;
                                        internalDataInBytes: ptr csize_t;
-                                       workspaceInBytes: ptr csize_t): cusolverStatus_t {.
+                                       workspaceInBytes: ptr csize_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpZcsrqrBufferInfoBatched", dynlib: libName.}
-proc cusolverSpScsrqrsvBatched*(handle: cusolverSpHandle_t; m: cint; n: cint;
+proc cusolverSpScsrqrsvBatchedUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                nnz: cint; descrA: cusparseMatDescr_t;
                                csrValA: ptr cfloat; csrRowPtrA: ptr cint;
                                csrColIndA: ptr cint; b: ptr cfloat; x: ptr cfloat;
-                               batchSize: cint; info: csrqrInfo_t; pBuffer: pointer): cusolverStatus_t {.
+                               batchSize: cint; info: csrqrInfo_t; pBuffer: pointer): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpScsrqrsvBatched", dynlib: libName.}
-proc cusolverSpDcsrqrsvBatched*(handle: cusolverSpHandle_t; m: cint; n: cint;
+proc cusolverSpDcsrqrsvBatchedUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                nnz: cint; descrA: cusparseMatDescr_t;
                                csrValA: ptr cdouble; csrRowPtrA: ptr cint;
                                csrColIndA: ptr cint; b: ptr cdouble; x: ptr cdouble;
-                               batchSize: cint; info: csrqrInfo_t; pBuffer: pointer): cusolverStatus_t {.
+                               batchSize: cint; info: csrqrInfo_t; pBuffer: pointer): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpDcsrqrsvBatched", dynlib: libName.}
-proc cusolverSpCcsrqrsvBatched*(handle: cusolverSpHandle_t; m: cint; n: cint;
+proc cusolverSpCcsrqrsvBatchedUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                nnz: cint; descrA: cusparseMatDescr_t;
                                csrValA: ptr cuComplex; csrRowPtrA: ptr cint;
                                csrColIndA: ptr cint; b: ptr cuComplex;
                                x: ptr cuComplex; batchSize: cint; info: csrqrInfo_t;
-                               pBuffer: pointer): cusolverStatus_t {.cdecl,
+                               pBuffer: pointer): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverSpCcsrqrsvBatched", dynlib: libName.}
-proc cusolverSpZcsrqrsvBatched*(handle: cusolverSpHandle_t; m: cint; n: cint;
+proc cusolverSpZcsrqrsvBatchedUnderScore*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                nnz: cint; descrA: cusparseMatDescr_t;
                                csrValA: ptr cuDoubleComplex; csrRowPtrA: ptr cint;
                                csrColIndA: ptr cint; b: ptr cuDoubleComplex;
                                x: ptr cuDoubleComplex; batchSize: cint;
-                               info: csrqrInfo_t; pBuffer: pointer): cusolverStatus_t {.
+                               info: csrqrInfo_t; pBuffer: pointer): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverSpZcsrqrsvBatched", dynlib: libName.}

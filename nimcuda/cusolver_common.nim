@@ -206,5 +206,5 @@ type
 
 proc cusolverGetProperty*(`type`: libraryPropertyType; value: ptr cint): cusolverStatus_t {.
     cdecl, importc: "cusolverGetProperty", dynlib: libName.}
-proc cusolverGetVersion*(version: ptr cint): cusolverStatus_t {.cdecl,
+proc cusolverGetVersionUnderScore*(version: ptr cint): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverGetVersion", dynlib: libName.}

@@ -187,7 +187,7 @@ proc cufftEstimateMany*(rank: cint; n: ptr cint; inembed: ptr cint; istride: cin
                        idist: cint; onembed: ptr cint; ostride: cint; odist: cint;
                        `type`: cufftType; batch: cint; workSize: ptr csize_t): cufftResult {.
     cdecl, importc: "cufftEstimateMany", dynlib: libName.}
-proc cufftCreate*(handle: ptr cufftHandle): cufftResult {.cdecl,
+proc cufftCreateUnderScore*(handle: ptr cufftHandle): cufftResult {.discardable, cdecl,
     importc: "cufftCreate", dynlib: libName.}
 proc cufftGetSize1d*(handle: cufftHandle; nx: cint; `type`: cufftType; batch: cint;
                     workSize: ptr csize_t): cufftResult {.cdecl,
@@ -203,35 +203,35 @@ proc cufftGetSizeMany*(handle: cufftHandle; rank: cint; n: ptr cint; inembed: pt
                       odist: cint; `type`: cufftType; batch: cint;
                       workArea: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftGetSizeMany", dynlib: libName.}
-proc cufftGetSize*(handle: cufftHandle; workSize: ptr csize_t): cufftResult {.cdecl,
+proc cufftGetSizeUnderScore*(handle: cufftHandle; workSize: ptr csize_t): cufftResult {.discardable, cdecl,
     importc: "cufftGetSize", dynlib: libName.}
-proc cufftSetWorkArea*(plan: cufftHandle; workArea: pointer): cufftResult {.cdecl,
+proc cufftSetWorkAreaUnderScore*(plan: cufftHandle; workArea: pointer): cufftResult {.discardable, cdecl,
     importc: "cufftSetWorkArea", dynlib: libName.}
-proc cufftSetAutoAllocation*(plan: cufftHandle; autoAllocate: cint): cufftResult {.
+proc cufftSetAutoAllocationUnderScore*(plan: cufftHandle; autoAllocate: cint): cufftResult {.discardable, 
     cdecl, importc: "cufftSetAutoAllocation", dynlib: libName.}
-proc cufftExecC2C*(plan: cufftHandle; idata: ptr cufftComplex;
-                  odata: ptr cufftComplex; direction: cint): cufftResult {.cdecl,
+proc cufftExecC2CUnderScore*(plan: cufftHandle; idata: ptr cufftComplex;
+                  odata: ptr cufftComplex; direction: cint): cufftResult {.discardable, cdecl,
     importc: "cufftExecC2C", dynlib: libName.}
-proc cufftExecR2C*(plan: cufftHandle; idata: ptr cufftReal; odata: ptr cufftComplex): cufftResult {.
+proc cufftExecR2CUnderScore*(plan: cufftHandle; idata: ptr cufftReal; odata: ptr cufftComplex): cufftResult {.discardable, 
     cdecl, importc: "cufftExecR2C", dynlib: libName.}
-proc cufftExecC2R*(plan: cufftHandle; idata: ptr cufftComplex; odata: ptr cufftReal): cufftResult {.
+proc cufftExecC2RUnderScore*(plan: cufftHandle; idata: ptr cufftComplex; odata: ptr cufftReal): cufftResult {.discardable, 
     cdecl, importc: "cufftExecC2R", dynlib: libName.}
-proc cufftExecZ2Z*(plan: cufftHandle; idata: ptr cufftDoubleComplex;
-                  odata: ptr cufftDoubleComplex; direction: cint): cufftResult {.
+proc cufftExecZ2ZUnderScore*(plan: cufftHandle; idata: ptr cufftDoubleComplex;
+                  odata: ptr cufftDoubleComplex; direction: cint): cufftResult {.discardable, 
     cdecl, importc: "cufftExecZ2Z", dynlib: libName.}
-proc cufftExecD2Z*(plan: cufftHandle; idata: ptr cufftDoubleReal;
-                  odata: ptr cufftDoubleComplex): cufftResult {.cdecl,
+proc cufftExecD2ZUnderScore*(plan: cufftHandle; idata: ptr cufftDoubleReal;
+                  odata: ptr cufftDoubleComplex): cufftResult {.discardable, cdecl,
     importc: "cufftExecD2Z", dynlib: libName.}
-proc cufftExecZ2D*(plan: cufftHandle; idata: ptr cufftDoubleComplex;
-                  odata: ptr cufftDoubleReal): cufftResult {.cdecl,
+proc cufftExecZ2DUnderScore*(plan: cufftHandle; idata: ptr cufftDoubleComplex;
+                  odata: ptr cufftDoubleReal): cufftResult {.discardable, cdecl,
     importc: "cufftExecZ2D", dynlib: libName.}
 ##  utility functions
 
-proc cufftSetStream*(plan: cufftHandle; stream: cudaStream_t): cufftResult {.cdecl,
+proc cufftSetStreamUnderScore*(plan: cufftHandle; stream: cudaStream_t): cufftResult {.discardable, cdecl,
     importc: "cufftSetStream", dynlib: libName.}
-proc cufftDestroy*(plan: cufftHandle): cufftResult {.cdecl, importc: "cufftDestroy",
+proc cufftDestroyUnderScore*(plan: cufftHandle): cufftResult {.discardable, cdecl, importc: "cufftDestroy",
     dynlib: libName.}
-proc cufftGetVersion*(version: ptr cint): cufftResult {.cdecl,
+proc cufftGetVersionUnderScore*(version: ptr cint): cufftResult {.discardable, cdecl,
     importc: "cufftGetVersion", dynlib: libName.}
 proc cufftGetProperty*(`type`: libraryPropertyType; value: ptr cint): cufftResult {.
     cdecl, importc: "cufftGetProperty", dynlib: libName.}
@@ -245,11 +245,11 @@ type
     NVFFT_PLAN_PROPERTY_INT64_MAX_NUM_HOST_THREADS = 0x2
 
 
-proc cufftSetPlanPropertyInt64*(plan: cufftHandle; property: cufftProperty;
-                               inputValueInt: clonglong): cufftResult {.cdecl,
+proc cufftSetPlanPropertyInt64UnderScore*(plan: cufftHandle; property: cufftProperty;
+                               inputValueInt: clonglong): cufftResult {.discardable, cdecl,
     importc: "cufftSetPlanPropertyInt64", dynlib: libName.}
-proc cufftGetPlanPropertyInt64*(plan: cufftHandle; property: cufftProperty;
-                               returnPtrValue: ptr clonglong): cufftResult {.cdecl,
+proc cufftGetPlanPropertyInt64UnderScore*(plan: cufftHandle; property: cufftProperty;
+                               returnPtrValue: ptr clonglong): cufftResult {.discardable, cdecl,
     importc: "cufftGetPlanPropertyInt64", dynlib: libName.}
-proc cufftResetPlanProperty*(plan: cufftHandle; property: cufftProperty): cufftResult {.
+proc cufftResetPlanPropertyUnderScore*(plan: cufftHandle; property: cufftProperty): cufftResult {.discardable, 
     cdecl, importc: "cufftResetPlanProperty", dynlib: libName.}

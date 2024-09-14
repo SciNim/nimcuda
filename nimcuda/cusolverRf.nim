@@ -117,66 +117,66 @@ type
 ##  CUSOLVERRF create (allocate memory) and destroy (free memory) in the handle
 ##
 
-proc cusolverRfCreate*(handle: ptr cusolverRfHandle_t): cusolverStatus_t {.cdecl,
+proc cusolverRfCreateUnderScore*(handle: ptr cusolverRfHandle_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverRfCreate", dynlib: libName.}
-proc cusolverRfDestroy*(handle: cusolverRfHandle_t): cusolverStatus_t {.cdecl,
+proc cusolverRfDestroyUnderScore*(handle: cusolverRfHandle_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverRfDestroy", dynlib: libName.}
 ##  CUSOLVERRF set and get input format
 
-proc cusolverRfGetMatrixFormat*(handle: cusolverRfHandle_t;
+proc cusolverRfGetMatrixFormatUnderScore*(handle: cusolverRfHandle_t;
                                format: ptr cusolverRfMatrixFormat_t;
-                               diag: ptr cusolverRfUnitDiagonal_t): cusolverStatus_t {.
+                               diag: ptr cusolverRfUnitDiagonal_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfGetMatrixFormat", dynlib: libName.}
-proc cusolverRfSetMatrixFormat*(handle: cusolverRfHandle_t;
+proc cusolverRfSetMatrixFormatUnderScore*(handle: cusolverRfHandle_t;
                                format: cusolverRfMatrixFormat_t;
-                               diag: cusolverRfUnitDiagonal_t): cusolverStatus_t {.
+                               diag: cusolverRfUnitDiagonal_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfSetMatrixFormat", dynlib: libName.}
 ##  CUSOLVERRF set and get numeric properties
 
-proc cusolverRfSetNumericProperties*(handle: cusolverRfHandle_t; zero: cdouble;
-                                    boost: cdouble): cusolverStatus_t {.cdecl,
+proc cusolverRfSetNumericPropertiesUnderScore*(handle: cusolverRfHandle_t; zero: cdouble;
+                                    boost: cdouble): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverRfSetNumericProperties", dynlib: libName.}
-proc cusolverRfGetNumericProperties*(handle: cusolverRfHandle_t; zero: ptr cdouble;
-                                    boost: ptr cdouble): cusolverStatus_t {.cdecl,
+proc cusolverRfGetNumericPropertiesUnderScore*(handle: cusolverRfHandle_t; zero: ptr cdouble;
+                                    boost: ptr cdouble): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverRfGetNumericProperties", dynlib: libName.}
-proc cusolverRfGetNumericBoostReport*(handle: cusolverRfHandle_t;
-                                     report: ptr cusolverRfNumericBoostReport_t): cusolverStatus_t {.
+proc cusolverRfGetNumericBoostReportUnderScore*(handle: cusolverRfHandle_t;
+                                     report: ptr cusolverRfNumericBoostReport_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfGetNumericBoostReport", dynlib: libName.}
 ##  CUSOLVERRF choose the triangular solve algorithm
 
-proc cusolverRfSetAlgs*(handle: cusolverRfHandle_t;
+proc cusolverRfSetAlgsUnderScore*(handle: cusolverRfHandle_t;
                        factAlg: cusolverRfFactorization_t;
-                       solveAlg: cusolverRfTriangularSolve_t): cusolverStatus_t {.
+                       solveAlg: cusolverRfTriangularSolve_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfSetAlgs", dynlib: libName.}
-proc cusolverRfGetAlgs*(handle: cusolverRfHandle_t;
+proc cusolverRfGetAlgsUnderScore*(handle: cusolverRfHandle_t;
                        factAlg: ptr cusolverRfFactorization_t;
-                       solveAlg: ptr cusolverRfTriangularSolve_t): cusolverStatus_t {.
+                       solveAlg: ptr cusolverRfTriangularSolve_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfGetAlgs", dynlib: libName.}
 ##  CUSOLVERRF set and get fast mode
 
-proc cusolverRfGetResetValuesFastMode*(handle: cusolverRfHandle_t; fastMode: ptr cusolverRfResetValuesFastMode_t): cusolverStatus_t {.
+proc cusolverRfGetResetValuesFastModeUnderScore*(handle: cusolverRfHandle_t; fastMode: ptr cusolverRfResetValuesFastMode_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfGetResetValuesFastMode", dynlib: libName.}
-proc cusolverRfSetResetValuesFastMode*(handle: cusolverRfHandle_t;
-                                      fastMode: cusolverRfResetValuesFastMode_t): cusolverStatus_t {.
+proc cusolverRfSetResetValuesFastModeUnderScore*(handle: cusolverRfHandle_t;
+                                      fastMode: cusolverRfResetValuesFastMode_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfSetResetValuesFastMode", dynlib: libName.}
 ## * Non-Batched Routines **
 ##  CUSOLVERRF setup of internal structures from host or device memory
 
-proc cusolverRfSetupHost*(n: cint; nnzA: cint; h_csrRowPtrA: ptr cint;
+proc cusolverRfSetupHostUnderScore*(n: cint; nnzA: cint; h_csrRowPtrA: ptr cint;
                          h_csrColIndA: ptr cint; h_csrValA: ptr cdouble; nnzL: cint;
                          h_csrRowPtrL: ptr cint; h_csrColIndL: ptr cint;
                          h_csrValL: ptr cdouble; nnzU: cint; h_csrRowPtrU: ptr cint;
                          h_csrColIndU: ptr cint; h_csrValU: ptr cdouble;
-                         h_P: ptr cint; h_Q: ptr cint; handle: cusolverRfHandle_t): cusolverStatus_t {.
+                         h_P: ptr cint; h_Q: ptr cint; handle: cusolverRfHandle_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfSetupHost", dynlib: libName.}
   ##  Input (in the host memory)
   ##  Output
-proc cusolverRfSetupDevice*(n: cint; nnzA: cint; csrRowPtrA: ptr cint;
+proc cusolverRfSetupDeviceUnderScore*(n: cint; nnzA: cint; csrRowPtrA: ptr cint;
                            csrColIndA: ptr cint; csrValA: ptr cdouble; nnzL: cint;
                            csrRowPtrL: ptr cint; csrColIndL: ptr cint;
                            csrValL: ptr cdouble; nnzU: cint; csrRowPtrU: ptr cint;
                            csrColIndU: ptr cint; csrValU: ptr cdouble; P: ptr cint;
-                           Q: ptr cint; handle: cusolverRfHandle_t): cusolverStatus_t {.
+                           Q: ptr cint; handle: cusolverRfHandle_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfSetupDevice", dynlib: libName.}
   ##  Input (in the device memory)
   ##  Output
@@ -184,19 +184,19 @@ proc cusolverRfSetupDevice*(n: cint; nnzA: cint; csrRowPtrA: ptr cint;
 ##      and consequently the sparsity pattern of L and U did not change),
 ##      and zero out the remaining values.
 
-proc cusolverRfResetValues*(n: cint; nnzA: cint; csrRowPtrA: ptr cint;
+proc cusolverRfResetValuesUnderScore*(n: cint; nnzA: cint; csrRowPtrA: ptr cint;
                            csrColIndA: ptr cint; csrValA: ptr cdouble; P: ptr cint;
-                           Q: ptr cint; handle: cusolverRfHandle_t): cusolverStatus_t {.
+                           Q: ptr cint; handle: cusolverRfHandle_t): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfResetValues", dynlib: libName.}
   ##  Input (in the device memory)
   ##  Output
 ##  CUSOLVERRF analysis (for parallelism)
 
-proc cusolverRfAnalyze*(handle: cusolverRfHandle_t): cusolverStatus_t {.cdecl,
+proc cusolverRfAnalyzeUnderScore*(handle: cusolverRfHandle_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverRfAnalyze", dynlib: libName.}
 ##  CUSOLVERRF re-factorization (for parallelism)
 
-proc cusolverRfRefactor*(handle: cusolverRfHandle_t): cusolverStatus_t {.cdecl,
+proc cusolverRfRefactorUnderScore*(handle: cusolverRfHandle_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverRfRefactor", dynlib: libName.}
 ##  CUSOLVERRF extraction: Get L & U packed into a single matrix M
 
@@ -226,8 +226,8 @@ proc cusolverRfExtractSplitFactorsHost*(handle: cusolverRfHandle_t;
   ##  Output (in the host memory)
 ##  CUSOLVERRF (forward and backward triangular) solves
 
-proc cusolverRfSolve*(handle: cusolverRfHandle_t; P: ptr cint; Q: ptr cint; nrhs: cint;
-                     Temp: ptr cdouble; ldt: cint; XF: ptr cdouble; ldxf: cint): cusolverStatus_t {.
+proc cusolverRfSolveUnderScore*(handle: cusolverRfHandle_t; P: ptr cint; Q: ptr cint; nrhs: cint;
+                     Temp: ptr cdouble; ldt: cint; XF: ptr cdouble; ldxf: cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfSolve", dynlib: libName.}
   ##  Input (in the device memory)
   ##  only nrhs=1 is supported
@@ -261,11 +261,11 @@ proc cusolverRfBatchResetValues*(batchSize: cint; n: cint; nnzA: cint;
   ##  Output
 ##  CUSOLVERRF-batch analysis (for parallelism)
 
-proc cusolverRfBatchAnalyze*(handle: cusolverRfHandle_t): cusolverStatus_t {.cdecl,
+proc cusolverRfBatchAnalyzeUnderScore*(handle: cusolverRfHandle_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverRfBatchAnalyze", dynlib: libName.}
 ##  CUSOLVERRF-batch re-factorization (for parallelism)
 
-proc cusolverRfBatchRefactor*(handle: cusolverRfHandle_t): cusolverStatus_t {.cdecl,
+proc cusolverRfBatchRefactorUnderScore*(handle: cusolverRfHandle_t): cusolverStatus_t {.discardable, cdecl,
     importc: "cusolverRfBatchRefactor", dynlib: libName.}
 ##  CUSOLVERRF-batch (forward and backward triangular) solves
 
@@ -281,7 +281,7 @@ proc cusolverRfBatchSolve*(handle: cusolverRfHandle_t; P: ptr cint; Q: ptr cint;
   ##  Input
 ##  CUSOLVERRF-batch obtain the position of zero pivot
 
-proc cusolverRfBatchZeroPivot*(handle: cusolverRfHandle_t; position: ptr cint): cusolverStatus_t {.
+proc cusolverRfBatchZeroPivotUnderScore*(handle: cusolverRfHandle_t; position: ptr cint): cusolverStatus_t {.discardable, 
     cdecl, importc: "cusolverRfBatchZeroPivot", dynlib: libName.}
   ##  Input
   ##  Output (in the host memory)
