@@ -31,19 +31,19 @@ proc main() =
     gpuVals: ptr cfloat
     gpuCsrRows: ptr cint
 
-  check cudaMalloc(cast[ptr pointer](addr gpuRows), sizeof(rows))
-  check cudaMalloc(cast[ptr pointer](addr gpuCols), sizeof(cols))
-  check cudaMalloc(cast[ptr pointer](addr gpuVals), sizeof(vals))
-  check cudaMalloc(cast[ptr pointer](addr gpuCsrRows), sizeof(csrRows))
+  check cudaMalloc(cast[ptr pointer](addr gpuRows), sizeof(rows).csize_t)
+  check cudaMalloc(cast[ptr pointer](addr gpuCols), sizeof(cols).csize_t)
+  check cudaMalloc(cast[ptr pointer](addr gpuVals), sizeof(vals).csize_t)
+  check cudaMalloc(cast[ptr pointer](addr gpuCsrRows), sizeof(csrRows).csize_t)
 
-  check cudaMemcpy(gpuRows, rows.first, sizeof(rows), cudaMemcpyHostToDevice)
-  check cudaMemcpy(gpuCols, cols.first, sizeof(cols), cudaMemcpyHostToDevice)
-  check cudaMemcpy(gpuVals, vals.first, sizeof(vals), cudaMemcpyHostToDevice)
+  check cudaMemcpy(gpuRows, rows.first, sizeof(rows).csize_t, cudaMemcpyHostToDevice)
+  check cudaMemcpy(gpuCols, cols.first, sizeof(cols).csize_t, cudaMemcpyHostToDevice)
+  check cudaMemcpy(gpuVals, vals.first, sizeof(vals).csize_t, cudaMemcpyHostToDevice)
 
   check cusparseCreate(addr handle)
   check cusparseXcoo2csr(handle, gpuRows, nnz, n, gpuCsrRows,CUSPARSE_INDEX_BASE_ZERO)
 
-  check cudaMemcpy(csrRows.first, gpuCsrRows, sizeof(csrRows), cudaMemcpyDeviceToHost)
+  check cudaMemcpy(csrRows.first, gpuCsrRows, sizeof(csrRows).csize_t, cudaMemcpyDeviceToHost)
 
   check cusparseDestroy(handle)
   check cudaFree(gpuRows)
