@@ -189,47 +189,47 @@ const
 ## # OPAQUE DATA STRUCTURES
 ## ##############################################################################
 
-type cusparseContext {.importc, nodecl.} = object
+type cusparseContext {.nodecl.} = object
 type
   cusparseHandle_t* = ptr cusparseContext
 
-type cusparseMatDescr {.importc, nodecl.} = object
+type cusparseMatDescr {.nodecl.} = object
 type
   cusparseMatDescr_t* = ptr cusparseMatDescr
 
-type bsrsv2Info {.importc, nodecl.} = object
+type bsrsv2Info {.nodecl.} = object
 type
   bsrsv2Info_t* = ptr bsrsv2Info
 
-type bsrsm2Info {.importc, nodecl.} = object
+type bsrsm2Info {.nodecl.} = object
 type
   bsrsm2Info_t* = ptr bsrsm2Info
 
-type csric02Info {.importc, nodecl.} = object
+type csric02Info {.nodecl.} = object
 type
   csric02Info_t* = ptr csric02Info
 
-type bsric02Info {.importc, nodecl.} = object
+type bsric02Info {.nodecl.} = object
 type
   bsric02Info_t* = ptr bsric02Info
 
-type csrilu02Info {.importc, nodecl.} = object
+type csrilu02Info {.nodecl.} = object
 type
   csrilu02Info_t* = ptr csrilu02Info
 
-type bsrilu02Info {.importc, nodecl.} = object
+type bsrilu02Info {.nodecl.} = object
 type
   bsrilu02Info_t* = ptr bsrilu02Info
 
-type csru2csrInfo {.importc, nodecl.} = object
+type csru2csrInfo {.nodecl.} = object
 type
   csru2csrInfo_t* = ptr csru2csrInfo
 
-type cusparseColorInfo {.importc, nodecl.} = object
+type cusparseColorInfo {.nodecl.} = object
 type
   cusparseColorInfo_t* = ptr cusparseColorInfo
 
-type pruneInfo {.importc, nodecl.} = object
+type pruneInfo {.nodecl.} = object
 type
   pruneInfo_t* = ptr pruneInfo
 
@@ -2550,10 +2550,10 @@ type
 
 ## ------------------------------------------------------------------------------
 
-type cusparseSpVecDescr {.importc, nodecl.} = object
-type cusparseDnVecDescr {.importc, nodecl.} = object
-type cusparseSpMatDescr {.importc, nodecl.} = object
-type cusparseDnMatDescr {.importc, nodecl.} = object
+type cusparseSpVecDescr {.nodecl.} = object
+type cusparseDnVecDescr {.nodecl.} = object
+type cusparseSpMatDescr {.nodecl.} = object
+type cusparseDnMatDescr {.nodecl.} = object
 type
   cusparseSpVecDescr_t* = ptr cusparseSpVecDescr
   cusparseDnVecDescr_t* = ptr cusparseDnVecDescr
@@ -3027,7 +3027,7 @@ type
 
 
 
-type cusparseSpSVDescr {.importc, nodecl.} = object
+type cusparseSpSVDescr {.nodecl.} = object
 type
   cusparseSpSVDescr_t* = ptr cusparseSpSVDescr
 
@@ -3072,7 +3072,7 @@ type
 
 
 
-type cusparseSpSMDescr {.importc, nodecl.} = object
+type cusparseSpSMDescr {.nodecl.} = object
 type
   cusparseSpSMDescr_t* = ptr cusparseSpSMDescr
 
@@ -3155,7 +3155,7 @@ type
     CUSPARSE_SPGEMM_ALG2 = 4, CUSPARSE_SPGEMM_ALG3 = 5
 
 
-type cusparseSpGEMMDescr {.importc, nodecl.} = object
+type cusparseSpGEMMDescr {.nodecl.} = object
 type
   cusparseSpGEMMDescr_t* = ptr cusparseSpGEMMDescr
 
@@ -3289,7 +3289,7 @@ proc cusparseSDDMM*(handle: cusparseHandle_t; opA: cusparseOperation_t;
 ##  # GENERIC APIs WITH CUSTOM OPERATORS (PREVIEW)
 ##  #############################################################################
 
-type cusparseSpMMOpPlan {.importc, nodecl.} = object
+type cusparseSpMMOpPlan {.nodecl.} = object
 type
   cusparseSpMMOpPlan_t* = ptr cusparseSpMMOpPlan
   cusparseSpMMOpAlg_t* {.size: sizeof(cint).} = enum
