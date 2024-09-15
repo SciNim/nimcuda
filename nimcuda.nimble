@@ -141,7 +141,7 @@ proc processAll(version: CudaVersion) =
   for lib in Libs:
     process(lib, version)
 
-  let allTemporaryFiles = TemporaryHeadersDir.walkDir().toSeq.mapIt(it.path)
+  let allTemporaryFiles = TemporaryHeadersDir.listFiles()
   for file in allTemporaryFiles:
     rmFile file
 
@@ -201,7 +201,20 @@ taskWithCudaVersionArgument checkcheck,
   compileAll(cudaVersion)
 
 task docs, "generate documentation":
-  exec("nim doc2 --project src/nimcuda.nim")
+  # remove possibly outdated files:
+  if DocumentationDir.dirExists:
+    rmDir DocumentationDir
+    mkDir DocumentationDir
+
+  for cudaVersion in CudaVersion:
+    let outDir = DocumentationDir / $cudaVersion
+
+    for nimSourceFile in nimcudaSourceDir(cudaVersion).listFiles:
+      exec fmt"nim doc2 --index:on --outDir:{outDir} {nimSourceFile}"
+
+    let indexFile = outDir / "theindex".addFileExt("html")
+    exec fmt"nim buildIndex -o:{indexFile} {outDir}"
+
 
 proc exampleConfig(version: CudaVersion) =
   --hints: off
