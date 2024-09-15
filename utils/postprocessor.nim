@@ -5,7 +5,7 @@
   ]##
 
 import
-  std / [pegs, cmdline, paths, files, strformat, strutils, sugar, sets]
+  std / [pegs, cmdline, paths, files, strformat, strutils, sugar, sets, options]
 
 
 
@@ -66,7 +66,7 @@ proc fixProcsDecls(code: sink string): string =
     lastPragma <- singlePragma !','
 
 
-    singlePragma <- pragmaName (':' \s+ ["] \ident ["])?
+    singlePragma <- pragmaName (':' \s+ ["]? \ident ["]?)?
     pragmaName <- \ident
 
     procArgName <- \ident
@@ -75,7 +75,7 @@ proc fixProcsDecls(code: sink string): string =
 
   type ProcToReplace = object
     startF, lengthF: int # template confusion later on requires the 'F'.
-    oldName, newName: string
+    oldName, newName: Option[string]
     makeDiscardable: bool
 
   var needsChanged: seq[ProcToReplace] = @[]
@@ -89,7 +89,7 @@ proc fixProcsDecls(code: sink string): string =
     shouldBeDiscardable: bool
 
   func reset(self: var ProcDeclarationParsingContext) =
-    self.currentProc.setLen 0
+    self.currentProc = ""
     self.shouldBeDiscardable = false
 
   var context = ProcDeclarationParsingContext()
@@ -121,11 +121,14 @@ proc fixProcsDecls(code: sink string): string =
 
           of "procDecl":
             # Success parsing a proc declaration.
-            if context.shouldBeDiscardable or context.currentProc.endsWith('_'):
-              let found = ProcToReplace(startF: start, lengthF: length,
-                newName: context.currentProc.fixTrailingUnderscoreProcName,
-                oldName: context.currentProc,
-                makeDiscardable: context.shouldBeDiscardable)
+            var found = ProcToReplace(startF: start, lengthF: length,
+                                   makeDiscardable: context.shouldBeDiscardable)
+
+            if context.currentProc.endsWith('_'):
+              found.oldName = some context.currentProc
+              found.newName = some context.currentProc.fixTrailingUnderscoreProcName
+
+            if found.makeDiscardable or found.newName.isSome:
               needsChanged.add found
 
             reset context
@@ -168,9 +171,9 @@ proc fixProcsDecls(code: sink string): string =
 
       if procedure.makeDiscardable:
         modified = modified.makeDiscardable
-      if procedure.newName != procedure.oldName:
-        modified = modified.replace(fmt"proc {procedure.oldName}",
-                                    fmt"proc {procedure.newName}")
+      if procedure.newName.isSome:
+        modified = modified.replace(fmt"proc {procedure.oldName.get}",
+                                    fmt"proc {procedure.newName.get}")
       (original, modified)
 
   result = code.multiReplace(replacePairs)
