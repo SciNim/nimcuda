@@ -197,7 +197,7 @@ taskWithCudaVersionArgument headers, "generate bindings from headers":
   processAll(cudaVersion)
 
 taskWithCudaVersionArgument checkcheck,
-                          "check that bindings compile for the default version":
+                          "check that bindings compile":
   compileAll(cudaVersion)
 
 task docs, "generate documentation":
