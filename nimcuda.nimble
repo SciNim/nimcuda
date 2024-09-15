@@ -5,89 +5,33 @@ author        = "Andrea Ferretti"
 description   = "Nim binding for CUDA"
 license       = "Apache2"
 skipDirs      = @["headers", "include", "c2nim", "examples", "htmldocs"]
+srcDir        = "src"
 
 # Dependencies
 
 requires "nim >= 0.16.0"
 
-import os
+import
+  std / [strscans, strformat, os, enumutils, sequtils, strutils, pegs]
 
-proc fExists(f: string): bool =
-  when (NimMajor, NimMinor) < (1, 4):
-    result = os.fileExists(f)
-  else:
-    result = fileExists(f)
+type CudaVersion = enum
+  cuda8_0, cuda12_5
 
-func makeExe(name: string): string =
-  when defined(windows):
-    result = name.addFileExt("exe")
-  else:
-    result = name
+const DefaultVersion = cuda8_0
 
+const
+  ModifiedHeadersDir = "include"
+  NimCodeDir = "src"
+  UtilitiesDir = "utils"
+  DocumentationDir = "htmldocs"
+  ExamplesDir = "examples"
+  C2nimDirectivesDir = "c2nim"
+  TemporaryHeadersDir = "headers"
 
-
-proc patch(libName: string): string =
-  when defined(windows):
-    let libpath = getEnv("CUDA_PATH") / "include" / libName
-  else:
-    let libpath = if libName == "cudnn_v9.h": "/usr/include/x86_64-linux-gnu" / libName
-                    else: "/usr/local/cuda/include" / libName
-
-  let
-    simpleLibPath = "include" / libName
-    patchPath = "c2nim" / libName
-    outPath = "headers" / libName
-    libContent =
-      if fExists(simpleLibPath): readFile(simpleLibPath)
-      else: readFile(libPath) #.replace("#if defined(__cplusplus)", "#ifdef __cplusplus")
-    patchContent = readFile(patchPath)
-
-  writeFile(outPath, patchContent & "\n" & libContent)
-  return outPath
-
-
-proc preprocess(libName: string) =
-  const preprocessorExe = "utils" / "preprocessor".makeExe
-
-  if not fExists(preprocessorExe):
-    # Compile preprocessor.
-    const preprocessorSource = "utils" / "preprocessor".addFileExt("nim")
-    exec "nim c -d:release " & preprocessorSource
-
-  let libPath = "headers" / libName.addFileExt("h")
-
-  exec preprocessorExe & " " & libPath
-
-
-proc postprocess(libName: string) =
-  const postprocessorExe = "utils" / "postprocessor".makeExe
-
-  if not fExists(postprocessorExe):
-    # Compile postprocessor.
-    const postprocessorSource = "utils" / "postprocessor".addFileExt("nim")
-    exec "nim c -d:release " & postprocessorSource
-
-  let libPath = "nimcuda" / libName.addFileExt("nim")
-
-  exec postprocessorExe & " " & libPath
-
-proc process(libName: string) =
-  let
-    headerName = libName.addFileExt("h")
-    outPath = "nimcuda" / libName.addFileExt("nim")
-    headerPath = patch(headerName)
-  preprocess libName
-  exec("c2nim --debug --strict --prefix\"_\" --prefix\"__\" --suffix\"_\" --suffix\"__\" " & headerPath & " -o:" & outPath)
-  postprocess libname
-
-proc compile(libName: string) =
-  let libPath = "nimcuda" / libName.addFileExt("nim")
-  exec("nim c -c " & libPath)
-
-let libs = [
+const Libs = [
   # "library_types",
-  "vector_types",
-  "driver_types", # do not decomment - the nim file is manually adjusted
+  # "vector_types",
+  # "driver_types", # do not decomment - the nim file is manually adjusted
   "surface_types",
   "texture_types",
   "cuda_runtime_api",
@@ -107,52 +51,182 @@ let libs = [
   #"nvgraph" <- removed in cuda 11.0, adopted into cugraph
 ]
 
-proc processAll() =
-  exec("mkdir -p nimcuda")
-  exec("mkdir -p headers")
-  for lib in libs:
-    process(lib)
+func systemCudaName(v: CudaVersion): string =
+  ## Returns the name used for cuda directories on linux.
+  var captures: array[2, string]
+  assert ($v).match(peg" 'cuda' {\d+} '_' {\d+} ", captures)
+  fmt"cuda-{captures[0]}.{captures[1]}"
 
-  exec("rm headers/*")
+proc systemCudaInclude(version: CudaVersion): string =
+  when hostOS == "windows":
+    Path(getEnv("CUDA_PATH")) / Path"include"
+  else:
+    "/usr/local" / version.systemCudaName / "include"
 
-proc compileAll() =
-  compile("nimcuda")
-  for lib in libs:
-    compile(lib)
+proc systemCudaCLib(version: CudaVersion): string =
+  when hostOS == "windows":
+    getEnv("CUDA_PATH") / "lib" / "x64"
+  else:
+    "/usr/local" / version.systemCudaName / "lib64"
 
-task headers, "generate bindings from headers":
-  processAll()
 
-task checkcheck, "check that generated bindings do compile":
-  compileAll()
+func nimcudaSourceDir(version: CudaVersion): string =
+  const dirThatHoldsVersions = NimCodeDir / "nimcuda"
+  result = dirThatHoldsVersions / $version
+
+func nimcudaExamplesDir(version: CudaVersion): string =
+  const dirThatHoldsVersions = ExamplesDir
+  result = dirThatHoldsVersions / $version
+
+
+proc patch(libFileName: string; version: CudaVersion): string =
+  let installedLib = systemCudaInclude(version) / libFileName
+
+  let
+    simpleLibPath = ModifiedHeadersDir / $version / libFileName
+    patchPath = C2nimDirectivesDir / $version / libFileName
+    outPath = TemporaryHeadersDir / libFileName
+    libContent =
+      if simpleLibPath.fileExists: readFile(simpleLibPath)
+      else: readFile(installedLib)
+    patchContent = readFile(patchPath)
+
+  writeFile(outPath, patchContent & "\n" & libContent)
+  return outPath
+
+
+proc preprocess(filePath: string) =
+  const preprocessorExe = UtilitiesDir / "preprocessor".toExe
+
+  if not preprocessorExe.fileExists:
+    # Compile preprocessor.
+    const preprocessorSource = preprocessorExe.changeFileExt("nim")
+    exec "nim c -d:release " & preprocessorSource
+
+  exec preprocessorExe & " " & filePath
+
+
+proc postprocess(filePath: string) =
+  const postprocessorExe = UtilitiesDir / "postprocessor".toExe
+
+  if not postprocessorExe.fileExists:
+    # Compile preprocessor.
+    const postprocessorSource = postprocessorExe.changeFileExt("nim")
+    exec "nim c -d:release " & postprocessorSource
+
+  exec postprocessorExe & " " & filePath
+
+
+proc process(libName: string; version: CudaVersion) =
+  let
+    headerFileName = libName.addFileExt("h")
+    outPath = nimcudaSourceDir(version) / headerFileName.changeFileExt("nim")
+    headerPath = patch(headerFileName, version)
+  preprocess headerPath
+  exec("c2nim --debug --strict --prefix\"_\" --prefix\"__\" --suffix\"_\" " &
+       "--suffix\"__\" " & headerPath & " -o:" & outPath)
+  postprocess outPath
+
+proc compile(filePath: string) =
+  exec("nim c -c " & filePath)
+
+proc compile(libName: string; version: CudaVersion) =
+  let libPath = nimcudaSourceDir(version) / libName.addFileExt("nim")
+  compile libPath
+
+
+proc processAll(version: CudaVersion) =
+  mkDir TemporaryHeadersDir
+
+  for lib in Libs:
+    process(lib, version)
+
+  let allTemporaryFiles = TemporaryHeadersDir.walkDir().toSeq.mapIt(it.path)
+  for file in allTemporaryFiles:
+    rmFile file
+
+
+
+proc compileAll(version: CudaVersion) =
+  if version == DefaultVersion:
+    compile NimCodeDir / "nimcuda".addFileExt("nim")
+  for nimSourceFile in nimcudaSourceDir(version).listFiles:
+    exec "nim c -c " & nimSourceFile
+
+
+func parseCudaVersion(input: string): CudaVersion =
+  ## Parses the passed cuda version, returning `DefaultVersion` if no match
+  ## is found.
+  func normalizer(s: string): string =
+    var captures: array[2, string]
+    if s.match(peg" y'cuda'? {\d+} ('_' / '.' / '-') {\d+} $ ", captures):
+      fmt"cuda{captures[0]}_{captures[1]}"
+    else:
+      s
+
+  CudaVersion.genEnumCaseStmt(commandLineParams()[^1], DefaultVersion,
+                              CudaVersion.low.ord, CudaVersion.high.ord,
+                              normalizer)
+
+
+template taskWithCudaVersionArgument(name: untyped; description: string;
+                                     body: untyped): untyped =
+  ## Creates a nimble task that takes one command line argument: a cuda version.
+  ## This argument is accessible as the symbol `cudaVersion`.
+  task name, description:
+    const NameOfThisTask = `name Task`.astToStr[0..^5] #removing "Task"
+
+    let
+      noVersionArgPassed = cmdline.commandLineParams()[^1] == NameOfThisTask
+      oneVersionArgPassed = cmdline.commandLineParams()[^2] == NameOfThisTask
+      tooManyArgs = not (noVersionArgPassed or oneVersionArgPassed)
+
+    if tooManyArgs:
+      echo "Too many arguments! Please only pass the cuda version to this task."
+      echo "Example: 'nimble $1 12.5'" % NameOfThisTask
+    else:
+      # parseCudaVersion defaults to `DefaultVersion`, so if the task is the
+      # last param, it returns the default.
+      let cudaVersion {.inject.} = cmdline.commandLineParams()[^1].
+                                                            parseCudaVersion()
+      body
+
+
+
+taskWithCudaVersionArgument headers, "generate bindings from headers":
+  processAll(cudaVersion)
+
+taskWithCudaVersionArgument checkcheck,
+                          "check that bindings compile for the default version":
+  compileAll(cudaVersion)
 
 task docs, "generate documentation":
-  exec("nim doc2 --project nimcuda/nimcuda.nim")
+  exec("nim doc2 --project src/nimcuda.nim")
 
-proc exampleConfig() =
+proc exampleConfig(version: CudaVersion) =
   --hints: off
   --linedir: on
   --stacktrace: on
   --linetrace: on
   --debuginfo
-  when defined(windows):
-    switch("cincludes", getenv("CUDA_PATH") / "include")
-    switch("clibdir", getenv("CUDA_PATH") / "lib/x64")
+  when hostos == "windows":
+    switch("cincludes", systemCudaInclude(version))
+    switch("clibdir", systemCudaCLib(version))
   else:
-    --cincludes: "/usr/local/cuda/include"
-    --cincludes: "/usr/include/x86_64-linux-gnu/"
-    --clibdir: "/usr/local/cuda/lib64"
-  --path: "."
+    switch("cincludes", systemCudaInclude(version))
+    switch("cincludes", "/usr/include/x86_64-linux-gnu/")
+    switch("clibdir", systemCudaCLib(version))
+  switch("path", thisDir() / nimcudaSourceDir(version))
   --run
 
-task fft, "run fft example":
-  exampleConfig()
-  setCommand "c", "examples/fft.nim"
+taskWithCudaVersionArgument fft, "run fft example":
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) / "fft".addFileExt("nim")
 
-task sparse, "run sparse example":
-  exampleConfig()
-  setCommand "c", "examples/sparse.nim"
+taskWithCudaVersionArgument sparse, "run sparse example":
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) / "sparse".addFileExt("nim")
 
-task random, "run random example":
-  exampleConfig()
-  setCommand "c", "examples/random.nim"
+taskWithCudaVersionArgument random, "run random example":
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) / "random".addFileExt("nim")
