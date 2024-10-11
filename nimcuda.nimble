@@ -243,3 +243,8 @@ taskWithCudaVersionArgument sparse, "run sparse example":
 taskWithCudaVersionArgument random, "run random example":
   exampleConfig(cudaVersion)
   setCommand "c", nimcudaExamplesDir(cudaVersion) / "random".addFileExt("nim")
+
+task pagerank, "run pagerank example":
+  # removed in cuda 11.0
+  exampleConfig(cuda8_0)
+  setCommand "c", nimcudaExamplesDir(cuda8_0) / "random".addFileExt("nim")
