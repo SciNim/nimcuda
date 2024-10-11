@@ -8,4 +8,7 @@ examples/cuda12_5/*
 examples/cuda8_0/*
 !examples/cuda8_0/*.nim
 
+#ignore docs
+htmldocs
+
 .vscode
