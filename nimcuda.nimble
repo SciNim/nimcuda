@@ -59,7 +59,7 @@ func systemCudaName(v: CudaVersion): string =
 
 proc systemCudaInclude(version: CudaVersion): string =
   when hostOS == "windows":
-    Path(getEnv("CUDA_PATH")) / Path"include"
+    getEnv("CUDA_PATH") / "include"
   else:
     "/usr/local" / version.systemCudaName / "include"
 
