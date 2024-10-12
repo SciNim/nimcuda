@@ -248,3 +248,8 @@ task pagerank, "run pagerank example":
   # removed in cuda 11.0
   exampleConfig(cuda8_0)
   setCommand "c", nimcudaExamplesDir(cuda8_0) / "pagerank".addFileExt("nim")
+
+task blas, "run cublas example":
+  # TODO: implement and test for 8.0
+  exampleConfig(cuda12_5)
+  setCommand "c", nimcudaExamplesDir(cuda12_5) / "blas".addFileExt("nim")
