@@ -253,3 +253,9 @@ task blas, "run cublas example":
   # TODO: implement and test for 8.0
   exampleConfig(cuda12_5)
   setCommand "c", nimcudaExamplesDir(cuda12_5) / "blas".addFileExt("nim")
+
+
+task denseLinearSystem, "run cusolverDn example":
+  # TODO: implement and test for 8.0
+  exampleConfig(cuda12_5)
+  setCommand "c", nimcudaExamplesDir(cuda12_5) / "denseLinearSystem".addFileExt("nim")
