@@ -270,3 +270,10 @@ taskWithCertainVersions denseLinearSystem, "run cusolverDn example", {cuda12_5}:
   exampleConfig(cudaVersion)
   setCommand "c", nimcudaExamplesDir(cudaVersion) /
                                            "denseLinearSystem".addFileExt("nim")
+
+taskWithCertainVersions sparseLinearSystem, "run cusolverSp example",
+    {cuda12_5}:
+  # TODO: implement and test for 8.0
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) /
+                                          "sparseLinearSystem".addFileExt("nim")
