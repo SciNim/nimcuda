@@ -247,4 +247,4 @@ taskWithCudaVersionArgument random, "run random example":
 task pagerank, "run pagerank example":
   # removed in cuda 11.0
   exampleConfig(cuda8_0)
-  setCommand "c", nimcudaExamplesDir(cuda8_0) / "random".addFileExt("nim")
+  setCommand "c", nimcudaExamplesDir(cuda8_0) / "pagerank".addFileExt("nim")
