@@ -191,6 +191,17 @@ template taskWithCudaVersionArgument(name: untyped; description: string;
                                                             parseCudaVersion()
       body
 
+template taskWithCertainVersions(name: untyped; description: string;
+                                 versions: set[CudaVersion];
+                                 body: untyped): untyped =
+  ## Creates a nimble task that takes one command line argument: a cuda version.
+  ## This argument is accessible as the symbol `cudaVersion`.
+  ## The task can only be run on some versions of cuda, specified by `versions`.
+  taskWithCudaVersionArgument name, description:
+    if cudaVersion in versions:
+      body
+    else:
+      echo "This task is only available for version(s) $1." % [$versions]
 
 
 taskWithCudaVersionArgument headers, "generate bindings from headers":
@@ -244,18 +255,18 @@ taskWithCudaVersionArgument random, "run random example":
   exampleConfig(cudaVersion)
   setCommand "c", nimcudaExamplesDir(cudaVersion) / "random".addFileExt("nim")
 
-task pagerank, "run pagerank example":
+taskWithCertainVersions pagerank, "run pagerank example", {cuda8_0}:
   # removed in cuda 11.0
-  exampleConfig(cuda8_0)
-  setCommand "c", nimcudaExamplesDir(cuda8_0) / "pagerank".addFileExt("nim")
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) / "pagerank".addFileExt("nim")
 
-task blas, "run cublas example":
+taskWithCertainVersions blas, "run cublas example", {cuda12_5}:
   # TODO: implement and test for 8.0
-  exampleConfig(cuda12_5)
-  setCommand "c", nimcudaExamplesDir(cuda12_5) / "blas".addFileExt("nim")
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) / "blas".addFileExt("nim")
 
-
-task denseLinearSystem, "run cusolverDn example":
+taskWithCertainVersions denseLinearSystem, "run cusolverDn example", {cuda12_5}:
   # TODO: implement and test for 8.0
-  exampleConfig(cuda12_5)
-  setCommand "c", nimcudaExamplesDir(cuda12_5) / "denseLinearSystem".addFileExt("nim")
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) /
+                                           "denseLinearSystem".addFileExt("nim")
