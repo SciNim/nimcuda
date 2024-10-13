@@ -9,10 +9,10 @@ srcDir        = "src"
 
 # Dependencies
 
-requires "nim >= 1.6.0"
+requires "nim >= 1.4.0"
 
 import
-  std / [strscans, strformat, os, enumutils, sequtils, strutils, pegs]
+  std / [strscans, strformat, os, sequtils, strutils, pegs]
 
 type CudaVersion = enum
   cuda8_0, cuda12_5
@@ -51,7 +51,7 @@ const Libs = [
   #"nvgraph" <- removed in cuda 11.0, adopted into cugraph
 ]
 
-func systemCudaName(v: CudaVersion): string =
+proc systemCudaName(v: CudaVersion): string =
   ## Returns the name used for cuda directories on linux.
   var captures: array[2, string]
   assert ($v).match(peg" 'cuda' {\d+} '_' {\d+} ", captures)
@@ -157,16 +157,28 @@ proc compileAll(version: CudaVersion) =
 func parseCudaVersion(input: string): CudaVersion =
   ## Parses the passed cuda version, returning `DefaultVersion` if no match
   ## is found.
-  func normalizer(s: string): string =
-    var captures: array[2, string]
-    if s.match(peg" y'cuda'? {\d+} ('_' / '.' / '-') {\d+} $ ", captures):
-      fmt"cuda{captures[0]}_{captures[1]}"
+  # proc normalizer(s: string): string =
+  #   var captures: array[2, string]
+  #   if s.match(peg" y'cuda'? {\d+} ('_' / '.' / '-') {\d+} $ ", captures):
+  #     fmt"cuda{captures[0]}_{captures[1]}"
+  #   else:
+  #     s
+  var index = 0
+  var
+    major = ""
+    minor = ""
+  let success = input.scanp(index, ?"cuda", +(`Digits` -> major.add($_)),
+    {'.', '-', '_'}, +(`Digits` -> minor.add($_)))
+  if success:
+    case fmt"{major}.{minor}"
+    of "8.0":
+      cuda8_0
+    of "12.5":
+      cuda12_5
     else:
-      s
-
-  CudaVersion.genEnumCaseStmt(commandLineParams()[^1], DefaultVersion,
-                              CudaVersion.low.ord, CudaVersion.high.ord,
-                              normalizer)
+      DefaultVersion
+  else:
+    DefaultVersion
 
 
 const args = when NimMajor >= 2:
