@@ -845,7 +845,7 @@ proc cudaOccSMemPerBlock*(limit: ptr csize_t; properties: ptr cudaOccDeviceProp;
     return CUDA_OCC_ERROR_UNKNOWN_DEVICE
   ##  Starting Ampere, CUDA driver reserves additional shared memory per block
   if properties.computeMajor >= 8:
-    inc(limit[], properties.reservedSharedMemPerBlock)
+    limit[] += properties.reservedSharedMemPerBlock
   return CUDA_OCC_SUCCESS
 
 ##
