@@ -558,7 +558,7 @@ when not defined(CURAND_H):
   ##  (use ::curandGenerateLongLong() with 64 bit quasirandom generators)
   ##  - CURAND_STATUS_SUCCESS if the results were generated successfully \n
   ##
-  proc curandGenerate*(generator: curandGenerator_t; outputPtr: ptr cuint; num: csize): curandStatus_t {.
+  proc curandGenerate*(generator: curandGenerator_t; outputPtr: ptr cuint; num: csize_t): curandStatus_t {.
       cdecl, importc: "curandGenerate", dyn.}
   ## *
   ##  \brief Generate 64-bit quasirandom numbers.
@@ -586,7 +586,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the results were generated successfully \n
   ##
   proc curandGenerateLongLong*(generator: curandGenerator_t;
-                              outputPtr: ptr culonglong; num: csize): curandStatus_t {.
+                              outputPtr: ptr culonglong; num: csize_t): curandStatus_t {.
       cdecl, importc: "curandGenerateLongLong", dyn.}
   ## *
   ##  \brief Generate uniformly distributed floats.
@@ -614,7 +614,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the results were generated successfully \n
   ##
   proc curandGenerateUniform*(generator: curandGenerator_t; outputPtr: ptr cfloat;
-                             num: csize): curandStatus_t {.cdecl,
+                             num: csize_t): curandStatus_t {.cdecl,
       importc: "curandGenerateUniform", dyn.}
   ## *
   ##  \brief Generate uniformly distributed doubles.
@@ -643,7 +643,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the results were generated successfully \n
   ##
   proc curandGenerateUniformDouble*(generator: curandGenerator_t;
-                                   outputPtr: ptr cdouble; num: csize): curandStatus_t {.
+                                   outputPtr: ptr cdouble; num: csize_t): curandStatus_t {.
       cdecl, importc: "curandGenerateUniformDouble", dyn.}
   ## *
   ##  \brief Generate normally distributed doubles.
@@ -688,7 +688,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the results were generated successfully \n
   ##
   proc curandGenerateNormal*(generator: curandGenerator_t; outputPtr: ptr cfloat;
-                            n: csize; mean: cfloat; stddev: cfloat): curandStatus_t {.
+                            n: csize_t; mean: cfloat; stddev: cfloat): curandStatus_t {.
       cdecl, importc: "curandGenerateNormal", dyn.}
   ## *
   ##  \brief Generate normally distributed doubles.
@@ -734,7 +734,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the results were generated successfully \n
   ##
   proc curandGenerateNormalDouble*(generator: curandGenerator_t;
-                                  outputPtr: ptr cdouble; n: csize; mean: cdouble;
+                                  outputPtr: ptr cdouble; n: csize_t; mean: cdouble;
                                   stddev: cdouble): curandStatus_t {.cdecl,
       importc: "curandGenerateNormalDouble", dyn.}
   ## *
@@ -781,7 +781,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the results were generated successfully \n
   ##
   proc curandGenerateLogNormal*(generator: curandGenerator_t;
-                               outputPtr: ptr cfloat; n: csize; mean: cfloat;
+                               outputPtr: ptr cfloat; n: csize_t; mean: cfloat;
                                stddev: cfloat): curandStatus_t {.cdecl,
       importc: "curandGenerateLogNormal", dyn.}
   ## *
@@ -829,7 +829,7 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the results were generated successfully \n
   ##
   proc curandGenerateLogNormalDouble*(generator: curandGenerator_t;
-                                     outputPtr: ptr cdouble; n: csize; mean: cdouble;
+                                     outputPtr: ptr cdouble; n: csize_t; mean: cdouble;
                                      stddev: cdouble): curandStatus_t {.cdecl,
       importc: "curandGenerateLogNormalDouble", dyn.}
   ## *
@@ -896,19 +896,19 @@ when not defined(CURAND_H):
   ##  - CURAND_STATUS_SUCCESS if the results were generated successfully \n
   ##
   proc curandGeneratePoisson*(generator: curandGenerator_t; outputPtr: ptr cuint;
-                             n: csize; lambda: cdouble): curandStatus_t {.cdecl,
+                             n: csize_t; lambda: cdouble): curandStatus_t {.cdecl,
       importc: "curandGeneratePoisson", dyn.}
   ##  just for internal usage
   proc curandGeneratePoissonMethod*(generator: curandGenerator_t;
-                                   outputPtr: ptr cuint; n: csize; lambda: cdouble;
+                                   outputPtr: ptr cuint; n: csize_t; lambda: cdouble;
                                    `method`: curandMethod_t): curandStatus_t {.
       cdecl, importc: "curandGeneratePoissonMethod", dyn.}
   proc curandGenerateBinomial*(generator: curandGenerator_t; outputPtr: ptr cuint;
-                              num: csize; n: cuint; p: cdouble): curandStatus_t {.
+                              num: csize_t; n: cuint; p: cdouble): curandStatus_t {.
       cdecl, importc: "curandGenerateBinomial", dyn.}
   ##  just for internal usage
   proc curandGenerateBinomialMethod*(generator: curandGenerator_t;
-                                    outputPtr: ptr cuint; num: csize; n: cuint;
+                                    outputPtr: ptr cuint; num: csize_t; n: cuint;
                                     p: cdouble; `method`: curandMethod_t): curandStatus_t {.
       cdecl, importc: "curandGenerateBinomialMethod", dyn.}
   ## *

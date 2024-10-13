@@ -503,7 +503,7 @@ when not defined(CUSPARSE_H):
                                   betatype: cudaDataType; y: pointer;
                                   ytype: cudaDataType;
                                   executiontype: cudaDataType;
-                                  bufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                  bufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCsrmvEx_bufferSize", dyn.}
   proc cusparseCsrmvEx*(handle: cusparseHandle_t; alg: cusparseAlgMode_t;
                        transA: cusparseOperation_t; m: cint; n: cint; nnz: cint;
@@ -766,7 +766,7 @@ when not defined(CUSPARSE_H):
                                      csrSortedValA: ptr cfloat;
                                      csrSortedRowPtrA: ptr cint;
                                      csrSortedColIndA: ptr cint;
-                                     info: csrsv2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: csrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseScsrsv2_bufferSizeExt", dyn.}
   proc cusparseDcsrsv2_bufferSizeExt*(handle: cusparseHandle_t;
                                      transA: cusparseOperation_t; m: cint;
@@ -774,7 +774,7 @@ when not defined(CUSPARSE_H):
                                      csrSortedValA: ptr cdouble;
                                      csrSortedRowPtrA: ptr cint;
                                      csrSortedColIndA: ptr cint;
-                                     info: csrsv2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: csrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseDcsrsv2_bufferSizeExt", dyn.}
   proc cusparseCcsrsv2_bufferSizeExt*(handle: cusparseHandle_t;
                                      transA: cusparseOperation_t; m: cint;
@@ -782,7 +782,7 @@ when not defined(CUSPARSE_H):
                                      csrSortedValA: ptr cuComplex;
                                      csrSortedRowPtrA: ptr cint;
                                      csrSortedColIndA: ptr cint;
-                                     info: csrsv2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: csrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCcsrsv2_bufferSizeExt", dyn.}
   proc cusparseZcsrsv2_bufferSizeExt*(handle: cusparseHandle_t;
                                      transA: cusparseOperation_t; m: cint;
@@ -790,7 +790,7 @@ when not defined(CUSPARSE_H):
                                      csrSortedValA: ptr cuDoubleComplex;
                                      csrSortedRowPtrA: ptr cint;
                                      csrSortedColIndA: ptr cint;
-                                     info: csrsv2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: csrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseZcsrsv2_bufferSizeExt", dyn.}
   proc cusparseScsrsv2_analysis*(handle: cusparseHandle_t;
                                 transA: cusparseOperation_t; m: cint; nnz: cint;
@@ -910,7 +910,7 @@ when not defined(CUSPARSE_H):
                                      bsrSortedValA: ptr cfloat;
                                      bsrSortedRowPtrA: ptr cint;
                                      bsrSortedColIndA: ptr cint; blockSize: cint;
-                                     info: bsrsv2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseSbsrsv2_bufferSizeExt", dyn.}
   proc cusparseDbsrsv2_bufferSizeExt*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t;
@@ -919,7 +919,7 @@ when not defined(CUSPARSE_H):
                                      bsrSortedValA: ptr cdouble;
                                      bsrSortedRowPtrA: ptr cint;
                                      bsrSortedColIndA: ptr cint; blockSize: cint;
-                                     info: bsrsv2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseDbsrsv2_bufferSizeExt", dyn.}
   proc cusparseCbsrsv2_bufferSizeExt*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t;
@@ -928,7 +928,7 @@ when not defined(CUSPARSE_H):
                                      bsrSortedValA: ptr cuComplex;
                                      bsrSortedRowPtrA: ptr cint;
                                      bsrSortedColIndA: ptr cint; blockSize: cint;
-                                     info: bsrsv2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCbsrsv2_bufferSizeExt", dyn.}
   proc cusparseZbsrsv2_bufferSizeExt*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t;
@@ -937,7 +937,7 @@ when not defined(CUSPARSE_H):
                                      bsrSortedValA: ptr cuDoubleComplex;
                                      bsrSortedRowPtrA: ptr cint;
                                      bsrSortedColIndA: ptr cint; blockSize: cint;
-                                     info: bsrsv2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: bsrsv2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseZbsrsv2_bufferSizeExt", dyn.}
   proc cusparseSbsrsv2_analysis*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t;
@@ -1319,7 +1319,7 @@ when not defined(CUSPARSE_H):
                                      bsrSortedVal: ptr cfloat;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; blockSize: cint;
-                                     info: bsrsm2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseSbsrsm2_bufferSizeExt", dyn.}
   proc cusparseDbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t;
@@ -1329,7 +1329,7 @@ when not defined(CUSPARSE_H):
                                      bsrSortedVal: ptr cdouble;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; blockSize: cint;
-                                     info: bsrsm2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseDbsrsm2_bufferSizeExt", dyn.}
   proc cusparseCbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t;
@@ -1339,7 +1339,7 @@ when not defined(CUSPARSE_H):
                                      bsrSortedVal: ptr cuComplex;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; blockSize: cint;
-                                     info: bsrsm2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCbsrsm2_bufferSizeExt", dyn.}
   proc cusparseZbsrsm2_bufferSizeExt*(handle: cusparseHandle_t;
                                      dirA: cusparseDirection_t;
@@ -1349,7 +1349,7 @@ when not defined(CUSPARSE_H):
                                      bsrSortedVal: ptr cuDoubleComplex;
                                      bsrSortedRowPtr: ptr cint;
                                      bsrSortedColInd: ptr cint; blockSize: cint;
-                                     info: bsrsm2Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                     info: bsrsm2Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseZbsrsm2_bufferSizeExt", dyn.}
   proc cusparseSbsrsm2_analysis*(handle: cusparseHandle_t;
                                 dirA: cusparseDirection_t;
@@ -1548,7 +1548,7 @@ when not defined(CUSPARSE_H):
                                        csrSortedRowPtr: ptr cint;
                                        csrSortedColInd: ptr cint;
                                        info: csrilu02Info_t;
-                                       pBufferSize: ptr csize): cusparseStatus_t {.
+                                       pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseScsrilu02_bufferSizeExt", dyn.}
   proc cusparseDcsrilu02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                        descrA: cusparseMatDescr_t;
@@ -1556,7 +1556,7 @@ when not defined(CUSPARSE_H):
                                        csrSortedRowPtr: ptr cint;
                                        csrSortedColInd: ptr cint;
                                        info: csrilu02Info_t;
-                                       pBufferSize: ptr csize): cusparseStatus_t {.
+                                       pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseDcsrilu02_bufferSizeExt", dyn.}
   proc cusparseCcsrilu02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                        descrA: cusparseMatDescr_t;
@@ -1564,7 +1564,7 @@ when not defined(CUSPARSE_H):
                                        csrSortedRowPtr: ptr cint;
                                        csrSortedColInd: ptr cint;
                                        info: csrilu02Info_t;
-                                       pBufferSize: ptr csize): cusparseStatus_t {.
+                                       pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCcsrilu02_bufferSizeExt", dyn.}
   proc cusparseZcsrilu02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                        descrA: cusparseMatDescr_t;
@@ -1572,7 +1572,7 @@ when not defined(CUSPARSE_H):
                                        csrSortedRowPtr: ptr cint;
                                        csrSortedColInd: ptr cint;
                                        info: csrilu02Info_t;
-                                       pBufferSize: ptr csize): cusparseStatus_t {.
+                                       pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseZcsrilu02_bufferSizeExt", dyn.}
   proc cusparseScsrilu02_analysis*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                   descrA: cusparseMatDescr_t;
@@ -1705,7 +1705,7 @@ when not defined(CUSPARSE_H):
                                        bsrSortedRowPtr: ptr cint;
                                        bsrSortedColInd: ptr cint; blockSize: cint;
                                        info: bsrilu02Info_t;
-                                       pBufferSize: ptr csize): cusparseStatus_t {.
+                                       pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseSbsrilu02_bufferSizeExt", dyn.}
   proc cusparseDbsrilu02_bufferSizeExt*(handle: cusparseHandle_t;
                                        dirA: cusparseDirection_t; mb: cint;
@@ -1714,7 +1714,7 @@ when not defined(CUSPARSE_H):
                                        bsrSortedRowPtr: ptr cint;
                                        bsrSortedColInd: ptr cint; blockSize: cint;
                                        info: bsrilu02Info_t;
-                                       pBufferSize: ptr csize): cusparseStatus_t {.
+                                       pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseDbsrilu02_bufferSizeExt", dyn.}
   proc cusparseCbsrilu02_bufferSizeExt*(handle: cusparseHandle_t;
                                        dirA: cusparseDirection_t; mb: cint;
@@ -1723,7 +1723,7 @@ when not defined(CUSPARSE_H):
                                        bsrSortedRowPtr: ptr cint;
                                        bsrSortedColInd: ptr cint; blockSize: cint;
                                        info: bsrilu02Info_t;
-                                       pBufferSize: ptr csize): cusparseStatus_t {.
+                                       pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCbsrilu02_bufferSizeExt", dyn.}
   proc cusparseZbsrilu02_bufferSizeExt*(handle: cusparseHandle_t;
                                        dirA: cusparseDirection_t; mb: cint;
@@ -1732,7 +1732,7 @@ when not defined(CUSPARSE_H):
                                        bsrSortedRowPtr: ptr cint;
                                        bsrSortedColInd: ptr cint; blockSize: cint;
                                        info: bsrilu02Info_t;
-                                       pBufferSize: ptr csize): cusparseStatus_t {.
+                                       pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseZbsrilu02_bufferSizeExt", dyn.}
   proc cusparseSbsrilu02_analysis*(handle: cusparseHandle_t;
                                   dirA: cusparseDirection_t; mb: cint; nnzb: cint;
@@ -1874,28 +1874,28 @@ when not defined(CUSPARSE_H):
                                       csrSortedVal: ptr cfloat;
                                       csrSortedRowPtr: ptr cint;
                                       csrSortedColInd: ptr cint;
-                                      info: csric02Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                      info: csric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseScsric02_bufferSizeExt", dyn.}
   proc cusparseDcsric02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                       descrA: cusparseMatDescr_t;
                                       csrSortedVal: ptr cdouble;
                                       csrSortedRowPtr: ptr cint;
                                       csrSortedColInd: ptr cint;
-                                      info: csric02Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                      info: csric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseDcsric02_bufferSizeExt", dyn.}
   proc cusparseCcsric02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                       descrA: cusparseMatDescr_t;
                                       csrSortedVal: ptr cuComplex;
                                       csrSortedRowPtr: ptr cint;
                                       csrSortedColInd: ptr cint;
-                                      info: csric02Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                      info: csric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCcsric02_bufferSizeExt", dyn.}
   proc cusparseZcsric02_bufferSizeExt*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                       descrA: cusparseMatDescr_t;
                                       csrSortedVal: ptr cuDoubleComplex;
                                       csrSortedRowPtr: ptr cint;
                                       csrSortedColInd: ptr cint;
-                                      info: csric02Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                      info: csric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseZcsric02_bufferSizeExt", dyn.}
   proc cusparseScsric02_analysis*(handle: cusparseHandle_t; m: cint; nnz: cint;
                                  descrA: cusparseMatDescr_t;
@@ -2009,7 +2009,7 @@ when not defined(CUSPARSE_H):
                                       bsrSortedVal: ptr cfloat;
                                       bsrSortedRowPtr: ptr cint;
                                       bsrSortedColInd: ptr cint; blockSize: cint;
-                                      info: bsric02Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                      info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseSbsric02_bufferSizeExt", dyn.}
   proc cusparseDbsric02_bufferSizeExt*(handle: cusparseHandle_t;
                                       dirA: cusparseDirection_t; mb: cint;
@@ -2017,7 +2017,7 @@ when not defined(CUSPARSE_H):
                                       bsrSortedVal: ptr cdouble;
                                       bsrSortedRowPtr: ptr cint;
                                       bsrSortedColInd: ptr cint; blockSize: cint;
-                                      info: bsric02Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                      info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseDbsric02_bufferSizeExt", dyn.}
   proc cusparseCbsric02_bufferSizeExt*(handle: cusparseHandle_t;
                                       dirA: cusparseDirection_t; mb: cint;
@@ -2025,7 +2025,7 @@ when not defined(CUSPARSE_H):
                                       bsrSortedVal: ptr cuComplex;
                                       bsrSortedRowPtr: ptr cint;
                                       bsrSortedColInd: ptr cint; blockSize: cint;
-                                      info: bsric02Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                      info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCbsric02_bufferSizeExt", dyn.}
   proc cusparseZbsric02_bufferSizeExt*(handle: cusparseHandle_t;
                                       dirA: cusparseDirection_t; mb: cint;
@@ -2033,7 +2033,7 @@ when not defined(CUSPARSE_H):
                                       bsrSortedVal: ptr cuDoubleComplex;
                                       bsrSortedRowPtr: ptr cint;
                                       bsrSortedColInd: ptr cint; blockSize: cint;
-                                      info: bsric02Info_t; pBufferSize: ptr csize): cusparseStatus_t {.
+                                      info: bsric02Info_t; pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseZbsric02_bufferSizeExt", dyn.}
   proc cusparseSbsric02_analysis*(handle: cusparseHandle_t;
                                  dirA: cusparseDirection_t; mb: cint; nnzb: cint;
@@ -2239,7 +2239,7 @@ when not defined(CUSPARSE_H):
                                        csrSortedRowPtrD: ptr cint;
                                        csrSortedColIndD: ptr cint;
                                        info: csrgemm2Info_t;
-                                       pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                       pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseScsrgemm2_bufferSizeExt", dyn.}
   proc cusparseDcsrgemm2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
                                        k: cint; alpha: ptr cdouble;
@@ -2254,7 +2254,7 @@ when not defined(CUSPARSE_H):
                                        csrSortedRowPtrD: ptr cint;
                                        csrSortedColIndD: ptr cint;
                                        info: csrgemm2Info_t;
-                                       pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                       pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseDcsrgemm2_bufferSizeExt", dyn.}
   proc cusparseCcsrgemm2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
                                        k: cint; alpha: ptr cuComplex;
@@ -2269,7 +2269,7 @@ when not defined(CUSPARSE_H):
                                        csrSortedRowPtrD: ptr cint;
                                        csrSortedColIndD: ptr cint;
                                        info: csrgemm2Info_t;
-                                       pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                       pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCcsrgemm2_bufferSizeExt", dyn.}
   proc cusparseZcsrgemm2_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
                                        k: cint; alpha: ptr cuDoubleComplex;
@@ -2284,7 +2284,7 @@ when not defined(CUSPARSE_H):
                                        csrSortedRowPtrD: ptr cint;
                                        csrSortedColIndD: ptr cint;
                                        info: csrgemm2Info_t;
-                                       pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                       pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseZcsrgemm2_bufferSizeExt", dyn.}
   proc cusparseXcsrgemm2Nnz*(handle: cusparseHandle_t; m: cint; n: cint; k: cint;
                             descrA: cusparseMatDescr_t; nnzA: cint;
@@ -2897,22 +2897,22 @@ when not defined(CUSPARSE_H):
   proc cusparseSgebsr2gebsc_bufferSizeExt*(handle: cusparseHandle_t; mb: cint;
       nb: cint; nnzb: cint; bsrSortedVal: ptr cfloat; bsrSortedRowPtr: ptr cint;
       bsrSortedColInd: ptr cint; rowBlockDim: cint; colBlockDim: cint;
-      pBufferSize: ptr csize): cusparseStatus_t {.cdecl,
+      pBufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
       importc: "cusparseSgebsr2gebsc_bufferSizeExt", dyn.}
   proc cusparseDgebsr2gebsc_bufferSizeExt*(handle: cusparseHandle_t; mb: cint;
       nb: cint; nnzb: cint; bsrSortedVal: ptr cdouble; bsrSortedRowPtr: ptr cint;
       bsrSortedColInd: ptr cint; rowBlockDim: cint; colBlockDim: cint;
-      pBufferSize: ptr csize): cusparseStatus_t {.cdecl,
+      pBufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
       importc: "cusparseDgebsr2gebsc_bufferSizeExt", dyn.}
   proc cusparseCgebsr2gebsc_bufferSizeExt*(handle: cusparseHandle_t; mb: cint;
       nb: cint; nnzb: cint; bsrSortedVal: ptr cuComplex; bsrSortedRowPtr: ptr cint;
       bsrSortedColInd: ptr cint; rowBlockDim: cint; colBlockDim: cint;
-      pBufferSize: ptr csize): cusparseStatus_t {.cdecl,
+      pBufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
       importc: "cusparseCgebsr2gebsc_bufferSizeExt", dyn.}
   proc cusparseZgebsr2gebsc_bufferSizeExt*(handle: cusparseHandle_t; mb: cint;
       nb: cint; nnzb: cint; bsrSortedVal: ptr cuDoubleComplex;
       bsrSortedRowPtr: ptr cint; bsrSortedColInd: ptr cint; rowBlockDim: cint;
-      colBlockDim: cint; pBufferSize: ptr csize): cusparseStatus_t {.cdecl,
+      colBlockDim: cint; pBufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
       importc: "cusparseZgebsr2gebsc_bufferSizeExt", dyn.}
   proc cusparseSgebsr2gebsc*(handle: cusparseHandle_t; mb: cint; nb: cint; nnzb: cint;
                             bsrSortedVal: ptr cfloat; bsrSortedRowPtr: ptr cint;
@@ -3033,7 +3033,7 @@ when not defined(CUSPARSE_H):
                                         csrSortedRowPtrA: ptr cint;
                                         csrSortedColIndA: ptr cint;
                                         rowBlockDim: cint; colBlockDim: cint;
-                                        pBufferSize: ptr csize): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseScsr2gebsr_bufferSizeExt", dyn.}
   proc cusparseDcsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
                                         dirA: cusparseDirection_t; m: cint; n: cint;
@@ -3042,7 +3042,7 @@ when not defined(CUSPARSE_H):
                                         csrSortedRowPtrA: ptr cint;
                                         csrSortedColIndA: ptr cint;
                                         rowBlockDim: cint; colBlockDim: cint;
-                                        pBufferSize: ptr csize): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseDcsr2gebsr_bufferSizeExt", dyn.}
   proc cusparseCcsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
                                         dirA: cusparseDirection_t; m: cint; n: cint;
@@ -3051,7 +3051,7 @@ when not defined(CUSPARSE_H):
                                         csrSortedRowPtrA: ptr cint;
                                         csrSortedColIndA: ptr cint;
                                         rowBlockDim: cint; colBlockDim: cint;
-                                        pBufferSize: ptr csize): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCcsr2gebsr_bufferSizeExt", dyn.}
   proc cusparseZcsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
                                         dirA: cusparseDirection_t; m: cint; n: cint;
@@ -3060,7 +3060,7 @@ when not defined(CUSPARSE_H):
                                         csrSortedRowPtrA: ptr cint;
                                         csrSortedColIndA: ptr cint;
                                         rowBlockDim: cint; colBlockDim: cint;
-                                        pBufferSize: ptr csize): cusparseStatus_t {.
+                                        pBufferSize: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseZcsr2gebsr_bufferSizeExt", dyn.}
   proc cusparseXcsr2gebsrNnz*(handle: cusparseHandle_t; dirA: cusparseDirection_t;
                              m: cint; n: cint; descrA: cusparseMatDescr_t;
@@ -3155,28 +3155,28 @@ when not defined(CUSPARSE_H):
       descrA: cusparseMatDescr_t; bsrSortedValA: ptr cfloat;
       bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint; rowBlockDimA: cint;
       colBlockDimA: cint; rowBlockDimC: cint; colBlockDimC: cint;
-      pBufferSize: ptr csize): cusparseStatus_t {.cdecl,
+      pBufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
       importc: "cusparseSgebsr2gebsr_bufferSizeExt", dyn.}
   proc cusparseDgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
       dirA: cusparseDirection_t; mb: cint; nb: cint; nnzb: cint;
       descrA: cusparseMatDescr_t; bsrSortedValA: ptr cdouble;
       bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint; rowBlockDimA: cint;
       colBlockDimA: cint; rowBlockDimC: cint; colBlockDimC: cint;
-      pBufferSize: ptr csize): cusparseStatus_t {.cdecl,
+      pBufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
       importc: "cusparseDgebsr2gebsr_bufferSizeExt", dyn.}
   proc cusparseCgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
       dirA: cusparseDirection_t; mb: cint; nb: cint; nnzb: cint;
       descrA: cusparseMatDescr_t; bsrSortedValA: ptr cuComplex;
       bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint; rowBlockDimA: cint;
       colBlockDimA: cint; rowBlockDimC: cint; colBlockDimC: cint;
-      pBufferSize: ptr csize): cusparseStatus_t {.cdecl,
+      pBufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
       importc: "cusparseCgebsr2gebsr_bufferSizeExt", dyn.}
   proc cusparseZgebsr2gebsr_bufferSizeExt*(handle: cusparseHandle_t;
       dirA: cusparseDirection_t; mb: cint; nb: cint; nnzb: cint;
       descrA: cusparseMatDescr_t; bsrSortedValA: ptr cuDoubleComplex;
       bsrSortedRowPtrA: ptr cint; bsrSortedColIndA: ptr cint; rowBlockDimA: cint;
       colBlockDimA: cint; rowBlockDimC: cint; colBlockDimC: cint;
-      pBufferSize: ptr csize): cusparseStatus_t {.cdecl,
+      pBufferSize: ptr csize_t): cusparseStatus_t {.cdecl,
       importc: "cusparseZgebsr2gebsr_bufferSizeExt", dyn.}
   proc cusparseXgebsr2gebsrNnz*(handle: cusparseHandle_t;
                                dirA: cusparseDirection_t; mb: cint; nb: cint;
@@ -3238,7 +3238,7 @@ when not defined(CUSPARSE_H):
   proc cusparseXcoosort_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
                                       nnz: cint; cooRowsA: ptr cint;
                                       cooColsA: ptr cint;
-                                      pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                      pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseXcoosort_bufferSizeExt", dyn.}
   proc cusparseXcoosortByRow*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                              cooRowsA: ptr cint; cooColsA: ptr cint; P: ptr cint;
@@ -3252,7 +3252,7 @@ when not defined(CUSPARSE_H):
   proc cusparseXcsrsort_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
                                       nnz: cint; csrRowPtrA: ptr cint;
                                       csrColIndA: ptr cint;
-                                      pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                      pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseXcsrsort_bufferSizeExt", dyn.}
   proc cusparseXcsrsort*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                         descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
@@ -3262,7 +3262,7 @@ when not defined(CUSPARSE_H):
   proc cusparseXcscsort_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
                                       nnz: cint; cscColPtrA: ptr cint;
                                       cscRowIndA: ptr cint;
-                                      pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                      pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseXcscsort_bufferSizeExt", dyn.}
   proc cusparseXcscsort*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                         descrA: cusparseMatDescr_t; cscColPtrA: ptr cint;
@@ -3274,25 +3274,25 @@ when not defined(CUSPARSE_H):
                                        nnz: cint; csrVal: ptr cfloat;
                                        csrRowPtr: ptr cint; csrColInd: ptr cint;
                                        info: csru2csrInfo_t;
-                                       pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                       pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseScsru2csr_bufferSizeExt", dyn.}
   proc cusparseDcsru2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
                                        nnz: cint; csrVal: ptr cdouble;
                                        csrRowPtr: ptr cint; csrColInd: ptr cint;
                                        info: csru2csrInfo_t;
-                                       pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                       pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseDcsru2csr_bufferSizeExt", dyn.}
   proc cusparseCcsru2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
                                        nnz: cint; csrVal: ptr cuComplex;
                                        csrRowPtr: ptr cint; csrColInd: ptr cint;
                                        info: csru2csrInfo_t;
-                                       pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                       pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseCcsru2csr_bufferSizeExt", dyn.}
   proc cusparseZcsru2csr_bufferSizeExt*(handle: cusparseHandle_t; m: cint; n: cint;
                                        nnz: cint; csrVal: ptr cuDoubleComplex;
                                        csrRowPtr: ptr cint; csrColInd: ptr cint;
                                        info: csru2csrInfo_t;
-                                       pBufferSizeInBytes: ptr csize): cusparseStatus_t {.
+                                       pBufferSizeInBytes: ptr csize_t): cusparseStatus_t {.
       cdecl, importc: "cusparseZcsru2csr_bufferSizeExt", dyn.}
   proc cusparseScsru2csr*(handle: cusparseHandle_t; m: cint; n: cint; nnz: cint;
                          descrA: cusparseMatDescr_t; csrVal: ptr cfloat;

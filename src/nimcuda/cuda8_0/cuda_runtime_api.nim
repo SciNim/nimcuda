@@ -265,7 +265,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##
   ##  \sa ::cudaDeviceGetLimit
   ##
-  proc cudaDeviceSetLimit*(limit: cudaLimit; value: csize): cudaError_t {.cdecl,
+  proc cudaDeviceSetLimit*(limit: cudaLimit; value: csize_t): cudaError_t {.cdecl,
       importc: "cudaDeviceSetLimit", dyn.}
   ## *
   ##  \brief Returns resource limits
@@ -294,7 +294,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##
   ##  \sa ::cudaDeviceSetLimit
   ##
-  proc cudaDeviceGetLimit*(pValue: ptr csize; limit: cudaLimit): cudaError_t {.cdecl,
+  proc cudaDeviceGetLimit*(pValue: ptr csize_t; limit: cudaLimit): cudaError_t {.cdecl,
       importc: "cudaDeviceGetLimit", dyn.}
   ## *
   ##  \brief Returns the preferred cache configuration for the current device.
@@ -829,7 +829,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##
   ##  \sa ::cudaDeviceSetLimit
   ##
-  proc cudaThreadSetLimit*(limit: cudaLimit; value: csize): cudaError_t {.cdecl,
+  proc cudaThreadSetLimit*(limit: cudaLimit; value: csize_t): cudaError_t {.cdecl,
       importc: "cudaThreadSetLimit", dyn.}
   ## *
   ##  \brief Returns resource limits
@@ -860,7 +860,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##
   ##  \sa ::cudaDeviceGetLimit
   ##
-  proc cudaThreadGetLimit*(pValue: ptr csize; limit: cudaLimit): cudaError_t {.cdecl,
+  proc cudaThreadGetLimit*(pValue: ptr csize_t; limit: cudaLimit): cudaError_t {.cdecl,
       importc: "cudaThreadGetLimit", dyn.}
   ## *
   ##  \brief Returns the preferred cache configuration for the current device.
@@ -2138,7 +2138,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  \sa ::cudaStreamCreate, ::cudaStreamCreateWithFlags, ::cudaStreamWaitEvent, ::cudaStreamSynchronize, ::cudaStreamAddCallback, ::cudaStreamDestroy, ::cudaMallocManaged
   ##
   proc cudaStreamAttachMemAsync*(stream: cudaStream_t; devPtr: pointer;
-                                length: csize; flags: cuint): cudaError_t {.cdecl,
+                                length: csize_t; flags: cuint): cudaError_t {.cdecl,
       importc: "cudaStreamAttachMemAsync", dyn.}
   ## * @}
   ##  END CUDART_STREAM
@@ -2427,7 +2427,7 @@ when not defined(CUDA_RUNTIME_API_H):
     ##  `\ref ::cudaLaunchKernel(const T *func, dim3 gridDim, dim3 blockDim, void **args, size_t sharedMem, cudaStream_t stream) "cudaLaunchKernel (C++ API)"`
     ##
     proc cudaLaunchKernel*(`func`: pointer; gridDim: dim3; blockDim: dim3;
-                          args: ptr pointer; sharedMem: csize; stream: cudaStream_t): cudaError_t {.
+                          args: ptr pointer; sharedMem: csize_t; stream: cudaStream_t): cudaError_t {.
         cdecl, importc: "cudaLaunchKernel", dyn.}
   ## *
   ##  \brief Sets the preferred cache configuration for a device function
@@ -2664,7 +2664,7 @@ when not defined(CUDA_RUNTIME_API_H):
     ##  `\ref ::cudaOccupancyMaxPotentialBlockSizeVariableSMemWithFlags(int*, int*, T, UnaryFunction, int, unsigned int) "cudaOccupancyMaxPotentialBlockSizeVariableSMemWithFlags (C++ API)"`
     ##
     proc cudaOccupancyMaxActiveBlocksPerMultiprocessor*(numBlocks: ptr cint;
-        `func`: pointer; blockSize: cint; dynamicSMemSize: csize): cudaError_t {.cdecl,
+        `func`: pointer; blockSize: cint; dynamicSMemSize: csize_t): cudaError_t {.cdecl,
         importc: "cudaOccupancyMaxActiveBlocksPerMultiprocessor", dyn.}
     when CUDART_VERSION >= 7000:
       ## *
@@ -2710,7 +2710,7 @@ when not defined(CUDA_RUNTIME_API_H):
       ##
       proc cudaOccupancyMaxActiveBlocksPerMultiprocessorWithFlags*(
           numBlocks: ptr cint; `func`: pointer; blockSize: cint;
-          dynamicSMemSize: csize; flags: cuint): cudaError_t {.cdecl,
+          dynamicSMemSize: csize_t; flags: cuint): cudaError_t {.cdecl,
           importc: "cudaOccupancyMaxActiveBlocksPerMultiprocessorWithFlags",
           dyn.}
       ## * @}
@@ -2759,7 +2759,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaSetDoubleForHost,
   ##  `\ref ::cudaSetupArgument(const void*, size_t, size_t) "cudaSetupArgument (C API)",`
   ##
-  proc cudaConfigureCall*(gridDim: dim3; blockDim: dim3; sharedMem: csize;
+  proc cudaConfigureCall*(gridDim: dim3; blockDim: dim3; sharedMem: csize_t;
                          stream: cudaStream_t): cudaError_t {.cdecl,
       importc: "cudaConfigureCall", dyn.}
   ## *
@@ -2789,7 +2789,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaSetDoubleForHost,
   ##  \ref ::cudaSetupArgument(T, size_t) "cudaSetupArgument (C++ API)",
   ##
-  proc cudaSetupArgument*(arg: pointer; size: csize; offset: csize): cudaError_t {.
+  proc cudaSetupArgument*(arg: pointer; size: csize_t; offset: csize_t): cudaError_t {.
       cdecl, importc: "cudaSetupArgument", dyn.}
   ## *
   ##  \brief Launches a device function
@@ -2942,7 +2942,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  `\ref ::cudaMallocHost(void**, size_t) "cudaMallocHost (C API)",`
   ##  ::cudaFreeHost, ::cudaHostAlloc, ::cudaDeviceGetAttribute, ::cudaStreamAttachMemAsync
   ##
-  proc cudaMallocManaged*(devPtr: ptr pointer; size: csize; flags: cuint): cudaError_t {.
+  proc cudaMallocManaged*(devPtr: ptr pointer; size: csize_t; flags: cuint): cudaError_t {.
       cdecl, importc: "cudaMallocManaged", dyn.}
   ## *
   ##  \brief Allocate memory on the device
@@ -2967,7 +2967,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  `\ref ::cudaMallocHost(void**, size_t) "cudaMallocHost (C API)",`
   ##  ::cudaFreeHost, ::cudaHostAlloc
   ##
-  proc cudaMalloc*(devPtr: ptr pointer; size: csize): cudaError_t {.cdecl,
+  proc cudaMalloc*(devPtr: ptr pointer; size: csize_t): cudaError_t {.cdecl,
       importc: "cudaMalloc", dyn.}
   ## *
   ##  \brief Allocates page-locked memory on the host
@@ -2996,7 +2996,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  `\ref ::cudaMallocHost(void**, size_t, unsigned int) "cudaMallocHost (C++ API)",`
   ##  ::cudaFreeHost, ::cudaHostAlloc
   ##
-  proc cudaMallocHost*(`ptr`: ptr pointer; size: csize): cudaError_t {.cdecl,
+  proc cudaMallocHost*(`ptr`: ptr pointer; size: csize_t): cudaError_t {.cdecl,
       importc: "cudaMallocHost", dyn.}
   ## *
   ##  \brief Allocates pitched memory on the device
@@ -3035,8 +3035,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaFreeHost, ::cudaMalloc3D, ::cudaMalloc3DArray,
   ##  ::cudaHostAlloc
   ##
-  proc cudaMallocPitch*(devPtr: ptr pointer; pitch: ptr csize; width: csize;
-                       height: csize): cudaError_t {.cdecl,
+  proc cudaMallocPitch*(devPtr: ptr pointer; pitch: ptr csize_t; width: csize_t;
+                       height: csize_t): cudaError_t {.cdecl,
       importc: "cudaMallocPitch", dyn.}
   ## *
   ##  \brief Allocate an array on the device
@@ -3079,7 +3079,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaHostAlloc
   ##
   proc cudaMallocArray*(array: ptr cudaArray_t; desc: ptr cudaChannelFormatDesc;
-                       width: csize; height: csize; flags: cuint): cudaError_t {.cdecl,
+                       width: csize_t; height: csize_t; flags: cuint): cudaError_t {.cdecl,
       importc: "cudaMallocArray", dyn.}
   ## *
   ##  \brief Frees memory on the device
@@ -3228,7 +3228,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  `\ref ::cudaMallocHost(void**, size_t) "cudaMallocHost (C API)",`
   ##  ::cudaFreeHost
   ##
-  proc cudaHostAlloc*(pHost: ptr pointer; size: csize; flags: cuint): cudaError_t {.
+  proc cudaHostAlloc*(pHost: ptr pointer; size: csize_t; flags: cuint): cudaError_t {.
       cdecl, importc: "cudaHostAlloc", dyn.}
   ## *
   ##  \brief Registers an existing host memory range for use by CUDA
@@ -3305,7 +3305,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##
   ##  \sa ::cudaHostUnregister, ::cudaHostGetFlags, ::cudaHostGetDevicePointer
   ##
-  proc cudaHostRegister*(`ptr`: pointer; size: csize; flags: cuint): cudaError_t {.
+  proc cudaHostRegister*(`ptr`: pointer; size: csize_t; flags: cuint): cudaError_t {.
       cdecl, importc: "cudaHostRegister", dyn.}
   ## *
   ##  \brief Unregisters a memory range that was registered with cudaHostRegister
@@ -3988,7 +3988,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  \notefnerr
   ##
   ##
-  proc cudaMemGetInfo*(free: ptr csize; total: ptr csize): cudaError_t {.cdecl,
+  proc cudaMemGetInfo*(free: ptr csize_t; total: ptr csize_t): cudaError_t {.cdecl,
       importc: "cudaMemGetInfo", dyn.}
   ## *
   ##  \brief Gets info about the specified cudaArray
@@ -4048,7 +4048,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpy*(dst: pointer; src: pointer; count: csize; kind: cudaMemcpyKind): cudaError_t {.
+  proc cudaMemcpy*(dst: pointer; src: pointer; count: csize_t; kind: cudaMemcpyKind): cudaError_t {.
       cdecl, importc: "cudaMemcpy", dyn.}
   ## *
   ##  \brief Copies memory between two devices
@@ -4081,7 +4081,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpy3DPeerAsync
   ##
   proc cudaMemcpyPeer*(dst: pointer; dstDevice: cint; src: pointer; srcDevice: cint;
-                      count: csize): cudaError_t {.cdecl, importc: "cudaMemcpyPeer",
+                      count: csize_t): cudaError_t {.cdecl, importc: "cudaMemcpyPeer",
       dyn.}
   ## *
   ##  \brief Copies data between host and device
@@ -4119,8 +4119,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpyToArray*(dst: cudaArray_t; wOffset: csize; hOffset: csize;
-                         src: pointer; count: csize; kind: cudaMemcpyKind): cudaError_t {.
+  proc cudaMemcpyToArray*(dst: cudaArray_t; wOffset: csize_t; hOffset: csize_t;
+                         src: pointer; count: csize_t; kind: cudaMemcpyKind): cudaError_t {.
       cdecl, importc: "cudaMemcpyToArray", dyn.}
   ## *
   ##  \brief Copies data between host and device
@@ -4157,8 +4157,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpyFromArray*(dst: pointer; src: cudaArray_const_t; wOffset: csize;
-                           hOffset: csize; count: csize; kind: cudaMemcpyKind): cudaError_t {.
+  proc cudaMemcpyFromArray*(dst: pointer; src: cudaArray_const_t; wOffset: csize_t;
+                           hOffset: csize_t; count: csize_t; kind: cudaMemcpyKind): cudaError_t {.
       cdecl, importc: "cudaMemcpyFromArray", dyn.}
   ## *
   ##  \brief Copies data between host and device
@@ -4196,9 +4196,9 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpyArrayToArray*(dst: cudaArray_t; wOffsetDst: csize;
-                              hOffsetDst: csize; src: cudaArray_const_t;
-                              wOffsetSrc: csize; hOffsetSrc: csize; count: csize;
+  proc cudaMemcpyArrayToArray*(dst: cudaArray_t; wOffsetDst: csize_t;
+                              hOffsetDst: csize_t; src: cudaArray_const_t;
+                              wOffsetSrc: csize_t; hOffsetSrc: csize_t; count: csize_t;
                               kind: cudaMemcpyKind): cudaError_t {.cdecl,
       importc: "cudaMemcpyArrayToArray", dyn.}
   ## *
@@ -4244,8 +4244,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpy2D*(dst: pointer; dpitch: csize; src: pointer; spitch: csize;
-                    width: csize; height: csize; kind: cudaMemcpyKind): cudaError_t {.
+  proc cudaMemcpy2D*(dst: pointer; dpitch: csize_t; src: pointer; spitch: csize_t;
+                    width: csize_t; height: csize_t; kind: cudaMemcpyKind): cudaError_t {.
       cdecl, importc: "cudaMemcpy2D", dyn.}
   ## *
   ##  \brief Copies data between host and device
@@ -4291,8 +4291,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpy2DToArray*(dst: cudaArray_t; wOffset: csize; hOffset: csize;
-                           src: pointer; spitch: csize; width: csize; height: csize;
+  proc cudaMemcpy2DToArray*(dst: cudaArray_t; wOffset: csize_t; hOffset: csize_t;
+                           src: pointer; spitch: csize_t; width: csize_t; height: csize_t;
                            kind: cudaMemcpyKind): cudaError_t {.cdecl,
       importc: "cudaMemcpy2DToArray", dyn.}
   ## *
@@ -4339,9 +4339,9 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpy2DFromArray*(dst: pointer; dpitch: csize; src: cudaArray_const_t;
-                             wOffset: csize; hOffset: csize; width: csize;
-                             height: csize; kind: cudaMemcpyKind): cudaError_t {.
+  proc cudaMemcpy2DFromArray*(dst: pointer; dpitch: csize_t; src: cudaArray_const_t;
+                             wOffset: csize_t; hOffset: csize_t; width: csize_t;
+                             height: csize_t; kind: cudaMemcpyKind): cudaError_t {.
       cdecl, importc: "cudaMemcpy2DFromArray", dyn.}
   ## *
   ##  \brief Copies data between host and device
@@ -4384,10 +4384,10 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpy2DArrayToArray*(dst: cudaArray_t; wOffsetDst: csize;
-                                hOffsetDst: csize; src: cudaArray_const_t;
-                                wOffsetSrc: csize; hOffsetSrc: csize; width: csize;
-                                height: csize; kind: cudaMemcpyKind): cudaError_t {.
+  proc cudaMemcpy2DArrayToArray*(dst: cudaArray_t; wOffsetDst: csize_t;
+                                hOffsetDst: csize_t; src: cudaArray_const_t;
+                                wOffsetSrc: csize_t; hOffsetSrc: csize_t; width: csize_t;
+                                height: csize_t; kind: cudaMemcpyKind): cudaError_t {.
       cdecl, importc: "cudaMemcpy2DArrayToArray", dyn.}
   ## *
   ##  \brief Copies data to the given symbol on the device
@@ -4425,7 +4425,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpyToSymbol*(symbol: pointer; src: pointer; count: csize; offset: csize;
+  proc cudaMemcpyToSymbol*(symbol: pointer; src: pointer; count: csize_t; offset: csize_t;
                           kind: cudaMemcpyKind): cudaError_t {.cdecl,
       importc: "cudaMemcpyToSymbol", dyn.}
   ## *
@@ -4464,8 +4464,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpyFromSymbol*(dst: pointer; symbol: pointer; count: csize;
-                            offset: csize; kind: cudaMemcpyKind): cudaError_t {.
+  proc cudaMemcpyFromSymbol*(dst: pointer; symbol: pointer; count: csize_t;
+                            offset: csize_t; kind: cudaMemcpyKind): cudaError_t {.
       cdecl, importc: "cudaMemcpyFromSymbol", dyn.}
   ## *
   ##  \brief Copies data between host and device
@@ -4515,7 +4515,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpyAsync*(dst: pointer; src: pointer; count: csize; kind: cudaMemcpyKind;
+  proc cudaMemcpyAsync*(dst: pointer; src: pointer; count: csize_t; kind: cudaMemcpyKind;
                        stream: cudaStream_t): cudaError_t {.cdecl,
       importc: "cudaMemcpyAsync", dyn.}
   ## *
@@ -4549,7 +4549,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpy3DPeerAsync
   ##
   proc cudaMemcpyPeerAsync*(dst: pointer; dstDevice: cint; src: pointer;
-                           srcDevice: cint; count: csize; stream: cudaStream_t): cudaError_t {.
+                           srcDevice: cint; count: csize_t; stream: cudaStream_t): cudaError_t {.
       cdecl, importc: "cudaMemcpyPeerAsync", dyn.}
   ## *
   ##  \brief Copies data between host and device
@@ -4595,8 +4595,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpyToArrayAsync*(dst: cudaArray_t; wOffset: csize; hOffset: csize;
-                              src: pointer; count: csize; kind: cudaMemcpyKind;
+  proc cudaMemcpyToArrayAsync*(dst: cudaArray_t; wOffset: csize_t; hOffset: csize_t;
+                              src: pointer; count: csize_t; kind: cudaMemcpyKind;
                               stream: cudaStream_t): cudaError_t {.cdecl,
       importc: "cudaMemcpyToArrayAsync", dyn.}
   ## *
@@ -4643,7 +4643,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
   proc cudaMemcpyFromArrayAsync*(dst: pointer; src: cudaArray_const_t;
-                                wOffset: csize; hOffset: csize; count: csize;
+                                wOffset: csize_t; hOffset: csize_t; count: csize_t;
                                 kind: cudaMemcpyKind; stream: cudaStream_t): cudaError_t {.
       cdecl, importc: "cudaMemcpyFromArrayAsync", dyn.}
   ## *
@@ -4704,8 +4704,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpy2DAsync*(dst: pointer; dpitch: csize; src: pointer; spitch: csize;
-                         width: csize; height: csize; kind: cudaMemcpyKind;
+  proc cudaMemcpy2DAsync*(dst: pointer; dpitch: csize_t; src: pointer; spitch: csize_t;
+                         width: csize_t; height: csize_t; kind: cudaMemcpyKind;
                          stream: cudaStream_t): cudaError_t {.cdecl,
       importc: "cudaMemcpy2DAsync", dyn.}
   ## *
@@ -4761,9 +4761,9 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpy2DToArrayAsync*(dst: cudaArray_t; wOffset: csize; hOffset: csize;
-                                src: pointer; spitch: csize; width: csize;
-                                height: csize; kind: cudaMemcpyKind;
+  proc cudaMemcpy2DToArrayAsync*(dst: cudaArray_t; wOffset: csize_t; hOffset: csize_t;
+                                src: pointer; spitch: csize_t; width: csize_t;
+                                height: csize_t; kind: cudaMemcpyKind;
                                 stream: cudaStream_t): cudaError_t {.cdecl,
       importc: "cudaMemcpy2DToArrayAsync", dyn.}
   ## *
@@ -4818,9 +4818,9 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync, ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpy2DFromArrayAsync*(dst: pointer; dpitch: csize;
-                                  src: cudaArray_const_t; wOffset: csize;
-                                  hOffset: csize; width: csize; height: csize;
+  proc cudaMemcpy2DFromArrayAsync*(dst: pointer; dpitch: csize_t;
+                                  src: cudaArray_const_t; wOffset: csize_t;
+                                  hOffset: csize_t; width: csize_t; height: csize_t;
                                   kind: cudaMemcpyKind; stream: cudaStream_t): cudaError_t {.
       cdecl, importc: "cudaMemcpy2DFromArrayAsync", dyn.}
   ## *
@@ -4867,8 +4867,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyFromSymbolAsync
   ##
-  proc cudaMemcpyToSymbolAsync*(symbol: pointer; src: pointer; count: csize;
-                               offset: csize; kind: cudaMemcpyKind;
+  proc cudaMemcpyToSymbolAsync*(symbol: pointer; src: pointer; count: csize_t;
+                               offset: csize_t; kind: cudaMemcpyKind;
                                stream: cudaStream_t): cudaError_t {.cdecl,
       importc: "cudaMemcpyToSymbolAsync", dyn.}
   ## *
@@ -4915,8 +4915,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaMemcpyFromArrayAsync, ::cudaMemcpy2DFromArrayAsync,
   ##  ::cudaMemcpyToSymbolAsync
   ##
-  proc cudaMemcpyFromSymbolAsync*(dst: pointer; symbol: pointer; count: csize;
-                                 offset: csize; kind: cudaMemcpyKind;
+  proc cudaMemcpyFromSymbolAsync*(dst: pointer; symbol: pointer; count: csize_t;
+                                 offset: csize_t; kind: cudaMemcpyKind;
                                  stream: cudaStream_t): cudaError_t {.cdecl,
       importc: "cudaMemcpyFromSymbolAsync", dyn.}
   ## *
@@ -4942,7 +4942,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  \sa ::cudaMemset2D, ::cudaMemset3D, ::cudaMemsetAsync,
   ##  ::cudaMemset2DAsync, ::cudaMemset3DAsync
   ##
-  proc cudaMemset*(devPtr: pointer; value: cint; count: csize): cudaError_t {.cdecl,
+  proc cudaMemset*(devPtr: pointer; value: cint; count: csize_t): cudaError_t {.cdecl,
       importc: "cudaMemset", dyn.}
   ## *
   ##  \brief Initializes or sets device memory to a value
@@ -4972,8 +4972,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  \sa ::cudaMemset, ::cudaMemset3D, ::cudaMemsetAsync,
   ##  ::cudaMemset2DAsync, ::cudaMemset3DAsync
   ##
-  proc cudaMemset2D*(devPtr: pointer; pitch: csize; value: cint; width: csize;
-                    height: csize): cudaError_t {.cdecl, importc: "cudaMemset2D",
+  proc cudaMemset2D*(devPtr: pointer; pitch: csize_t; value: cint; width: csize_t;
+                    height: csize_t): cudaError_t {.cdecl, importc: "cudaMemset2D",
       dyn.}
   ## *
   ##  \brief Initializes or sets device memory to a value
@@ -5048,7 +5048,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  \sa ::cudaMemset, ::cudaMemset2D, ::cudaMemset3D,
   ##  ::cudaMemset2DAsync, ::cudaMemset3DAsync
   ##
-  proc cudaMemsetAsync*(devPtr: pointer; value: cint; count: csize;
+  proc cudaMemsetAsync*(devPtr: pointer; value: cint; count: csize_t;
                        stream: cudaStream_t): cudaError_t {.cdecl,
       importc: "cudaMemsetAsync", dyn.}
   ## *
@@ -5086,8 +5086,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  \sa ::cudaMemset, ::cudaMemset2D, ::cudaMemset3D,
   ##  ::cudaMemsetAsync, ::cudaMemset3DAsync
   ##
-  proc cudaMemset2DAsync*(devPtr: pointer; pitch: csize; value: cint; width: csize;
-                         height: csize; stream: cudaStream_t): cudaError_t {.cdecl,
+  proc cudaMemset2DAsync*(devPtr: pointer; pitch: csize_t; value: cint; width: csize_t;
+                         height: csize_t; stream: cudaStream_t): cudaError_t {.cdecl,
       importc: "cudaMemset2DAsync", dyn.}
   ## *
   ##  \brief Initializes or sets device memory to a value
@@ -5183,7 +5183,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  `\sa \ref ::cudaGetSymbolAddress(void**, const void*) "cudaGetSymbolAddress (C API)",`
   ##  `\ref ::cudaGetSymbolSize(size_t*, const T&) "cudaGetSymbolSize (C++ API)"`
   ##
-  proc cudaGetSymbolSize*(size: ptr csize; symbol: pointer): cudaError_t {.cdecl,
+  proc cudaGetSymbolSize*(size: ptr csize_t; symbol: pointer): cudaError_t {.cdecl,
       importc: "cudaGetSymbolSize", dyn.}
   ## *
   ##  \brief Prefetches memory to the specified destination device
@@ -5250,7 +5250,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  \sa ::cudaMemcpy, ::cudaMemcpyPeer, ::cudaMemcpyAsync,
   ##  ::cudaMemcpy3DPeerAsync, ::cudaMemAdvise
   ##
-  proc cudaMemPrefetchAsync*(devPtr: pointer; count: csize; dstDevice: cint;
+  proc cudaMemPrefetchAsync*(devPtr: pointer; count: csize_t; dstDevice: cint;
                             stream: cudaStream_t): cudaError_t {.cdecl,
       importc: "cudaMemPrefetchAsync", dyn.}
   ## *
@@ -5337,7 +5337,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  \sa ::cudaMemcpy, ::cudaMemcpyPeer, ::cudaMemcpyAsync,
   ##  ::cudaMemcpy3DPeerAsync, ::cudaMemPrefetchAsync
   ##
-  proc cudaMemAdvise*(devPtr: pointer; count: csize; advice: cudaMemoryAdvise;
+  proc cudaMemAdvise*(devPtr: pointer; count: csize_t; advice: cudaMemoryAdvise;
                      device: cint): cudaError_t {.cdecl, importc: "cudaMemAdvise",
       dyn.}
   ## *
@@ -5394,9 +5394,9 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  \sa ::cudaMemRangeGetAttributes, ::cudaMemPrefetchAsync,
   ##  ::cudaMemAdvise
   ##
-  proc cudaMemRangeGetAttribute*(data: pointer; dataSize: csize;
+  proc cudaMemRangeGetAttribute*(data: pointer; dataSize: csize_t;
                                 attribute: cudaMemRangeAttribute; devPtr: pointer;
-                                count: csize): cudaError_t {.cdecl,
+                                count: csize_t): cudaError_t {.cdecl,
       importc: "cudaMemRangeGetAttribute", dyn.}
   ## *
   ##  \brief Query attributes of a given memory range.
@@ -5432,9 +5432,9 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  \sa ::cudaMemRangeGetAttribute, ::cudaMemAdvise
   ##  ::cudaMemPrefetchAsync
   ##
-  proc cudaMemRangeGetAttributes*(data: ptr pointer; dataSizes: ptr csize;
+  proc cudaMemRangeGetAttributes*(data: ptr pointer; dataSizes: ptr csize_t;
                                  attributes: ptr cudaMemRangeAttribute;
-                                 numAttributes: csize; devPtr: pointer; count: csize): cudaError_t {.
+                                 numAttributes: csize_t; devPtr: pointer; count: csize_t): cudaError_t {.
       cdecl, importc: "cudaMemRangeGetAttributes", dyn.}
   ## * @}
   ##  END CUDART_MEMORY
@@ -5866,7 +5866,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  ::cudaGraphicsMapResources,
   ##  ::cudaGraphicsSubResourceGetMappedArray
   ##
-  proc cudaGraphicsResourceGetMappedPointer*(devPtr: ptr pointer; size: ptr csize;
+  proc cudaGraphicsResourceGetMappedPointer*(devPtr: ptr pointer; size: ptr csize_t;
       resource: cudaGraphicsResource_t): cudaError_t {.cdecl,
       importc: "cudaGraphicsResourceGetMappedPointer", dyn.}
   ## *
@@ -6050,8 +6050,8 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  `\ref ::cudaUnbindTexture(const struct textureReference*) "cudaUnbindTexture (C API)",`
   ##  `\ref ::cudaGetTextureAlignmentOffset(size_t*, const struct textureReference*) "cudaGetTextureAlignmentOffset (C API)"`
   ##
-  proc cudaBindTexture*(offset: ptr csize; texref: ptr textureReference;
-                       devPtr: pointer; desc: ptr cudaChannelFormatDesc; size: csize): cudaError_t {.
+  proc cudaBindTexture*(offset: ptr csize_t; texref: ptr textureReference;
+                       devPtr: pointer; desc: ptr cudaChannelFormatDesc; size: csize_t): cudaError_t {.
       cdecl, importc: "cudaBindTexture", dyn.}
   ## *
   ##  \brief Binds a 2D memory area to a texture
@@ -6102,9 +6102,9 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  `\ref ::cudaUnbindTexture(const struct textureReference*) "cudaBindTextureToArray (C API)",`
   ##  `\ref ::cudaGetTextureAlignmentOffset(size_t*, const struct textureReference*) "cudaGetTextureAlignmentOffset (C API)"`
   ##
-  proc cudaBindTexture2D*(offset: ptr csize; texref: ptr textureReference;
+  proc cudaBindTexture2D*(offset: ptr csize_t; texref: ptr textureReference;
                          devPtr: pointer; desc: ptr cudaChannelFormatDesc;
-                         width: csize; height: csize; pitch: csize): cudaError_t {.
+                         width: csize_t; height: csize_t; pitch: csize_t): cudaError_t {.
       cdecl, importc: "cudaBindTexture2D", dyn.}
   ## *
   ##  \brief Binds an array to a texture
@@ -6209,7 +6209,7 @@ when not defined(CUDA_RUNTIME_API_H):
   ##  `\ref ::cudaUnbindTexture(const struct textureReference*) "cudaUnbindTexture (C API)",`
   ##  `\ref ::cudaGetTextureAlignmentOffset(size_t*, const struct texture< T, dim, readMode>&) "cudaGetTextureAlignmentOffset (C++ API)"`
   ##
-  proc cudaGetTextureAlignmentOffset*(offset: ptr csize;
+  proc cudaGetTextureAlignmentOffset*(offset: ptr csize_t;
                                      texref: ptr textureReference): cudaError_t {.
       cdecl, importc: "cudaGetTextureAlignmentOffset", dyn.}
   ## *

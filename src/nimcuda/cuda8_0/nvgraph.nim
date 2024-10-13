@@ -133,26 +133,26 @@ proc nvgraphGetGraphStructure*(handle: nvgraphHandle_t;
 ##  settypes[i] is the type of vector #i, currently all Vertex and Edge data should have the same type
 
 proc nvgraphAllocateVertexData*(handle: nvgraphHandle_t;
-                               descrG: nvgraphGraphDescr_t; numsets: csize;
+                               descrG: nvgraphGraphDescr_t; numsets: csize_t;
                                settypes: ptr cudaDataType): nvgraphStatus_t {.cdecl,
     importc: "nvgraphAllocateVertexData", dyn.}
 ##  Allocate numsets vectors of size E reprensenting Edge Data and attached them the graph.
 ##  settypes[i] is the type of vector #i, currently all Vertex and Edge data should have the same type
 
 proc nvgraphAllocateEdgeData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
-                             numsets: csize; settypes: ptr cudaDataType): nvgraphStatus_t {.
+                             numsets: csize_t; settypes: ptr cudaDataType): nvgraphStatus_t {.
     cdecl, importc: "nvgraphAllocateEdgeData", dyn.}
 ##  `Update the vertex set #setnum with the data in *vertexData, sets have 0-based index`
 ##   Conversions are not sopported so nvgraphTopologyType_t should match the graph structure
 
 proc nvgraphSetVertexData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
-                          vertexData: pointer; setnum: csize): nvgraphStatus_t {.
+                          vertexData: pointer; setnum: csize_t): nvgraphStatus_t {.
     cdecl, importc: "nvgraphSetVertexData", dyn.}
 ##  `Copy the edge set #setnum in *edgeData, sets have 0-based index`
 ##   Conversions are not sopported so nvgraphTopologyType_t should match the graph structure
 
 proc nvgraphGetVertexData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
-                          vertexData: pointer; setnum: csize): nvgraphStatus_t {.
+                          vertexData: pointer; setnum: csize_t): nvgraphStatus_t {.
     cdecl, importc: "nvgraphGetVertexData", dyn.}
 ##  Convert the edge data to another topology
 ##
@@ -174,13 +174,13 @@ proc nvgraphConvertGraph*(handle: nvgraphHandle_t; srcDescrG: nvgraphGraphDescr_
 ##   Conversions are not sopported so nvgraphTopologyType_t should match the graph structure
 
 proc nvgraphSetEdgeData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
-                        edgeData: pointer; setnum: csize): nvgraphStatus_t {.cdecl,
+                        edgeData: pointer; setnum: csize_t): nvgraphStatus_t {.cdecl,
     importc: "nvgraphSetEdgeData", dyn.}
 ##  `Copy the edge set #setnum in *edgeData, sets have 0-based index`
 ##  Conversions are not sopported so nvgraphTopologyType_t should match the graph structure
 
 proc nvgraphGetEdgeData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
-                        edgeData: pointer; setnum: csize): nvgraphStatus_t {.cdecl,
+                        edgeData: pointer; setnum: csize_t): nvgraphStatus_t {.cdecl,
     importc: "nvgraphGetEdgeData", dyn.}
 ##  create a new graph by extracting a subgraph given a list of vertices
 ##
@@ -188,7 +188,7 @@ proc nvgraphGetEdgeData*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
 proc nvgraphExtractSubgraphByVertex*(handle: nvgraphHandle_t;
                                     descrG: nvgraphGraphDescr_t;
                                     subdescrG: nvgraphGraphDescr_t;
-                                    subvertices: ptr cint; numvertices: csize): nvgraphStatus_t {.
+                                    subvertices: ptr cint; numvertices: csize_t): nvgraphStatus_t {.
     cdecl, importc: "nvgraphExtractSubgraphByVertex", dyn.}
 ##  create a new graph by extracting a subgraph given a list of edges
 ##
@@ -196,36 +196,36 @@ proc nvgraphExtractSubgraphByVertex*(handle: nvgraphHandle_t;
 proc nvgraphExtractSubgraphByEdge*(handle: nvgraphHandle_t;
                                   descrG: nvgraphGraphDescr_t;
                                   subdescrG: nvgraphGraphDescr_t;
-                                  subedges: ptr cint; numedges: csize): nvgraphStatus_t {.
+                                  subedges: ptr cint; numedges: csize_t): nvgraphStatus_t {.
     cdecl, importc: "nvgraphExtractSubgraphByEdge", dyn.}
 ##  nvGRAPH Semi-ring sparse matrix vector multiplication
 ##
 
 proc nvgraphSrSpmv*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
-                   weight_index: csize; alpha: pointer; x_index: csize; beta: pointer;
-                   y_index: csize; SR: nvgraphSemiring_t): nvgraphStatus_t {.cdecl,
+                   weight_index: csize_t; alpha: pointer; x_index: csize_t; beta: pointer;
+                   y_index: csize_t; SR: nvgraphSemiring_t): nvgraphStatus_t {.cdecl,
     importc: "nvgraphSrSpmv", dyn.}
 ##  nvGRAPH Single Source Shortest Path (SSSP)
 ##  Calculate the shortest path distance from a single vertex in the graph to all other vertices.
 ##
 
 proc nvgraphSssp*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
-                 weight_index: csize; source_vert: ptr cint; sssp_index: csize): nvgraphStatus_t {.
+                 weight_index: csize_t; source_vert: ptr cint; sssp_index: csize_t): nvgraphStatus_t {.
     cdecl, importc: "nvgraphSssp", dyn.}
 ##  nvGRAPH WidestPath
 ##  Find widest path potential from source_index to every other vertices.
 ##
 
 proc nvgraphWidestPath*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
-                       weight_index: csize; source_vert: ptr cint;
-                       widest_path_index: csize): nvgraphStatus_t {.cdecl,
+                       weight_index: csize_t; source_vert: ptr cint;
+                       widest_path_index: csize_t): nvgraphStatus_t {.cdecl,
     importc: "nvgraphWidestPath", dyn.}
 ##  nvGRAPH PageRank
 ##  Find PageRank for each vertex of a graph with a given transition probabilities, a bookmark vector of dangling vertices, and the damping factor.
 ##
 
 proc nvgraphPagerank*(handle: nvgraphHandle_t; descrG: nvgraphGraphDescr_t;
-                     weight_index: csize; alpha: pointer; bookmark_index: csize;
-                     has_guess: cint; pagerank_index: csize; tolerance: cfloat;
+                     weight_index: csize_t; alpha: pointer; bookmark_index: csize_t;
+                     has_guess: cint; pagerank_index: csize_t; tolerance: cfloat;
                      max_iter: cint): nvgraphStatus_t {.cdecl,
     importc: "nvgraphPagerank", dyn.}

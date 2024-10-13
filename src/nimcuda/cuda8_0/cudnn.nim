@@ -50,7 +50,7 @@ when not defined(CUDNN_H):
 
   type
     cudnnHandle_t* = ptr cudnnContext
-  proc cudnnGetVersion*(): csize {.cdecl, importc: "cudnnGetVersion", dyn.}
+  proc cudnnGetVersion*(): csize_t {.cdecl, importc: "cudnnGetVersion", dyn.}
   ##
   ##  CUDNN return codes
   ##
@@ -359,7 +359,7 @@ when not defined(CUDNN_H):
       algo*: cudnnConvolutionFwdAlgo_t
       status*: cudnnStatus_t
       time*: cfloat
-      memory*: csize
+      memory*: csize_t
 
   proc cudnnFindConvolutionForwardAlgorithm*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; wDesc: cudnnFilterDescriptor_t;
@@ -372,12 +372,12 @@ when not defined(CUDNN_H):
       w: pointer; convDesc: cudnnConvolutionDescriptor_t;
       yDesc: cudnnTensorDescriptor_t; y: pointer; requestedAlgoCount: cint;
       returnedAlgoCount: ptr cint; perfResults: ptr cudnnConvolutionFwdAlgoPerf_t;
-      workSpace: pointer; workSpaceSizeInBytes: csize): cudnnStatus_t {.cdecl,
+      workSpace: pointer; workSpaceSizeInBytes: csize_t): cudnnStatus_t {.cdecl,
       importc: "cudnnFindConvolutionForwardAlgorithmEx", dyn.}
   proc cudnnGetConvolutionForwardAlgorithm*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; wDesc: cudnnFilterDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; yDesc: cudnnTensorDescriptor_t;
-      preference: cudnnConvolutionFwdPreference_t; memoryLimitInBytes: csize;
+      preference: cudnnConvolutionFwdPreference_t; memoryLimitInBytes: csize_t;
       algo: ptr cudnnConvolutionFwdAlgo_t): cudnnStatus_t {.cdecl,
       importc: "cudnnGetConvolutionForwardAlgorithm", dyn.}
   ##
@@ -387,7 +387,7 @@ when not defined(CUDNN_H):
   proc cudnnGetConvolutionForwardWorkspaceSize*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; wDesc: cudnnFilterDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; yDesc: cudnnTensorDescriptor_t;
-      algo: cudnnConvolutionFwdAlgo_t; sizeInBytes: ptr csize): cudnnStatus_t {.cdecl,
+      algo: cudnnConvolutionFwdAlgo_t; sizeInBytes: ptr csize_t): cudnnStatus_t {.cdecl,
       importc: "cudnnGetConvolutionForwardWorkspaceSize", dyn.}
   ##  `Convolution functions: All of the form "output = alpha * Op(inputs) + beta * output"`
   ##  Function to perform the forward pass for batch convolution
@@ -396,7 +396,7 @@ when not defined(CUDNN_H):
                                wDesc: cudnnFilterDescriptor_t; w: pointer;
                                convDesc: cudnnConvolutionDescriptor_t;
                                algo: cudnnConvolutionFwdAlgo_t;
-                               workSpace: pointer; workSpaceSizeInBytes: csize;
+                               workSpace: pointer; workSpaceSizeInBytes: csize_t;
                                beta: pointer; yDesc: cudnnTensorDescriptor_t;
                                y: pointer): cudnnStatus_t {.cdecl,
       importc: "cudnnConvolutionForward", dyn.}
@@ -422,7 +422,7 @@ when not defined(CUDNN_H):
       algo*: cudnnConvolutionBwdFilterAlgo_t
       status*: cudnnStatus_t
       time*: cfloat
-      memory*: csize
+      memory*: csize_t
 
   proc cudnnFindConvolutionBackwardFilterAlgorithm*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; dyDesc: cudnnTensorDescriptor_t;
@@ -436,13 +436,13 @@ when not defined(CUDNN_H):
       dwDesc: cudnnFilterDescriptor_t; dw: pointer; requestedAlgoCount: cint;
       returnedAlgoCount: ptr cint;
       perfResults: ptr cudnnConvolutionBwdFilterAlgoPerf_t; workSpace: pointer;
-      workSpaceSizeInBytes: csize): cudnnStatus_t {.cdecl,
+      workSpaceSizeInBytes: csize_t): cudnnStatus_t {.cdecl,
       importc: "cudnnFindConvolutionBackwardFilterAlgorithmEx", dyn.}
   proc cudnnGetConvolutionBackwardFilterAlgorithm*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; dyDesc: cudnnTensorDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; dwDesc: cudnnFilterDescriptor_t;
       preference: cudnnConvolutionBwdFilterPreference_t;
-      memoryLimitInBytes: csize; algo: ptr cudnnConvolutionBwdFilterAlgo_t): cudnnStatus_t {.
+      memoryLimitInBytes: csize_t; algo: ptr cudnnConvolutionBwdFilterAlgo_t): cudnnStatus_t {.
       cdecl, importc: "cudnnGetConvolutionBackwardFilterAlgorithm", dyn.}
   ##
   ##   convolution algorithm (which requires potentially some workspace)
@@ -451,7 +451,7 @@ when not defined(CUDNN_H):
   proc cudnnGetConvolutionBackwardFilterWorkspaceSize*(handle: cudnnHandle_t;
       xDesc: cudnnTensorDescriptor_t; dyDesc: cudnnTensorDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; gradDesc: cudnnFilterDescriptor_t;
-      algo: cudnnConvolutionBwdFilterAlgo_t; sizeInBytes: ptr csize): cudnnStatus_t {.
+      algo: cudnnConvolutionBwdFilterAlgo_t; sizeInBytes: ptr csize_t): cudnnStatus_t {.
       cdecl, importc: "cudnnGetConvolutionBackwardFilterWorkspaceSize",
       dyn.}
   proc cudnnConvolutionBackwardFilter*(handle: cudnnHandle_t; alpha: pointer;
@@ -461,7 +461,7 @@ when not defined(CUDNN_H):
                                       convDesc: cudnnConvolutionDescriptor_t;
                                       algo: cudnnConvolutionBwdFilterAlgo_t;
                                       workSpace: pointer;
-                                      workSpaceSizeInBytes: csize; beta: pointer;
+                                      workSpaceSizeInBytes: csize_t; beta: pointer;
                                       dwDesc: cudnnFilterDescriptor_t; dw: pointer): cudnnStatus_t {.
       cdecl, importc: "cudnnConvolutionBackwardFilter", dyn.}
   ## `*******************************************************`
@@ -482,7 +482,7 @@ when not defined(CUDNN_H):
       algo*: cudnnConvolutionBwdDataAlgo_t
       status*: cudnnStatus_t
       time*: cfloat
-      memory*: csize
+      memory*: csize_t
 
   proc cudnnFindConvolutionBackwardDataAlgorithm*(handle: cudnnHandle_t;
       wDesc: cudnnFilterDescriptor_t; dyDesc: cudnnTensorDescriptor_t;
@@ -496,19 +496,19 @@ when not defined(CUDNN_H):
       dxDesc: cudnnTensorDescriptor_t; dx: pointer; requestedAlgoCount: cint;
       returnedAlgoCount: ptr cint;
       perfResults: ptr cudnnConvolutionBwdDataAlgoPerf_t; workSpace: pointer;
-      workSpaceSizeInBytes: csize): cudnnStatus_t {.cdecl,
+      workSpaceSizeInBytes: csize_t): cudnnStatus_t {.cdecl,
       importc: "cudnnFindConvolutionBackwardDataAlgorithmEx", dyn.}
   proc cudnnGetConvolutionBackwardDataAlgorithm*(handle: cudnnHandle_t;
       wDesc: cudnnFilterDescriptor_t; dyDesc: cudnnTensorDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; dxDesc: cudnnTensorDescriptor_t;
-      preference: cudnnConvolutionBwdDataPreference_t; memoryLimitInBytes: csize;
+      preference: cudnnConvolutionBwdDataPreference_t; memoryLimitInBytes: csize_t;
       algo: ptr cudnnConvolutionBwdDataAlgo_t): cudnnStatus_t {.cdecl,
       importc: "cudnnGetConvolutionBackwardDataAlgorithm", dyn.}
   ##  Helper function to return the minimum size of the workspace to be passed to the convolution given an algo
   proc cudnnGetConvolutionBackwardDataWorkspaceSize*(handle: cudnnHandle_t;
       wDesc: cudnnFilterDescriptor_t; dyDesc: cudnnTensorDescriptor_t;
       convDesc: cudnnConvolutionDescriptor_t; dxDesc: cudnnTensorDescriptor_t;
-      algo: cudnnConvolutionBwdDataAlgo_t; sizeInBytes: ptr csize): cudnnStatus_t {.
+      algo: cudnnConvolutionBwdDataAlgo_t; sizeInBytes: ptr csize_t): cudnnStatus_t {.
       cdecl, importc: "cudnnGetConvolutionBackwardDataWorkspaceSize",
       dyn.}
   proc cudnnConvolutionBackwardData*(handle: cudnnHandle_t; alpha: pointer;
@@ -517,7 +517,7 @@ when not defined(CUDNN_H):
                                     convDesc: cudnnConvolutionDescriptor_t;
                                     algo: cudnnConvolutionBwdDataAlgo_t;
                                     workSpace: pointer;
-                                    workSpaceSizeInBytes: csize; beta: pointer;
+                                    workSpaceSizeInBytes: csize_t; beta: pointer;
                                     dxDesc: cudnnTensorDescriptor_t; dx: pointer): cudnnStatus_t {.
       cdecl, importc: "cudnnConvolutionBackwardData", dyn.}
   proc cudnnIm2Col*(handle: cudnnHandle_t; xDesc: cudnnTensorDescriptor_t;
@@ -868,28 +868,28 @@ when not defined(CUDNN_H):
   proc cudnnDestroyDropoutDescriptor*(dropoutDesc: cudnnDropoutDescriptor_t): cudnnStatus_t {.
       cdecl, importc: "cudnnDestroyDropoutDescriptor", dyn.}
   ## helper function to determine size of the states to be passed to cudnnSetDropoutDescriptor
-  proc cudnnDropoutGetStatesSize*(handle: cudnnHandle_t; sizeInBytes: ptr csize): cudnnStatus_t {.
+  proc cudnnDropoutGetStatesSize*(handle: cudnnHandle_t; sizeInBytes: ptr csize_t): cudnnStatus_t {.
       cdecl, importc: "cudnnDropoutGetStatesSize", dyn.}
   ## helper function to determine size of the reserve space to be passed to dropout forward/backward calls
   proc cudnnDropoutGetReserveSpaceSize*(xdesc: cudnnTensorDescriptor_t;
-                                       sizeInBytes: ptr csize): cudnnStatus_t {.
+                                       sizeInBytes: ptr csize_t): cudnnStatus_t {.
       cdecl, importc: "cudnnDropoutGetReserveSpaceSize", dyn.}
   proc cudnnSetDropoutDescriptor*(dropoutDesc: cudnnDropoutDescriptor_t;
                                  handle: cudnnHandle_t; dropout: cfloat;
-                                 states: pointer; stateSizeInBytes: csize;
+                                 states: pointer; stateSizeInBytes: csize_t;
                                  seed: culonglong): cudnnStatus_t {.cdecl,
       importc: "cudnnSetDropoutDescriptor", dyn.}
   proc cudnnDropoutForward*(handle: cudnnHandle_t;
                            dropoutDesc: cudnnDropoutDescriptor_t;
                            xdesc: cudnnTensorDescriptor_t; x: pointer;
                            ydesc: cudnnTensorDescriptor_t; y: pointer;
-                           reserveSpace: pointer; reserveSpaceSizeInBytes: csize): cudnnStatus_t {.
+                           reserveSpace: pointer; reserveSpaceSizeInBytes: csize_t): cudnnStatus_t {.
       cdecl, importc: "cudnnDropoutForward", dyn.}
   proc cudnnDropoutBackward*(handle: cudnnHandle_t;
                             dropoutDesc: cudnnDropoutDescriptor_t;
                             dydesc: cudnnTensorDescriptor_t; dy: pointer;
                             dxdesc: cudnnTensorDescriptor_t; dx: pointer;
-                            reserveSpace: pointer; reserveSpaceSizeInBytes: csize): cudnnStatus_t {.
+                            reserveSpace: pointer; reserveSpaceSizeInBytes: csize_t): cudnnStatus_t {.
       cdecl, importc: "cudnnDropoutBackward", dyn.}
   ##  RNN API
   type
@@ -924,17 +924,17 @@ when not defined(CUDNN_H):
   proc cudnnGetRNNWorkspaceSize*(handle: cudnnHandle_t;
                                 rnnDesc: cudnnRNNDescriptor_t; seqLength: cint;
                                 xDesc: ptr cudnnTensorDescriptor_t;
-                                sizeInBytes: ptr csize): cudnnStatus_t {.cdecl,
+                                sizeInBytes: ptr csize_t): cudnnStatus_t {.cdecl,
       importc: "cudnnGetRNNWorkspaceSize", dyn.}
   proc cudnnGetRNNTrainingReserveSize*(handle: cudnnHandle_t;
                                       rnnDesc: cudnnRNNDescriptor_t;
                                       seqLength: cint;
                                       xDesc: ptr cudnnTensorDescriptor_t;
-                                      sizeInBytes: ptr csize): cudnnStatus_t {.
+                                      sizeInBytes: ptr csize_t): cudnnStatus_t {.
       cdecl, importc: "cudnnGetRNNTrainingReserveSize", dyn.}
   proc cudnnGetRNNParamsSize*(handle: cudnnHandle_t; rnnDesc: cudnnRNNDescriptor_t;
                              xDesc: cudnnTensorDescriptor_t;
-                             sizeInBytes: ptr csize; dataType: cudnnDataType_t): cudnnStatus_t {.
+                             sizeInBytes: ptr csize_t; dataType: cudnnDataType_t): cudnnStatus_t {.
       cdecl, importc: "cudnnGetRNNParamsSize", dyn.}
   proc cudnnGetRNNLinLayerMatrixParams*(handle: cudnnHandle_t;
                                        rnnDesc: cudnnRNNDescriptor_t; layer: cint;
@@ -960,7 +960,7 @@ when not defined(CUDNN_H):
                                 yDesc: ptr cudnnTensorDescriptor_t; y: pointer;
                                 hyDesc: cudnnTensorDescriptor_t; hy: pointer;
                                 cyDesc: cudnnTensorDescriptor_t; cy: pointer;
-                                workspace: pointer; workSpaceSizeInBytes: csize): cudnnStatus_t {.
+                                workspace: pointer; workSpaceSizeInBytes: csize_t): cudnnStatus_t {.
       cdecl, importc: "cudnnRNNForwardInference", dyn.}
   proc cudnnRNNForwardTraining*(handle: cudnnHandle_t;
                                rnnDesc: cudnnRNNDescriptor_t; seqLength: cint;
@@ -971,9 +971,9 @@ when not defined(CUDNN_H):
                                yDesc: ptr cudnnTensorDescriptor_t; y: pointer;
                                hyDesc: cudnnTensorDescriptor_t; hy: pointer;
                                cyDesc: cudnnTensorDescriptor_t; cy: pointer;
-                               workspace: pointer; workSpaceSizeInBytes: csize;
+                               workspace: pointer; workSpaceSizeInBytes: csize_t;
                                reserveSpace: pointer;
-                               reserveSpaceSizeInBytes: csize): cudnnStatus_t {.
+                               reserveSpaceSizeInBytes: csize_t): cudnnStatus_t {.
       cdecl, importc: "cudnnRNNForwardTraining", dyn.}
   proc cudnnRNNBackwardData*(handle: cudnnHandle_t; rnnDesc: cudnnRNNDescriptor_t;
                             seqLength: cint; yDesc: ptr cudnnTensorDescriptor_t;
@@ -987,18 +987,18 @@ when not defined(CUDNN_H):
                             dx: pointer; dhxDesc: cudnnTensorDescriptor_t;
                             dhx: pointer; dcxDesc: cudnnTensorDescriptor_t;
                             dcx: pointer; workspace: pointer;
-                            workSpaceSizeInBytes: csize; reserveSpace: pointer;
-                            reserveSpaceSizeInBytes: csize): cudnnStatus_t {.cdecl,
+                            workSpaceSizeInBytes: csize_t; reserveSpace: pointer;
+                            reserveSpaceSizeInBytes: csize_t): cudnnStatus_t {.cdecl,
       importc: "cudnnRNNBackwardData", dyn.}
   proc cudnnRNNBackwardWeights*(handle: cudnnHandle_t;
                                rnnDesc: cudnnRNNDescriptor_t; seqLength: cint;
                                xDesc: ptr cudnnTensorDescriptor_t; x: pointer;
                                hxDesc: cudnnTensorDescriptor_t; hx: pointer;
                                yDesc: ptr cudnnTensorDescriptor_t; y: pointer;
-                               workspace: pointer; workSpaceSizeInBytes: csize;
+                               workspace: pointer; workSpaceSizeInBytes: csize_t;
                                dwDesc: cudnnFilterDescriptor_t; dw: pointer;
                                reserveSpace: pointer;
-                               reserveSpaceSizeInBytes: csize): cudnnStatus_t {.
+                               reserveSpaceSizeInBytes: csize_t): cudnnStatus_t {.
       cdecl, importc: "cudnnRNNBackwardWeights", dyn.}
   ##  DEPRECATED routines to be removed next release :
   ##    User should use the non-suffixed version (which has the API and functionality of _v4 version)

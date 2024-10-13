@@ -153,57 +153,57 @@ proc cufftPlanMany*(plan: ptr cufftHandle; rank: cint; n: ptr cint; inembed: ptr
                    odist: cint; `type`: cufftType; batch: cint): cufftResult {.cdecl,
     importc: "cufftPlanMany", dyn.}
 proc cufftMakePlan1d*(plan: cufftHandle; nx: cint; `type`: cufftType; batch: cint;
-                     workSize: ptr csize): cufftResult {.cdecl,
+                     workSize: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftMakePlan1d", dyn.}
 proc cufftMakePlan2d*(plan: cufftHandle; nx: cint; ny: cint; `type`: cufftType;
-                     workSize: ptr csize): cufftResult {.cdecl,
+                     workSize: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftMakePlan2d", dyn.}
 proc cufftMakePlan3d*(plan: cufftHandle; nx: cint; ny: cint; nz: cint; `type`: cufftType;
-                     workSize: ptr csize): cufftResult {.cdecl,
+                     workSize: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftMakePlan3d", dyn.}
 proc cufftMakePlanMany*(plan: cufftHandle; rank: cint; n: ptr cint; inembed: ptr cint;
                        istride: cint; idist: cint; onembed: ptr cint; ostride: cint;
                        odist: cint; `type`: cufftType; batch: cint;
-                       workSize: ptr csize): cufftResult {.cdecl,
+                       workSize: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftMakePlanMany", dyn.}
 proc cufftMakePlanMany64*(plan: cufftHandle; rank: cint; n: ptr clonglong;
                          inembed: ptr clonglong; istride: clonglong;
                          idist: clonglong; onembed: ptr clonglong;
                          ostride: clonglong; odist: clonglong; `type`: cufftType;
-                         batch: clonglong; workSize: ptr csize): cufftResult {.cdecl,
+                         batch: clonglong; workSize: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftMakePlanMany64", dyn.}
 proc cufftGetSizeMany64*(plan: cufftHandle; rank: cint; n: ptr clonglong;
                         inembed: ptr clonglong; istride: clonglong; idist: clonglong;
                         onembed: ptr clonglong; ostride: clonglong; odist: clonglong;
-                        `type`: cufftType; batch: clonglong; workSize: ptr csize): cufftResult {.
+                        `type`: cufftType; batch: clonglong; workSize: ptr csize_t): cufftResult {.
     cdecl, importc: "cufftGetSizeMany64", dyn.}
-proc cufftEstimate1d*(nx: cint; `type`: cufftType; batch: cint; workSize: ptr csize): cufftResult {.
+proc cufftEstimate1d*(nx: cint; `type`: cufftType; batch: cint; workSize: ptr csize_t): cufftResult {.
     cdecl, importc: "cufftEstimate1d", dyn.}
-proc cufftEstimate2d*(nx: cint; ny: cint; `type`: cufftType; workSize: ptr csize): cufftResult {.
+proc cufftEstimate2d*(nx: cint; ny: cint; `type`: cufftType; workSize: ptr csize_t): cufftResult {.
     cdecl, importc: "cufftEstimate2d", dyn.}
 proc cufftEstimate3d*(nx: cint; ny: cint; nz: cint; `type`: cufftType;
-                     workSize: ptr csize): cufftResult {.cdecl,
+                     workSize: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftEstimate3d", dyn.}
 proc cufftEstimateMany*(rank: cint; n: ptr cint; inembed: ptr cint; istride: cint;
                        idist: cint; onembed: ptr cint; ostride: cint; odist: cint;
-                       `type`: cufftType; batch: cint; workSize: ptr csize): cufftResult {.
+                       `type`: cufftType; batch: cint; workSize: ptr csize_t): cufftResult {.
     cdecl, importc: "cufftEstimateMany", dyn.}
 proc cufftCreate*(handle: ptr cufftHandle): cufftResult {.cdecl,
     importc: "cufftCreate", dyn.}
 proc cufftGetSize1d*(handle: cufftHandle; nx: cint; `type`: cufftType; batch: cint;
-                    workSize: ptr csize): cufftResult {.cdecl,
+                    workSize: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftGetSize1d", dyn.}
 proc cufftGetSize2d*(handle: cufftHandle; nx: cint; ny: cint; `type`: cufftType;
-                    workSize: ptr csize): cufftResult {.cdecl,
+                    workSize: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftGetSize2d", dyn.}
 proc cufftGetSize3d*(handle: cufftHandle; nx: cint; ny: cint; nz: cint;
-                    `type`: cufftType; workSize: ptr csize): cufftResult {.cdecl,
+                    `type`: cufftType; workSize: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftGetSize3d", dyn.}
 proc cufftGetSizeMany*(handle: cufftHandle; rank: cint; n: ptr cint; inembed: ptr cint;
                       istride: cint; idist: cint; onembed: ptr cint; ostride: cint;
-                      odist: cint; `type`: cufftType; batch: cint; workArea: ptr csize): cufftResult {.
+                      odist: cint; `type`: cufftType; batch: cint; workArea: ptr csize_t): cufftResult {.
     cdecl, importc: "cufftGetSizeMany", dyn.}
-proc cufftGetSize*(handle: cufftHandle; workSize: ptr csize): cufftResult {.cdecl,
+proc cufftGetSize*(handle: cufftHandle; workSize: ptr csize_t): cufftResult {.cdecl,
     importc: "cufftGetSize", dyn.}
 proc cufftSetWorkArea*(plan: cufftHandle; workArea: pointer): cufftResult {.cdecl,
     importc: "cufftSetWorkArea", dyn.}
