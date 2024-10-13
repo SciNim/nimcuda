@@ -19,12 +19,12 @@ proc main() =
 
   # Host matrix A and right-hand side vector b (column-major order)
   var h_A: array[0..(n*n)-1, cfloat] = [
-    3.0, 1.0, 1.0,  # First column
-    2.0, 2.0, 1.0,  # Second column
-    1.0, 1.0, 1.0  # Third column
+    cfloat 3.0, 1.0, 1.0,  # First column
+           2.0, 2.0, 1.0,  # Second column
+           1.0, 1.0, 1.0  # Third column
     ]
 
-  var h_b: array[0..n-1, cfloat] = [10, 8, 6]  # Right-hand side vector
+  var h_b: array[0..n-1, cfloat] = [cfloat 10, 8, 6]  # Right-hand side vector
 
   # Device pointers
   var d_A, d_b: pointer
