@@ -19,14 +19,14 @@ proc main() =
   const k = 2  # Columns of A and rows of B
 
   # Host matrices (column-major order)
-  var h_A: array[0..(m*k)-1, cfloat] = [1.0, 2.0,
-                                        3.0, 4.0]
+  var h_A: array[0..(m*k)-1, cfloat] = [cfloat 1.0, 2.0,
+                                               3.0, 4.0]
 
-  var h_B: array[0..(k*n)-1, cfloat] = [5.0, 6.0,
-                                        7.0, 8.0]
+  var h_B: array[0..(k*n)-1, cfloat] = [cfloat 5.0, 6.0,
+                                               7.0, 8.0]
 
-  var h_C: array[0..(m*n)-1, cfloat] = [0.0, 0.0,
-                                        0.0, 0.0]
+  var h_C: array[0..(m*n)-1, cfloat] = [cfloat 0.0, 0.0,
+                                               0.0, 0.0]
 
   # Device pointers
   var d_A, d_B, d_C: pointer
