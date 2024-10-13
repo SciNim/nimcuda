@@ -9,7 +9,7 @@ srcDir        = "src"
 
 # Dependencies
 
-requires "nim >= 0.16.0"
+requires "nim >= 2.0.0"
 
 import
   std / [strscans, strformat, os, enumutils, sequtils, strutils, pegs]
