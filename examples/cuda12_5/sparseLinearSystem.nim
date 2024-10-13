@@ -29,19 +29,19 @@ proc main() =
   #        0  7   8 ]
 
   # Row pointers
-  var h_csrRowPtrA: array[0..m, cint] = [0, 1, 3, 7]
+  var h_csrRowPtrA: array[0..m, cint] = [cint 0, 1, 3, 7]
 
   # Column indices
-  var h_csrColIndA: array[0..nnz-1, cint] = [0, 0, 1, 1, 2, 1, 2]
+  var h_csrColIndA: array[0..nnz-1, cint] = [cint 0, 0, 1, 1, 2, 1, 2]
 
   # Non-zero values
-  var h_csrValA: array[0..nnz-1, cfloat] = [10.0, 3.0, 9.0, 7.0, 8.0, 7.0, 8.0]
+  var h_csrValA: array[0..nnz-1, cfloat] = [cfloat 10.0, 3.0, 9.0, 7.0, 8.0, 7.0, 8.0]
 
   # Right-hand side vector b
-  var h_b: array[0..m-1, cfloat] = [10.0, 21.0, 38.0]
+  var h_b: array[0..m-1, cfloat] = [cfloat 10.0, 21.0, 38.0]
 
   # Solution vector x
-  var h_x: array[0..m-1, cfloat] = [0.0, 0.0, 0.0]
+  var h_x: array[0..m-1, cfloat] = [cfloat 0.0, 0.0, 0.0]
 
   # Device pointers
   var d_csrRowPtrA, d_csrColIndA, d_csrValA, d_b, d_x: pointer
