@@ -9,7 +9,7 @@ srcDir        = "src"
 
 # Dependencies
 
-requires "nim >= 2.0.0"
+requires "nim >= 1.6.0"
 
 import
   std / [strscans, strformat, os, enumutils, sequtils, strutils, pegs]
@@ -169,6 +169,11 @@ func parseCudaVersion(input: string): CudaVersion =
                               normalizer)
 
 
+const args = when NimMajor >= 2:
+  cmdline.commandLineParams()
+else:
+  os.commandLineParams()
+
 template taskWithCudaVersionArgument(name: untyped; description: string;
                                      body: untyped): untyped =
   ## Creates a nimble task that takes one command line argument: a cuda version.
@@ -177,8 +182,8 @@ template taskWithCudaVersionArgument(name: untyped; description: string;
     const NameOfThisTask = `name Task`.astToStr[0..^5] #removing "Task"
 
     let
-      noVersionArgPassed = cmdline.commandLineParams()[^1] == NameOfThisTask
-      oneVersionArgPassed = cmdline.commandLineParams()[^2] == NameOfThisTask
+      noVersionArgPassed = args[^1] == NameOfThisTask
+      oneVersionArgPassed = args[^2] == NameOfThisTask
       tooManyArgs = not (noVersionArgPassed or oneVersionArgPassed)
 
     if tooManyArgs:
@@ -187,8 +192,7 @@ template taskWithCudaVersionArgument(name: untyped; description: string;
     else:
       # parseCudaVersion defaults to `DefaultVersion`, so if the task is the
       # last param, it returns the default.
-      let cudaVersion {.inject.} = cmdline.commandLineParams()[^1].
-                                                            parseCudaVersion()
+      let cudaVersion {.inject.} = args[^1].parseCudaVersion()
       body
 
 template taskWithCertainVersions(name: untyped; description: string;
