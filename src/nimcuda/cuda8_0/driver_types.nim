@@ -628,9 +628,9 @@ when not defined(DRIVER_TYPES_H):
   type
     cudaPitchedPtr* = object
       `ptr`*: pointer          ## *< Pointer to allocated memory
-      pitch*: csize            ## *< Pitch of allocated memory in bytes
-      xsize*: csize            ## *< Logical width of allocation in elements
-      ysize*: csize            ## *< Logical height of allocation in elements
+      pitch*: csize_t            ## *< Pitch of allocated memory in bytes
+      xsize*: csize_t            ## *< Logical width of allocation in elements
+      ysize*: csize_t            ## *< Logical height of allocation in elements
 
   ## *
   ##  CUDA extent
@@ -639,9 +639,9 @@ when not defined(DRIVER_TYPES_H):
   ##
   type
     cudaExtent* = object
-      width*: csize            ## *< Width in elements when referring to array memory, in bytes when referring to linear memory
-      height*: csize           ## *< Height in elements
-      depth*: csize            ## *< Depth in elements
+      width*: csize_t            ## *< Width in elements when referring to array memory, in bytes when referring to linear memory
+      height*: csize_t           ## *< Height in elements
+      depth*: csize_t            ## *< Depth in elements
 
   ## *
   ##  CUDA 3D position
@@ -650,9 +650,9 @@ when not defined(DRIVER_TYPES_H):
   ##
   type
     cudaPos* = object
-      x*: csize                ## *< x
-      y*: csize                ## *< y
-      z*: csize                ## *< z
+      x*: csize_t                ## *< x
+      y*: csize_t                ## *< y
+      z*: csize_t                ## *< z
 
   ## *
   ##  CUDA 3D memory copying parameters
@@ -782,15 +782,15 @@ when not defined(DRIVER_TYPES_H):
     INNER_C_STRUCT_904144573* = object
       devPtr*: pointer         ## *< Device pointer
       desc*: cudaChannelFormatDesc ## *< Channel descriptor
-      sizeInBytes*: csize      ## *< Size in bytes
+      sizeInBytes*: csize_t      ## *< Size in bytes
 
   type
     INNER_C_STRUCT_1643424247* = object
       devPtr*: pointer         ## *< Device pointer
       desc*: cudaChannelFormatDesc ## *< Channel descriptor
-      width*: csize            ## *< Width of the array in elements
-      height*: csize           ## *< Height of the array in elements
-      pitchInBytes*: csize     ## *< Pitch between two rows in bytes
+      width*: csize_t            ## *< Width of the array in elements
+      height*: csize_t           ## *< Height of the array in elements
+      pitchInBytes*: csize_t     ## *< Pitch between two rows in bytes
 
   type
     INNER_C_UNION_846314039* {.union.} = object
@@ -810,9 +810,9 @@ when not defined(DRIVER_TYPES_H):
   type
     cudaResourceViewDesc* = object
       format*: cudaResourceViewFormat ## *< Resource view format
-      width*: csize            ## *< Width of the resource view
-      height*: csize           ## *< Height of the resource view
-      depth*: csize            ## *< Depth of the resource view
+      width*: csize_t            ## *< Width of the resource view
+      height*: csize_t           ## *< Height of the resource view
+      depth*: csize_t            ## *< Depth of the resource view
       firstMipmapLevel*: cuint ## *< First defined mipmap level
       lastMipmapLevel*: cuint  ## *< Last defined mipmap level
       firstLayer*: cuint       ## *< First layer index
@@ -854,7 +854,7 @@ when not defined(DRIVER_TYPES_H):
   ##
   type
     cudaFuncAttributes* = object
-      sharedSizeBytes*: csize ## *
+      sharedSizeBytes*: csize_t ## *
                             ##  The size in bytes of statically-allocated shared memory per block
                             ##  required by this function. This does not include dynamically-allocated
                             ##  shared memory requested by the user at runtime.
@@ -863,10 +863,10 @@ when not defined(DRIVER_TYPES_H):
       ##  The size in bytes of user-allocated constant memory required by this
       ##  function.
       ##
-      constSizeBytes*: csize ## *
+      constSizeBytes*: csize_t ## *
                            ##  The size in bytes of local memory used by each thread of this function.
                            ##
-      localSizeBytes*: csize ## *
+      localSizeBytes*: csize_t ## *
                            ##  The maximum number of threads per block, beyond which a launch of the
                            ##  function would fail. This number depends on both the function and the
                            ##  device on which the function is currently loaded.
@@ -1061,20 +1061,20 @@ when not defined(DRIVER_TYPES_H):
   type
     cudaDeviceProp* = object
       name*: array[256, char]   ## *< ASCII string identifying device
-      totalGlobalMem*: csize   ## *< Global memory available on device in bytes
-      sharedMemPerBlock*: csize ## *< Shared memory available per block in bytes
+      totalGlobalMem*: csize_t   ## *< Global memory available on device in bytes
+      sharedMemPerBlock*: csize_t ## *< Shared memory available per block in bytes
       regsPerBlock*: cint      ## *< 32-bit registers available per block
       warpSize*: cint          ## *< Warp size in threads
-      memPitch*: csize         ## *< Maximum pitch in bytes allowed by memory copies
+      memPitch*: csize_t         ## *< Maximum pitch in bytes allowed by memory copies
       maxThreadsPerBlock*: cint ## *< Maximum number of threads per block
       maxThreadsDim*: array[3, cint] ## *< Maximum size of each dimension of a block
       maxGridSize*: array[3, cint] ## *< Maximum size of each dimension of a grid
       clockRate*: cint         ## *< Clock frequency in kilohertz
-      totalConstMem*: csize    ## *< Constant memory available on device in bytes
+      totalConstMem*: csize_t    ## *< Constant memory available on device in bytes
       major*: cint             ## *< Major compute capability
       minor*: cint             ## *< Minor compute capability
-      textureAlignment*: csize ## *< Alignment requirement for textures
-      texturePitchAlignment*: csize ## *< Pitch alignment requirement for texture references bound to pitched memory
+      textureAlignment*: csize_t ## *< Alignment requirement for textures
+      texturePitchAlignment*: csize_t ## *< Pitch alignment requirement for texture references bound to pitched memory
       deviceOverlap*: cint     ## *< Device can concurrently copy memory and execute a kernel. Deprecated. Use instead asyncEngineCount.
       multiProcessorCount*: cint ## *< Number of multiprocessors on device
       kernelExecTimeoutEnabled*: cint ## *< Specified whether there is a run time limit on kernels
@@ -1101,7 +1101,7 @@ when not defined(DRIVER_TYPES_H):
       maxSurface2DLayered*: array[3, cint] ## *< Maximum 2D layered surface dimensions
       maxSurfaceCubemap*: cint ## *< Maximum Cubemap surface dimensions
       maxSurfaceCubemapLayered*: array[2, cint] ## *< Maximum Cubemap layered surface dimensions
-      surfaceAlignment*: csize ## *< Alignment requirements for surfaces
+      surfaceAlignment*: csize_t ## *< Alignment requirements for surfaces
       concurrentKernels*: cint ## *< Device can possibly execute multiple kernels concurrently
       ECCEnabled*: cint        ## *< Device has ECC support enabled
       pciBusID*: cint          ## *< PCI bus ID of the device
@@ -1117,7 +1117,7 @@ when not defined(DRIVER_TYPES_H):
       streamPrioritiesSupported*: cint ## *< Device supports stream priorities
       globalL1CacheSupported*: cint ## *< Device supports caching globals in L1
       localL1CacheSupported*: cint ## *< Device supports caching locals in L1
-      sharedMemPerMultiprocessor*: csize ## *< Shared memory available per multiprocessor in bytes
+      sharedMemPerMultiprocessor*: csize_t ## *< Shared memory available per multiprocessor in bytes
       regsPerMultiprocessor*: cint ## *< 32-bit registers available per multiprocessor
       managedMemory*: cint     ## *< Device supports allocating managed memory on this system
       isMultiGpuBoard*: cint   ## *< Device is on a multi-GPU board

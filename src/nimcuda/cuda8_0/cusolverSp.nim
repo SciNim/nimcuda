@@ -414,7 +414,7 @@ when not defined(CUSOLVERSP_H):
   ##
   proc cusolverSpXcsrperm_bufferSizeHost*(handle: cusolverSpHandle_t; m: cint;
       n: cint; nnzA: cint; descrA: cusparseMatDescr_t; csrRowPtrA: ptr cint;
-      csrColIndA: ptr cint; p: ptr cint; q: ptr cint; bufferSizeInBytes: ptr csize): cusolverStatus_t {.
+      csrColIndA: ptr cint; p: ptr cint; q: ptr cint; bufferSizeInBytes: ptr csize_t): cusolverStatus_t {.
       cdecl, importc: "cusolverSpXcsrperm_bufferSizeHost", dyn.}
   proc cusolverSpXcsrpermHost*(handle: cusolverSpHandle_t; m: cint; n: cint;
                               nnzA: cint; descrA: cusparseMatDescr_t;
@@ -437,22 +437,22 @@ when not defined(CUSOLVERSP_H):
   proc cusolverSpScsrqrBufferInfoBatched*(handle: cusolverSpHandle_t; m: cint;
       n: cint; nnz: cint; descrA: cusparseMatDescr_t; csrVal: ptr cfloat;
       csrRowPtr: ptr cint; csrColInd: ptr cint; batchSize: cint; info: csrqrInfo_t;
-      internalDataInBytes: ptr csize; workspaceInBytes: ptr csize): cusolverStatus_t {.
+      internalDataInBytes: ptr csize_t; workspaceInBytes: ptr csize_t): cusolverStatus_t {.
       cdecl, importc: "cusolverSpScsrqrBufferInfoBatched", dyn.}
   proc cusolverSpDcsrqrBufferInfoBatched*(handle: cusolverSpHandle_t; m: cint;
       n: cint; nnz: cint; descrA: cusparseMatDescr_t; csrVal: ptr cdouble;
       csrRowPtr: ptr cint; csrColInd: ptr cint; batchSize: cint; info: csrqrInfo_t;
-      internalDataInBytes: ptr csize; workspaceInBytes: ptr csize): cusolverStatus_t {.
+      internalDataInBytes: ptr csize_t; workspaceInBytes: ptr csize_t): cusolverStatus_t {.
       cdecl, importc: "cusolverSpDcsrqrBufferInfoBatched", dyn.}
   proc cusolverSpCcsrqrBufferInfoBatched*(handle: cusolverSpHandle_t; m: cint;
       n: cint; nnz: cint; descrA: cusparseMatDescr_t; csrVal: ptr cuComplex;
       csrRowPtr: ptr cint; csrColInd: ptr cint; batchSize: cint; info: csrqrInfo_t;
-      internalDataInBytes: ptr csize; workspaceInBytes: ptr csize): cusolverStatus_t {.
+      internalDataInBytes: ptr csize_t; workspaceInBytes: ptr csize_t): cusolverStatus_t {.
       cdecl, importc: "cusolverSpCcsrqrBufferInfoBatched", dyn.}
   proc cusolverSpZcsrqrBufferInfoBatched*(handle: cusolverSpHandle_t; m: cint;
       n: cint; nnz: cint; descrA: cusparseMatDescr_t; csrVal: ptr cuDoubleComplex;
       csrRowPtr: ptr cint; csrColInd: ptr cint; batchSize: cint; info: csrqrInfo_t;
-      internalDataInBytes: ptr csize; workspaceInBytes: ptr csize): cusolverStatus_t {.
+      internalDataInBytes: ptr csize_t; workspaceInBytes: ptr csize_t): cusolverStatus_t {.
       cdecl, importc: "cusolverSpZcsrqrBufferInfoBatched", dyn.}
   proc cusolverSpScsrqrsvBatched*(handle: cusolverSpHandle_t; m: cint; n: cint;
                                  nnz: cint; descrA: cusparseMatDescr_t;

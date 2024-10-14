@@ -1,6 +1,14 @@
 nimcache
-examples/fft
-examples/pagerank
-examples/sparse
-examples/random
+
+# ignore all files except nim source files in the examples dir
+examples/cuda12_5/*
+!examples/cuda12_5/*.nim
+
+# ignore all files except nim source files in the examples dir
+examples/cuda8_0/*
+!examples/cuda8_0/*.nim
+
+#ignore docs
+htmldocs
+
 .vscode

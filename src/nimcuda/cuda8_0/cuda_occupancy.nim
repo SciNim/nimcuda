@@ -83,8 +83,8 @@ type
     regsPerBlock*: cint        ##  Maximum number of registers per block
     regsPerMultiprocessor*: cint ##  Maximum number of registers per SM
     warpSize*: cint            ##  Warp size
-    sharedMemPerBlock*: csize  ##  Maximum shared memory size per block
-    sharedMemPerMultiprocessor*: csize ##  Maximum shared memory size per SM
+    sharedMemPerBlock*: csize_t  ##  Maximum shared memory size per block
+    sharedMemPerMultiprocessor*: csize_t ##  Maximum shared memory size per SM
     numSms*: cint              ##  Number of SMs available
 
 
@@ -113,7 +113,7 @@ type
     numRegs*: cint             ##  Number of registers used. When the function is
                  ##  launched on device, the register count may change
                  ##  due to internal tools requirements.
-    sharedSizeBytes*: csize    ##  Number of static shared memory used
+    sharedSizeBytes*: csize_t    ##  Number of static shared memory used
     partitionedGCConfig*: cudaOccPartitionedGCConfig ##  Partitioned global caching is required to enable
                                                    ##  caching on certain chips, such as sm_52
                                                    ##  devices. Partitioned global caching can be
@@ -178,7 +178,7 @@ type
                           ##  managable per SM
     allocatedRegistersPerBlock*: cint ##  Actual number of registers allocated per
                                     ##  block
-    allocatedSharedMemPerBlock*: csize ##  Actual size of shared memory allocated
+    allocatedSharedMemPerBlock*: csize_t ##  Actual size of shared memory allocated
                                      ##  per block
     partitionedGCConfig*: cudaOccPartitionedGCConfig ##  Report if partitioned global caching
                                                    ##  is actually enabled.
@@ -225,7 +225,7 @@ type
 
 # proc cudaOccMaxActiveBlocksPerMultiprocessor(result: ptr cudaOccResult;
 #     properties: ptr cudaOccDeviceProp; attributes: ptr cudaOccFuncAttributes;
-#     state: ptr cudaOccDeviceState; blockSize: cint; dynamicSmemSize: csize): cudaOccError {.
+#     state: ptr cudaOccDeviceState; blockSize: cint; dynamicSmemSize: csize_t): cudaOccError {.
 #     inline.}
 ##  out
 ##  in
@@ -275,7 +275,7 @@ type
 # proc cudaOccMaxPotentialOccupancyBlockSize(minGridSize: ptr cint;
 #     blockSize: ptr cint; properties: ptr cudaOccDeviceProp;
 #     attributes: ptr cudaOccFuncAttributes; state: ptr cudaOccDeviceState;
-#     blockSizeToDynamicSMemSize: proc (a2: cint): csize; dynamicSMemSize: csize): cudaOccError {.
+#     blockSizeToDynamicSMemSize: proc (a2: cint): csize_t; dynamicSMemSize: csize_t): cudaOccError {.
 #     inline.}
 ##  out
 ##  out
@@ -434,21 +434,21 @@ proc cudaOccMaxBlocksPerMultiprocessor*(limit: ptr cint;
 ##  Shared memory based on config requested by User
 ##
 
-proc cudaOccSMemPerMultiprocessor*(limit: ptr csize;
+proc cudaOccSMemPerMultiprocessor*(limit: ptr csize_t;
                                   properties: ptr cudaOccDeviceProp;
                                   cacheConfig: cudaOccCacheConfig): cudaOccError {.
     inline.} =
-  var bytes: csize = 0
-  var sharedMemPerMultiprocessorHigh: csize = properties.sharedMemPerMultiprocessor
+  var bytes: csize_t = 0
+  var sharedMemPerMultiprocessorHigh: csize_t = properties.sharedMemPerMultiprocessor
   ##  Fermi and Kepler has shared L1 cache / shared memory, and support cache
   ##  configuration to trade one for the other. These values are needed to
   ##  calculate the correct shared memory size for user requested cache
   ##  configuration.
   ##
-  var minCacheSize: csize = 16384
-  var maxCacheSize: csize = 49152
-  var cacheAndSharedTotal: csize = sharedMemPerMultiprocessorHigh + minCacheSize
-  var sharedMemPerMultiprocessorLow: csize = cacheAndSharedTotal - maxCacheSize
+  var minCacheSize: csize_t = 16384
+  var maxCacheSize: csize_t = 49152
+  var cacheAndSharedTotal: csize_t = sharedMemPerMultiprocessorHigh + minCacheSize
+  var sharedMemPerMultiprocessorLow: csize_t = cacheAndSharedTotal - maxCacheSize
   case properties.computeMajor
   of 2: ##  Fermi supports 48KB / 16KB or 16KB / 48KB partitions for shared /
       ##  L1.
@@ -610,13 +610,13 @@ proc cudaOccMaxBlocksPerSMSmemLimit*(limit: ptr cint; res: ptr cudaOccResult;
                                     properties: ptr cudaOccDeviceProp;
                                     attributes: ptr cudaOccFuncAttributes;
                                     state: ptr cudaOccDeviceState; blockSize: cint;
-                                    dynamicSmemSize: csize): cudaOccError {.inline.} =
+                                    dynamicSmemSize: csize_t): cudaOccError {.inline.} =
   var status: cudaOccError = CUDA_OCC_SUCCESS
   var allocationGranularity: cint
-  var userSmemPreference: csize
-  var totalSmemUsagePerCTA: csize
-  var smemAllocatedPerCTA: csize
-  var sharedMemPerMultiprocessor: csize
+  var userSmemPreference: csize_t
+  var totalSmemUsagePerCTA: csize_t
+  var smemAllocatedPerCTA: csize_t
+  var sharedMemPerMultiprocessor: csize_t
   var maxBlocks: cint
   status = cudaOccSMemAllocationGranularity(addr(allocationGranularity), properties)
   if status != CUDA_OCC_SUCCESS:
@@ -739,7 +739,7 @@ proc cudaOccMaxBlocksPerSMRegsLimit*(limit: ptr cint;
 
 proc cudaOccMaxActiveBlocksPerMultiprocessor*(res: ptr cudaOccResult;
     properties: ptr cudaOccDeviceProp; attributes: ptr cudaOccFuncAttributes;
-    state: ptr cudaOccDeviceState; blockSize: cint; dynamicSmemSize: csize): cudaOccError {.
+    state: ptr cudaOccDeviceState; blockSize: cint; dynamicSmemSize: csize_t): cudaOccError {.
     inline.} =
   var status: cudaOccError = CUDA_OCC_SUCCESS
   var ctaLimitWarps: cint = 0
@@ -804,7 +804,7 @@ proc cudaOccMaxActiveBlocksPerMultiprocessor*(res: ptr cudaOccResult;
 proc cudaOccMaxPotentialOccupancyBlockSize*(minGridSize: ptr cint;
     blockSize: ptr cint; properties: ptr cudaOccDeviceProp;
     attributes: ptr cudaOccFuncAttributes; state: ptr cudaOccDeviceState;
-    blockSizeToDynamicSMemSize: proc (a2: cint): csize; dynamicSMemSize: var csize): cudaOccError {.
+    blockSizeToDynamicSMemSize: proc (a2: cint): csize_t; dynamicSMemSize: var csize_t): cudaOccError {.
     inline.} =
   var status: cudaOccError = CUDA_OCC_SUCCESS
   var res: cudaOccResult

@@ -44,47 +44,40 @@ type
   # CudnnError* = object of IOError
   # NVGraphError* = object of IOError
 
-template check*(a: cudaError_t) =
-  let y = a # ensure we only evaluate once even if the expression has side effects
-  if y != cudaSuccess:
-    raise newException(CudaError, $y & " " & $int(y))
+func check*(a: sink cudaError_t) =
+  if a != cudaSuccess:
+    raise newException(CudaError, $a & " " & $int(a))
 
-template check*(a: cudaOccError) =
-  let y = a # ensure we only evaluate once even if the expression has side effects
-  if y != CUDA_OCC_SUCCESS:
-    raise newException(CudaOccError, $y & " " & $int(y))
+func check*(a: sink cudaOccError) =
+  if a != CUDA_OCC_SUCCESS:
+    raise newException(CudaOccError, $a & " " & $int(a))
 
-template check*(a: cublasStatus_t) =
-  let y = a # ensure we only evaluate once even if the expression has side effects
-  if y != CUBLAS_STATUS_SUCCESS:
-    raise newException(CublasError, $y & " " & $int(y))
+func check*(a: sink cublasStatus_t) =
+  if a != CUBLAS_STATUS_SUCCESS:
+    raise newException(CublasError, $a & " " & $int(a))
 
-template check*(a: cufftResult) =
-  let y = a # ensure we only evaluate once even if the expression has side effects
-  if y != CUFFT_SUCCESS:
-    raise newException(CufftError, $y & " " & $int(y))
+func check*(a: sink cufftResult) =
+  if a != CUFFT_SUCCESS:
+    raise newException(CufftError, $a & " " & $int(a))
 
-template check*(a: cusparseStatus_t) =
-  let y = a # ensure we only evaluate once even if the expression has side effects
-  if y != CUSPARSE_STATUS_SUCCESS:
-    raise newException(CusparseError, $y & " " & $int(y))
+func check*(a: sink cusparseStatus_t) =
+  if a != CUSPARSE_STATUS_SUCCESS:
+    raise newException(CusparseError, $a & " " & $int(a))
 
-template check*(a: cusolverStatus_t) =
-  let y = a # ensure we only evaluate once even if the expression has side effects
-  if y != CUSOLVER_STATUS_SUCCESS:
-    raise newException(CusolverError, $y & " " & $int(y))
+func check*(a: sink cusolverStatus_t) =
+  if a != CUSOLVER_STATUS_SUCCESS:
+    raise newException(CusolverError, $a & " " & $int(a))
 
-template check*(a: curandStatus) =
-  let y = a # ensure we only evaluate once even if the expression has side effects
-  if y != CURAND_STATUS_SUCCESS:
-    raise newException(CurandError, $y & " " & $int(y))
+func check*(a: sink curandStatus) =
+  if a != CURAND_STATUS_SUCCESS:
+    raise newException(CurandError, $a & " " & $int(a))
 
-# template check*(a: cudnnStatus_t) =
-#   let y = a # ensure we only evaluate once even if the expression has side effects
-#   if y != CUDNN_STATUS_SUCCESS:
-#     raise newException(CudnnError, $y & " " & $int(y))
+# func check*(a: cudnnStatus_t) =
+#   let a = a # ensure we only evaluate once even if the expression has side effects
+#   if a != CUDNN_STATUS_SUCCESS:
+#     raise newException(CudnnError, $a & " " & $int(a))
 
-# template check*(a: nvgraphStatus_t) =
-#   let y = a # ensure we only evaluate once even if the expression has side effects
-#   if y != NVGRAPH_STATUS_SUCCESS:
-#     raise newException(NVGraphError, $y & " " & $int(y))
+# func check*(a: nvgraphStatus_t) =
+#   let a = a # ensure we only evaluate once even if the expression has side effects
+#   if a != NVGRAPH_STATUS_SUCCESS:
+#     raise newException(NVGraphError, $a & " " & $int(a))

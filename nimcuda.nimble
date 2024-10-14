@@ -9,10 +9,10 @@ srcDir        = "src"
 
 # Dependencies
 
-requires "nim >= 0.16.0"
+requires "nim >= 1.4.0"
 
 import
-  std / [strscans, strformat, os, enumutils, sequtils, strutils, pegs]
+  std / [strscans, strformat, os, sequtils, strutils, pegs]
 
 type CudaVersion = enum
   cuda8_0, cuda12_5
@@ -51,7 +51,7 @@ const Libs = [
   #"nvgraph" <- removed in cuda 11.0, adopted into cugraph
 ]
 
-func systemCudaName(v: CudaVersion): string =
+proc systemCudaName(v: CudaVersion): string =
   ## Returns the name used for cuda directories on linux.
   var captures: array[2, string]
   assert ($v).match(peg" 'cuda' {\d+} '_' {\d+} ", captures)
@@ -59,7 +59,7 @@ func systemCudaName(v: CudaVersion): string =
 
 proc systemCudaInclude(version: CudaVersion): string =
   when hostOS == "windows":
-    Path(getEnv("CUDA_PATH")) / Path"include"
+    getEnv("CUDA_PATH") / "include"
   else:
     "/usr/local" / version.systemCudaName / "include"
 
@@ -157,17 +157,34 @@ proc compileAll(version: CudaVersion) =
 func parseCudaVersion(input: string): CudaVersion =
   ## Parses the passed cuda version, returning `DefaultVersion` if no match
   ## is found.
-  func normalizer(s: string): string =
-    var captures: array[2, string]
-    if s.match(peg" y'cuda'? {\d+} ('_' / '.' / '-') {\d+} $ ", captures):
-      fmt"cuda{captures[0]}_{captures[1]}"
+  # proc normalizer(s: string): string =
+  #   var captures: array[2, string]
+  #   if s.match(peg" y'cuda'? {\d+} ('_' / '.' / '-') {\d+} $ ", captures):
+  #     fmt"cuda{captures[0]}_{captures[1]}"
+  #   else:
+  #     s
+  var index = 0
+  var
+    major = ""
+    minor = ""
+  let success = input.scanp(index, ?"cuda", +(`Digits` -> major.add($_)),
+    {'.', '-', '_'}, +(`Digits` -> minor.add($_)))
+  if success:
+    case fmt"{major}.{minor}"
+    of "8.0":
+      cuda8_0
+    of "12.5":
+      cuda12_5
     else:
-      s
+      DefaultVersion
+  else:
+    DefaultVersion
 
-  CudaVersion.genEnumCaseStmt(commandLineParams()[^1], DefaultVersion,
-                              CudaVersion.low.ord, CudaVersion.high.ord,
-                              normalizer)
 
+const args = when NimMajor >= 2:
+  cmdline.commandLineParams()
+else:
+  os.commandLineParams()
 
 template taskWithCudaVersionArgument(name: untyped; description: string;
                                      body: untyped): untyped =
@@ -177,8 +194,8 @@ template taskWithCudaVersionArgument(name: untyped; description: string;
     const NameOfThisTask = `name Task`.astToStr[0..^5] #removing "Task"
 
     let
-      noVersionArgPassed = cmdline.commandLineParams()[^1] == NameOfThisTask
-      oneVersionArgPassed = cmdline.commandLineParams()[^2] == NameOfThisTask
+      noVersionArgPassed = args[^1] == NameOfThisTask
+      oneVersionArgPassed = args[^2] == NameOfThisTask
       tooManyArgs = not (noVersionArgPassed or oneVersionArgPassed)
 
     if tooManyArgs:
@@ -187,10 +204,20 @@ template taskWithCudaVersionArgument(name: untyped; description: string;
     else:
       # parseCudaVersion defaults to `DefaultVersion`, so if the task is the
       # last param, it returns the default.
-      let cudaVersion {.inject.} = cmdline.commandLineParams()[^1].
-                                                            parseCudaVersion()
+      let cudaVersion {.inject.} = args[^1].parseCudaVersion()
       body
 
+template taskWithCertainVersions(name: untyped; description: string;
+                                 versions: set[CudaVersion];
+                                 body: untyped): untyped =
+  ## Creates a nimble task that takes one command line argument: a cuda version.
+  ## This argument is accessible as the symbol `cudaVersion`.
+  ## The task can only be run on some versions of cuda, specified by `versions`.
+  taskWithCudaVersionArgument name, description:
+    if cudaVersion in versions:
+      body
+    else:
+      echo "This task is only available for version(s) $1." % [$versions]
 
 
 taskWithCudaVersionArgument headers, "generate bindings from headers":
@@ -243,3 +270,26 @@ taskWithCudaVersionArgument sparse, "run sparse example":
 taskWithCudaVersionArgument random, "run random example":
   exampleConfig(cudaVersion)
   setCommand "c", nimcudaExamplesDir(cudaVersion) / "random".addFileExt("nim")
+
+taskWithCertainVersions pagerank, "run pagerank example", {cuda8_0}:
+  # removed in cuda 11.0
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) / "pagerank".addFileExt("nim")
+
+taskWithCertainVersions blas, "run cublas example", {cuda12_5}:
+  # TODO: implement and test for 8.0
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) / "blas".addFileExt("nim")
+
+taskWithCertainVersions denseLinearSystem, "run cusolverDn example", {cuda12_5}:
+  # TODO: implement and test for 8.0
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) /
+                                           "denseLinearSystem".addFileExt("nim")
+
+taskWithCertainVersions sparseLinearSystem, "run cusolverSp example",
+    {cuda12_5}:
+  # TODO: implement and test for 8.0
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) /
+                                          "sparseLinearSystem".addFileExt("nim")
