@@ -1,3 +1,5 @@
+* v0.2.1
+- fix nimble file for Windows, Nim <= 1.6 (up to 1.4 supported), PR #22
 * v0.2.0
 - add support for CUDA version 12.5. Includes a massive revamp of how
   the bindings are generated, by @lilkeet (PR #17)
