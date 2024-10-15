@@ -5193,7 +5193,7 @@ when defined(GNUC):
 ##  ::cudaGetErrorString
 ##
 
-proc cuGetErrorString*(error: CUresult; pStr: cstringArray): CUresult {.cdecl,
+proc cuGetErrorString*(error: CUresult; pStr: cstringArray): CUresult {.discardable, cdecl,
     importc: "cuGetErrorString", dynlib: libName.}
 ##
 ##  \brief Gets the string representation of an error code enum name
@@ -5215,7 +5215,7 @@ proc cuGetErrorString*(error: CUresult; pStr: cstringArray): CUresult {.cdecl,
 ##  ::cudaGetErrorName
 ##
 
-proc cuGetErrorName*(error: CUresult; pStr: cstringArray): CUresult {.cdecl,
+proc cuGetErrorName*(error: CUresult; pStr: cstringArray): CUresult {.discardable, cdecl,
     importc: "cuGetErrorName", dynlib: libName.}
 ##  @}
 ##  END CUDA_ERROR
@@ -5248,7 +5248,7 @@ proc cuGetErrorName*(error: CUresult; pStr: cstringArray): CUresult {.cdecl,
 ##  \notefnerr
 ##
 
-proc cuInit*(Flags: cuint): CUresult {.cdecl, importc: "cuInit", dynlib: libName.}
+proc cuInit*(Flags: cuint): CUresult {.discardable, cdecl, importc: "cuInit", dynlib: libName.}
 ##  @}
 ##  END CUDA_INITIALIZE
 ##
@@ -5285,7 +5285,7 @@ proc cuInit*(Flags: cuint): CUresult {.cdecl, importc: "cuInit", dynlib: libName
 ##  ::cudaRuntimeGetVersion
 ##
 
-proc cuDriverGetVersion*(driverVersion: ptr cint): CUresult {.cdecl,
+proc cuDriverGetVersion*(driverVersion: ptr cint): CUresult {.discardable, cdecl,
     importc: "cuDriverGetVersion", dynlib: libName.}
 ##  @}
 ##  END CUDA_VERSION
@@ -5328,7 +5328,7 @@ proc cuDriverGetVersion*(driverVersion: ptr cint): CUresult {.cdecl,
 ##  ::cuDeviceGetExecAffinitySupport
 ##
 
-proc cuDeviceGet*(device: ptr CUdevice; ordinal: cint): CUresult {.cdecl,
+proc cuDeviceGet*(device: ptr CUdevice; ordinal: cint): CUresult {.discardable, cdecl,
     importc: "cuDeviceGet", dynlib: libName.}
 ##
 ##  \brief Returns the number of compute-capable devices
@@ -5358,7 +5358,7 @@ proc cuDeviceGet*(device: ptr CUdevice; ordinal: cint): CUresult {.cdecl,
 ##  ::cudaGetDeviceCount
 ##
 
-proc cuDeviceGetCount*(count: ptr cint): CUresult {.cdecl,
+proc cuDeviceGetCount*(count: ptr cint): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetCount", dynlib: libName.}
 ##
 ##  \brief Returns an identifier string for the device
@@ -5391,7 +5391,7 @@ proc cuDeviceGetCount*(count: ptr cint): CUresult {.cdecl,
 ##  ::cudaGetDeviceProperties
 ##
 
-proc cuDeviceGetName*(name: cstring; len: cint; dev: CUdevice): CUresult {.cdecl,
+proc cuDeviceGetName*(name: cstring; len: cint; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetName", dynlib: libName.}
 ##
 ##  \brief Return an UUID for the device
@@ -5425,7 +5425,7 @@ proc cuDeviceGetName*(name: cstring; len: cint; dev: CUdevice): CUresult {.cdecl
 ##  ::cudaGetDeviceProperties
 ##
 
-proc cuDeviceGetUuid*(uuid: ptr CUuuid; dev: CUdevice): CUresult {.cdecl,
+proc cuDeviceGetUuid*(uuid: ptr CUuuid; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetUuid", dynlib: libName.}
 ##
 ##  \brief Return an UUID for the device (11.4+)
@@ -5455,7 +5455,7 @@ proc cuDeviceGetUuid*(uuid: ptr CUuuid; dev: CUdevice): CUresult {.cdecl,
 ##  ::cudaGetDeviceProperties
 ##
 
-proc cuDeviceGetUuid_v2*(uuid: ptr CUuuid; dev: CUdevice): CUresult {.cdecl,
+proc cuDeviceGetUuid_v2*(uuid: ptr CUuuid; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetUuid_v2", dynlib: libName.}
 ##
 ##  \brief Return an LUID and device node mask for the device
@@ -5485,7 +5485,7 @@ proc cuDeviceGetUuid_v2*(uuid: ptr CUuuid; dev: CUdevice): CUresult {.cdecl,
 ##  ::cudaGetDeviceProperties
 ##
 
-proc cuDeviceGetLuid*(luid: cstring; deviceNodeMask: ptr cuint; dev: CUdevice): CUresult {.
+proc cuDeviceGetLuid*(luid: cstring; deviceNodeMask: ptr cuint; dev: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuDeviceGetLuid", dynlib: libName.}
 ##
 ##  \brief Returns the total amount of memory on the device
@@ -5515,7 +5515,7 @@ proc cuDeviceGetLuid*(luid: cstring; deviceNodeMask: ptr cuint; dev: CUdevice): 
 ##  ::cudaMemGetInfo
 ##
 
-proc cuDeviceTotalMem*(bytes: ptr csize_t; dev: CUdevice): CUresult {.cdecl,
+proc cuDeviceTotalMem*(bytes: ptr csize_t; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDeviceTotalMem", dynlib: libName.}
 ##
 ##  \brief Returns the maximum number of elements allocatable in a 1D linear texture for a given texture element size.
@@ -5549,7 +5549,7 @@ proc cuDeviceTotalMem*(bytes: ptr csize_t; dev: CUdevice): CUresult {.cdecl,
 
 proc cuDeviceGetTexture1DLinearMaxWidth*(maxWidthInElements: ptr csize_t;
                                         format: CUarray_format;
-                                        numChannels: cuint; dev: CUdevice): CUresult {.
+                                        numChannels: cuint; dev: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuDeviceGetTexture1DLinearMaxWidth", dynlib: libName.}
 ##
 ##  \brief Returns information about the device
@@ -5776,7 +5776,7 @@ proc cuDeviceGetTexture1DLinearMaxWidth*(maxWidthInElements: ptr csize_t;
 ##  ::cudaGetDeviceProperties
 ##
 
-proc cuDeviceGetAttribute*(pi: ptr cint; attrib: CUdevice_attribute; dev: CUdevice): CUresult {.
+proc cuDeviceGetAttribute*(pi: ptr cint; attrib: CUdevice_attribute; dev: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuDeviceGetAttribute", dynlib: libName.}
 ##
 ##  \brief Return NvSciSync attributes that this device can support.
@@ -5841,7 +5841,7 @@ proc cuDeviceGetAttribute*(pi: ptr cint; attrib: CUdevice_attribute; dev: CUdevi
 ##
 
 proc cuDeviceGetNvSciSyncAttributes*(nvSciSyncAttrList: pointer; dev: CUdevice;
-                                    flags: cint): CUresult {.cdecl,
+                                    flags: cint): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetNvSciSyncAttributes", dynlib: libName.}
 ##
 ##  \brief Sets the current memory pool of a device
@@ -5860,7 +5860,7 @@ proc cuDeviceGetNvSciSyncAttributes*(nvSciSyncAttrList: pointer; dev: CUdevice;
 ##  \sa ::cuDeviceGetDefaultMemPool, ::cuDeviceGetMemPool, ::cuMemPoolCreate, ::cuMemPoolDestroy, ::cuMemAllocFromPoolAsync
 ##
 
-proc cuDeviceSetMemPool*(dev: CUdevice; pool: CUmemoryPool): CUresult {.cdecl,
+proc cuDeviceSetMemPool*(dev: CUdevice; pool: CUmemoryPool): CUresult {.discardable, cdecl,
     importc: "cuDeviceSetMemPool", dynlib: libName.}
 ##
 ##  \brief Gets the current mempool for a device
@@ -5877,7 +5877,7 @@ proc cuDeviceSetMemPool*(dev: CUdevice; pool: CUmemoryPool): CUresult {.cdecl,
 ##  \sa ::cuDeviceGetDefaultMemPool, ::cuMemPoolCreate, ::cuDeviceSetMemPool
 ##
 
-proc cuDeviceGetMemPool*(pool: ptr CUmemoryPool; dev: CUdevice): CUresult {.cdecl,
+proc cuDeviceGetMemPool*(pool: ptr CUmemoryPool; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetMemPool", dynlib: libName.}
 ##
 ##  \brief Returns the default mempool of a device
@@ -5896,7 +5896,7 @@ proc cuDeviceGetMemPool*(pool: ptr CUmemoryPool; dev: CUdevice): CUresult {.cdec
 ##  \sa ::cuMemAllocAsync, ::cuMemPoolTrimTo, ::cuMemPoolGetAttribute, ::cuMemPoolSetAttribute, cuMemPoolSetAccess, ::cuDeviceGetMemPool, ::cuMemPoolCreate
 ##
 
-proc cuDeviceGetDefaultMemPool*(pool_out: ptr CUmemoryPool; dev: CUdevice): CUresult {.
+proc cuDeviceGetDefaultMemPool*(pool_out: ptr CUmemoryPool; dev: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuDeviceGetDefaultMemPool", dynlib: libName.}
 ##
 ##  \brief Returns information about the execution affinity support of the device.
@@ -5929,7 +5929,7 @@ proc cuDeviceGetDefaultMemPool*(pool_out: ptr CUmemoryPool; dev: CUdevice): CUre
 ##
 
 proc cuDeviceGetExecAffinitySupport*(pi: ptr cint; `type`: CUexecAffinityType;
-                                    dev: CUdevice): CUresult {.cdecl,
+                                    dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetExecAffinitySupport", dynlib: libName.}
 ##
 ##  \brief Blocks until remote writes are visible to the specified scope
@@ -5962,7 +5962,7 @@ proc cuDeviceGetExecAffinitySupport*(pi: ptr cint; `type`: CUexecAffinityType;
 ##
 
 proc cuFlushGPUDirectRDMAWrites*(target: CUflushGPUDirectRDMAWritesTarget;
-                                scope: CUflushGPUDirectRDMAWritesScope): CUresult {.
+                                scope: CUflushGPUDirectRDMAWritesScope): CUresult {.discardable,
     cdecl, importc: "cuFlushGPUDirectRDMAWrites", dynlib: libName.}
 ##  @}
 ##  END CUDA_DEVICE
@@ -6040,7 +6040,7 @@ proc cuFlushGPUDirectRDMAWrites*(target: CUflushGPUDirectRDMAWritesTarget;
 ##  ::cuDeviceTotalMem
 ##
 
-proc cuDeviceGetProperties*(prop: ptr CUdevprop; dev: CUdevice): CUresult {.cdecl,
+proc cuDeviceGetProperties*(prop: ptr CUdevprop; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetProperties", dynlib: libName.}
 ##
 ##  \brief Returns the compute capability of the device
@@ -6075,7 +6075,7 @@ proc cuDeviceGetProperties*(prop: ptr CUdevprop; dev: CUdevice): CUresult {.cdec
 ##  ::cuDeviceTotalMem
 ##
 
-proc cuDeviceComputeCapability*(major: ptr cint; minor: ptr cint; dev: CUdevice): CUresult {.
+proc cuDeviceComputeCapability*(major: ptr cint; minor: ptr cint; dev: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuDeviceComputeCapability", dynlib: libName.}
 ##  @}
 ##  END CUDA_DEVICE_DEPRECATED
@@ -6142,7 +6142,7 @@ proc cuDeviceComputeCapability*(major: ptr cint; minor: ptr cint; dev: CUdevice)
 ##  ::cuCtxSynchronize
 ##
 
-proc cuDevicePrimaryCtxRetain*(pctx: ptr CUcontext; dev: CUdevice): CUresult {.cdecl,
+proc cuDevicePrimaryCtxRetain*(pctx: ptr CUcontext; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDevicePrimaryCtxRetain", dynlib: libName.}
 ##
 ##  \brief Release the primary context on the GPU
@@ -6184,7 +6184,7 @@ proc cuDevicePrimaryCtxRetain*(pctx: ptr CUcontext; dev: CUdevice): CUresult {.c
 ##  ::cuCtxSynchronize
 ##
 
-proc cuDevicePrimaryCtxRelease*(dev: CUdevice): CUresult {.cdecl,
+proc cuDevicePrimaryCtxRelease*(dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDevicePrimaryCtxRelease", dynlib: libName.}
 ##
 ##  \brief Set flags for the primary context
@@ -6281,7 +6281,7 @@ proc cuDevicePrimaryCtxRelease*(dev: CUdevice): CUresult {.cdecl,
 ##  ::cudaSetDeviceFlags
 ##
 
-proc cuDevicePrimaryCtxSetFlags*(dev: CUdevice; flags: cuint): CUresult {.cdecl,
+proc cuDevicePrimaryCtxSetFlags*(dev: CUdevice; flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuDevicePrimaryCtxSetFlags", dynlib: libName.}
 ##
 ##  \brief Get the state of the primary context
@@ -6309,7 +6309,7 @@ proc cuDevicePrimaryCtxSetFlags*(dev: CUdevice; flags: cuint): CUresult {.cdecl,
 ##  ::cudaGetDeviceFlags
 ##
 
-proc cuDevicePrimaryCtxGetState*(dev: CUdevice; flags: ptr cuint; active: ptr cint): CUresult {.
+proc cuDevicePrimaryCtxGetState*(dev: CUdevice; flags: ptr cuint; active: ptr cint): CUresult {.discardable,
     cdecl, importc: "cuDevicePrimaryCtxGetState", dynlib: libName.}
 ##
 ##  \brief Destroy all allocations and reset all state on the primary context
@@ -6350,7 +6350,7 @@ proc cuDevicePrimaryCtxGetState*(dev: CUdevice; flags: ptr cuint; active: ptr ci
 ##  ::cudaDeviceReset
 ##
 
-proc cuDevicePrimaryCtxReset*(dev: CUdevice): CUresult {.cdecl,
+proc cuDevicePrimaryCtxReset*(dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDevicePrimaryCtxReset", dynlib: libName.}
 ##  @}
 ##  END CUDA_PRIMARY_CTX
@@ -6495,7 +6495,7 @@ proc cuDevicePrimaryCtxReset*(dev: CUdevice): CUresult {.cdecl,
 ##  ::cuCtxSynchronize
 ##
 
-proc cuCtxCreate*(pctx: ptr CUcontext; flags: cuint; dev: CUdevice): CUresult {.cdecl,
+proc cuCtxCreate*(pctx: ptr CUcontext; flags: cuint; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuCtxCreate", dynlib: libName.}
 ##
 ##  \brief Create a CUDA context with execution affinity
@@ -6633,7 +6633,7 @@ proc cuCtxCreate*(pctx: ptr CUcontext; flags: cuint; dev: CUdevice): CUresult {.
 ##
 
 proc cuCtxCreate_v3*(pctx: ptr CUcontext; paramsArray: ptr CUexecAffinityParam;
-                    numParams: cint; flags: cuint; dev: CUdevice): CUresult {.cdecl,
+                    numParams: cint; flags: cuint; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuCtxCreate_v3", dynlib: libName.}
 ##
 ##  \brief Create a CUDA context
@@ -6792,7 +6792,7 @@ proc cuCtxCreate_v3*(pctx: ptr CUcontext; paramsArray: ptr CUexecAffinityParam;
 ##
 
 proc cuCtxCreate_v4*(pctx: ptr CUcontext; ctxCreateParams: ptr CUctxCreateParams;
-                    flags: cuint; dev: CUdevice): CUresult {.cdecl,
+                    flags: cuint; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuCtxCreate_v4", dynlib: libName.}
 ##
 ##  \brief Destroy a CUDA context
@@ -6844,7 +6844,7 @@ proc cuCtxCreate_v4*(pctx: ptr CUcontext; ctxCreateParams: ptr CUctxCreateParams
 ##  ::cuCtxSynchronize
 ##
 
-proc cuCtxDestroy*(ctx: CUcontext): CUresult {.cdecl, importc: "cuCtxDestroy",
+proc cuCtxDestroy*(ctx: CUcontext): CUresult {.discardable, cdecl, importc: "cuCtxDestroy",
     dynlib: libName.}
 ##
 ##  \brief Pushes a context on the current CPU thread
@@ -6879,7 +6879,7 @@ proc cuCtxDestroy*(ctx: CUcontext): CUresult {.cdecl, importc: "cuCtxDestroy",
 ##  ::cuCtxSynchronize
 ##
 
-proc cuCtxPushCurrent*(ctx: CUcontext): CUresult {.cdecl,
+proc cuCtxPushCurrent*(ctx: CUcontext): CUresult {.discardable, cdecl,
     importc: "cuCtxPushCurrent", dynlib: libName.}
 ##
 ##  \brief Pops the current CUDA context from the current CPU thread.
@@ -6914,7 +6914,7 @@ proc cuCtxPushCurrent*(ctx: CUcontext): CUresult {.cdecl,
 ##  ::cuCtxSynchronize
 ##
 
-proc cuCtxPopCurrent*(pctx: ptr CUcontext): CUresult {.cdecl,
+proc cuCtxPopCurrent*(pctx: ptr CUcontext): CUresult {.discardable, cdecl,
     importc: "cuCtxPopCurrent", dynlib: libName.}
 ##
 ##  \brief Binds the specified CUDA context to the calling CPU thread
@@ -6945,7 +6945,7 @@ proc cuCtxPopCurrent*(pctx: ptr CUcontext): CUresult {.cdecl,
 ##  ::cudaSetDevice
 ##
 
-proc cuCtxSetCurrent*(ctx: CUcontext): CUresult {.cdecl, importc: "cuCtxSetCurrent",
+proc cuCtxSetCurrent*(ctx: CUcontext): CUresult {.discardable, cdecl, importc: "cuCtxSetCurrent",
     dynlib: libName.}
 ##
 ##  \brief Returns the CUDA context bound to the calling CPU thread.
@@ -6969,7 +6969,7 @@ proc cuCtxSetCurrent*(ctx: CUcontext): CUresult {.cdecl, importc: "cuCtxSetCurre
 ##  ::cudaGetDevice
 ##
 
-proc cuCtxGetCurrent*(pctx: ptr CUcontext): CUresult {.cdecl,
+proc cuCtxGetCurrent*(pctx: ptr CUcontext): CUresult {.discardable, cdecl,
     importc: "cuCtxGetCurrent", dynlib: libName.}
 ##
 ##  \brief Returns the device ID for the current context
@@ -7000,7 +7000,7 @@ proc cuCtxGetCurrent*(pctx: ptr CUcontext): CUresult {.cdecl,
 ##  ::cudaGetDevice
 ##
 
-proc cuCtxGetDevice*(device: ptr CUdevice): CUresult {.cdecl,
+proc cuCtxGetDevice*(device: ptr CUdevice): CUresult {.discardable, cdecl,
     importc: "cuCtxGetDevice", dynlib: libName.}
 ##
 ##  \brief Returns the flags for the current context
@@ -7030,7 +7030,7 @@ proc cuCtxGetDevice*(device: ptr CUdevice): CUresult {.cdecl,
 ##  ::cudaGetDeviceFlags
 ##
 
-proc cuCtxGetFlags*(flags: ptr cuint): CUresult {.cdecl, importc: "cuCtxGetFlags",
+proc cuCtxGetFlags*(flags: ptr cuint): CUresult {.discardable, cdecl, importc: "cuCtxGetFlags",
     dynlib: libName.}
 ##
 ##  \brief Sets the flags for the current context
@@ -7061,7 +7061,7 @@ proc cuCtxGetFlags*(flags: ptr cuint): CUresult {.cdecl, importc: "cuCtxGetFlags
 ##  ::cuDevicePrimaryCtxSetFlags,
 ##
 
-proc cuCtxSetFlags*(flags: cuint): CUresult {.cdecl, importc: "cuCtxSetFlags",
+proc cuCtxSetFlags*(flags: cuint): CUresult {.discardable, cdecl, importc: "cuCtxSetFlags",
     dynlib: libName.}
 ##
 ##  \brief Returns the unique Id associated with the context supplied
@@ -7093,7 +7093,7 @@ proc cuCtxSetFlags*(flags: cuint): CUresult {.cdecl, importc: "cuCtxSetFlags",
 ##  ::cuCtxPushCurrent
 ##
 
-proc cuCtxGetId*(ctx: CUcontext; ctxId: ptr culonglong): CUresult {.cdecl,
+proc cuCtxGetId*(ctx: CUcontext; ctxId: ptr culonglong): CUresult {.discardable, cdecl,
     importc: "cuCtxGetId", dynlib: libName.}
 ##
 ##  \brief Block for the current context's tasks to complete
@@ -7126,7 +7126,7 @@ proc cuCtxGetId*(ctx: CUcontext; ctxId: ptr culonglong): CUresult {.cdecl,
 ##  ::cudaDeviceSynchronize
 ##
 
-proc cuCtxSynchronize*(): CUresult {.cdecl, importc: "cuCtxSynchronize",
+proc cuCtxSynchronize*(): CUresult {.discardable, cdecl, importc: "cuCtxSynchronize",
                                   dynlib: libName.}
 ##
 ##  \brief Set resource limits
@@ -7226,7 +7226,7 @@ proc cuCtxSynchronize*(): CUresult {.cdecl, importc: "cuCtxSynchronize",
 ##  ::cudaDeviceSetLimit
 ##
 
-proc cuCtxSetLimit*(limit: CUlimit; value: csize_t): CUresult {.cdecl,
+proc cuCtxSetLimit*(limit: CUlimit; value: csize_t): CUresult {.discardable, cdecl,
     importc: "cuCtxSetLimit", dynlib: libName.}
 ##
 ##  \brief Returns resource limits
@@ -7269,7 +7269,7 @@ proc cuCtxSetLimit*(limit: CUlimit; value: csize_t): CUresult {.cdecl,
 ##  ::cudaDeviceGetLimit
 ##
 
-proc cuCtxGetLimit*(pvalue: ptr csize_t; limit: CUlimit): CUresult {.cdecl,
+proc cuCtxGetLimit*(pvalue: ptr csize_t; limit: CUlimit): CUresult {.discardable, cdecl,
     importc: "cuCtxGetLimit", dynlib: libName.}
 ##
 ##  \brief Returns the preferred cache configuration for the current context.
@@ -7314,7 +7314,7 @@ proc cuCtxGetLimit*(pvalue: ptr csize_t; limit: CUlimit): CUresult {.cdecl,
 ##  ::cudaDeviceGetCacheConfig
 ##
 
-proc cuCtxGetCacheConfig*(pconfig: ptr CUfunc_cache): CUresult {.cdecl,
+proc cuCtxGetCacheConfig*(pconfig: ptr CUfunc_cache): CUresult {.discardable, cdecl,
     importc: "cuCtxGetCacheConfig", dynlib: libName.}
 ##
 ##  \brief Sets the preferred cache configuration for the current context.
@@ -7367,7 +7367,7 @@ proc cuCtxGetCacheConfig*(pconfig: ptr CUfunc_cache): CUresult {.cdecl,
 ##  ::cuKernelSetCacheConfig
 ##
 
-proc cuCtxSetCacheConfig*(config: CUfunc_cache): CUresult {.cdecl,
+proc cuCtxSetCacheConfig*(config: CUfunc_cache): CUresult {.discardable, cdecl,
     importc: "cuCtxSetCacheConfig", dynlib: libName.}
 ##
 ##  \brief Gets the context's API version.
@@ -7406,7 +7406,7 @@ proc cuCtxSetCacheConfig*(config: CUfunc_cache): CUresult {.cdecl,
 ##  ::cuCtxSynchronize
 ##
 
-proc cuCtxGetApiVersion*(ctx: CUcontext; version: ptr cuint): CUresult {.cdecl,
+proc cuCtxGetApiVersion*(ctx: CUcontext; version: ptr cuint): CUresult {.discardable, cdecl,
     importc: "cuCtxGetApiVersion", dynlib: libName.}
 ##
 ##  \brief Returns numerical values that correspond to the least and
@@ -7448,7 +7448,7 @@ proc cuCtxGetApiVersion*(ctx: CUcontext; version: ptr cuint): CUresult {.cdecl,
 ##
 
 proc cuCtxGetStreamPriorityRange*(leastPriority: ptr cint;
-                                 greatestPriority: ptr cint): CUresult {.cdecl,
+                                 greatestPriority: ptr cint): CUresult {.discardable, cdecl,
     importc: "cuCtxGetStreamPriorityRange", dynlib: libName.}
 ##
 ##  \brief Resets all persisting lines in cache to normal status.
@@ -7465,7 +7465,7 @@ proc cuCtxGetStreamPriorityRange*(leastPriority: ptr cint;
 ##  ::CUaccessPolicyWindow
 ##
 
-proc cuCtxResetPersistingL2Cache*(): CUresult {.cdecl,
+proc cuCtxResetPersistingL2Cache*(): CUresult {.discardable, cdecl,
     importc: "cuCtxResetPersistingL2Cache", dynlib: libName.}
 ##
 ##  \brief Returns the execution affinity setting for the current context.
@@ -7491,7 +7491,7 @@ proc cuCtxResetPersistingL2Cache*(): CUresult {.cdecl,
 ##
 
 proc cuCtxGetExecAffinity*(pExecAffinity: ptr CUexecAffinityParam;
-                          `type`: CUexecAffinityType): CUresult {.cdecl,
+                          `type`: CUexecAffinityType): CUresult {.discardable, cdecl,
     importc: "cuCtxGetExecAffinity", dynlib: libName.}
 ##
 ##  \brief Records an event.
@@ -7529,7 +7529,7 @@ proc cuCtxGetExecAffinity*(pExecAffinity: ptr CUexecAffinityParam;
 ##  ::cuEventRecord
 ##
 
-proc cuCtxRecordEvent*(hCtx: CUcontext; hEvent: CUevent): CUresult {.cdecl,
+proc cuCtxRecordEvent*(hCtx: CUcontext; hEvent: CUevent): CUresult {.discardable, cdecl,
     importc: "cuCtxRecordEvent", dynlib: libName.}
 ##
 ##  \brief Make a context wait on an event
@@ -7567,7 +7567,7 @@ proc cuCtxRecordEvent*(hCtx: CUcontext; hEvent: CUevent): CUresult {.cdecl,
 ##  ::cuStreamWaitEvent
 ##
 
-proc cuCtxWaitEvent*(hCtx: CUcontext; hEvent: CUevent): CUresult {.cdecl,
+proc cuCtxWaitEvent*(hCtx: CUcontext; hEvent: CUevent): CUresult {.discardable, cdecl,
     importc: "cuCtxWaitEvent", dynlib: libName.}
 ##  @}
 ##  END CUDA_CTX
@@ -7622,7 +7622,7 @@ proc cuCtxWaitEvent*(hCtx: CUcontext; hEvent: CUevent): CUresult {.cdecl,
 ##  ::cuCtxSynchronize
 ##
 
-proc cuCtxAttach*(pctx: ptr CUcontext; flags: cuint): CUresult {.cdecl,
+proc cuCtxAttach*(pctx: ptr CUcontext; flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuCtxAttach", dynlib: libName.}
 ##
 ##  \brief Decrement a context's usage-count
@@ -7659,7 +7659,7 @@ proc cuCtxAttach*(pctx: ptr CUcontext; flags: cuint): CUresult {.cdecl,
 ##  ::cuCtxSynchronize
 ##
 
-proc cuCtxDetach*(ctx: CUcontext): CUresult {.cdecl, importc: "cuCtxDetach",
+proc cuCtxDetach*(ctx: CUcontext): CUresult {.discardable, cdecl, importc: "cuCtxDetach",
     dynlib: libName.}
 ##
 ##  \brief Returns the current shared memory configuration for the current context.
@@ -7704,7 +7704,7 @@ proc cuCtxDetach*(ctx: CUcontext): CUresult {.cdecl, importc: "cuCtxDetach",
 ##  ::cudaDeviceGetSharedMemConfig
 ##
 
-proc cuCtxGetSharedMemConfig*(pConfig: ptr CUsharedconfig): CUresult {.cdecl,
+proc cuCtxGetSharedMemConfig*(pConfig: ptr CUsharedconfig): CUresult {.discardable, cdecl,
     importc: "cuCtxGetSharedMemConfig", dynlib: libName.}
 ##
 ##  \brief Sets the shared memory configuration for the current context.
@@ -7760,7 +7760,7 @@ proc cuCtxGetSharedMemConfig*(pConfig: ptr CUsharedconfig): CUresult {.cdecl,
 ##  ::cudaDeviceSetSharedMemConfig
 ##
 
-proc cuCtxSetSharedMemConfig*(config: CUsharedconfig): CUresult {.cdecl,
+proc cuCtxSetSharedMemConfig*(config: CUsharedconfig): CUresult {.discardable, cdecl,
     importc: "cuCtxSetSharedMemConfig", dynlib: libName.}
 ##  @}
 ##  END CUDA_CTX_DEPRECATED
@@ -7815,7 +7815,7 @@ proc cuCtxSetSharedMemConfig*(config: CUsharedconfig): CUresult {.cdecl,
 ##  ::cuModuleUnload
 ##
 
-proc cuModuleLoad*(module: ptr CUmodule; fname: cstring): CUresult {.cdecl,
+proc cuModuleLoad*(module: ptr CUmodule; fname: cstring): CUresult {.discardable, cdecl,
     importc: "cuModuleLoad", dynlib: libName.}
 ##
 ##  \brief Load a module's data
@@ -7852,7 +7852,7 @@ proc cuModuleLoad*(module: ptr CUmodule; fname: cstring): CUresult {.cdecl,
 ##  ::cuModuleUnload
 ##
 
-proc cuModuleLoadData*(module: ptr CUmodule; image: pointer): CUresult {.cdecl,
+proc cuModuleLoadData*(module: ptr CUmodule; image: pointer): CUresult {.discardable, cdecl,
     importc: "cuModuleLoadData", dynlib: libName.}
 ##
 ##  \brief Load a module's data with options
@@ -7893,7 +7893,7 @@ proc cuModuleLoadData*(module: ptr CUmodule; image: pointer): CUresult {.cdecl,
 ##
 
 proc cuModuleLoadDataEx*(module: ptr CUmodule; image: pointer; numOptions: cuint;
-                        options: ptr CUjit_option; optionValues: ptr pointer): CUresult {.
+                        options: ptr CUjit_option; optionValues: ptr pointer): CUresult {.discardable,
     cdecl, importc: "cuModuleLoadDataEx", dynlib: libName.}
 ##
 ##  \brief Load a module's data
@@ -7937,7 +7937,7 @@ proc cuModuleLoadDataEx*(module: ptr CUmodule; image: pointer; numOptions: cuint
 ##  ::cuModuleUnload
 ##
 
-proc cuModuleLoadFatBinary*(module: ptr CUmodule; fatCubin: pointer): CUresult {.cdecl,
+proc cuModuleLoadFatBinary*(module: ptr CUmodule; fatCubin: pointer): CUresult {.discardable, cdecl,
     importc: "cuModuleLoadFatBinary", dynlib: libName.}
 ##
 ##  \brief Unloads a module
@@ -7967,7 +7967,7 @@ proc cuModuleLoadFatBinary*(module: ptr CUmodule; fatCubin: pointer): CUresult {
 ##  ::cuModuleLoadFatBinary
 ##
 
-proc cuModuleUnload*(hmod: CUmodule): CUresult {.cdecl, importc: "cuModuleUnload",
+proc cuModuleUnload*(hmod: CUmodule): CUresult {.discardable, cdecl, importc: "cuModuleUnload",
     dynlib: libName.}
 ##
 ##  CUDA Lazy Loading status
@@ -7996,7 +7996,7 @@ type
 ##  ::cuModuleLoad,
 ##
 
-proc cuModuleGetLoadingMode*(mode: ptr CUmoduleLoadingMode): CUresult {.cdecl,
+proc cuModuleGetLoadingMode*(mode: ptr CUmoduleLoadingMode): CUresult {.discardable, cdecl,
     importc: "cuModuleGetLoadingMode", dynlib: libName.}
 ##
 ##  \brief Returns a function handle
@@ -8027,7 +8027,7 @@ proc cuModuleGetLoadingMode*(mode: ptr CUmoduleLoadingMode): CUresult {.cdecl,
 ##  ::cuModuleUnload
 ##
 
-proc cuModuleGetFunction*(hfunc: ptr CUfunction; hmod: CUmodule; name: cstring): CUresult {.
+proc cuModuleGetFunction*(hfunc: ptr CUfunction; hmod: CUmodule; name: cstring): CUresult {.discardable,
     cdecl, importc: "cuModuleGetFunction", dynlib: libName.}
 ##
 ##  \brief Returns the number of functions within a module
@@ -8043,7 +8043,7 @@ proc cuModuleGetFunction*(hfunc: ptr CUfunction; hmod: CUmodule; name: cstring):
 ##  ::CUDA_ERROR_INVALID_VALUE
 ##
 
-proc cuModuleGetFunctionCount*(count: ptr cuint; `mod`: CUmodule): CUresult {.cdecl,
+proc cuModuleGetFunctionCount*(count: ptr cuint; `mod`: CUmodule): CUresult {.discardable, cdecl,
     importc: "cuModuleGetFunctionCount", dynlib: libName.}
 ##
 ##  \brief Returns the function handles within a module.
@@ -8072,7 +8072,7 @@ proc cuModuleGetFunctionCount*(count: ptr cuint; `mod`: CUmodule): CUresult {.cd
 ##
 
 proc cuModuleEnumerateFunctions*(functions: ptr CUfunction; numFunctions: cuint;
-                                `mod`: CUmodule): CUresult {.cdecl,
+                                `mod`: CUmodule): CUresult {.discardable, cdecl,
     importc: "cuModuleEnumerateFunctions", dynlib: libName.}
 ##
 ##  \brief Returns a global pointer from a module
@@ -8109,7 +8109,7 @@ proc cuModuleEnumerateFunctions*(functions: ptr CUfunction; numFunctions: cuint;
 ##
 
 proc cuModuleGetGlobal*(dptr: ptr CUdeviceptr; bytes: ptr csize_t; hmod: CUmodule;
-                       name: cstring): CUresult {.cdecl,
+                       name: cstring): CUresult {.discardable, cdecl,
     importc: "cuModuleGetGlobal", dynlib: libName.}
 ##
 ##  \brief Creates a pending JIT linker invocation.
@@ -8153,7 +8153,7 @@ proc cuModuleGetGlobal*(dptr: ptr CUdeviceptr; bytes: ptr csize_t; hmod: CUmodul
 ##
 
 proc cuLinkCreate*(numOptions: cuint; options: ptr CUjit_option;
-                  optionValues: ptr pointer; stateOut: ptr CUlinkState): CUresult {.
+                  optionValues: ptr pointer; stateOut: ptr CUlinkState): CUresult {.discardable,
     cdecl, importc: "cuLinkCreate", dynlib: libName.}
 ##
 ##  \brief Add an input to a pending linker invocation
@@ -8195,7 +8195,7 @@ proc cuLinkCreate*(numOptions: cuint; options: ptr CUjit_option;
 
 proc cuLinkAddData*(state: CUlinkState; `type`: CUjitInputType; data: pointer;
                    size: csize_t; name: cstring; numOptions: cuint;
-                   options: ptr CUjit_option; optionValues: ptr pointer): CUresult {.
+                   options: ptr CUjit_option; optionValues: ptr pointer): CUresult {.discardable,
     cdecl, importc: "cuLinkAddData", dynlib: libName.}
 ##
 ##  \brief Add a file input to a pending linker invocation
@@ -8238,7 +8238,7 @@ proc cuLinkAddData*(state: CUlinkState; `type`: CUjitInputType; data: pointer;
 
 proc cuLinkAddFile*(state: CUlinkState; `type`: CUjitInputType; path: cstring;
                    numOptions: cuint; options: ptr CUjit_option;
-                   optionValues: ptr pointer): CUresult {.cdecl,
+                   optionValues: ptr pointer): CUresult {.discardable, cdecl,
     importc: "cuLinkAddFile", dynlib: libName.}
 ##
 ##  \brief Complete a pending linker invocation
@@ -8264,7 +8264,7 @@ proc cuLinkAddFile*(state: CUlinkState; `type`: CUjitInputType; path: cstring;
 ##  ::cuModuleLoadData
 ##
 
-proc cuLinkComplete*(state: CUlinkState; cubinOut: ptr pointer; sizeOut: ptr csize_t): CUresult {.
+proc cuLinkComplete*(state: CUlinkState; cubinOut: ptr pointer; sizeOut: ptr csize_t): CUresult {.discardable,
     cdecl, importc: "cuLinkComplete", dynlib: libName.}
 ##
 ##  \brief Destroys state for a JIT linker invocation.
@@ -8278,7 +8278,7 @@ proc cuLinkComplete*(state: CUlinkState; cubinOut: ptr pointer; sizeOut: ptr csi
 ##  \sa ::cuLinkCreate
 ##
 
-proc cuLinkDestroy*(state: CUlinkState): CUresult {.cdecl, importc: "cuLinkDestroy",
+proc cuLinkDestroy*(state: CUlinkState): CUresult {.discardable, cdecl, importc: "cuLinkDestroy",
     dynlib: libName.}
 ##  @}
 ##  END CUDA_MODULE
@@ -8328,7 +8328,7 @@ proc cuLinkDestroy*(state: CUlinkState): CUresult {.cdecl, importc: "cuLinkDestr
 ##  ::cuModuleUnload
 ##
 
-proc cuModuleGetTexRef*(pTexRef: ptr CUtexref; hmod: CUmodule; name: cstring): CUresult {.
+proc cuModuleGetTexRef*(pTexRef: ptr CUtexref; hmod: CUmodule; name: cstring): CUresult {.discardable,
     cdecl, importc: "cuModuleGetTexRef", dynlib: libName.}
 ##
 ##  \brief Returns a handle to a surface reference
@@ -8363,7 +8363,7 @@ proc cuModuleGetTexRef*(pTexRef: ptr CUtexref; hmod: CUmodule; name: cstring): C
 ##  ::cuModuleUnload
 ##
 
-proc cuModuleGetSurfRef*(pSurfRef: ptr CUsurfref; hmod: CUmodule; name: cstring): CUresult {.
+proc cuModuleGetSurfRef*(pSurfRef: ptr CUsurfref; hmod: CUmodule; name: cstring): CUresult {.discardable,
     cdecl, importc: "cuModuleGetSurfRef", dynlib: libName.}
 ##  @}
 ##  END CUDA_MODULE_DEPRECATED
@@ -8439,7 +8439,7 @@ proc cuModuleGetSurfRef*(pSurfRef: ptr CUsurfref; hmod: CUmodule; name: cstring)
 proc cuLibraryLoadData*(library: ptr CUlibrary; code: pointer;
                        jitOptions: ptr CUjit_option; jitOptionsValues: ptr pointer;
                        numJitOptions: cuint; libraryOptions: ptr CUlibraryOption;
-                       libraryOptionValues: ptr pointer; numLibraryOptions: cuint): CUresult {.
+                       libraryOptionValues: ptr pointer; numLibraryOptions: cuint): CUresult {.discardable,
     cdecl, importc: "cuLibraryLoadData", dynlib: libName.}
 ##
 ##  \brief Load a library with specified file and options
@@ -8504,7 +8504,7 @@ proc cuLibraryLoadFromFile*(library: ptr CUlibrary; fileName: cstring;
                            jitOptionsValues: ptr pointer; numJitOptions: cuint;
                            libraryOptions: ptr CUlibraryOption;
                            libraryOptionValues: ptr pointer;
-                           numLibraryOptions: cuint): CUresult {.cdecl,
+                           numLibraryOptions: cuint): CUresult {.discardable, cdecl,
     importc: "cuLibraryLoadFromFile", dynlib: libName.}
 ##
 ##  \brief Unloads a library
@@ -8524,7 +8524,7 @@ proc cuLibraryLoadFromFile*(library: ptr CUlibrary; fileName: cstring;
 ##  ::cuModuleUnload
 ##
 
-proc cuLibraryUnload*(library: CUlibrary): CUresult {.cdecl,
+proc cuLibraryUnload*(library: CUlibrary): CUresult {.discardable, cdecl,
     importc: "cuLibraryUnload", dynlib: libName.}
 ##
 ##  \brief Returns a kernel handle
@@ -8552,7 +8552,7 @@ proc cuLibraryUnload*(library: CUlibrary): CUresult {.cdecl,
 ##  ::cuModuleGetFunction
 ##
 
-proc cuLibraryGetKernel*(pKernel: ptr CUkernel; library: CUlibrary; name: cstring): CUresult {.
+proc cuLibraryGetKernel*(pKernel: ptr CUkernel; library: CUlibrary; name: cstring): CUresult {.discardable,
     cdecl, importc: "cuLibraryGetKernel", dynlib: libName.}
 ##
 ##  \brief Returns the number of kernels within a library
@@ -8568,7 +8568,7 @@ proc cuLibraryGetKernel*(pKernel: ptr CUkernel; library: CUlibrary; name: cstrin
 ##  ::CUDA_ERROR_INVALID_VALUE
 ##
 
-proc cuLibraryGetKernelCount*(count: ptr cuint; lib: CUlibrary): CUresult {.cdecl,
+proc cuLibraryGetKernelCount*(count: ptr cuint; lib: CUlibrary): CUresult {.discardable, cdecl,
     importc: "cuLibraryGetKernelCount", dynlib: libName.}
 ##
 ##  \brief Retrieve the kernel handles within a library.
@@ -8589,7 +8589,7 @@ proc cuLibraryGetKernelCount*(count: ptr cuint; lib: CUlibrary): CUresult {.cdec
 ##
 
 proc cuLibraryEnumerateKernels*(kernels: ptr CUkernel; numKernels: cuint;
-                               lib: CUlibrary): CUresult {.cdecl,
+                               lib: CUlibrary): CUresult {.discardable, cdecl,
     importc: "cuLibraryEnumerateKernels", dynlib: libName.}
 ##
 ##  \brief Returns a module handle
@@ -8616,7 +8616,7 @@ proc cuLibraryEnumerateKernels*(kernels: ptr CUkernel; numKernels: cuint;
 ##  ::cuModuleGetFunction
 ##
 
-proc cuLibraryGetModule*(pMod: ptr CUmodule; library: CUlibrary): CUresult {.cdecl,
+proc cuLibraryGetModule*(pMod: ptr CUmodule; library: CUlibrary): CUresult {.discardable, cdecl,
     importc: "cuLibraryGetModule", dynlib: libName.}
 ##
 ##  \brief Returns a function handle
@@ -8645,7 +8645,7 @@ proc cuLibraryGetModule*(pMod: ptr CUmodule; library: CUlibrary): CUresult {.cde
 ##  ::cuModuleGetFunction
 ##
 
-proc cuKernelGetFunction*(pFunc: ptr CUfunction; kernel: CUkernel): CUresult {.cdecl,
+proc cuKernelGetFunction*(pFunc: ptr CUfunction; kernel: CUkernel): CUresult {.discardable, cdecl,
     importc: "cuKernelGetFunction", dynlib: libName.}
 ##
 ##  \brief Returns a library handle
@@ -8669,7 +8669,7 @@ proc cuKernelGetFunction*(pFunc: ptr CUfunction; kernel: CUkernel): CUresult {.c
 ##  ::cuLibraryGetKernel
 ##
 
-proc cuKernelGetLibrary*(pLib: ptr CUlibrary; kernel: CUkernel): CUresult {.cdecl,
+proc cuKernelGetLibrary*(pLib: ptr CUlibrary; kernel: CUkernel): CUresult {.discardable, cdecl,
     importc: "cuKernelGetLibrary", dynlib: libName.}
 ##
 ##  \brief Returns a global device pointer
@@ -8703,7 +8703,7 @@ proc cuKernelGetLibrary*(pLib: ptr CUlibrary; kernel: CUkernel): CUresult {.cdec
 ##
 
 proc cuLibraryGetGlobal*(dptr: ptr CUdeviceptr; bytes: ptr csize_t; library: CUlibrary;
-                        name: cstring): CUresult {.cdecl,
+                        name: cstring): CUresult {.discardable, cdecl,
     importc: "cuLibraryGetGlobal", dynlib: libName.}
 ##
 ##  \brief Returns a pointer to managed memory
@@ -8734,7 +8734,7 @@ proc cuLibraryGetGlobal*(dptr: ptr CUdeviceptr; bytes: ptr csize_t; library: CUl
 ##
 
 proc cuLibraryGetManaged*(dptr: ptr CUdeviceptr; bytes: ptr csize_t;
-                         library: CUlibrary; name: cstring): CUresult {.cdecl,
+                         library: CUlibrary; name: cstring): CUresult {.discardable, cdecl,
     importc: "cuLibraryGetManaged", dynlib: libName.}
 ##
 ##  \brief Returns a pointer to a unified function
@@ -8762,7 +8762,7 @@ proc cuLibraryGetManaged*(dptr: ptr CUdeviceptr; bytes: ptr csize_t;
 ##
 
 proc cuLibraryGetUnifiedFunction*(fptr: ptr pointer; library: CUlibrary;
-                                 symbol: cstring): CUresult {.cdecl,
+                                 symbol: cstring): CUresult {.discardable, cdecl,
     importc: "cuLibraryGetUnifiedFunction", dynlib: libName.}
 ##
 ##  \brief Returns information about a kernel
@@ -8852,7 +8852,7 @@ proc cuLibraryGetUnifiedFunction*(fptr: ptr pointer; library: CUlibrary;
 ##
 
 proc cuKernelGetAttribute*(pi: ptr cint; attrib: CUfunction_attribute;
-                          kernel: CUkernel; dev: CUdevice): CUresult {.cdecl,
+                          kernel: CUkernel; dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuKernelGetAttribute", dynlib: libName.}
 ##
 ##  \brief Sets information about a kernel
@@ -8935,7 +8935,7 @@ proc cuKernelGetAttribute*(pi: ptr cint; attrib: CUfunction_attribute;
 ##
 
 proc cuKernelSetAttribute*(attrib: CUfunction_attribute; val: cint; kernel: CUkernel;
-                          dev: CUdevice): CUresult {.cdecl,
+                          dev: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuKernelSetAttribute", dynlib: libName.}
 ##
 ##  \brief Sets the preferred cache configuration for a device kernel.
@@ -8995,7 +8995,7 @@ proc cuKernelSetAttribute*(attrib: CUfunction_attribute; val: cint; kernel: CUke
 ##  ::cuLaunchKernel
 ##
 
-proc cuKernelSetCacheConfig*(kernel: CUkernel; config: CUfunc_cache; dev: CUdevice): CUresult {.
+proc cuKernelSetCacheConfig*(kernel: CUkernel; config: CUfunc_cache; dev: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuKernelSetCacheConfig", dynlib: libName.}
 ##
 ##  \brief Returns the function name for a ::CUkernel handle
@@ -9017,7 +9017,7 @@ proc cuKernelSetCacheConfig*(kernel: CUkernel; config: CUfunc_cache; dev: CUdevi
 ##
 ##
 
-proc cuKernelGetName*(name: cstringArray; hfunc: CUkernel): CUresult {.cdecl,
+proc cuKernelGetName*(name: cstringArray; hfunc: CUkernel): CUresult {.discardable, cdecl,
     importc: "cuKernelGetName", dynlib: libName.}
 ##
 ##  \brief Returns the offset and size of a kernel parameter in the device-side parameter layout
@@ -9043,7 +9043,7 @@ proc cuKernelGetName*(name: cstringArray; hfunc: CUkernel): CUresult {.cdecl,
 ##
 
 proc cuKernelGetParamInfo*(kernel: CUkernel; paramIndex: csize_t;
-                          paramOffset: ptr csize_t; paramSize: ptr csize_t): CUresult {.
+                          paramOffset: ptr csize_t; paramSize: ptr csize_t): CUresult {.discardable,
     cdecl, importc: "cuKernelGetParamInfo", dynlib: libName.}
 ##  @}
 ##  END CUDA_LIBRARY
@@ -9100,7 +9100,7 @@ proc cuKernelGetParamInfo*(kernel: CUkernel; paramIndex: csize_t;
 ##  ::cudaMemGetInfo
 ##
 
-proc cuMemGetInfo*(free: ptr csize_t; total: ptr csize_t): CUresult {.cdecl,
+proc cuMemGetInfo*(free: ptr csize_t; total: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemGetInfo", dynlib: libName.}
 ##
 ##  \brief Allocates device memory
@@ -9135,7 +9135,7 @@ proc cuMemGetInfo*(free: ptr csize_t; total: ptr csize_t): CUresult {.cdecl,
 ##  ::cudaMalloc
 ##
 
-proc cuMemAlloc*(dptr: ptr CUdeviceptr; bytesize: csize_t): CUresult {.cdecl,
+proc cuMemAlloc*(dptr: ptr CUdeviceptr; bytesize: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemAlloc", dynlib: libName.}
 ##
 ##  \brief Allocates pitched device memory
@@ -9199,7 +9199,7 @@ proc cuMemAlloc*(dptr: ptr CUdeviceptr; bytesize: csize_t): CUresult {.cdecl,
 ##
 
 proc cuMemAllocPitch*(dptr: ptr CUdeviceptr; pPitch: ptr csize_t;
-                     WidthInBytes: csize_t; Height: csize_t; ElementSizeBytes: cuint): CUresult {.
+                     WidthInBytes: csize_t; Height: csize_t; ElementSizeBytes: cuint): CUresult {.discardable,
     cdecl, importc: "cuMemAllocPitch", dynlib: libName.}
 ##
 ##  \brief Frees device memory
@@ -9236,7 +9236,7 @@ proc cuMemAllocPitch*(dptr: ptr CUdeviceptr; pPitch: ptr csize_t;
 ##  ::cudaFree
 ##
 
-proc cuMemFree*(dptr: CUdeviceptr): CUresult {.cdecl, importc: "cuMemFree",
+proc cuMemFree*(dptr: CUdeviceptr): CUresult {.discardable, cdecl, importc: "cuMemFree",
     dynlib: libName.}
 ##
 ##  \brief Get information on memory allocations
@@ -9272,7 +9272,7 @@ proc cuMemFree*(dptr: CUdeviceptr): CUresult {.cdecl, importc: "cuMemFree",
 ##
 
 proc cuMemGetAddressRange*(pbase: ptr CUdeviceptr; psize: ptr csize_t;
-                          dptr: CUdeviceptr): CUresult {.cdecl,
+                          dptr: CUdeviceptr): CUresult {.discardable, cdecl,
     importc: "cuMemGetAddressRange", dynlib: libName.}
 ##
 ##  \brief Allocates page-locked host memory
@@ -9324,7 +9324,7 @@ proc cuMemGetAddressRange*(pbase: ptr CUdeviceptr; psize: ptr csize_t;
 ##  ::cudaMallocHost
 ##
 
-proc cuMemAllocHost*(pp: ptr pointer; bytesize: csize_t): CUresult {.cdecl,
+proc cuMemAllocHost*(pp: ptr pointer; bytesize: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemAllocHost", dynlib: libName.}
 ##
 ##  \brief Frees page-locked host memory
@@ -9355,7 +9355,7 @@ proc cuMemAllocHost*(pp: ptr pointer; bytesize: csize_t): CUresult {.cdecl,
 ##  ::cudaFreeHost
 ##
 
-proc cuMemFreeHost*(p: pointer): CUresult {.cdecl, importc: "cuMemFreeHost",
+proc cuMemFreeHost*(p: pointer): CUresult {.discardable, cdecl, importc: "cuMemFreeHost",
                                         dynlib: libName.}
 ##
 ##  \brief Allocates page-locked host memory
@@ -9439,7 +9439,7 @@ proc cuMemFreeHost*(p: pointer): CUresult {.cdecl, importc: "cuMemFreeHost",
 ##  ::cudaHostAlloc
 ##
 
-proc cuMemHostAlloc*(pp: ptr pointer; bytesize: csize_t; Flags: cuint): CUresult {.cdecl,
+proc cuMemHostAlloc*(pp: ptr pointer; bytesize: csize_t; Flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuMemHostAlloc", dynlib: libName.}
 ##
 ##  \brief Passes back device pointer of mapped pinned memory
@@ -9493,7 +9493,7 @@ proc cuMemHostAlloc*(pp: ptr pointer; bytesize: csize_t; Flags: cuint): CUresult
 ##  ::cudaHostGetDevicePointer
 ##
 
-proc cuMemHostGetDevicePointer*(pdptr: ptr CUdeviceptr; p: pointer; Flags: cuint): CUresult {.
+proc cuMemHostGetDevicePointer*(pdptr: ptr CUdeviceptr; p: pointer; Flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuMemHostGetDevicePointer", dynlib: libName.}
 ##
 ##  \brief Passes back flags that were used for a pinned allocation
@@ -9521,7 +9521,7 @@ proc cuMemHostGetDevicePointer*(pdptr: ptr CUdeviceptr; p: pointer; Flags: cuint
 ##  ::cudaHostGetFlags
 ##
 
-proc cuMemHostGetFlags*(pFlags: ptr cuint; p: pointer): CUresult {.cdecl,
+proc cuMemHostGetFlags*(pFlags: ptr cuint; p: pointer): CUresult {.discardable, cdecl,
     importc: "cuMemHostGetFlags", dynlib: libName.}
 ##
 ##  \brief Allocates memory that will be automatically managed by the Unified Memory system
@@ -9632,7 +9632,7 @@ proc cuMemHostGetFlags*(pFlags: ptr cuint; p: pointer): CUresult {.cdecl,
 ##  ::cudaMallocManaged
 ##
 
-proc cuMemAllocManaged*(dptr: ptr CUdeviceptr; bytesize: csize_t; flags: cuint): CUresult {.
+proc cuMemAllocManaged*(dptr: ptr CUdeviceptr; bytesize: csize_t; flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuMemAllocManaged", dynlib: libName.}
 ##
 ##  \brief Registers a callback function to receive async notifications
@@ -9673,7 +9673,7 @@ proc cuMemAllocManaged*(dptr: ptr CUdeviceptr; bytesize: csize_t; flags: cuint):
 proc cuDeviceRegisterAsyncNotification*(device: CUdevice;
                                        callbackFunc: CUasyncCallback;
                                        userData: pointer;
-                                       callback: ptr CUasyncCallbackHandle): CUresult {.
+                                       callback: ptr CUasyncCallbackHandle): CUresult {.discardable,
     cdecl, importc: "cuDeviceRegisterAsyncNotification", dynlib: libName.}
 ##
 ##  \brief Unregisters an async notification callback
@@ -9698,7 +9698,7 @@ proc cuDeviceRegisterAsyncNotification*(device: CUdevice;
 ##
 
 proc cuDeviceUnregisterAsyncNotification*(device: CUdevice;
-    callback: CUasyncCallbackHandle): CUresult {.cdecl,
+    callback: CUasyncCallbackHandle): CUresult {.discardable, cdecl,
     importc: "cuDeviceUnregisterAsyncNotification", dynlib: libName.}
 ##
 ##  \brief Returns a handle to a compute device
@@ -9728,7 +9728,7 @@ proc cuDeviceUnregisterAsyncNotification*(device: CUdevice;
 ##  ::cudaDeviceGetByPCIBusId
 ##
 
-proc cuDeviceGetByPCIBusId*(dev: ptr CUdevice; pciBusId: cstring): CUresult {.cdecl,
+proc cuDeviceGetByPCIBusId*(dev: ptr CUdevice; pciBusId: cstring): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetByPCIBusId", dynlib: libName.}
 ##
 ##  \brief Returns a PCI Bus Id string for the device
@@ -9761,7 +9761,7 @@ proc cuDeviceGetByPCIBusId*(dev: ptr CUdevice; pciBusId: cstring): CUresult {.cd
 ##  ::cudaDeviceGetPCIBusId
 ##
 
-proc cuDeviceGetPCIBusId*(pciBusId: cstring; len: cint; dev: CUdevice): CUresult {.
+proc cuDeviceGetPCIBusId*(pciBusId: cstring; len: cint; dev: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuDeviceGetPCIBusId", dynlib: libName.}
 ##
 ##  \brief Gets an interprocess handle for a previously allocated event
@@ -9810,7 +9810,7 @@ proc cuDeviceGetPCIBusId*(pciBusId: cstring; len: cint; dev: CUdevice): CUresult
 ##  ::cudaIpcGetEventHandle
 ##
 
-proc cuIpcGetEventHandle*(pHandle: ptr CUipcEventHandle; event: CUevent): CUresult {.
+proc cuIpcGetEventHandle*(pHandle: ptr CUipcEventHandle; event: CUevent): CUresult {.discardable,
     cdecl, importc: "cuIpcGetEventHandle", dynlib: libName.}
 ##
 ##  \brief Opens an interprocess event handle for use in the current process
@@ -9854,7 +9854,7 @@ proc cuIpcGetEventHandle*(pHandle: ptr CUipcEventHandle; event: CUevent): CUresu
 ##  ::cudaIpcOpenEventHandle
 ##
 
-proc cuIpcOpenEventHandle*(phEvent: ptr CUevent; handle: CUipcEventHandle): CUresult {.
+proc cuIpcOpenEventHandle*(phEvent: ptr CUevent; handle: CUipcEventHandle): CUresult {.discardable,
     cdecl, importc: "cuIpcOpenEventHandle", dynlib: libName.}
 ##
 ##  \brief Gets an interprocess memory handle for an existing device memory
@@ -9899,7 +9899,7 @@ proc cuIpcOpenEventHandle*(phEvent: ptr CUevent; handle: CUipcEventHandle): CUre
 ##  ::cudaIpcGetMemHandle
 ##
 
-proc cuIpcGetMemHandle*(pHandle: ptr CUipcMemHandle; dptr: CUdeviceptr): CUresult {.
+proc cuIpcGetMemHandle*(pHandle: ptr CUipcMemHandle; dptr: CUdeviceptr): CUresult {.discardable,
     cdecl, importc: "cuIpcGetMemHandle", dynlib: libName.}
 ##
 ##  \brief Opens an interprocess memory handle exported from another process
@@ -9961,7 +9961,7 @@ proc cuIpcGetMemHandle*(pHandle: ptr CUipcMemHandle; dptr: CUdeviceptr): CUresul
 ##  ::cudaIpcOpenMemHandle
 ##
 
-proc cuIpcOpenMemHandle*(pdptr: ptr CUdeviceptr; handle: CUipcMemHandle; Flags: cuint): CUresult {.
+proc cuIpcOpenMemHandle*(pdptr: ptr CUdeviceptr; handle: CUipcMemHandle; Flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuIpcOpenMemHandle", dynlib: libName.}
 ##
 ##  \brief Attempts to close memory mapped with ::cuIpcOpenMemHandle
@@ -9999,7 +9999,7 @@ proc cuIpcOpenMemHandle*(pdptr: ptr CUdeviceptr; handle: CUipcMemHandle; Flags: 
 ##  ::cudaIpcCloseMemHandle
 ##
 
-proc cuIpcCloseMemHandle*(dptr: CUdeviceptr): CUresult {.cdecl,
+proc cuIpcCloseMemHandle*(dptr: CUdeviceptr): CUresult {.discardable, cdecl,
     importc: "cuIpcCloseMemHandle", dynlib: libName.}
 ##
 ##  \brief Registers an existing host memory range for use by CUDA
@@ -10091,7 +10091,7 @@ proc cuIpcCloseMemHandle*(dptr: CUdeviceptr): CUresult {.cdecl,
 ##  ::cudaHostRegister
 ##
 
-proc cuMemHostRegister*(p: pointer; bytesize: csize_t; Flags: cuint): CUresult {.cdecl,
+proc cuMemHostRegister*(p: pointer; bytesize: csize_t; Flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuMemHostRegister", dynlib: libName.}
 ##
 ##  \brief Unregisters a memory range that was registered with cuMemHostRegister.
@@ -10118,7 +10118,7 @@ proc cuMemHostRegister*(p: pointer; bytesize: csize_t; Flags: cuint): CUresult {
 ##  ::cudaHostUnregister
 ##
 
-proc cuMemHostUnregister*(p: pointer): CUresult {.cdecl,
+proc cuMemHostUnregister*(p: pointer): CUresult {.discardable, cdecl,
     importc: "cuMemHostUnregister", dynlib: libName.}
 ##
 ##  \brief Copies memory
@@ -10159,7 +10159,7 @@ proc cuMemHostUnregister*(p: pointer): CUresult {.cdecl,
 ##  ::cudaMemcpyFromSymbol
 ##
 
-proc cuMemcpy*(dst: CUdeviceptr; src: CUdeviceptr; ByteCount: csize_t): CUresult {.
+proc cuMemcpy*(dst: CUdeviceptr; src: CUdeviceptr; ByteCount: csize_t): CUresult {.discardable,
     cdecl, importc: "cuMemcpy", dynlib: libName.}
 ##
 ##  \brief Copies device memory between two contexts
@@ -10191,7 +10191,7 @@ proc cuMemcpy*(dst: CUdeviceptr; src: CUdeviceptr; ByteCount: csize_t): CUresult
 ##
 
 proc cuMemcpyPeer*(dstDevice: CUdeviceptr; dstContext: CUcontext;
-                  srcDevice: CUdeviceptr; srcContext: CUcontext; ByteCount: csize_t): CUresult {.
+                  srcDevice: CUdeviceptr; srcContext: CUcontext; ByteCount: csize_t): CUresult {.discardable,
     cdecl, importc: "cuMemcpyPeer", dynlib: libName.}
 ##
 ##  \brief Copies memory from Host to Device
@@ -10228,7 +10228,7 @@ proc cuMemcpyPeer*(dstDevice: CUdeviceptr; dstContext: CUcontext;
 ##  ::cudaMemcpyToSymbol
 ##
 
-proc cuMemcpyHtoD*(dstDevice: CUdeviceptr; srcHost: pointer; ByteCount: csize_t): CUresult {.
+proc cuMemcpyHtoD*(dstDevice: CUdeviceptr; srcHost: pointer; ByteCount: csize_t): CUresult {.discardable,
     cdecl, importc: "cuMemcpyHtoD", dynlib: libName.}
 ##
 ##  \brief Copies memory from Device to Host
@@ -10265,7 +10265,7 @@ proc cuMemcpyHtoD*(dstDevice: CUdeviceptr; srcHost: pointer; ByteCount: csize_t)
 ##  ::cudaMemcpyFromSymbol
 ##
 
-proc cuMemcpyDtoH*(dstHost: pointer; srcDevice: CUdeviceptr; ByteCount: csize_t): CUresult {.
+proc cuMemcpyDtoH*(dstHost: pointer; srcDevice: CUdeviceptr; ByteCount: csize_t): CUresult {.discardable,
     cdecl, importc: "cuMemcpyDtoH", dynlib: libName.}
 ##
 ##  \brief Copies memory from Device to Device
@@ -10302,7 +10302,7 @@ proc cuMemcpyDtoH*(dstHost: pointer; srcDevice: CUdeviceptr; ByteCount: csize_t)
 ##  ::cudaMemcpyFromSymbol
 ##
 
-proc cuMemcpyDtoD*(dstDevice: CUdeviceptr; srcDevice: CUdeviceptr; ByteCount: csize_t): CUresult {.
+proc cuMemcpyDtoD*(dstDevice: CUdeviceptr; srcDevice: CUdeviceptr; ByteCount: csize_t): CUresult {.discardable,
     cdecl, importc: "cuMemcpyDtoD", dynlib: libName.}
 ##
 ##  \brief Copies memory from Device to Array
@@ -10340,7 +10340,7 @@ proc cuMemcpyDtoD*(dstDevice: CUdeviceptr; srcDevice: CUdeviceptr; ByteCount: cs
 ##
 
 proc cuMemcpyDtoA*(dstArray: CUarray; dstOffset: csize_t; srcDevice: CUdeviceptr;
-                  ByteCount: csize_t): CUresult {.cdecl, importc: "cuMemcpyDtoA",
+                  ByteCount: csize_t): CUresult {.discardable, cdecl, importc: "cuMemcpyDtoA",
     dynlib: libName.}
 ##
 ##  \brief Copies memory from Array to Device
@@ -10380,7 +10380,7 @@ proc cuMemcpyDtoA*(dstArray: CUarray; dstOffset: csize_t; srcDevice: CUdeviceptr
 ##
 
 proc cuMemcpyAtoD*(dstDevice: CUdeviceptr; srcArray: CUarray; srcOffset: csize_t;
-                  ByteCount: csize_t): CUresult {.cdecl, importc: "cuMemcpyAtoD",
+                  ByteCount: csize_t): CUresult {.discardable, cdecl, importc: "cuMemcpyAtoD",
     dynlib: libName.}
 ##
 ##  \brief Copies memory from Host to Array
@@ -10419,7 +10419,7 @@ proc cuMemcpyAtoD*(dstDevice: CUdeviceptr; srcArray: CUarray; srcOffset: csize_t
 ##
 
 proc cuMemcpyHtoA*(dstArray: CUarray; dstOffset: csize_t; srcHost: pointer;
-                  ByteCount: csize_t): CUresult {.cdecl, importc: "cuMemcpyHtoA",
+                  ByteCount: csize_t): CUresult {.discardable, cdecl, importc: "cuMemcpyHtoA",
     dynlib: libName.}
 ##
 ##  \brief Copies memory from Array to Host
@@ -10458,7 +10458,7 @@ proc cuMemcpyHtoA*(dstArray: CUarray; dstOffset: csize_t; srcHost: pointer;
 ##
 
 proc cuMemcpyAtoH*(dstHost: pointer; srcArray: CUarray; srcOffset: csize_t;
-                  ByteCount: csize_t): CUresult {.cdecl, importc: "cuMemcpyAtoH",
+                  ByteCount: csize_t): CUresult {.discardable, cdecl, importc: "cuMemcpyAtoH",
     dynlib: libName.}
 ##
 ##  \brief Copies memory from Array to Array
@@ -10500,7 +10500,7 @@ proc cuMemcpyAtoH*(dstHost: pointer; srcArray: CUarray; srcOffset: csize_t;
 ##
 
 proc cuMemcpyAtoA*(dstArray: CUarray; dstOffset: csize_t; srcArray: CUarray;
-                  srcOffset: csize_t; ByteCount: csize_t): CUresult {.cdecl,
+                  srcOffset: csize_t; ByteCount: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemcpyAtoA", dynlib: libName.}
 ##
 ##  \brief Copies memory for 2D arrays
@@ -10665,7 +10665,7 @@ proc cuMemcpyAtoA*(dstArray: CUarray; dstOffset: csize_t; srcArray: CUarray;
 ##  ::cudaMemcpy2DFromArray
 ##
 
-proc cuMemcpy2D*(pCopy: ptr CUDA_MEMCPY2D): CUresult {.cdecl, importc: "cuMemcpy2D",
+proc cuMemcpy2D*(pCopy: ptr CUDA_MEMCPY2D): CUresult {.discardable, cdecl, importc: "cuMemcpy2D",
     dynlib: libName.}
 ##
 ##  \brief Copies memory for 2D arrays
@@ -10828,7 +10828,7 @@ proc cuMemcpy2D*(pCopy: ptr CUDA_MEMCPY2D): CUresult {.cdecl, importc: "cuMemcpy
 ##  ::cudaMemcpy2DFromArray
 ##
 
-proc cuMemcpy2DUnaligned*(pCopy: ptr CUDA_MEMCPY2D): CUresult {.cdecl,
+proc cuMemcpy2DUnaligned*(pCopy: ptr CUDA_MEMCPY2D): CUresult {.discardable, cdecl,
     importc: "cuMemcpy2DUnaligned", dynlib: libName.}
 ##
 ##  \brief Copies memory for 3D arrays
@@ -10998,7 +10998,7 @@ proc cuMemcpy2DUnaligned*(pCopy: ptr CUDA_MEMCPY2D): CUresult {.cdecl,
 ##  ::cudaMemcpy3D
 ##
 
-proc cuMemcpy3D*(pCopy: ptr CUDA_MEMCPY3D): CUresult {.cdecl, importc: "cuMemcpy3D",
+proc cuMemcpy3D*(pCopy: ptr CUDA_MEMCPY3D): CUresult {.discardable, cdecl, importc: "cuMemcpy3D",
     dynlib: libName.}
 ##
 ##  \brief Copies memory between contexts
@@ -11023,7 +11023,7 @@ proc cuMemcpy3D*(pCopy: ptr CUDA_MEMCPY3D): CUresult {.cdecl, importc: "cuMemcpy
 ##  ::cudaMemcpy3DPeer
 ##
 
-proc cuMemcpy3DPeer*(pCopy: ptr CUDA_MEMCPY3D_PEER): CUresult {.cdecl,
+proc cuMemcpy3DPeer*(pCopy: ptr CUDA_MEMCPY3D_PEER): CUresult {.discardable, cdecl,
     importc: "cuMemcpy3DPeer", dynlib: libName.}
 ##
 ##  \brief Copies memory asynchronously
@@ -11070,7 +11070,7 @@ proc cuMemcpy3DPeer*(pCopy: ptr CUDA_MEMCPY3D_PEER): CUresult {.cdecl,
 ##
 
 proc cuMemcpyAsync*(dst: CUdeviceptr; src: CUdeviceptr; ByteCount: csize_t;
-                   hStream: CUstream): CUresult {.cdecl, importc: "cuMemcpyAsync",
+                   hStream: CUstream): CUresult {.discardable, cdecl, importc: "cuMemcpyAsync",
     dynlib: libName.}
 ##
 ##  \brief Copies device memory between two contexts asynchronously.
@@ -11106,7 +11106,7 @@ proc cuMemcpyAsync*(dst: CUdeviceptr; src: CUdeviceptr; ByteCount: csize_t;
 
 proc cuMemcpyPeerAsync*(dstDevice: CUdeviceptr; dstContext: CUcontext;
                        srcDevice: CUdeviceptr; srcContext: CUcontext;
-                       ByteCount: csize_t; hStream: CUstream): CUresult {.cdecl,
+                       ByteCount: csize_t; hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemcpyPeerAsync", dynlib: libName.}
 ##
 ##  \brief Copies memory from Host to Device
@@ -11149,7 +11149,7 @@ proc cuMemcpyPeerAsync*(dstDevice: CUdeviceptr; dstContext: CUcontext;
 ##
 
 proc cuMemcpyHtoDAsync*(dstDevice: CUdeviceptr; srcHost: pointer; ByteCount: csize_t;
-                       hStream: CUstream): CUresult {.cdecl,
+                       hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemcpyHtoDAsync", dynlib: libName.}
 ##
 ##  \brief Copies memory from Device to Host
@@ -11192,7 +11192,7 @@ proc cuMemcpyHtoDAsync*(dstDevice: CUdeviceptr; srcHost: pointer; ByteCount: csi
 ##
 
 proc cuMemcpyDtoHAsync*(dstHost: pointer; srcDevice: CUdeviceptr; ByteCount: csize_t;
-                       hStream: CUstream): CUresult {.cdecl,
+                       hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemcpyDtoHAsync", dynlib: libName.}
 ##
 ##  \brief Copies memory from Device to Device
@@ -11235,7 +11235,7 @@ proc cuMemcpyDtoHAsync*(dstHost: pointer; srcDevice: CUdeviceptr; ByteCount: csi
 ##
 
 proc cuMemcpyDtoDAsync*(dstDevice: CUdeviceptr; srcDevice: CUdeviceptr;
-                       ByteCount: csize_t; hStream: CUstream): CUresult {.cdecl,
+                       ByteCount: csize_t; hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemcpyDtoDAsync", dynlib: libName.}
 ##
 ##  \brief Copies memory from Host to Array
@@ -11279,7 +11279,7 @@ proc cuMemcpyDtoDAsync*(dstDevice: CUdeviceptr; srcDevice: CUdeviceptr;
 ##
 
 proc cuMemcpyHtoAAsync*(dstArray: CUarray; dstOffset: csize_t; srcHost: pointer;
-                       ByteCount: csize_t; hStream: CUstream): CUresult {.cdecl,
+                       ByteCount: csize_t; hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemcpyHtoAAsync", dynlib: libName.}
 ##
 ##  \brief Copies memory from Array to Host
@@ -11323,7 +11323,7 @@ proc cuMemcpyHtoAAsync*(dstArray: CUarray; dstOffset: csize_t; srcHost: pointer;
 ##
 
 proc cuMemcpyAtoHAsync*(dstHost: pointer; srcArray: CUarray; srcOffset: csize_t;
-                       ByteCount: csize_t; hStream: CUstream): CUresult {.cdecl,
+                       ByteCount: csize_t; hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemcpyAtoHAsync", dynlib: libName.}
 ##
 ##  \brief Copies memory for 2D arrays
@@ -11493,7 +11493,7 @@ proc cuMemcpyAtoHAsync*(dstHost: pointer; srcArray: CUarray; srcOffset: csize_t;
 ##  ::cudaMemcpy2DFromArrayAsync
 ##
 
-proc cuMemcpy2DAsync*(pCopy: ptr CUDA_MEMCPY2D; hStream: CUstream): CUresult {.cdecl,
+proc cuMemcpy2DAsync*(pCopy: ptr CUDA_MEMCPY2D; hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemcpy2DAsync", dynlib: libName.}
 ##
 ##  \brief Copies memory for 3D arrays
@@ -11668,7 +11668,7 @@ proc cuMemcpy2DAsync*(pCopy: ptr CUDA_MEMCPY2D; hStream: CUstream): CUresult {.c
 ##  ::cudaMemcpy3DAsync
 ##
 
-proc cuMemcpy3DAsync*(pCopy: ptr CUDA_MEMCPY3D; hStream: CUstream): CUresult {.cdecl,
+proc cuMemcpy3DAsync*(pCopy: ptr CUDA_MEMCPY3D; hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemcpy3DAsync", dynlib: libName.}
 ##
 ##  \brief Copies memory between contexts asynchronously.
@@ -11695,7 +11695,7 @@ proc cuMemcpy3DAsync*(pCopy: ptr CUDA_MEMCPY3D; hStream: CUstream): CUresult {.c
 ##  ::cudaMemcpy3DPeerAsync
 ##
 
-proc cuMemcpy3DPeerAsync*(pCopy: ptr CUDA_MEMCPY3D_PEER; hStream: CUstream): CUresult {.
+proc cuMemcpy3DPeerAsync*(pCopy: ptr CUDA_MEMCPY3D_PEER; hStream: CUstream): CUresult {.discardable,
     cdecl, importc: "cuMemcpy3DPeerAsync", dynlib: libName.}
 ##
 ##  \brief Initializes device memory
@@ -11731,7 +11731,7 @@ proc cuMemcpy3DPeerAsync*(pCopy: ptr CUDA_MEMCPY3D_PEER; hStream: CUstream): CUr
 ##  ::cudaMemset
 ##
 
-proc cuMemsetD8*(dstDevice: CUdeviceptr; uc: char; N: csize_t): CUresult {.cdecl,
+proc cuMemsetD8*(dstDevice: CUdeviceptr; uc: char; N: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemsetD8", dynlib: libName.}
 ##
 ##  \brief Initializes device memory
@@ -11767,7 +11767,7 @@ proc cuMemsetD8*(dstDevice: CUdeviceptr; uc: char; N: csize_t): CUresult {.cdecl
 ##  ::cudaMemset
 ##
 
-proc cuMemsetD16*(dstDevice: CUdeviceptr; us: cushort; N: csize_t): CUresult {.cdecl,
+proc cuMemsetD16*(dstDevice: CUdeviceptr; us: cushort; N: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemsetD16", dynlib: libName.}
 ##
 ##  \brief Initializes device memory
@@ -11803,7 +11803,7 @@ proc cuMemsetD16*(dstDevice: CUdeviceptr; us: cushort; N: csize_t): CUresult {.c
 ##  ::cudaMemset
 ##
 
-proc cuMemsetD32*(dstDevice: CUdeviceptr; ui: cuint; N: csize_t): CUresult {.cdecl,
+proc cuMemsetD32*(dstDevice: CUdeviceptr; ui: cuint; N: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemsetD32", dynlib: libName.}
 ##
 ##  \brief Initializes device memory
@@ -11845,7 +11845,7 @@ proc cuMemsetD32*(dstDevice: CUdeviceptr; ui: cuint; N: csize_t): CUresult {.cde
 ##
 
 proc cuMemsetD2D8*(dstDevice: CUdeviceptr; dstPitch: csize_t; uc: char;
-                  Width: csize_t; Height: csize_t): CUresult {.cdecl,
+                  Width: csize_t; Height: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemsetD2D8", dynlib: libName.}
 ##
 ##  \brief Initializes device memory
@@ -11888,7 +11888,7 @@ proc cuMemsetD2D8*(dstDevice: CUdeviceptr; dstPitch: csize_t; uc: char;
 ##
 
 proc cuMemsetD2D16*(dstDevice: CUdeviceptr; dstPitch: csize_t; us: cushort;
-                   Width: csize_t; Height: csize_t): CUresult {.cdecl,
+                   Width: csize_t; Height: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemsetD2D16", dynlib: libName.}
 ##
 ##  \brief Initializes device memory
@@ -11931,7 +11931,7 @@ proc cuMemsetD2D16*(dstDevice: CUdeviceptr; dstPitch: csize_t; us: cushort;
 ##
 
 proc cuMemsetD2D32*(dstDevice: CUdeviceptr; dstPitch: csize_t; ui: cuint;
-                   Width: csize_t; Height: csize_t): CUresult {.cdecl,
+                   Width: csize_t; Height: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemsetD2D32", dynlib: libName.}
 ##
 ##  \brief Sets device memory
@@ -11969,7 +11969,7 @@ proc cuMemsetD2D32*(dstDevice: CUdeviceptr; dstPitch: csize_t; ui: cuint;
 ##  ::cudaMemsetAsync
 ##
 
-proc cuMemsetD8Async*(dstDevice: CUdeviceptr; uc: char; N: csize_t; hStream: CUstream): CUresult {.
+proc cuMemsetD8Async*(dstDevice: CUdeviceptr; uc: char; N: csize_t; hStream: CUstream): CUresult {.discardable,
     cdecl, importc: "cuMemsetD8Async", dynlib: libName.}
 ##
 ##  \brief Sets device memory
@@ -12008,7 +12008,7 @@ proc cuMemsetD8Async*(dstDevice: CUdeviceptr; uc: char; N: csize_t; hStream: CUs
 ##
 
 proc cuMemsetD16Async*(dstDevice: CUdeviceptr; us: cushort; N: csize_t;
-                      hStream: CUstream): CUresult {.cdecl,
+                      hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemsetD16Async", dynlib: libName.}
 ##
 ##  \brief Sets device memory
@@ -12045,7 +12045,7 @@ proc cuMemsetD16Async*(dstDevice: CUdeviceptr; us: cushort; N: csize_t;
 ##  ::cudaMemsetAsync
 ##
 
-proc cuMemsetD32Async*(dstDevice: CUdeviceptr; ui: cuint; N: csize_t; hStream: CUstream): CUresult {.
+proc cuMemsetD32Async*(dstDevice: CUdeviceptr; ui: cuint; N: csize_t; hStream: CUstream): CUresult {.discardable,
     cdecl, importc: "cuMemsetD32Async", dynlib: libName.}
 ##
 ##  \brief Sets device memory
@@ -12089,7 +12089,7 @@ proc cuMemsetD32Async*(dstDevice: CUdeviceptr; ui: cuint; N: csize_t; hStream: C
 ##
 
 proc cuMemsetD2D8Async*(dstDevice: CUdeviceptr; dstPitch: csize_t; uc: char;
-                       Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.
+                       Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.discardable,
     cdecl, importc: "cuMemsetD2D8Async", dynlib: libName.}
 ##
 ##  \brief Sets device memory
@@ -12134,7 +12134,7 @@ proc cuMemsetD2D8Async*(dstDevice: CUdeviceptr; dstPitch: csize_t; uc: char;
 ##
 
 proc cuMemsetD2D16Async*(dstDevice: CUdeviceptr; dstPitch: csize_t; us: cushort;
-                        Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.
+                        Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.discardable,
     cdecl, importc: "cuMemsetD2D16Async", dynlib: libName.}
 ##
 ##  \brief Sets device memory
@@ -12179,7 +12179,7 @@ proc cuMemsetD2D16Async*(dstDevice: CUdeviceptr; dstPitch: csize_t; us: cushort;
 ##
 
 proc cuMemsetD2D32Async*(dstDevice: CUdeviceptr; dstPitch: csize_t; ui: cuint;
-                        Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.
+                        Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.discardable,
     cdecl, importc: "cuMemsetD2D32Async", dynlib: libName.}
 ##
 ##  \brief Creates a 1D or 2D CUDA array
@@ -12284,7 +12284,7 @@ proc cuMemsetD2D32Async*(dstDevice: CUdeviceptr; dstPitch: csize_t; ui: cuint;
 ##  ::cudaMallocArray
 ##
 
-proc cuArrayCreate*(pHandle: ptr CUarray; pAllocateArray: ptr CUDA_ARRAY_DESCRIPTOR): CUresult {.
+proc cuArrayCreate*(pHandle: ptr CUarray; pAllocateArray: ptr CUDA_ARRAY_DESCRIPTOR): CUresult {.discardable,
     cdecl, importc: "cuArrayCreate", dynlib: libName.}
 ##
 ##  \brief Get a 1D or 2D CUDA array descriptor
@@ -12320,7 +12320,7 @@ proc cuArrayCreate*(pHandle: ptr CUarray; pAllocateArray: ptr CUDA_ARRAY_DESCRIP
 ##
 
 proc cuArrayGetDescriptor*(pArrayDescriptor: ptr CUDA_ARRAY_DESCRIPTOR;
-                          hArray: CUarray): CUresult {.cdecl,
+                          hArray: CUarray): CUresult {.discardable, cdecl,
     importc: "cuArrayGetDescriptor", dynlib: libName.}
 ##
 ##  \brief Returns the layout properties of a sparse CUDA array
@@ -12346,7 +12346,7 @@ proc cuArrayGetDescriptor*(pArrayDescriptor: ptr CUDA_ARRAY_DESCRIPTOR;
 ##
 
 proc cuArrayGetSparseProperties*(sparseProperties: ptr CUDA_ARRAY_SPARSE_PROPERTIES;
-                                array: CUarray): CUresult {.cdecl,
+                                array: CUarray): CUresult {.discardable, cdecl,
     importc: "cuArrayGetSparseProperties", dynlib: libName.}
 ##
 ##  \brief Returns the layout properties of a sparse CUDA mipmapped array
@@ -12373,7 +12373,7 @@ proc cuArrayGetSparseProperties*(sparseProperties: ptr CUDA_ARRAY_SPARSE_PROPERT
 ##
 
 proc cuMipmappedArrayGetSparseProperties*(
-    sparseProperties: ptr CUDA_ARRAY_SPARSE_PROPERTIES; mipmap: CUmipmappedArray): CUresult {.
+    sparseProperties: ptr CUDA_ARRAY_SPARSE_PROPERTIES; mipmap: CUmipmappedArray): CUresult {.discardable,
     cdecl, importc: "cuMipmappedArrayGetSparseProperties", dynlib: libName.}
 ##
 ##  \brief Returns the memory requirements of a CUDA array
@@ -12398,7 +12398,7 @@ proc cuMipmappedArrayGetSparseProperties*(
 ##
 
 proc cuArrayGetMemoryRequirements*(memoryRequirements: ptr CUDA_ARRAY_MEMORY_REQUIREMENTS;
-                                  array: CUarray; device: CUdevice): CUresult {.
+                                  array: CUarray; device: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuArrayGetMemoryRequirements", dynlib: libName.}
 ##
 ##  \brief Returns the memory requirements of a CUDA mipmapped array
@@ -12425,7 +12425,7 @@ proc cuArrayGetMemoryRequirements*(memoryRequirements: ptr CUDA_ARRAY_MEMORY_REQ
 
 proc cuMipmappedArrayGetMemoryRequirements*(
     memoryRequirements: ptr CUDA_ARRAY_MEMORY_REQUIREMENTS;
-    mipmap: CUmipmappedArray; device: CUdevice): CUresult {.cdecl,
+    mipmap: CUmipmappedArray; device: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuMipmappedArrayGetMemoryRequirements", dynlib: libName.}
 ##
 ##  \brief Gets a CUDA array plane from a CUDA array
@@ -12459,7 +12459,7 @@ proc cuMipmappedArrayGetMemoryRequirements*(
 ##  ::cudaArrayGetPlane
 ##
 
-proc cuArrayGetPlane*(pPlaneArray: ptr CUarray; hArray: CUarray; planeIdx: cuint): CUresult {.
+proc cuArrayGetPlane*(pPlaneArray: ptr CUarray; hArray: CUarray; planeIdx: cuint): CUresult {.discardable,
     cdecl, importc: "cuArrayGetPlane", dynlib: libName.}
 ##
 ##  \brief Destroys a CUDA array
@@ -12491,7 +12491,7 @@ proc cuArrayGetPlane*(pPlaneArray: ptr CUarray; hArray: CUarray; planeIdx: cuint
 ##  ::cudaFreeArray
 ##
 
-proc cuArrayDestroy*(hArray: CUarray): CUresult {.cdecl, importc: "cuArrayDestroy",
+proc cuArrayDestroy*(hArray: CUarray): CUresult {.discardable, cdecl, importc: "cuArrayDestroy",
     dynlib: libName.}
 ##
 ##  \brief Creates a 3D CUDA array
@@ -12673,7 +12673,7 @@ proc cuArrayDestroy*(hArray: CUarray): CUresult {.cdecl, importc: "cuArrayDestro
 ##
 
 proc cuArray3DCreate*(pHandle: ptr CUarray;
-                     pAllocateArray: ptr CUDA_ARRAY3D_DESCRIPTOR): CUresult {.cdecl,
+                     pAllocateArray: ptr CUDA_ARRAY3D_DESCRIPTOR): CUresult {.discardable, cdecl,
     importc: "cuArray3DCreate", dynlib: libName.}
 ##
 ##  \brief Get a 3D CUDA array descriptor
@@ -12713,7 +12713,7 @@ proc cuArray3DCreate*(pHandle: ptr CUarray;
 ##
 
 proc cuArray3DGetDescriptor*(pArrayDescriptor: ptr CUDA_ARRAY3D_DESCRIPTOR;
-                            hArray: CUarray): CUresult {.cdecl,
+                            hArray: CUarray): CUresult {.discardable, cdecl,
     importc: "cuArray3DGetDescriptor", dynlib: libName.}
 ##
 ##  \brief Creates a CUDA mipmapped array
@@ -12858,7 +12858,7 @@ proc cuArray3DGetDescriptor*(pArrayDescriptor: ptr CUDA_ARRAY3D_DESCRIPTOR;
 
 proc cuMipmappedArrayCreate*(pHandle: ptr CUmipmappedArray;
                             pMipmappedArrayDesc: ptr CUDA_ARRAY3D_DESCRIPTOR;
-                            numMipmapLevels: cuint): CUresult {.cdecl,
+                            numMipmapLevels: cuint): CUresult {.discardable, cdecl,
     importc: "cuMipmappedArrayCreate", dynlib: libName.}
 ##
 ##  \brief Gets a mipmap level of a CUDA mipmapped array
@@ -12890,7 +12890,7 @@ proc cuMipmappedArrayCreate*(pHandle: ptr CUmipmappedArray;
 ##
 
 proc cuMipmappedArrayGetLevel*(pLevelArray: ptr CUarray;
-                              hMipmappedArray: CUmipmappedArray; level: cuint): CUresult {.
+                              hMipmappedArray: CUmipmappedArray; level: cuint): CUresult {.discardable,
     cdecl, importc: "cuMipmappedArrayGetLevel", dynlib: libName.}
 ##
 ##  \brief Destroys a CUDA mipmapped array
@@ -12916,7 +12916,7 @@ proc cuMipmappedArrayGetLevel*(pLevelArray: ptr CUarray;
 ##  ::cudaFreeMipmappedArray
 ##
 
-proc cuMipmappedArrayDestroy*(hMipmappedArray: CUmipmappedArray): CUresult {.cdecl,
+proc cuMipmappedArrayDestroy*(hMipmappedArray: CUmipmappedArray): CUresult {.discardable, cdecl,
     importc: "cuMipmappedArrayDestroy", dynlib: libName.}
 ##
 ##  \brief Retrieve handle for an address range
@@ -12955,7 +12955,7 @@ proc cuMipmappedArrayDestroy*(hMipmappedArray: CUmipmappedArray): CUresult {.cde
 proc cuMemGetHandleForAddressRange*(handle: pointer; dptr: CUdeviceptr;
                                    size: csize_t;
                                    handleType: CUmemRangeHandleType;
-                                   flags: culonglong): CUresult {.cdecl,
+                                   flags: culonglong): CUresult {.discardable, cdecl,
     importc: "cuMemGetHandleForAddressRange", dynlib: libName.}
 ##  @}
 ##  END CUDA_MEM
@@ -12997,7 +12997,7 @@ proc cuMemGetHandleForAddressRange*(handle: pointer; dptr: CUdeviceptr;
 ##
 
 proc cuMemAddressReserve*(`ptr`: ptr CUdeviceptr; size: csize_t; alignment: csize_t;
-                         `addr`: CUdeviceptr; flags: culonglong): CUresult {.cdecl,
+                         `addr`: CUdeviceptr; flags: culonglong): CUresult {.discardable, cdecl,
     importc: "cuMemAddressReserve", dynlib: libName.}
 ##
 ##  \brief Free an address range reservation.
@@ -13019,7 +13019,7 @@ proc cuMemAddressReserve*(`ptr`: ptr CUdeviceptr; size: csize_t; alignment: csiz
 ##  \sa ::cuMemAddressReserve
 ##
 
-proc cuMemAddressFree*(`ptr`: CUdeviceptr; size: csize_t): CUresult {.cdecl,
+proc cuMemAddressFree*(`ptr`: CUdeviceptr; size: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemAddressFree", dynlib: libName.}
 ##
 ##  \brief Create a CUDA memory handle representing a memory allocation of a given size described by the given properties
@@ -13076,7 +13076,7 @@ proc cuMemAddressFree*(`ptr`: CUdeviceptr; size: csize_t): CUresult {.cdecl,
 ##
 
 proc cuMemCreate*(handle: ptr CUmemGenericAllocationHandle; size: csize_t;
-                 prop: ptr CUmemAllocationProp; flags: culonglong): CUresult {.cdecl,
+                 prop: ptr CUmemAllocationProp; flags: culonglong): CUresult {.discardable, cdecl,
     importc: "cuMemCreate", dynlib: libName.}
 ##
 ##  \brief Release a memory handle representing a memory allocation which was previously allocated through cuMemCreate.
@@ -13104,7 +13104,7 @@ proc cuMemCreate*(handle: ptr CUmemGenericAllocationHandle; size: csize_t;
 ##  \sa ::cuMemCreate
 ##
 
-proc cuMemRelease*(handle: CUmemGenericAllocationHandle): CUresult {.cdecl,
+proc cuMemRelease*(handle: CUmemGenericAllocationHandle): CUresult {.discardable, cdecl,
     importc: "cuMemRelease", dynlib: libName.}
 ##
 ##  \brief Maps an allocation handle to a reserved virtual address range.
@@ -13156,7 +13156,7 @@ proc cuMemRelease*(handle: CUmemGenericAllocationHandle): CUresult {.cdecl,
 ##
 
 proc cuMemMap*(`ptr`: CUdeviceptr; size: csize_t; offset: csize_t;
-              handle: CUmemGenericAllocationHandle; flags: culonglong): CUresult {.
+              handle: CUmemGenericAllocationHandle; flags: culonglong): CUresult {.discardable,
     cdecl, importc: "cuMemMap", dynlib: libName.}
 ##
 ##  \brief Maps or unmaps subregions of sparse CUDA arrays and sparse CUDA mipmapped arrays
@@ -13293,7 +13293,7 @@ proc cuMemMap*(`ptr`: CUdeviceptr; size: csize_t; offset: csize_t;
 ##
 
 proc cuMemMapArrayAsync*(mapInfoList: ptr CUarrayMapInfo; count: cuint;
-                        hStream: CUstream): CUresult {.cdecl,
+                        hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemMapArrayAsync", dynlib: libName.}
 ##
 ##  \brief Unmap the backing memory of a given address range.
@@ -13323,7 +13323,7 @@ proc cuMemMapArrayAsync*(mapInfoList: ptr CUarrayMapInfo; count: cuint;
 ##  \sa ::cuMemCreate, ::cuMemAddressReserve
 ##
 
-proc cuMemUnmap*(`ptr`: CUdeviceptr; size: csize_t): CUresult {.cdecl,
+proc cuMemUnmap*(`ptr`: CUdeviceptr; size: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemUnmap", dynlib: libName.}
 ##
 ##  \brief Set the access flags for each location specified in \p desc for the given virtual address range
@@ -13359,7 +13359,7 @@ proc cuMemUnmap*(`ptr`: CUdeviceptr; size: csize_t): CUresult {.cdecl,
 ##
 
 proc cuMemSetAccess*(`ptr`: CUdeviceptr; size: csize_t; desc: ptr CUmemAccessDesc;
-                    count: csize_t): CUresult {.cdecl, importc: "cuMemSetAccess",
+                    count: csize_t): CUresult {.discardable, cdecl, importc: "cuMemSetAccess",
     dynlib: libName.}
 ##
 ##  \brief Get the access \p flags set for the given \p location and \p ptr
@@ -13380,7 +13380,7 @@ proc cuMemSetAccess*(`ptr`: CUdeviceptr; size: csize_t; desc: ptr CUmemAccessDes
 ##
 
 proc cuMemGetAccess*(flags: ptr culonglong; location: ptr CUmemLocation;
-                    `ptr`: CUdeviceptr): CUresult {.cdecl,
+                    `ptr`: CUdeviceptr): CUresult {.discardable, cdecl,
     importc: "cuMemGetAccess", dynlib: libName.}
 ##
 ##  \brief Exports an allocation to a requested shareable handle type
@@ -13417,7 +13417,7 @@ proc cuMemGetAccess*(flags: ptr culonglong; location: ptr CUmemLocation;
 proc cuMemExportToShareableHandle*(shareableHandle: pointer;
                                   handle: CUmemGenericAllocationHandle;
                                   handleType: CUmemAllocationHandleType;
-                                  flags: culonglong): CUresult {.cdecl,
+                                  flags: culonglong): CUresult {.discardable, cdecl,
     importc: "cuMemExportToShareableHandle", dynlib: libName.}
 ##
 ##  \brief Imports an allocation from a requested shareable handle type.
@@ -13451,7 +13451,7 @@ proc cuMemExportToShareableHandle*(shareableHandle: pointer;
 
 proc cuMemImportFromShareableHandle*(handle: ptr CUmemGenericAllocationHandle;
                                     osHandle: pointer;
-                                    shHandleType: CUmemAllocationHandleType): CUresult {.
+                                    shHandleType: CUmemAllocationHandleType): CUresult {.discardable,
     cdecl, importc: "cuMemImportFromShareableHandle", dynlib: libName.}
 ##
 ##  \brief Calculates either the minimal or recommended granularity
@@ -13476,7 +13476,7 @@ proc cuMemImportFromShareableHandle*(handle: ptr CUmemGenericAllocationHandle;
 
 proc cuMemGetAllocationGranularity*(granularity: ptr csize_t;
                                    prop: ptr CUmemAllocationProp;
-                                   option: CUmemAllocationGranularity_flags): CUresult {.
+                                   option: CUmemAllocationGranularity_flags): CUresult {.discardable,
     cdecl, importc: "cuMemGetAllocationGranularity", dynlib: libName.}
 ##
 ##  \brief Retrieve the contents of the property structure defining properties for this handle
@@ -13495,7 +13495,7 @@ proc cuMemGetAllocationGranularity*(granularity: ptr csize_t;
 ##
 
 proc cuMemGetAllocationPropertiesFromHandle*(prop: ptr CUmemAllocationProp;
-    handle: CUmemGenericAllocationHandle): CUresult {.cdecl,
+    handle: CUmemGenericAllocationHandle): CUresult {.discardable, cdecl,
     importc: "cuMemGetAllocationPropertiesFromHandle", dynlib: libName.}
 ##
 ##  \brief Given an address \p addr, returns the allocation handle of the backing memory allocation.
@@ -13521,7 +13521,7 @@ proc cuMemGetAllocationPropertiesFromHandle*(prop: ptr CUmemAllocationProp;
 ##
 
 proc cuMemRetainAllocationHandle*(handle: ptr CUmemGenericAllocationHandle;
-                                 `addr`: pointer): CUresult {.cdecl,
+                                 `addr`: pointer): CUresult {.discardable, cdecl,
     importc: "cuMemRetainAllocationHandle", dynlib: libName.}
 ##  @}
 ##  END CUDA_VA
@@ -13578,7 +13578,7 @@ proc cuMemRetainAllocationHandle*(handle: ptr CUmemGenericAllocationHandle;
 ##  ::CUDA_ERROR_NOT_SUPPORTED
 ##
 
-proc cuMemFreeAsync*(dptr: CUdeviceptr; hStream: CUstream): CUresult {.cdecl,
+proc cuMemFreeAsync*(dptr: CUdeviceptr; hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemFreeAsync", dynlib: libName.}
 ##
 ##  \brief Allocates memory with stream ordered semantics
@@ -13612,7 +13612,7 @@ proc cuMemFreeAsync*(dptr: CUdeviceptr; hStream: CUstream): CUresult {.cdecl,
 ##      ::cuMemPoolSetAccess, ::cuMemPoolSetAttribute
 ##
 
-proc cuMemAllocAsync*(dptr: ptr CUdeviceptr; bytesize: csize_t; hStream: CUstream): CUresult {.
+proc cuMemAllocAsync*(dptr: ptr CUdeviceptr; bytesize: csize_t; hStream: CUstream): CUresult {.discardable,
     cdecl, importc: "cuMemAllocAsync", dynlib: libName.}
 ##
 ##  \brief Tries to release memory back to the OS
@@ -13639,7 +13639,7 @@ proc cuMemAllocAsync*(dptr: ptr CUdeviceptr; bytesize: csize_t; hStream: CUstrea
 ##      ::cuDeviceGetMemPool, ::cuMemPoolCreate
 ##
 
-proc cuMemPoolTrimTo*(pool: CUmemoryPool; minBytesToKeep: csize_t): CUresult {.cdecl,
+proc cuMemPoolTrimTo*(pool: CUmemoryPool; minBytesToKeep: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemPoolTrimTo", dynlib: libName.}
 ##
 ##  \brief Sets attributes of a memory pool
@@ -13684,7 +13684,7 @@ proc cuMemPoolTrimTo*(pool: CUmemoryPool; minBytesToKeep: csize_t): CUresult {.c
 ##
 
 proc cuMemPoolSetAttribute*(pool: CUmemoryPool; attr: CUmemPool_attribute;
-                           value: pointer): CUresult {.cdecl,
+                           value: pointer): CUresult {.discardable, cdecl,
     importc: "cuMemPoolSetAttribute", dynlib: libName.}
 ##
 ##  \brief Gets attributes of a memory pool
@@ -13733,7 +13733,7 @@ proc cuMemPoolSetAttribute*(pool: CUmemoryPool; attr: CUmemPool_attribute;
 ##
 
 proc cuMemPoolGetAttribute*(pool: CUmemoryPool; attr: CUmemPool_attribute;
-                           value: pointer): CUresult {.cdecl,
+                           value: pointer): CUresult {.discardable, cdecl,
     importc: "cuMemPoolGetAttribute", dynlib: libName.}
 ##
 ##  \brief Controls visibility of pools between devices
@@ -13751,7 +13751,7 @@ proc cuMemPoolGetAttribute*(pool: CUmemoryPool; attr: CUmemPool_attribute;
 ##      ::cuDeviceGetMemPool, ::cuMemPoolCreate
 ##
 
-proc cuMemPoolSetAccess*(pool: CUmemoryPool; map: ptr CUmemAccessDesc; count: csize_t): CUresult {.
+proc cuMemPoolSetAccess*(pool: CUmemoryPool; map: ptr CUmemAccessDesc; count: csize_t): CUresult {.discardable,
     cdecl, importc: "cuMemPoolSetAccess", dynlib: libName.}
 ##
 ##  \brief Returns the accessibility of a pool from a device
@@ -13767,7 +13767,7 @@ proc cuMemPoolSetAccess*(pool: CUmemoryPool; map: ptr CUmemAccessDesc; count: cs
 ##
 
 proc cuMemPoolGetAccess*(flags: ptr CUmemAccess_flags; memPool: CUmemoryPool;
-                        location: ptr CUmemLocation): CUresult {.cdecl,
+                        location: ptr CUmemLocation): CUresult {.discardable, cdecl,
     importc: "cuMemPoolGetAccess", dynlib: libName.}
 ##
 ##  \brief Creates a memory pool
@@ -13809,7 +13809,7 @@ proc cuMemPoolGetAccess*(flags: ptr CUmemAccess_flags; memPool: CUmemoryPool;
 ##      ::cuMemAllocFromPoolAsync, ::cuMemPoolExportToShareableHandle
 ##
 
-proc cuMemPoolCreate*(pool: ptr CUmemoryPool; poolProps: ptr CUmemPoolProps): CUresult {.
+proc cuMemPoolCreate*(pool: ptr CUmemoryPool; poolProps: ptr CUmemPoolProps): CUresult {.discardable,
     cdecl, importc: "cuMemPoolCreate", dynlib: libName.}
 ##
 ##  \brief Destroys the specified memory pool
@@ -13833,7 +13833,7 @@ proc cuMemPoolCreate*(pool: ptr CUmemoryPool; poolProps: ptr CUmemPoolProps): CU
 ##      ::cuDeviceGetDefaultMemPool, ::cuMemPoolCreate
 ##
 
-proc cuMemPoolDestroy*(pool: CUmemoryPool): CUresult {.cdecl,
+proc cuMemPoolDestroy*(pool: CUmemoryPool): CUresult {.discardable, cdecl,
     importc: "cuMemPoolDestroy", dynlib: libName.}
 ##
 ##  \brief Allocates memory from a specified pool with stream ordered semantics.
@@ -13873,7 +13873,7 @@ proc cuMemPoolDestroy*(pool: CUmemoryPool): CUresult {.cdecl,
 ##
 
 proc cuMemAllocFromPoolAsync*(dptr: ptr CUdeviceptr; bytesize: csize_t;
-                             pool: CUmemoryPool; hStream: CUstream): CUresult {.
+                             pool: CUmemoryPool; hStream: CUstream): CUresult {.discardable,
     cdecl, importc: "cuMemAllocFromPoolAsync", dynlib: libName.}
 ##
 ##  \brief Exports a memory pool to the requested handle type.
@@ -13905,7 +13905,7 @@ proc cuMemAllocFromPoolAsync*(dptr: ptr CUdeviceptr; bytesize: csize_t;
 
 proc cuMemPoolExportToShareableHandle*(handle_out: pointer; pool: CUmemoryPool;
                                       handleType: CUmemAllocationHandleType;
-                                      flags: culonglong): CUresult {.cdecl,
+                                      flags: culonglong): CUresult {.discardable, cdecl,
     importc: "cuMemPoolExportToShareableHandle", dynlib: libName.}
 ##
 ##  \brief imports a memory pool from a shared handle.
@@ -13938,7 +13938,7 @@ proc cuMemPoolExportToShareableHandle*(handle_out: pointer; pool: CUmemoryPool;
 proc cuMemPoolImportFromShareableHandle*(pool_out: ptr CUmemoryPool;
                                         handle: pointer;
                                         handleType: CUmemAllocationHandleType;
-                                        flags: culonglong): CUresult {.cdecl,
+                                        flags: culonglong): CUresult {.discardable, cdecl,
     importc: "cuMemPoolImportFromShareableHandle", dynlib: libName.}
 ##
 ##  \brief Export data to share a memory pool allocation between processes.
@@ -13960,7 +13960,7 @@ proc cuMemPoolImportFromShareableHandle*(pool_out: ptr CUmemoryPool;
 ##
 
 proc cuMemPoolExportPointer*(shareData_out: ptr CUmemPoolPtrExportData;
-                            `ptr`: CUdeviceptr): CUresult {.cdecl,
+                            `ptr`: CUdeviceptr): CUresult {.discardable, cdecl,
     importc: "cuMemPoolExportPointer", dynlib: libName.}
 ##
 ##  \brief Import a memory pool allocation from another process.
@@ -13991,7 +13991,7 @@ proc cuMemPoolExportPointer*(shareData_out: ptr CUmemPoolPtrExportData;
 ##
 
 proc cuMemPoolImportPointer*(ptr_out: ptr CUdeviceptr; pool: CUmemoryPool;
-                            shareData: ptr CUmemPoolPtrExportData): CUresult {.
+                            shareData: ptr CUmemPoolPtrExportData): CUresult {.discardable,
     cdecl, importc: "cuMemPoolImportPointer", dynlib: libName.}
 ##  @}
 ##  END CUDA_MALLOC_ASYNC
@@ -14063,7 +14063,7 @@ proc cuMemPoolImportPointer*(ptr_out: ptr CUdeviceptr; pool: CUmemoryPool;
 ##
 
 proc cuMulticastCreate*(mcHandle: ptr CUmemGenericAllocationHandle;
-                       prop: ptr CUmulticastObjectProp): CUresult {.cdecl,
+                       prop: ptr CUmulticastObjectProp): CUresult {.discardable, cdecl,
     importc: "cuMulticastCreate", dynlib: libName.}
 ##
 ##  \brief Associate a device to a multicast object.
@@ -14097,7 +14097,7 @@ proc cuMulticastCreate*(mcHandle: ptr CUmemGenericAllocationHandle;
 ##  \sa ::cuMulticastCreate, ::cuMulticastBindMem, ::cuMulticastBindAddr
 ##
 
-proc cuMulticastAddDevice*(mcHandle: CUmemGenericAllocationHandle; dev: CUdevice): CUresult {.
+proc cuMulticastAddDevice*(mcHandle: CUmemGenericAllocationHandle; dev: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuMulticastAddDevice", dynlib: libName.}
 ##
 ##  \brief Bind a memory allocation represented by a handle to a multicast object.
@@ -14149,7 +14149,7 @@ proc cuMulticastAddDevice*(mcHandle: CUmemGenericAllocationHandle; dev: CUdevice
 
 proc cuMulticastBindMem*(mcHandle: CUmemGenericAllocationHandle; mcOffset: csize_t;
                         memHandle: CUmemGenericAllocationHandle;
-                        memOffset: csize_t; size: csize_t; flags: culonglong): CUresult {.
+                        memOffset: csize_t; size: csize_t; flags: culonglong): CUresult {.discardable,
     cdecl, importc: "cuMulticastBindMem", dynlib: libName.}
 ##
 ##  \brief Bind a memory allocation represented by a virtual address to a multicast object.
@@ -14199,7 +14199,7 @@ proc cuMulticastBindMem*(mcHandle: CUmemGenericAllocationHandle; mcOffset: csize
 
 proc cuMulticastBindAddr*(mcHandle: CUmemGenericAllocationHandle;
                          mcOffset: csize_t; memptr: CUdeviceptr; size: csize_t;
-                         flags: culonglong): CUresult {.cdecl,
+                         flags: culonglong): CUresult {.discardable, cdecl,
     importc: "cuMulticastBindAddr", dynlib: libName.}
 ##
 ##  \brief Unbind any memory allocations bound to a multicast object at a given offset and upto a given size.
@@ -14235,7 +14235,7 @@ proc cuMulticastBindAddr*(mcHandle: CUmemGenericAllocationHandle;
 ##
 
 proc cuMulticastUnbind*(mcHandle: CUmemGenericAllocationHandle; dev: CUdevice;
-                       mcOffset: csize_t; size: csize_t): CUresult {.cdecl,
+                       mcOffset: csize_t; size: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMulticastUnbind", dynlib: libName.}
 ##
 ##  \brief Calculates either the minimal or recommended granularity for multicast object
@@ -14262,7 +14262,7 @@ proc cuMulticastUnbind*(mcHandle: CUmemGenericAllocationHandle; dev: CUdevice;
 
 proc cuMulticastGetGranularity*(granularity: ptr csize_t;
                                prop: ptr CUmulticastObjectProp;
-                               option: CUmulticastGranularity_flags): CUresult {.
+                               option: CUmulticastGranularity_flags): CUresult {.discardable,
     cdecl, importc: "cuMulticastGetGranularity", dynlib: libName.}
 ##  @}
 ##  END CUDA_MULTICAST
@@ -14548,7 +14548,7 @@ proc cuMulticastGetGranularity*(granularity: ptr csize_t;
 ##
 
 proc cuPointerGetAttribute*(data: pointer; attribute: CUpointer_attribute;
-                           `ptr`: CUdeviceptr): CUresult {.cdecl,
+                           `ptr`: CUdeviceptr): CUresult {.discardable, cdecl,
     importc: "cuPointerGetAttribute", dynlib: libName.}
 ##
 ##  \brief Prefetches memory to the specified destination device
@@ -14621,7 +14621,7 @@ proc cuPointerGetAttribute*(data: pointer; attribute: CUpointer_attribute;
 ##
 
 proc cuMemPrefetchAsync*(devPtr: CUdeviceptr; count: csize_t; dstDevice: CUdevice;
-                        hStream: CUstream): CUresult {.cdecl,
+                        hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuMemPrefetchAsync", dynlib: libName.}
 ##
 ##  \brief Prefetches memory to the specified destination location
@@ -14700,7 +14700,7 @@ proc cuMemPrefetchAsync*(devPtr: CUdeviceptr; count: csize_t; dstDevice: CUdevic
 ##
 
 proc cuMemPrefetchAsync_v2*(devPtr: CUdeviceptr; count: csize_t;
-                           location: CUmemLocation; flags: cuint; hStream: CUstream): CUresult {.
+                           location: CUmemLocation; flags: cuint; hStream: CUstream): CUresult {.discardable,
     cdecl, importc: "cuMemPrefetchAsync_v2", dynlib: libName.}
 ##
 ##  \brief Advise about the usage of a given memory range
@@ -14817,7 +14817,7 @@ proc cuMemPrefetchAsync_v2*(devPtr: CUdeviceptr; count: csize_t;
 ##
 
 proc cuMemAdvise*(devPtr: CUdeviceptr; count: csize_t; advice: CUmem_advise;
-                 device: CUdevice): CUresult {.cdecl, importc: "cuMemAdvise",
+                 device: CUdevice): CUresult {.discardable, cdecl, importc: "cuMemAdvise",
     dynlib: libName.}
 ##
 ##  \brief Advise about the usage of a given memory range
@@ -14940,7 +14940,7 @@ proc cuMemAdvise*(devPtr: CUdeviceptr; count: csize_t; advice: CUmem_advise;
 ##
 
 proc cuMemAdvise_v2*(devPtr: CUdeviceptr; count: csize_t; advice: CUmem_advise;
-                    location: CUmemLocation): CUresult {.cdecl,
+                    location: CUmemLocation): CUresult {.discardable, cdecl,
     importc: "cuMemAdvise_v2", dynlib: libName.}
 ##
 ##  \brief Query an attribute of a given memory range
@@ -15024,7 +15024,7 @@ proc cuMemAdvise_v2*(devPtr: CUdeviceptr; count: csize_t; advice: CUmem_advise;
 
 proc cuMemRangeGetAttribute*(data: pointer; dataSize: csize_t;
                             attribute: CUmem_range_attribute; devPtr: CUdeviceptr;
-                            count: csize_t): CUresult {.cdecl,
+                            count: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemRangeGetAttribute", dynlib: libName.}
 ##
 ##  \brief Query attributes of a given memory range.
@@ -15072,7 +15072,7 @@ proc cuMemRangeGetAttribute*(data: pointer; dataSize: csize_t;
 proc cuMemRangeGetAttributes*(data: ptr pointer; dataSizes: ptr csize_t;
                              attributes: ptr CUmem_range_attribute;
                              numAttributes: csize_t; devPtr: CUdeviceptr;
-                             count: csize_t): CUresult {.cdecl,
+                             count: csize_t): CUresult {.discardable, cdecl,
     importc: "cuMemRangeGetAttributes", dynlib: libName.}
 ##
 ##  \brief Set attributes on a previously allocated memory region
@@ -15116,7 +15116,7 @@ proc cuMemRangeGetAttributes*(data: ptr pointer; dataSizes: ptr csize_t;
 ##
 
 proc cuPointerSetAttribute*(value: pointer; attribute: CUpointer_attribute;
-                           `ptr`: CUdeviceptr): CUresult {.cdecl,
+                           `ptr`: CUdeviceptr): CUresult {.discardable, cdecl,
     importc: "cuPointerSetAttribute", dynlib: libName.}
 ##
 ##  \brief Returns information about a pointer.
@@ -15168,7 +15168,7 @@ proc cuPointerSetAttribute*(value: pointer; attribute: CUpointer_attribute;
 
 proc cuPointerGetAttributes*(numAttributes: cuint;
                             attributes: ptr CUpointer_attribute; data: ptr pointer;
-                            `ptr`: CUdeviceptr): CUresult {.cdecl,
+                            `ptr`: CUdeviceptr): CUresult {.discardable, cdecl,
     importc: "cuPointerGetAttributes", dynlib: libName.}
 ##  @}
 ##  END CUDA_UNIFIED
@@ -15220,7 +15220,7 @@ proc cuPointerGetAttributes*(numAttributes: cuint;
 ##  ::cudaStreamCreateWithFlags
 ##
 
-proc cuStreamCreate*(phStream: ptr CUstream; Flags: cuint): CUresult {.cdecl,
+proc cuStreamCreate*(phStream: ptr CUstream; Flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuStreamCreate", dynlib: libName.}
 ##
 ##  \brief Create a stream with the given priority
@@ -15273,7 +15273,7 @@ proc cuStreamCreate*(phStream: ptr CUstream; Flags: cuint): CUresult {.cdecl,
 ##  ::cudaStreamCreateWithPriority
 ##
 
-proc cuStreamCreateWithPriority*(phStream: ptr CUstream; flags: cuint; priority: cint): CUresult {.
+proc cuStreamCreateWithPriority*(phStream: ptr CUstream; flags: cuint; priority: cint): CUresult {.discardable,
     cdecl, importc: "cuStreamCreateWithPriority", dynlib: libName.}
 ##
 ##  \brief Query the priority of a given stream
@@ -15305,7 +15305,7 @@ proc cuStreamCreateWithPriority*(phStream: ptr CUstream; flags: cuint; priority:
 ##  ::cudaStreamGetPriority
 ##
 
-proc cuStreamGetPriority*(hStream: CUstream; priority: ptr cint): CUresult {.cdecl,
+proc cuStreamGetPriority*(hStream: CUstream; priority: ptr cint): CUresult {.discardable, cdecl,
     importc: "cuStreamGetPriority", dynlib: libName.}
 ##
 ##  \brief Query the flags of a given stream
@@ -15335,7 +15335,7 @@ proc cuStreamGetPriority*(hStream: CUstream; priority: ptr cint): CUresult {.cde
 ##  ::cudaStreamGetFlags
 ##
 
-proc cuStreamGetFlags*(hStream: CUstream; flags: ptr cuint): CUresult {.cdecl,
+proc cuStreamGetFlags*(hStream: CUstream; flags: ptr cuint): CUresult {.discardable, cdecl,
     importc: "cuStreamGetFlags", dynlib: libName.}
 ##
 ##  \brief Returns the unique Id associated with the stream handle supplied
@@ -15369,7 +15369,7 @@ proc cuStreamGetFlags*(hStream: CUstream; flags: ptr cuint): CUresult {.cdecl,
 ##  ::cudaStreamGetId
 ##
 
-proc cuStreamGetId*(hStream: CUstream; streamId: ptr culonglong): CUresult {.cdecl,
+proc cuStreamGetId*(hStream: CUstream; streamId: ptr culonglong): CUresult {.discardable, cdecl,
     importc: "cuStreamGetId", dynlib: libName.}
 ##
 ##  \brief Query the context associated with a stream
@@ -15420,7 +15420,7 @@ proc cuStreamGetId*(hStream: CUstream; streamId: ptr culonglong): CUresult {.cde
 ##  ::cudaStreamCreateWithFlags
 ##
 
-proc cuStreamGetCtx*(hStream: CUstream; pctx: ptr CUcontext): CUresult {.cdecl,
+proc cuStreamGetCtx*(hStream: CUstream; pctx: ptr CUcontext): CUresult {.discardable, cdecl,
     importc: "cuStreamGetCtx", dynlib: libName.}
 ##
 ##  \brief Query the contexts associated with a stream
@@ -15479,7 +15479,7 @@ proc cuStreamGetCtx*(hStream: CUstream; pctx: ptr CUcontext): CUresult {.cdecl,
 ##
 
 proc cuStreamGetCtx_v2*(hStream: CUstream; pCtx: ptr CUcontext;
-                       pGreenCtx: ptr CUgreenCtx): CUresult {.cdecl,
+                       pGreenCtx: ptr CUgreenCtx): CUresult {.discardable, cdecl,
     importc: "cuStreamGetCtx_v2", dynlib: libName.}
 ##
 ##  \brief Make a compute stream wait on an event
@@ -15517,7 +15517,7 @@ proc cuStreamGetCtx_v2*(hStream: CUstream; pCtx: ptr CUcontext;
 ##  ::cudaStreamWaitEvent
 ##
 
-proc cuStreamWaitEvent*(hStream: CUstream; hEvent: CUevent; Flags: cuint): CUresult {.
+proc cuStreamWaitEvent*(hStream: CUstream; hEvent: CUevent; Flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuStreamWaitEvent", dynlib: libName.}
 ##
 ##  \brief Add a callback to a compute stream
@@ -15594,7 +15594,7 @@ proc cuStreamWaitEvent*(hStream: CUstream; hEvent: CUevent; Flags: cuint): CUres
 ##
 
 proc cuStreamAddCallback*(hStream: CUstream; callback: CUstreamCallback;
-                         userData: pointer; flags: cuint): CUresult {.cdecl,
+                         userData: pointer; flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuStreamAddCallback", dynlib: libName.}
 ##
 ##  \brief Begins graph capture on a stream
@@ -15633,7 +15633,7 @@ proc cuStreamAddCallback*(hStream: CUstream; callback: CUstreamCallback;
 ##  ::cuThreadExchangeStreamCaptureMode
 ##
 
-proc cuStreamBeginCapture*(hStream: CUstream; mode: CUstreamCaptureMode): CUresult {.
+proc cuStreamBeginCapture*(hStream: CUstream; mode: CUstreamCaptureMode): CUresult {.discardable,
     cdecl, importc: "cuStreamBeginCapture", dynlib: libName.}
 ##
 ##  \brief Begins graph capture on a stream to an existing graph
@@ -15684,7 +15684,7 @@ proc cuStreamBeginCaptureToGraph*(hStream: CUstream; hGraph: CUgraph;
                                  dependencies: ptr CUgraphNode;
                                  dependencyData: ptr CUgraphEdgeData;
                                  numDependencies: csize_t;
-                                 mode: CUstreamCaptureMode): CUresult {.cdecl,
+                                 mode: CUstreamCaptureMode): CUresult {.discardable, cdecl,
     importc: "cuStreamBeginCaptureToGraph", dynlib: libName.}
 ##
 ##  \brief Swaps the stream capture interaction mode for a thread
@@ -15738,7 +15738,7 @@ proc cuStreamBeginCaptureToGraph*(hStream: CUstream; hGraph: CUgraph;
 ##  ::cuStreamBeginCapture
 ##
 
-proc cuThreadExchangeStreamCaptureMode*(mode: ptr CUstreamCaptureMode): CUresult {.
+proc cuThreadExchangeStreamCaptureMode*(mode: ptr CUstreamCaptureMode): CUresult {.discardable,
     cdecl, importc: "cuThreadExchangeStreamCaptureMode", dynlib: libName.}
 ##
 ##  \brief Ends capture on a stream, returning the captured graph
@@ -15770,7 +15770,7 @@ proc cuThreadExchangeStreamCaptureMode*(mode: ptr CUstreamCaptureMode): CUresult
 ##  ::cuGraphDestroy
 ##
 
-proc cuStreamEndCapture*(hStream: CUstream; phGraph: ptr CUgraph): CUresult {.cdecl,
+proc cuStreamEndCapture*(hStream: CUstream; phGraph: ptr CUgraph): CUresult {.discardable, cdecl,
     importc: "cuStreamEndCapture", dynlib: libName.}
 ##
 ##  \brief Returns a stream's capture status
@@ -15812,7 +15812,7 @@ proc cuStreamEndCapture*(hStream: CUstream; phGraph: ptr CUgraph): CUresult {.cd
 ##
 
 proc cuStreamIsCapturing*(hStream: CUstream;
-                         captureStatus: ptr CUstreamCaptureStatus): CUresult {.
+                         captureStatus: ptr CUstreamCaptureStatus): CUresult {.discardable,
     cdecl, importc: "cuStreamIsCapturing", dynlib: libName.}
 ##
 ##  \brief Query a stream's capture state
@@ -15866,7 +15866,7 @@ proc cuStreamGetCaptureInfo*(hStream: CUstream;
                             captureStatus_out: ptr CUstreamCaptureStatus;
                             id_out: ptr culonglong; graph_out: ptr CUgraph;
                             dependencies_out: ptr ptr CUgraphNode;
-                            numDependencies_out: ptr csize_t): CUresult {.cdecl,
+                            numDependencies_out: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuStreamGetCaptureInfo", dynlib: libName.}
 ##
 ##  \brief Query a stream's capture state (12.3+)
@@ -15932,7 +15932,7 @@ proc cuStreamGetCaptureInfo_v3*(hStream: CUstream;
                                id_out: ptr culonglong; graph_out: ptr CUgraph;
                                dependencies_out: ptr ptr CUgraphNode;
                                edgeData_out: ptr ptr CUgraphEdgeData;
-                               numDependencies_out: ptr csize_t): CUresult {.cdecl,
+                               numDependencies_out: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuStreamGetCaptureInfo_v3", dynlib: libName.}
 ##
 ##  \brief Update the set of dependencies in a capturing stream (11.3+)
@@ -15971,7 +15971,7 @@ proc cuStreamGetCaptureInfo_v3*(hStream: CUstream;
 
 proc cuStreamUpdateCaptureDependencies*(hStream: CUstream;
                                        dependencies: ptr CUgraphNode;
-                                       numDependencies: csize_t; flags: cuint): CUresult {.
+                                       numDependencies: csize_t; flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuStreamUpdateCaptureDependencies", dynlib: libName.}
 ##
 ##  \brief Update the set of dependencies in a capturing stream (12.3+)
@@ -16009,7 +16009,7 @@ proc cuStreamUpdateCaptureDependencies*(hStream: CUstream;
 
 proc cuStreamUpdateCaptureDependencies_v2*(hStream: CUstream;
     dependencies: ptr CUgraphNode; dependencyData: ptr CUgraphEdgeData;
-    numDependencies: csize_t; flags: cuint): CUresult {.cdecl,
+    numDependencies: csize_t; flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuStreamUpdateCaptureDependencies_v2", dynlib: libName.}
 ##
 ##  \brief Attach memory to a stream asynchronously
@@ -16099,7 +16099,7 @@ proc cuStreamUpdateCaptureDependencies_v2*(hStream: CUstream;
 ##
 
 proc cuStreamAttachMemAsync*(hStream: CUstream; dptr: CUdeviceptr; length: csize_t;
-                            flags: cuint): CUresult {.cdecl,
+                            flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuStreamAttachMemAsync", dynlib: libName.}
 ##
 ##  \brief Determine status of a compute stream
@@ -16130,7 +16130,7 @@ proc cuStreamAttachMemAsync*(hStream: CUstream; dptr: CUdeviceptr; length: csize
 ##  ::cudaStreamQuery
 ##
 
-proc cuStreamQuery*(hStream: CUstream): CUresult {.cdecl, importc: "cuStreamQuery",
+proc cuStreamQuery*(hStream: CUstream): CUresult {.discardable, cdecl, importc: "cuStreamQuery",
     dynlib: libName.}
 ##
 ##  \brief Wait until a stream's tasks are completed
@@ -16160,7 +16160,7 @@ proc cuStreamQuery*(hStream: CUstream): CUresult {.cdecl, importc: "cuStreamQuer
 ##  ::cudaStreamSynchronize
 ##
 
-proc cuStreamSynchronize*(hStream: CUstream): CUresult {.cdecl,
+proc cuStreamSynchronize*(hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuStreamSynchronize", dynlib: libName.}
 ##
 ##  \brief Destroys a stream
@@ -16191,7 +16191,7 @@ proc cuStreamSynchronize*(hStream: CUstream): CUresult {.cdecl,
 ##  ::cudaStreamDestroy
 ##
 
-proc cuStreamDestroy*(hStream: CUstream): CUresult {.cdecl,
+proc cuStreamDestroy*(hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuStreamDestroy", dynlib: libName.}
 ##
 ##  \brief Copies attributes from source stream to destination stream.
@@ -16212,7 +16212,7 @@ proc cuStreamDestroy*(hStream: CUstream): CUresult {.cdecl,
 ##  ::CUaccessPolicyWindow
 ##
 
-proc cuStreamCopyAttributes*(dst: CUstream; src: CUstream): CUresult {.cdecl,
+proc cuStreamCopyAttributes*(dst: CUstream; src: CUstream): CUresult {.discardable, cdecl,
     importc: "cuStreamCopyAttributes", dynlib: libName.}
 ##
 ##  \brief Queries stream attribute.
@@ -16235,7 +16235,7 @@ proc cuStreamCopyAttributes*(dst: CUstream; src: CUstream): CUresult {.cdecl,
 ##
 
 proc cuStreamGetAttribute*(hStream: CUstream; attr: CUstreamAttrID;
-                          value_out: ptr CUstreamAttrValue): CUresult {.cdecl,
+                          value_out: ptr CUstreamAttrValue): CUresult {.discardable, cdecl,
     importc: "cuStreamGetAttribute", dynlib: libName.}
 ##
 ##  \brief Sets stream attribute.
@@ -16259,7 +16259,7 @@ proc cuStreamGetAttribute*(hStream: CUstream; attr: CUstreamAttrID;
 ##
 
 proc cuStreamSetAttribute*(hStream: CUstream; attr: CUstreamAttrID;
-                          value: ptr CUstreamAttrValue): CUresult {.cdecl,
+                          value: ptr CUstreamAttrValue): CUresult {.discardable, cdecl,
     importc: "cuStreamSetAttribute", dynlib: libName.}
 ##  @}
 ##  END CUDA_STREAM
@@ -16314,7 +16314,7 @@ proc cuStreamSetAttribute*(hStream: CUstream; attr: CUstreamAttrID;
 ##  ::cudaEventCreateWithFlags
 ##
 
-proc cuEventCreate*(phEvent: ptr CUevent; Flags: cuint): CUresult {.cdecl,
+proc cuEventCreate*(phEvent: ptr CUevent; Flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuEventCreate", dynlib: libName.}
 ##
 ##  \brief Records an event
@@ -16358,7 +16358,7 @@ proc cuEventCreate*(phEvent: ptr CUevent; Flags: cuint): CUresult {.cdecl,
 ##  ::cuEventRecordWithFlags
 ##
 
-proc cuEventRecord*(hEvent: CUevent; hStream: CUstream): CUresult {.cdecl,
+proc cuEventRecord*(hEvent: CUevent; hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuEventRecord", dynlib: libName.}
 ##
 ##  \brief Records an event
@@ -16409,7 +16409,7 @@ proc cuEventRecord*(hEvent: CUevent; hStream: CUstream): CUresult {.cdecl,
 ##  ::cudaEventRecord
 ##
 
-proc cuEventRecordWithFlags*(hEvent: CUevent; hStream: CUstream; flags: cuint): CUresult {.
+proc cuEventRecordWithFlags*(hEvent: CUevent; hStream: CUstream; flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuEventRecordWithFlags", dynlib: libName.}
 ##
 ##  \brief Queries an event's status
@@ -16442,7 +16442,7 @@ proc cuEventRecordWithFlags*(hEvent: CUevent; hStream: CUstream; flags: cuint): 
 ##  ::cudaEventQuery
 ##
 
-proc cuEventQuery*(hEvent: CUevent): CUresult {.cdecl, importc: "cuEventQuery",
+proc cuEventQuery*(hEvent: CUevent): CUresult {.discardable, cdecl, importc: "cuEventQuery",
     dynlib: libName.}
 ##
 ##  \brief Waits for an event to complete
@@ -16474,7 +16474,7 @@ proc cuEventQuery*(hEvent: CUevent): CUresult {.cdecl, importc: "cuEventQuery",
 ##  ::cudaEventSynchronize
 ##
 
-proc cuEventSynchronize*(hEvent: CUevent): CUresult {.cdecl,
+proc cuEventSynchronize*(hEvent: CUevent): CUresult {.discardable, cdecl,
     importc: "cuEventSynchronize", dynlib: libName.}
 ##
 ##  \brief Destroys an event
@@ -16504,7 +16504,7 @@ proc cuEventSynchronize*(hEvent: CUevent): CUresult {.cdecl,
 ##  ::cudaEventDestroy
 ##
 
-proc cuEventDestroy*(hEvent: CUevent): CUresult {.cdecl, importc: "cuEventDestroy",
+proc cuEventDestroy*(hEvent: CUevent): CUresult {.discardable, cdecl, importc: "cuEventDestroy",
     dynlib: libName.}
 ##
 ##  \brief Computes the elapsed time between two events
@@ -16550,7 +16550,7 @@ proc cuEventDestroy*(hEvent: CUevent): CUresult {.cdecl, importc: "cuEventDestro
 ##  ::cudaEventElapsedTime
 ##
 
-proc cuEventElapsedTime*(pMilliseconds: ptr cfloat; hStart: CUevent; hEnd: CUevent): CUresult {.
+proc cuEventElapsedTime*(pMilliseconds: ptr cfloat; hStart: CUevent; hEnd: CUevent): CUresult {.discardable,
     cdecl, importc: "cuEventElapsedTime", dynlib: libName.}
 ##  @}
 ##  END CUDA_EVENT
@@ -16730,7 +16730,7 @@ proc cuEventElapsedTime*(pMilliseconds: ptr cfloat; hStart: CUevent; hEnd: CUeve
 ##
 
 proc cuImportExternalMemory*(extMem_out: ptr CUexternalMemory;
-                            memHandleDesc: ptr CUDA_EXTERNAL_MEMORY_HANDLE_DESC): CUresult {.
+                            memHandleDesc: ptr CUDA_EXTERNAL_MEMORY_HANDLE_DESC): CUresult {.discardable,
     cdecl, importc: "cuImportExternalMemory", dynlib: libName.}
 ##
 ##  \brief Maps a buffer onto an imported memory object
@@ -16786,7 +16786,7 @@ proc cuImportExternalMemory*(extMem_out: ptr CUexternalMemory;
 ##
 
 proc cuExternalMemoryGetMappedBuffer*(devPtr: ptr CUdeviceptr;
-                                     extMem: CUexternalMemory; bufferDesc: ptr CUDA_EXTERNAL_MEMORY_BUFFER_DESC): CUresult {.
+                                     extMem: CUexternalMemory; bufferDesc: ptr CUDA_EXTERNAL_MEMORY_BUFFER_DESC): CUresult {.discardable,
     cdecl, importc: "cuExternalMemoryGetMappedBuffer", dynlib: libName.}
 ##
 ##  \brief Maps a CUDA mipmapped array onto an external memory object
@@ -16842,7 +16842,7 @@ proc cuExternalMemoryGetMappedBuffer*(devPtr: ptr CUdeviceptr;
 
 proc cuExternalMemoryGetMappedMipmappedArray*(mipmap: ptr CUmipmappedArray;
     extMem: CUexternalMemory;
-    mipmapDesc: ptr CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC): CUresult {.cdecl,
+    mipmapDesc: ptr CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC): CUresult {.discardable, cdecl,
     importc: "cuExternalMemoryGetMappedMipmappedArray", dynlib: libName.}
 ##
 ##  \brief Destroys an external memory object.
@@ -16865,7 +16865,7 @@ proc cuExternalMemoryGetMappedMipmappedArray*(mipmap: ptr CUmipmappedArray;
 ##  ::cuExternalMemoryGetMappedMipmappedArray
 ##
 
-proc cuDestroyExternalMemory*(extMem: CUexternalMemory): CUresult {.cdecl,
+proc cuDestroyExternalMemory*(extMem: CUexternalMemory): CUresult {.discardable, cdecl,
     importc: "cuDestroyExternalMemory", dynlib: libName.}
 ##
 ##  \brief Imports an external semaphore
@@ -17024,7 +17024,7 @@ proc cuDestroyExternalMemory*(extMem: CUexternalMemory): CUresult {.cdecl,
 ##  ::cuWaitExternalSemaphoresAsync
 ##
 
-proc cuImportExternalSemaphore*(extSem_out: ptr CUexternalSemaphore; semHandleDesc: ptr CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC): CUresult {.
+proc cuImportExternalSemaphore*(extSem_out: ptr CUexternalSemaphore; semHandleDesc: ptr CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC): CUresult {.discardable,
     cdecl, importc: "cuImportExternalSemaphore", dynlib: libName.}
 ##
 ##  \brief Signals a set of external semaphore objects
@@ -17109,7 +17109,7 @@ proc cuImportExternalSemaphore*(extSem_out: ptr CUexternalSemaphore; semHandleDe
 
 proc cuSignalExternalSemaphoresAsync*(extSemArray: ptr CUexternalSemaphore;
     paramsArray: ptr CUDA_EXTERNAL_SEMAPHORE_SIGNAL_PARAMS; numExtSems: cuint;
-                                     stream: CUstream): CUresult {.cdecl,
+                                     stream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuSignalExternalSemaphoresAsync", dynlib: libName.}
 ##
 ##  \brief Waits on a set of external semaphore objects
@@ -17188,7 +17188,7 @@ proc cuSignalExternalSemaphoresAsync*(extSemArray: ptr CUexternalSemaphore;
 
 proc cuWaitExternalSemaphoresAsync*(extSemArray: ptr CUexternalSemaphore;
     paramsArray: ptr CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS; numExtSems: cuint;
-                                   stream: CUstream): CUresult {.cdecl,
+                                   stream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuWaitExternalSemaphoresAsync", dynlib: libName.}
 ##
 ##  \brief Destroys an external semaphore
@@ -17210,7 +17210,7 @@ proc cuWaitExternalSemaphoresAsync*(extSemArray: ptr CUexternalSemaphore;
 ##  ::cuWaitExternalSemaphoresAsync
 ##
 
-proc cuDestroyExternalSemaphore*(extSem: CUexternalSemaphore): CUresult {.cdecl,
+proc cuDestroyExternalSemaphore*(extSem: CUexternalSemaphore): CUresult {.discardable, cdecl,
     importc: "cuDestroyExternalSemaphore", dynlib: libName.}
 ##  @}
 ##  END CUDA_EXTRES_INTEROP
@@ -17297,7 +17297,7 @@ proc cuDestroyExternalSemaphore*(extSem: CUexternalSemaphore): CUresult {.cdecl,
 ##
 
 proc cuStreamWaitValue32*(stream: CUstream; `addr`: CUdeviceptr; value: cint;
-                         flags: cuint): CUresult {.cdecl,
+                         flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuStreamWaitValue32", dynlib: libName.}
 ##
 ##  \brief Wait on a memory location
@@ -17342,7 +17342,7 @@ proc cuStreamWaitValue32*(stream: CUstream; `addr`: CUdeviceptr; value: cint;
 ##
 
 proc cuStreamWaitValue64*(stream: CUstream; `addr`: CUdeviceptr; value: culonglong;
-                         flags: cuint): CUresult {.cdecl,
+                         flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuStreamWaitValue64", dynlib: libName.}
 ##
 ##  \brief Write a value to memory
@@ -17373,7 +17373,7 @@ proc cuStreamWaitValue64*(stream: CUstream; `addr`: CUdeviceptr; value: culonglo
 ##
 
 proc cuStreamWriteValue32*(stream: CUstream; `addr`: CUdeviceptr; value: cint;
-                          flags: cuint): CUresult {.cdecl,
+                          flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuStreamWriteValue32", dynlib: libName.}
 ##
 ##  \brief Write a value to memory
@@ -17406,7 +17406,7 @@ proc cuStreamWriteValue32*(stream: CUstream; `addr`: CUdeviceptr; value: cint;
 ##
 
 proc cuStreamWriteValue64*(stream: CUstream; `addr`: CUdeviceptr; value: culonglong;
-                          flags: cuint): CUresult {.cdecl,
+                          flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuStreamWriteValue64", dynlib: libName.}
 ##
 ##  \brief Batch operations to synchronize the stream via memory operations
@@ -17451,7 +17451,7 @@ proc cuStreamWriteValue64*(stream: CUstream; `addr`: CUdeviceptr; value: culongl
 ##
 
 proc cuStreamBatchMemOp*(stream: CUstream; count: cuint;
-                        paramArray: ptr CUstreamBatchMemOpParams; flags: cuint): CUresult {.
+                        paramArray: ptr CUstreamBatchMemOpParams; flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuStreamBatchMemOp", dynlib: libName.}
 ##  @}
 ##  END CUDA_MEMOP
@@ -17561,7 +17561,7 @@ proc cuStreamBatchMemOp*(stream: CUstream; count: cuint;
 ##  ::cuKernelGetAttribute
 ##
 
-proc cuFuncGetAttribute*(pi: ptr cint; attrib: CUfunction_attribute; hfunc: CUfunction): CUresult {.
+proc cuFuncGetAttribute*(pi: ptr cint; attrib: CUfunction_attribute; hfunc: CUfunction): CUresult {.discardable,
     cdecl, importc: "cuFuncGetAttribute", dynlib: libName.}
 ##
 ##  \brief Sets information about a function
@@ -17629,7 +17629,7 @@ proc cuFuncGetAttribute*(pi: ptr cint; attrib: CUfunction_attribute; hfunc: CUfu
 ##  ::cuKernelSetAttribute
 ##
 
-proc cuFuncSetAttribute*(hfunc: CUfunction; attrib: CUfunction_attribute; value: cint): CUresult {.
+proc cuFuncSetAttribute*(hfunc: CUfunction; attrib: CUfunction_attribute; value: cint): CUresult {.discardable,
     cdecl, importc: "cuFuncSetAttribute", dynlib: libName.}
 ##
 ##  \brief Sets the preferred cache configuration for a device function
@@ -17675,7 +17675,7 @@ proc cuFuncSetAttribute*(hfunc: CUfunction; attrib: CUfunction_attribute; value:
 ##  ::cuKernelSetCacheConfig
 ##
 
-proc cuFuncSetCacheConfig*(hfunc: CUfunction; config: CUfunc_cache): CUresult {.cdecl,
+proc cuFuncSetCacheConfig*(hfunc: CUfunction; config: CUfunc_cache): CUresult {.discardable, cdecl,
     importc: "cuFuncSetCacheConfig", dynlib: libName.}
 ##
 ##  \brief Returns a module handle
@@ -17702,7 +17702,7 @@ proc cuFuncSetCacheConfig*(hfunc: CUfunction; config: CUfunc_cache): CUresult {.
 ##
 ##
 
-proc cuFuncGetModule*(hmod: ptr CUmodule; hfunc: CUfunction): CUresult {.cdecl,
+proc cuFuncGetModule*(hmod: ptr CUmodule; hfunc: CUfunction): CUresult {.discardable, cdecl,
     importc: "cuFuncGetModule", dynlib: libName.}
 ##
 ##  \brief Returns the function name for a ::CUfunction handle
@@ -17724,7 +17724,7 @@ proc cuFuncGetModule*(hmod: ptr CUmodule; hfunc: CUfunction): CUresult {.cdecl,
 ##
 ##
 
-proc cuFuncGetName*(name: cstringArray; hfunc: CUfunction): CUresult {.cdecl,
+proc cuFuncGetName*(name: cstringArray; hfunc: CUfunction): CUresult {.discardable, cdecl,
     importc: "cuFuncGetName", dynlib: libName.}
 ##
 ##  \brief Returns the offset and size of a kernel parameter in the device-side parameter layout
@@ -17750,7 +17750,7 @@ proc cuFuncGetName*(name: cstringArray; hfunc: CUfunction): CUresult {.cdecl,
 ##
 
 proc cuFuncGetParamInfo*(`func`: CUfunction; paramIndex: csize_t;
-                        paramOffset: ptr csize_t; paramSize: ptr csize_t): CUresult {.
+                        paramOffset: ptr csize_t; paramSize: ptr csize_t): CUresult {.discardable,
     cdecl, importc: "cuFuncGetParamInfo", dynlib: libName.}
 type
   CUfunctionLoadingState* {.size: sizeof(cint).} = enum
@@ -17775,7 +17775,7 @@ type
 ##  ::cuModuleEnumerateFunctions
 ##
 
-proc cuFuncIsLoaded*(state: ptr CUfunctionLoadingState; function: CUfunction): CUresult {.
+proc cuFuncIsLoaded*(state: ptr CUfunctionLoadingState; function: CUfunction): CUresult {.discardable,
     cdecl, importc: "cuFuncIsLoaded", dynlib: libName.}
 ##
 ##  \brief Loads a function
@@ -17794,7 +17794,7 @@ proc cuFuncIsLoaded*(state: ptr CUfunctionLoadingState; function: CUfunction): C
 ##  ::cuFuncIsLoaded
 ##
 
-proc cuFuncLoad*(function: CUfunction): CUresult {.cdecl, importc: "cuFuncLoad",
+proc cuFuncLoad*(function: CUfunction): CUresult {.discardable, cdecl, importc: "cuFuncLoad",
     dynlib: libName.}
 ##
 ##  \brief Launches a CUDA function ::CUfunction or a CUDA kernel ::CUkernel
@@ -17919,7 +17919,7 @@ proc cuFuncLoad*(function: CUfunction): CUresult {.cdecl, importc: "cuFuncLoad",
 proc cuLaunchKernel*(f: CUfunction; gridDimX: cuint; gridDimY: cuint; gridDimZ: cuint;
                     blockDimX: cuint; blockDimY: cuint; blockDimZ: cuint;
                     sharedMemBytes: cuint; hStream: CUstream;
-                    kernelParams: ptr pointer; extra: ptr pointer): CUresult {.cdecl,
+                    kernelParams: ptr pointer; extra: ptr pointer): CUresult {.discardable, cdecl,
     importc: "cuLaunchKernel", dynlib: libName.}
 ##
 ##  \brief Launches a CUDA function ::CUfunction or a CUDA kernel ::CUkernel with launch-time configuration
@@ -18158,7 +18158,7 @@ proc cuLaunchKernel*(f: CUfunction; gridDimX: cuint; gridDimY: cuint; gridDimZ: 
 ##
 
 proc cuLaunchKernelEx*(config: ptr CUlaunchConfig; f: CUfunction;
-                      kernelParams: ptr pointer; extra: ptr pointer): CUresult {.cdecl,
+                      kernelParams: ptr pointer; extra: ptr pointer): CUresult {.discardable, cdecl,
     importc: "cuLaunchKernelEx", dynlib: libName.}
 ##
 ##  \brief Launches a CUDA function ::CUfunction or a CUDA kernel ::CUkernel where thread blocks
@@ -18252,7 +18252,7 @@ proc cuLaunchKernelEx*(config: ptr CUlaunchConfig; f: CUfunction;
 proc cuLaunchCooperativeKernel*(f: CUfunction; gridDimX: cuint; gridDimY: cuint;
                                gridDimZ: cuint; blockDimX: cuint; blockDimY: cuint;
                                blockDimZ: cuint; sharedMemBytes: cuint;
-                               hStream: CUstream; kernelParams: ptr pointer): CUresult {.
+                               hStream: CUstream; kernelParams: ptr pointer): CUresult {.discardable,
     cdecl, importc: "cuLaunchCooperativeKernel", dynlib: libName.}
 ##
 ##  \brief Launches CUDA functions on multiple devices where thread blocks can cooperate and synchronize as they execute
@@ -18394,7 +18394,7 @@ proc cuLaunchCooperativeKernel*(f: CUfunction; gridDimX: cuint; gridDimY: cuint;
 ##
 
 proc cuLaunchCooperativeKernelMultiDevice*(
-    launchParamsList: ptr CUDA_LAUNCH_PARAMS; numDevices: cuint; flags: cuint): CUresult {.
+    launchParamsList: ptr CUDA_LAUNCH_PARAMS; numDevices: cuint; flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuLaunchCooperativeKernelMultiDevice", dynlib: libName.}
 ##
 ##  \brief Enqueues a host function call in a stream
@@ -18460,7 +18460,7 @@ proc cuLaunchCooperativeKernelMultiDevice*(
 ##  ::cuStreamAddCallback
 ##
 
-proc cuLaunchHostFunc*(hStream: CUstream; fn: CUhostFn; userData: pointer): CUresult {.
+proc cuLaunchHostFunc*(hStream: CUstream; fn: CUhostFn; userData: pointer): CUresult {.discardable,
     cdecl, importc: "cuLaunchHostFunc", dynlib: libName.}
 ##  @}
 ##  END CUDA_EXEC
@@ -18510,7 +18510,7 @@ proc cuLaunchHostFunc*(hStream: CUstream; fn: CUhostFn; userData: pointer): CUre
 ##  ::cuLaunchKernel
 ##
 
-proc cuFuncSetBlockShape*(hfunc: CUfunction; x: cint; y: cint; z: cint): CUresult {.cdecl,
+proc cuFuncSetBlockShape*(hfunc: CUfunction; x: cint; y: cint; z: cint): CUresult {.discardable, cdecl,
     importc: "cuFuncSetBlockShape", dynlib: libName.}
 ##
 ##  \brief Sets the dynamic shared-memory size for the function
@@ -18545,7 +18545,7 @@ proc cuFuncSetBlockShape*(hfunc: CUfunction; x: cint; y: cint; z: cint): CUresul
 ##  ::cuLaunchKernel
 ##
 
-proc cuFuncSetSharedSize*(hfunc: CUfunction; bytes: cuint): CUresult {.cdecl,
+proc cuFuncSetSharedSize*(hfunc: CUfunction; bytes: cuint): CUresult {.discardable, cdecl,
     importc: "cuFuncSetSharedSize", dynlib: libName.}
 ##
 ##  \brief Sets the parameter size for the function
@@ -18578,7 +18578,7 @@ proc cuFuncSetSharedSize*(hfunc: CUfunction; bytes: cuint): CUresult {.cdecl,
 ##  ::cuLaunchKernel
 ##
 
-proc cuParamSetSize*(hfunc: CUfunction; numbytes: cuint): CUresult {.cdecl,
+proc cuParamSetSize*(hfunc: CUfunction; numbytes: cuint): CUresult {.discardable, cdecl,
     importc: "cuParamSetSize", dynlib: libName.}
 ##
 ##  \brief Adds an integer parameter to the function's argument list
@@ -18612,7 +18612,7 @@ proc cuParamSetSize*(hfunc: CUfunction; numbytes: cuint): CUresult {.cdecl,
 ##  ::cuLaunchKernel
 ##
 
-proc cuParamSeti*(hfunc: CUfunction; offset: cint; value: cuint): CUresult {.cdecl,
+proc cuParamSeti*(hfunc: CUfunction; offset: cint; value: cuint): CUresult {.discardable, cdecl,
     importc: "cuParamSeti", dynlib: libName.}
 ##
 ##  \brief Adds a floating-point parameter to the function's argument list
@@ -18646,7 +18646,7 @@ proc cuParamSeti*(hfunc: CUfunction; offset: cint; value: cuint): CUresult {.cde
 ##  ::cuLaunchKernel
 ##
 
-proc cuParamSetf*(hfunc: CUfunction; offset: cint; value: cfloat): CUresult {.cdecl,
+proc cuParamSetf*(hfunc: CUfunction; offset: cint; value: cfloat): CUresult {.discardable, cdecl,
     importc: "cuParamSetf", dynlib: libName.}
 ##
 ##  \brief Adds arbitrary data to the function's argument list
@@ -18682,7 +18682,7 @@ proc cuParamSetf*(hfunc: CUfunction; offset: cint; value: cfloat): CUresult {.cd
 ##  ::cuLaunchKernel
 ##
 
-proc cuParamSetv*(hfunc: CUfunction; offset: cint; `ptr`: pointer; numbytes: cuint): CUresult {.
+proc cuParamSetv*(hfunc: CUfunction; offset: cint; `ptr`: pointer; numbytes: cuint): CUresult {.discardable,
     cdecl, importc: "cuParamSetv", dynlib: libName.}
 ##
 ##  \brief Launches a CUDA function
@@ -18735,7 +18735,7 @@ proc cuParamSetv*(hfunc: CUfunction; offset: cint; `ptr`: pointer; numbytes: cui
 ##  ::cuLaunchKernel
 ##
 
-proc cuLaunch*(f: CUfunction): CUresult {.cdecl, importc: "cuLaunch", dynlib: libName.}
+proc cuLaunch*(f: CUfunction): CUresult {.discardable, cdecl, importc: "cuLaunch", dynlib: libName.}
 ##
 ##  \brief Launches a CUDA function
 ##
@@ -18789,7 +18789,7 @@ proc cuLaunch*(f: CUfunction): CUresult {.cdecl, importc: "cuLaunch", dynlib: li
 ##  ::cuLaunchKernel
 ##
 
-proc cuLaunchGrid*(f: CUfunction; grid_width: cint; grid_height: cint): CUresult {.
+proc cuLaunchGrid*(f: CUfunction; grid_width: cint; grid_height: cint): CUresult {.discardable,
     cdecl, importc: "cuLaunchGrid", dynlib: libName.}
 ##
 ##  \brief Launches a CUDA function
@@ -18853,7 +18853,7 @@ proc cuLaunchGrid*(f: CUfunction; grid_width: cint; grid_height: cint): CUresult
 ##
 
 proc cuLaunchGridAsync*(f: CUfunction; grid_width: cint; grid_height: cint;
-                       hStream: CUstream): CUresult {.cdecl,
+                       hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuLaunchGridAsync", dynlib: libName.}
 ##
 ##  \brief Adds a texture-reference to the function's argument list
@@ -18878,7 +18878,7 @@ proc cuLaunchGridAsync*(f: CUfunction; grid_width: cint; grid_height: cint;
 ##  \notefnerr
 ##
 
-proc cuParamSetTexRef*(hfunc: CUfunction; texunit: cint; hTexRef: CUtexref): CUresult {.
+proc cuParamSetTexRef*(hfunc: CUfunction; texunit: cint; hTexRef: CUtexref): CUresult {.discardable,
     cdecl, importc: "cuParamSetTexRef", dynlib: libName.}
 ##
 ##  \brief Sets the shared memory configuration for a device function.
@@ -18933,7 +18933,7 @@ proc cuParamSetTexRef*(hfunc: CUfunction; texunit: cint; hTexRef: CUtexref): CUr
 ##  ::cudaFuncSetSharedMemConfig
 ##
 
-proc cuFuncSetSharedMemConfig*(hfunc: CUfunction; config: CUsharedconfig): CUresult {.
+proc cuFuncSetSharedMemConfig*(hfunc: CUfunction; config: CUsharedconfig): CUresult {.discardable,
     cdecl, importc: "cuFuncSetSharedMemConfig", dynlib: libName.}
 ##  @}
 ##  END CUDA_EXEC_DEPRECATED
@@ -18980,7 +18980,7 @@ proc cuFuncSetSharedMemConfig*(hfunc: CUfunction; config: CUsharedconfig): CUres
 ##  ::cuGraphClone
 ##
 
-proc cuGraphCreate*(phGraph: ptr CUgraph; flags: cuint): CUresult {.cdecl,
+proc cuGraphCreate*(phGraph: ptr CUgraph; flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuGraphCreate", dynlib: libName.}
 ##
 ##  \brief Creates a kernel execution node and adds it to a graph
@@ -19086,7 +19086,7 @@ proc cuGraphCreate*(phGraph: ptr CUgraph; flags: cuint): CUresult {.cdecl,
 
 proc cuGraphAddKernelNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                           dependencies: ptr CUgraphNode; numDependencies: csize_t;
-                          nodeParams: ptr CUDA_KERNEL_NODE_PARAMS): CUresult {.
+                          nodeParams: ptr CUDA_KERNEL_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphAddKernelNode", dynlib: libName.}
 ##
 ##  \brief Returns a kernel node's parameters
@@ -19120,7 +19120,7 @@ proc cuGraphAddKernelNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##
 
 proc cuGraphKernelNodeGetParams*(hNode: CUgraphNode;
-                                nodeParams: ptr CUDA_KERNEL_NODE_PARAMS): CUresult {.
+                                nodeParams: ptr CUDA_KERNEL_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphKernelNodeGetParams", dynlib: libName.}
 ##
 ##  \brief Sets a kernel node's parameters
@@ -19146,7 +19146,7 @@ proc cuGraphKernelNodeGetParams*(hNode: CUgraphNode;
 ##
 
 proc cuGraphKernelNodeSetParams*(hNode: CUgraphNode;
-                                nodeParams: ptr CUDA_KERNEL_NODE_PARAMS): CUresult {.
+                                nodeParams: ptr CUDA_KERNEL_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphKernelNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Creates a copyMem node and adds it to a graph
@@ -19198,7 +19198,7 @@ proc cuGraphKernelNodeSetParams*(hNode: CUgraphNode;
 
 proc cuGraphAddMemcpyNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                           dependencies: ptr CUgraphNode; numDependencies: csize_t;
-                          copyParams: ptr CUDA_MEMCPY3D; ctx: CUcontext): CUresult {.
+                          copyParams: ptr CUDA_MEMCPY3D; ctx: CUcontext): CUresult {.discardable,
     cdecl, importc: "cuGraphAddMemcpyNode", dynlib: libName.}
 ##
 ##  \brief Returns a copyMem node's parameters
@@ -19222,7 +19222,7 @@ proc cuGraphAddMemcpyNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##  ::cuGraphMemcpyNodeSetParams
 ##
 
-proc cuGraphMemcpyNodeGetParams*(hNode: CUgraphNode; nodeParams: ptr CUDA_MEMCPY3D): CUresult {.
+proc cuGraphMemcpyNodeGetParams*(hNode: CUgraphNode; nodeParams: ptr CUDA_MEMCPY3D): CUresult {.discardable,
     cdecl, importc: "cuGraphMemcpyNodeGetParams", dynlib: libName.}
 ##
 ##  \brief Sets a copyMem node's parameters
@@ -19247,7 +19247,7 @@ proc cuGraphMemcpyNodeGetParams*(hNode: CUgraphNode; nodeParams: ptr CUDA_MEMCPY
 ##  ::cuGraphMemcpyNodeGetParams
 ##
 
-proc cuGraphMemcpyNodeSetParams*(hNode: CUgraphNode; nodeParams: ptr CUDA_MEMCPY3D): CUresult {.
+proc cuGraphMemcpyNodeSetParams*(hNode: CUgraphNode; nodeParams: ptr CUDA_MEMCPY3D): CUresult {.discardable,
     cdecl, importc: "cuGraphMemcpyNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Creates a memset node and adds it to a graph
@@ -19293,7 +19293,7 @@ proc cuGraphMemcpyNodeSetParams*(hNode: CUgraphNode; nodeParams: ptr CUDA_MEMCPY
 
 proc cuGraphAddMemsetNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                           dependencies: ptr CUgraphNode; numDependencies: csize_t;
-                          memsetParams: ptr CUDA_MEMSET_NODE_PARAMS; ctx: CUcontext): CUresult {.
+                          memsetParams: ptr CUDA_MEMSET_NODE_PARAMS; ctx: CUcontext): CUresult {.discardable,
     cdecl, importc: "cuGraphAddMemsetNode", dynlib: libName.}
 ##
 ##  \brief Returns a memset node's parameters
@@ -19318,7 +19318,7 @@ proc cuGraphAddMemsetNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##
 
 proc cuGraphMemsetNodeGetParams*(hNode: CUgraphNode;
-                                nodeParams: ptr CUDA_MEMSET_NODE_PARAMS): CUresult {.
+                                nodeParams: ptr CUDA_MEMSET_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphMemsetNodeGetParams", dynlib: libName.}
 ##
 ##  \brief Sets a memset node's parameters
@@ -19344,7 +19344,7 @@ proc cuGraphMemsetNodeGetParams*(hNode: CUgraphNode;
 ##
 
 proc cuGraphMemsetNodeSetParams*(hNode: CUgraphNode;
-                                nodeParams: ptr CUDA_MEMSET_NODE_PARAMS): CUresult {.
+                                nodeParams: ptr CUDA_MEMSET_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphMemsetNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Creates a host execution node and adds it to a graph
@@ -19389,7 +19389,7 @@ proc cuGraphMemsetNodeSetParams*(hNode: CUgraphNode;
 
 proc cuGraphAddHostNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                         dependencies: ptr CUgraphNode; numDependencies: csize_t;
-                        nodeParams: ptr CUDA_HOST_NODE_PARAMS): CUresult {.cdecl,
+                        nodeParams: ptr CUDA_HOST_NODE_PARAMS): CUresult {.discardable, cdecl,
     importc: "cuGraphAddHostNode", dynlib: libName.}
 ##
 ##  \brief Returns a host node's parameters
@@ -19414,7 +19414,7 @@ proc cuGraphAddHostNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##
 
 proc cuGraphHostNodeGetParams*(hNode: CUgraphNode;
-                              nodeParams: ptr CUDA_HOST_NODE_PARAMS): CUresult {.
+                              nodeParams: ptr CUDA_HOST_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphHostNodeGetParams", dynlib: libName.}
 ##
 ##  \brief Sets a host node's parameters
@@ -19440,7 +19440,7 @@ proc cuGraphHostNodeGetParams*(hNode: CUgraphNode;
 ##
 
 proc cuGraphHostNodeSetParams*(hNode: CUgraphNode;
-                              nodeParams: ptr CUDA_HOST_NODE_PARAMS): CUresult {.
+                              nodeParams: ptr CUDA_HOST_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphHostNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Creates a child graph node and adds it to a graph
@@ -19484,7 +19484,7 @@ proc cuGraphHostNodeSetParams*(hNode: CUgraphNode;
 
 proc cuGraphAddChildGraphNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                               dependencies: ptr CUgraphNode;
-                              numDependencies: csize_t; childGraph: CUgraph): CUresult {.
+                              numDependencies: csize_t; childGraph: CUgraph): CUresult {.discardable,
     cdecl, importc: "cuGraphAddChildGraphNode", dynlib: libName.}
 ##
 ##  \brief Gets a handle to the embedded graph of a child graph node
@@ -19512,7 +19512,7 @@ proc cuGraphAddChildGraphNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##  ::cuGraphNodeFindInClone
 ##
 
-proc cuGraphChildGraphNodeGetGraph*(hNode: CUgraphNode; phGraph: ptr CUgraph): CUresult {.
+proc cuGraphChildGraphNodeGetGraph*(hNode: CUgraphNode; phGraph: ptr CUgraph): CUresult {.discardable,
     cdecl, importc: "cuGraphChildGraphNodeGetGraph", dynlib: libName.}
 ##
 ##  \brief Creates an empty node and adds it to a graph
@@ -19553,7 +19553,7 @@ proc cuGraphChildGraphNodeGetGraph*(hNode: CUgraphNode; phGraph: ptr CUgraph): C
 ##
 
 proc cuGraphAddEmptyNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
-                         dependencies: ptr CUgraphNode; numDependencies: csize_t): CUresult {.
+                         dependencies: ptr CUgraphNode; numDependencies: csize_t): CUresult {.discardable,
     cdecl, importc: "cuGraphAddEmptyNode", dynlib: libName.}
 ##
 ##  \brief Creates an event record node and adds it to a graph
@@ -19598,7 +19598,7 @@ proc cuGraphAddEmptyNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 
 proc cuGraphAddEventRecordNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                                dependencies: ptr CUgraphNode;
-                               numDependencies: csize_t; event: CUevent): CUresult {.
+                               numDependencies: csize_t; event: CUevent): CUresult {.discardable,
     cdecl, importc: "cuGraphAddEventRecordNode", dynlib: libName.}
 ##
 ##  \brief Returns the event associated with an event record node
@@ -19624,7 +19624,7 @@ proc cuGraphAddEventRecordNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##  ::cuStreamWaitEvent
 ##
 
-proc cuGraphEventRecordNodeGetEvent*(hNode: CUgraphNode; event_out: ptr CUevent): CUresult {.
+proc cuGraphEventRecordNodeGetEvent*(hNode: CUgraphNode; event_out: ptr CUevent): CUresult {.discardable,
     cdecl, importc: "cuGraphEventRecordNodeGetEvent", dynlib: libName.}
 ##
 ##  \brief Sets an event record node's event
@@ -19651,7 +19651,7 @@ proc cuGraphEventRecordNodeGetEvent*(hNode: CUgraphNode; event_out: ptr CUevent)
 ##  ::cuStreamWaitEvent
 ##
 
-proc cuGraphEventRecordNodeSetEvent*(hNode: CUgraphNode; event: CUevent): CUresult {.
+proc cuGraphEventRecordNodeSetEvent*(hNode: CUgraphNode; event: CUevent): CUresult {.discardable,
     cdecl, importc: "cuGraphEventRecordNodeSetEvent", dynlib: libName.}
 ##
 ##  \brief Creates an event wait node and adds it to a graph
@@ -19697,7 +19697,7 @@ proc cuGraphEventRecordNodeSetEvent*(hNode: CUgraphNode; event: CUevent): CUresu
 
 proc cuGraphAddEventWaitNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                              dependencies: ptr CUgraphNode;
-                             numDependencies: csize_t; event: CUevent): CUresult {.
+                             numDependencies: csize_t; event: CUevent): CUresult {.discardable,
     cdecl, importc: "cuGraphAddEventWaitNode", dynlib: libName.}
 ##
 ##  \brief Returns the event associated with an event wait node
@@ -19723,7 +19723,7 @@ proc cuGraphAddEventWaitNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##  ::cuStreamWaitEvent
 ##
 
-proc cuGraphEventWaitNodeGetEvent*(hNode: CUgraphNode; event_out: ptr CUevent): CUresult {.
+proc cuGraphEventWaitNodeGetEvent*(hNode: CUgraphNode; event_out: ptr CUevent): CUresult {.discardable,
     cdecl, importc: "cuGraphEventWaitNodeGetEvent", dynlib: libName.}
 ##
 ##  \brief Sets an event wait node's event
@@ -19750,7 +19750,7 @@ proc cuGraphEventWaitNodeGetEvent*(hNode: CUgraphNode; event_out: ptr CUevent): 
 ##  ::cuStreamWaitEvent
 ##
 
-proc cuGraphEventWaitNodeSetEvent*(hNode: CUgraphNode; event: CUevent): CUresult {.
+proc cuGraphEventWaitNodeSetEvent*(hNode: CUgraphNode; event: CUevent): CUresult {.discardable,
     cdecl, importc: "cuGraphEventWaitNodeSetEvent", dynlib: libName.}
 ##
 ##  \brief Creates an external semaphore signal node and adds it to a graph
@@ -19802,7 +19802,7 @@ proc cuGraphEventWaitNodeSetEvent*(hNode: CUgraphNode; event: CUevent): CUresult
 
 proc cuGraphAddExternalSemaphoresSignalNode*(phGraphNode: ptr CUgraphNode;
     hGraph: CUgraph; dependencies: ptr CUgraphNode; numDependencies: csize_t;
-    nodeParams: ptr CUDA_EXT_SEM_SIGNAL_NODE_PARAMS): CUresult {.cdecl,
+    nodeParams: ptr CUDA_EXT_SEM_SIGNAL_NODE_PARAMS): CUresult {.discardable, cdecl,
     importc: "cuGraphAddExternalSemaphoresSignalNode", dynlib: libName.}
 ##
 ##  \brief Returns an external semaphore signal node's parameters
@@ -19835,7 +19835,7 @@ proc cuGraphAddExternalSemaphoresSignalNode*(phGraphNode: ptr CUgraphNode;
 ##
 
 proc cuGraphExternalSemaphoresSignalNodeGetParams*(hNode: CUgraphNode;
-    params_out: ptr CUDA_EXT_SEM_SIGNAL_NODE_PARAMS): CUresult {.cdecl,
+    params_out: ptr CUDA_EXT_SEM_SIGNAL_NODE_PARAMS): CUresult {.discardable, cdecl,
     importc: "cuGraphExternalSemaphoresSignalNodeGetParams", dynlib: libName.}
 ##
 ##  \brief Sets an external semaphore signal node's parameters
@@ -19863,7 +19863,7 @@ proc cuGraphExternalSemaphoresSignalNodeGetParams*(hNode: CUgraphNode;
 ##
 
 proc cuGraphExternalSemaphoresSignalNodeSetParams*(hNode: CUgraphNode;
-    nodeParams: ptr CUDA_EXT_SEM_SIGNAL_NODE_PARAMS): CUresult {.cdecl,
+    nodeParams: ptr CUDA_EXT_SEM_SIGNAL_NODE_PARAMS): CUresult {.discardable, cdecl,
     importc: "cuGraphExternalSemaphoresSignalNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Creates an external semaphore wait node and adds it to a graph
@@ -19915,7 +19915,7 @@ proc cuGraphExternalSemaphoresSignalNodeSetParams*(hNode: CUgraphNode;
 
 proc cuGraphAddExternalSemaphoresWaitNode*(phGraphNode: ptr CUgraphNode;
     hGraph: CUgraph; dependencies: ptr CUgraphNode; numDependencies: csize_t;
-    nodeParams: ptr CUDA_EXT_SEM_WAIT_NODE_PARAMS): CUresult {.cdecl,
+    nodeParams: ptr CUDA_EXT_SEM_WAIT_NODE_PARAMS): CUresult {.discardable, cdecl,
     importc: "cuGraphAddExternalSemaphoresWaitNode", dynlib: libName.}
 ##
 ##  \brief Returns an external semaphore wait node's parameters
@@ -19948,7 +19948,7 @@ proc cuGraphAddExternalSemaphoresWaitNode*(phGraphNode: ptr CUgraphNode;
 ##
 
 proc cuGraphExternalSemaphoresWaitNodeGetParams*(hNode: CUgraphNode;
-    params_out: ptr CUDA_EXT_SEM_WAIT_NODE_PARAMS): CUresult {.cdecl,
+    params_out: ptr CUDA_EXT_SEM_WAIT_NODE_PARAMS): CUresult {.discardable, cdecl,
     importc: "cuGraphExternalSemaphoresWaitNodeGetParams", dynlib: libName.}
 ##
 ##  \brief Sets an external semaphore wait node's parameters
@@ -19976,7 +19976,7 @@ proc cuGraphExternalSemaphoresWaitNodeGetParams*(hNode: CUgraphNode;
 ##
 
 proc cuGraphExternalSemaphoresWaitNodeSetParams*(hNode: CUgraphNode;
-    nodeParams: ptr CUDA_EXT_SEM_WAIT_NODE_PARAMS): CUresult {.cdecl,
+    nodeParams: ptr CUDA_EXT_SEM_WAIT_NODE_PARAMS): CUresult {.discardable, cdecl,
     importc: "cuGraphExternalSemaphoresWaitNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Creates a batch memory operation node and adds it to a graph
@@ -20036,7 +20036,7 @@ proc cuGraphExternalSemaphoresWaitNodeSetParams*(hNode: CUgraphNode;
 proc cuGraphAddBatchMemOpNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                               dependencies: ptr CUgraphNode;
                               numDependencies: csize_t;
-                              nodeParams: ptr CUDA_BATCH_MEM_OP_NODE_PARAMS): CUresult {.
+                              nodeParams: ptr CUDA_BATCH_MEM_OP_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphAddBatchMemOpNode", dynlib: libName.}
 ##
 ##  \brief Returns a batch mem op node's parameters
@@ -20065,7 +20065,7 @@ proc cuGraphAddBatchMemOpNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##  ::cuGraphBatchMemOpNodeSetParams
 ##
 
-proc cuGraphBatchMemOpNodeGetParams*(hNode: CUgraphNode; nodeParams_out: ptr CUDA_BATCH_MEM_OP_NODE_PARAMS): CUresult {.
+proc cuGraphBatchMemOpNodeGetParams*(hNode: CUgraphNode; nodeParams_out: ptr CUDA_BATCH_MEM_OP_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphBatchMemOpNodeGetParams", dynlib: libName.}
 ##
 ##  \brief Sets a batch mem op node's parameters
@@ -20093,7 +20093,7 @@ proc cuGraphBatchMemOpNodeGetParams*(hNode: CUgraphNode; nodeParams_out: ptr CUD
 ##  ::cuGraphBatchMemOpNodeGetParams
 ##
 
-proc cuGraphBatchMemOpNodeSetParams*(hNode: CUgraphNode; nodeParams: ptr CUDA_BATCH_MEM_OP_NODE_PARAMS): CUresult {.
+proc cuGraphBatchMemOpNodeSetParams*(hNode: CUgraphNode; nodeParams: ptr CUDA_BATCH_MEM_OP_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphBatchMemOpNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Sets the parameters for a batch mem op node in the given graphExec
@@ -20142,7 +20142,7 @@ proc cuGraphBatchMemOpNodeSetParams*(hNode: CUgraphNode; nodeParams: ptr CUDA_BA
 ##
 
 proc cuGraphExecBatchMemOpNodeSetParams*(hGraphExec: CUgraphExec;
-                                        hNode: CUgraphNode; nodeParams: ptr CUDA_BATCH_MEM_OP_NODE_PARAMS): CUresult {.
+                                        hNode: CUgraphNode; nodeParams: ptr CUDA_BATCH_MEM_OP_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphExecBatchMemOpNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Creates an allocation node and adds it to a graph
@@ -20221,7 +20221,7 @@ proc cuGraphExecBatchMemOpNodeSetParams*(hGraphExec: CUgraphExec;
 proc cuGraphAddMemAllocNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                             dependencies: ptr CUgraphNode;
                             numDependencies: csize_t;
-                            nodeParams: ptr CUDA_MEM_ALLOC_NODE_PARAMS): CUresult {.
+                            nodeParams: ptr CUDA_MEM_ALLOC_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphAddMemAllocNode", dynlib: libName.}
 ##
 ##  \brief Returns a memory alloc node's parameters
@@ -20248,7 +20248,7 @@ proc cuGraphAddMemAllocNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##
 
 proc cuGraphMemAllocNodeGetParams*(hNode: CUgraphNode;
-                                  params_out: ptr CUDA_MEM_ALLOC_NODE_PARAMS): CUresult {.
+                                  params_out: ptr CUDA_MEM_ALLOC_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphMemAllocNodeGetParams", dynlib: libName.}
 ##
 ##  \brief Creates a memory free node and adds it to a graph
@@ -20309,7 +20309,7 @@ proc cuGraphMemAllocNodeGetParams*(hNode: CUgraphNode;
 
 proc cuGraphAddMemFreeNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                            dependencies: ptr CUgraphNode; numDependencies: csize_t;
-                           dptr: CUdeviceptr): CUresult {.cdecl,
+                           dptr: CUdeviceptr): CUresult {.discardable, cdecl,
     importc: "cuGraphAddMemFreeNode", dynlib: libName.}
 ##
 ##  \brief Returns a memory free node's parameters
@@ -20332,7 +20332,7 @@ proc cuGraphAddMemFreeNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##  ::cuGraphMemAllocNodeGetParams
 ##
 
-proc cuGraphMemFreeNodeGetParams*(hNode: CUgraphNode; dptr_out: ptr CUdeviceptr): CUresult {.
+proc cuGraphMemFreeNodeGetParams*(hNode: CUgraphNode; dptr_out: ptr CUdeviceptr): CUresult {.discardable,
     cdecl, importc: "cuGraphMemFreeNodeGetParams", dynlib: libName.}
 ##
 ##  \brief Free unused memory that was cached on the specified device for use with graphs back to the OS.
@@ -20353,7 +20353,7 @@ proc cuGraphMemFreeNodeGetParams*(hNode: CUgraphNode; dptr_out: ptr CUdeviceptr)
 ##  ::cuDeviceGetGraphMemAttribute
 ##
 
-proc cuDeviceGraphMemTrim*(device: CUdevice): CUresult {.cdecl,
+proc cuDeviceGraphMemTrim*(device: CUdevice): CUresult {.discardable, cdecl,
     importc: "cuDeviceGraphMemTrim", dynlib: libName.}
 ##
 ##  \brief Query asynchronous allocation attributes related to graphs
@@ -20383,7 +20383,7 @@ proc cuDeviceGraphMemTrim*(device: CUdevice): CUresult {.cdecl,
 ##
 
 proc cuDeviceGetGraphMemAttribute*(device: CUdevice; attr: CUgraphMem_attribute;
-                                  value: pointer): CUresult {.cdecl,
+                                  value: pointer): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetGraphMemAttribute", dynlib: libName.}
 ##
 ##  \brief Set asynchronous allocation attributes related to graphs
@@ -20410,7 +20410,7 @@ proc cuDeviceGetGraphMemAttribute*(device: CUdevice; attr: CUgraphMem_attribute;
 ##
 
 proc cuDeviceSetGraphMemAttribute*(device: CUdevice; attr: CUgraphMem_attribute;
-                                  value: pointer): CUresult {.cdecl,
+                                  value: pointer): CUresult {.discardable, cdecl,
     importc: "cuDeviceSetGraphMemAttribute", dynlib: libName.}
 ##
 ##  \brief Clones a graph
@@ -20436,7 +20436,7 @@ proc cuDeviceSetGraphMemAttribute*(device: CUdevice; attr: CUgraphMem_attribute;
 ##  ::cuGraphNodeFindInClone
 ##
 
-proc cuGraphClone*(phGraphClone: ptr CUgraph; originalGraph: CUgraph): CUresult {.
+proc cuGraphClone*(phGraphClone: ptr CUgraph; originalGraph: CUgraph): CUresult {.discardable,
     cdecl, importc: "cuGraphClone", dynlib: libName.}
 ##
 ##  \brief Finds a cloned version of a node
@@ -20464,7 +20464,7 @@ proc cuGraphClone*(phGraphClone: ptr CUgraph; originalGraph: CUgraph): CUresult 
 ##
 
 proc cuGraphNodeFindInClone*(phNode: ptr CUgraphNode; hOriginalNode: CUgraphNode;
-                            hClonedGraph: CUgraph): CUresult {.cdecl,
+                            hClonedGraph: CUgraph): CUresult {.discardable, cdecl,
     importc: "cuGraphNodeFindInClone", dynlib: libName.}
 ##
 ##  \brief Returns a node's type
@@ -20496,7 +20496,7 @@ proc cuGraphNodeFindInClone*(phNode: ptr CUgraphNode; hOriginalNode: CUgraphNode
 ##  ::cuGraphMemsetNodeSetParams
 ##
 
-proc cuGraphNodeGetType*(hNode: CUgraphNode; `type`: ptr CUgraphNodeType): CUresult {.
+proc cuGraphNodeGetType*(hNode: CUgraphNode; `type`: ptr CUgraphNodeType): CUresult {.discardable,
     cdecl, importc: "cuGraphNodeGetType", dynlib: libName.}
 ##
 ##  \brief Returns a graph's nodes
@@ -20528,7 +20528,7 @@ proc cuGraphNodeGetType*(hNode: CUgraphNode; `type`: ptr CUgraphNodeType): CUres
 ##  ::cuGraphNodeGetDependentNodes
 ##
 
-proc cuGraphGetNodes*(hGraph: CUgraph; nodes: ptr CUgraphNode; numNodes: ptr csize_t): CUresult {.
+proc cuGraphGetNodes*(hGraph: CUgraph; nodes: ptr CUgraphNode; numNodes: ptr csize_t): CUresult {.discardable,
     cdecl, importc: "cuGraphGetNodes", dynlib: libName.}
 ##
 ##  \brief Returns a graph's root nodes
@@ -20561,7 +20561,7 @@ proc cuGraphGetNodes*(hGraph: CUgraph; nodes: ptr CUgraphNode; numNodes: ptr csi
 ##
 
 proc cuGraphGetRootNodes*(hGraph: CUgraph; rootNodes: ptr CUgraphNode;
-                         numRootNodes: ptr csize_t): CUresult {.cdecl,
+                         numRootNodes: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuGraphGetRootNodes", dynlib: libName.}
 ##
 ##  \brief Returns a graph's dependency edges
@@ -20597,7 +20597,7 @@ proc cuGraphGetRootNodes*(hGraph: CUgraph; rootNodes: ptr CUgraphNode;
 ##
 
 proc cuGraphGetEdges*(hGraph: CUgraph; `from`: ptr CUgraphNode; to: ptr CUgraphNode;
-                     numEdges: ptr csize_t): CUresult {.cdecl,
+                     numEdges: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuGraphGetEdges", dynlib: libName.}
 ##
 ##  \brief Returns a graph's dependency edges (12.3+)
@@ -20640,7 +20640,7 @@ proc cuGraphGetEdges*(hGraph: CUgraph; `from`: ptr CUgraphNode; to: ptr CUgraphN
 
 proc cuGraphGetEdges_v2*(hGraph: CUgraph; `from`: ptr CUgraphNode;
                         to: ptr CUgraphNode; edgeData: ptr CUgraphEdgeData;
-                        numEdges: ptr csize_t): CUresult {.cdecl,
+                        numEdges: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuGraphGetEdges_v2", dynlib: libName.}
 ##
 ##  \brief Returns a node's dependencies
@@ -20673,7 +20673,7 @@ proc cuGraphGetEdges_v2*(hGraph: CUgraph; `from`: ptr CUgraphNode;
 ##
 
 proc cuGraphNodeGetDependencies*(hNode: CUgraphNode; dependencies: ptr CUgraphNode;
-                                numDependencies: ptr csize_t): CUresult {.cdecl,
+                                numDependencies: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuGraphNodeGetDependencies", dynlib: libName.}
 ##
 ##  \brief Returns a node's dependencies (12.3+)
@@ -20714,7 +20714,7 @@ proc cuGraphNodeGetDependencies*(hNode: CUgraphNode; dependencies: ptr CUgraphNo
 proc cuGraphNodeGetDependencies_v2*(hNode: CUgraphNode;
                                    dependencies: ptr CUgraphNode;
                                    edgeData: ptr CUgraphEdgeData;
-                                   numDependencies: ptr csize_t): CUresult {.cdecl,
+                                   numDependencies: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuGraphNodeGetDependencies_v2", dynlib: libName.}
 ##
 ##  \brief Returns a node's dependent nodes
@@ -20749,7 +20749,7 @@ proc cuGraphNodeGetDependencies_v2*(hNode: CUgraphNode;
 
 proc cuGraphNodeGetDependentNodes*(hNode: CUgraphNode;
                                   dependentNodes: ptr CUgraphNode;
-                                  numDependentNodes: ptr csize_t): CUresult {.cdecl,
+                                  numDependentNodes: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuGraphNodeGetDependentNodes", dynlib: libName.}
 ##
 ##  \brief Returns a node's dependent nodes (12.3+)
@@ -20791,7 +20791,7 @@ proc cuGraphNodeGetDependentNodes*(hNode: CUgraphNode;
 proc cuGraphNodeGetDependentNodes_v2*(hNode: CUgraphNode;
                                      dependentNodes: ptr CUgraphNode;
                                      edgeData: ptr CUgraphEdgeData;
-                                     numDependentNodes: ptr csize_t): CUresult {.
+                                     numDependentNodes: ptr csize_t): CUresult {.discardable,
     cdecl, importc: "cuGraphNodeGetDependentNodes_v2", dynlib: libName.}
 ##
 ##  \brief Adds dependency edges to a graph
@@ -20822,7 +20822,7 @@ proc cuGraphNodeGetDependentNodes_v2*(hNode: CUgraphNode;
 ##
 
 proc cuGraphAddDependencies*(hGraph: CUgraph; `from`: ptr CUgraphNode;
-                            to: ptr CUgraphNode; numDependencies: csize_t): CUresult {.
+                            to: ptr CUgraphNode; numDependencies: csize_t): CUresult {.discardable,
     cdecl, importc: "cuGraphAddDependencies", dynlib: libName.}
 ##
 ##  \brief Adds dependency edges to a graph (12.3+)
@@ -20855,7 +20855,7 @@ proc cuGraphAddDependencies*(hGraph: CUgraph; `from`: ptr CUgraphNode;
 
 proc cuGraphAddDependencies_v2*(hGraph: CUgraph; `from`: ptr CUgraphNode;
                                to: ptr CUgraphNode; edgeData: ptr CUgraphEdgeData;
-                               numDependencies: csize_t): CUresult {.cdecl,
+                               numDependencies: csize_t): CUresult {.discardable, cdecl,
     importc: "cuGraphAddDependencies_v2", dynlib: libName.}
 ##
 ##  \brief Removes dependency edges from a graph
@@ -20889,7 +20889,7 @@ proc cuGraphAddDependencies_v2*(hGraph: CUgraph; `from`: ptr CUgraphNode;
 ##
 
 proc cuGraphRemoveDependencies*(hGraph: CUgraph; `from`: ptr CUgraphNode;
-                               to: ptr CUgraphNode; numDependencies: csize_t): CUresult {.
+                               to: ptr CUgraphNode; numDependencies: csize_t): CUresult {.discardable,
     cdecl, importc: "cuGraphRemoveDependencies", dynlib: libName.}
 ##
 ##  \brief Removes dependency edges from a graph (12.3+)
@@ -20929,7 +20929,7 @@ proc cuGraphRemoveDependencies*(hGraph: CUgraph; `from`: ptr CUgraphNode;
 proc cuGraphRemoveDependencies_v2*(hGraph: CUgraph; `from`: ptr CUgraphNode;
                                   to: ptr CUgraphNode;
                                   edgeData: ptr CUgraphEdgeData;
-                                  numDependencies: csize_t): CUresult {.cdecl,
+                                  numDependencies: csize_t): CUresult {.discardable, cdecl,
     importc: "cuGraphRemoveDependencies_v2", dynlib: libName.}
 ##
 ##  \brief Remove a node from the graph
@@ -20957,7 +20957,7 @@ proc cuGraphRemoveDependencies_v2*(hGraph: CUgraph; `from`: ptr CUgraphNode;
 ##  ::cuGraphAddMemsetNode
 ##
 
-proc cuGraphDestroyNode*(hNode: CUgraphNode): CUresult {.cdecl,
+proc cuGraphDestroyNode*(hNode: CUgraphNode): CUresult {.discardable, cdecl,
     importc: "cuGraphDestroyNode", dynlib: libName.}
 ##
 ##  \brief Creates an executable graph from a graph
@@ -21031,7 +21031,7 @@ proc cuGraphDestroyNode*(hNode: CUgraphNode): CUresult {.cdecl,
 ##
 
 proc cuGraphInstantiate*(phGraphExec: ptr CUgraphExec; hGraph: CUgraph;
-                        flags: culonglong): CUresult {.cdecl,
+                        flags: culonglong): CUresult {.discardable, cdecl,
     importc: "cuGraphInstantiate", dynlib: libName.}
 ##
 ##  \brief Creates an executable graph from a graph
@@ -21136,7 +21136,7 @@ proc cuGraphInstantiate*(phGraphExec: ptr CUgraphExec; hGraph: CUgraph;
 ##
 
 proc cuGraphInstantiateWithParams*(phGraphExec: ptr CUgraphExec; hGraph: CUgraph;
-    instantiateParams: ptr CUDA_GRAPH_INSTANTIATE_PARAMS): CUresult {.cdecl,
+    instantiateParams: ptr CUDA_GRAPH_INSTANTIATE_PARAMS): CUresult {.discardable, cdecl,
     importc: "cuGraphInstantiateWithParams", dynlib: libName.}
 ##
 ##  \brief Query the instantiation flags of an executable graph
@@ -21159,7 +21159,7 @@ proc cuGraphInstantiateWithParams*(phGraphExec: ptr CUgraphExec; hGraph: CUgraph
 ##  ::cuGraphInstantiateWithParams
 ##
 
-proc cuGraphExecGetFlags*(hGraphExec: CUgraphExec; flags: ptr culonglong): CUresult {.
+proc cuGraphExecGetFlags*(hGraphExec: CUgraphExec; flags: ptr culonglong): CUresult {.discardable,
     cdecl, importc: "cuGraphExecGetFlags", dynlib: libName.}
 ##
 ##  \brief Sets the parameters for a kernel node in the given graphExec
@@ -21218,7 +21218,7 @@ proc cuGraphExecGetFlags*(hGraphExec: CUgraphExec; flags: ptr culonglong): CUres
 ##
 
 proc cuGraphExecKernelNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
-                                    nodeParams: ptr CUDA_KERNEL_NODE_PARAMS): CUresult {.
+                                    nodeParams: ptr CUDA_KERNEL_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphExecKernelNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Sets the parameters for a copyMem node in the given graphExec.
@@ -21267,7 +21267,7 @@ proc cuGraphExecKernelNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode
 ##
 
 proc cuGraphExecMemcpyNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
-                                    copyParams: ptr CUDA_MEMCPY3D; ctx: CUcontext): CUresult {.
+                                    copyParams: ptr CUDA_MEMCPY3D; ctx: CUcontext): CUresult {.discardable,
     cdecl, importc: "cuGraphExecMemcpyNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Sets the parameters for a memset node in the given graphExec.
@@ -21317,7 +21317,7 @@ proc cuGraphExecMemcpyNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode
 
 proc cuGraphExecMemsetNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
                                     memsetParams: ptr CUDA_MEMSET_NODE_PARAMS;
-                                    ctx: CUcontext): CUresult {.cdecl,
+                                    ctx: CUcontext): CUresult {.discardable, cdecl,
     importc: "cuGraphExecMemsetNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Sets the parameters for a host node in the given graphExec.
@@ -21357,7 +21357,7 @@ proc cuGraphExecMemsetNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode
 ##
 
 proc cuGraphExecHostNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
-                                  nodeParams: ptr CUDA_HOST_NODE_PARAMS): CUresult {.
+                                  nodeParams: ptr CUDA_HOST_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphExecHostNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Updates node parameters in the child graph node in the given graphExec.
@@ -21403,7 +21403,7 @@ proc cuGraphExecHostNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
 ##
 
 proc cuGraphExecChildGraphNodeSetParams*(hGraphExec: CUgraphExec;
-                                        hNode: CUgraphNode; childGraph: CUgraph): CUresult {.
+                                        hNode: CUgraphNode; childGraph: CUgraph): CUresult {.discardable,
     cdecl, importc: "cuGraphExecChildGraphNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Sets the event for an event record node in the given graphExec
@@ -21446,7 +21446,7 @@ proc cuGraphExecChildGraphNodeSetParams*(hGraphExec: CUgraphExec;
 ##
 
 proc cuGraphExecEventRecordNodeSetEvent*(hGraphExec: CUgraphExec;
-                                        hNode: CUgraphNode; event: CUevent): CUresult {.
+                                        hNode: CUgraphNode; event: CUevent): CUresult {.discardable,
     cdecl, importc: "cuGraphExecEventRecordNodeSetEvent", dynlib: libName.}
 ##
 ##  \brief Sets the event for an event wait node in the given graphExec
@@ -21489,7 +21489,7 @@ proc cuGraphExecEventRecordNodeSetEvent*(hGraphExec: CUgraphExec;
 ##
 
 proc cuGraphExecEventWaitNodeSetEvent*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
-                                      event: CUevent): CUresult {.cdecl,
+                                      event: CUevent): CUresult {.discardable, cdecl,
     importc: "cuGraphExecEventWaitNodeSetEvent", dynlib: libName.}
 ##
 ##  \brief Sets the parameters for an external semaphore signal node in the given graphExec
@@ -21535,7 +21535,7 @@ proc cuGraphExecEventWaitNodeSetEvent*(hGraphExec: CUgraphExec; hNode: CUgraphNo
 ##
 
 proc cuGraphExecExternalSemaphoresSignalNodeSetParams*(hGraphExec: CUgraphExec;
-    hNode: CUgraphNode; nodeParams: ptr CUDA_EXT_SEM_SIGNAL_NODE_PARAMS): CUresult {.
+    hNode: CUgraphNode; nodeParams: ptr CUDA_EXT_SEM_SIGNAL_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphExecExternalSemaphoresSignalNodeSetParams",
     dynlib: libName.}
 ##
@@ -21582,7 +21582,7 @@ proc cuGraphExecExternalSemaphoresSignalNodeSetParams*(hGraphExec: CUgraphExec;
 ##
 
 proc cuGraphExecExternalSemaphoresWaitNodeSetParams*(hGraphExec: CUgraphExec;
-    hNode: CUgraphNode; nodeParams: ptr CUDA_EXT_SEM_WAIT_NODE_PARAMS): CUresult {.
+    hNode: CUgraphNode; nodeParams: ptr CUDA_EXT_SEM_WAIT_NODE_PARAMS): CUresult {.discardable,
     cdecl, importc: "cuGraphExecExternalSemaphoresWaitNodeSetParams",
     dynlib: libName.}
 ##
@@ -21626,7 +21626,7 @@ proc cuGraphExecExternalSemaphoresWaitNodeSetParams*(hGraphExec: CUgraphExec;
 ##
 
 proc cuGraphNodeSetEnabled*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
-                           isEnabled: cuint): CUresult {.cdecl,
+                           isEnabled: cuint): CUresult {.discardable, cdecl,
     importc: "cuGraphNodeSetEnabled", dynlib: libName.}
 ##
 ##  \brief Query whether a node in the given graphExec is enabled
@@ -21659,7 +21659,7 @@ proc cuGraphNodeSetEnabled*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
 ##
 
 proc cuGraphNodeGetEnabled*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
-                           isEnabled: ptr cuint): CUresult {.cdecl,
+                           isEnabled: ptr cuint): CUresult {.discardable, cdecl,
     importc: "cuGraphNodeGetEnabled", dynlib: libName.}
 ##
 ##  \brief Uploads an executable graph in a stream
@@ -21686,7 +21686,7 @@ proc cuGraphNodeGetEnabled*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
 ##  ::cuGraphExecDestroy
 ##
 
-proc cuGraphUpload*(hGraphExec: CUgraphExec; hStream: CUstream): CUresult {.cdecl,
+proc cuGraphUpload*(hGraphExec: CUgraphExec; hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuGraphUpload", dynlib: libName.}
 ##
 ##  \brief Launches an executable graph in a stream
@@ -21717,7 +21717,7 @@ proc cuGraphUpload*(hGraphExec: CUgraphExec; hStream: CUstream): CUresult {.cdec
 ##  ::cuGraphExecDestroy
 ##
 
-proc cuGraphLaunch*(hGraphExec: CUgraphExec; hStream: CUstream): CUresult {.cdecl,
+proc cuGraphLaunch*(hGraphExec: CUgraphExec; hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuGraphLaunch", dynlib: libName.}
 ##
 ##  \brief Destroys an executable graph
@@ -21743,7 +21743,7 @@ proc cuGraphLaunch*(hGraphExec: CUgraphExec; hStream: CUstream): CUresult {.cdec
 ##  ::cuGraphLaunch
 ##
 
-proc cuGraphExecDestroy*(hGraphExec: CUgraphExec): CUresult {.cdecl,
+proc cuGraphExecDestroy*(hGraphExec: CUgraphExec): CUresult {.discardable, cdecl,
     importc: "cuGraphExecDestroy", dynlib: libName.}
 ##
 ##  \brief Destroys a graph
@@ -21764,7 +21764,7 @@ proc cuGraphExecDestroy*(hGraphExec: CUgraphExec): CUresult {.cdecl,
 ##  ::cuGraphCreate
 ##
 
-proc cuGraphDestroy*(hGraph: CUgraph): CUresult {.cdecl, importc: "cuGraphDestroy",
+proc cuGraphDestroy*(hGraph: CUgraph): CUresult {.discardable, cdecl, importc: "cuGraphDestroy",
     dynlib: libName.}
 ##
 ##  \brief Check whether an executable graph can be updated with a graph and perform the update if possible
@@ -21856,7 +21856,7 @@ proc cuGraphDestroy*(hGraph: CUgraph): CUresult {.cdecl, importc: "cuGraphDestro
 ##
 
 proc cuGraphExecUpdate*(hGraphExec: CUgraphExec; hGraph: CUgraph;
-                       resultInfo: ptr CUgraphExecUpdateResultInfo): CUresult {.
+                       resultInfo: ptr CUgraphExecUpdateResultInfo): CUresult {.discardable,
     cdecl, importc: "cuGraphExecUpdate", dynlib: libName.}
 ##
 ##  \brief Copies attributes from source node to destination node.
@@ -21877,7 +21877,7 @@ proc cuGraphExecUpdate*(hGraphExec: CUgraphExec; hGraph: CUgraph;
 ##  ::CUaccessPolicyWindow
 ##
 
-proc cuGraphKernelNodeCopyAttributes*(dst: CUgraphNode; src: CUgraphNode): CUresult {.
+proc cuGraphKernelNodeCopyAttributes*(dst: CUgraphNode; src: CUgraphNode): CUresult {.discardable,
     cdecl, importc: "cuGraphKernelNodeCopyAttributes", dynlib: libName.}
 ##
 ##  \brief Queries node attribute.
@@ -21900,7 +21900,7 @@ proc cuGraphKernelNodeCopyAttributes*(dst: CUgraphNode; src: CUgraphNode): CUres
 ##
 
 proc cuGraphKernelNodeGetAttribute*(hNode: CUgraphNode; attr: CUkernelNodeAttrID;
-                                   value_out: ptr CUkernelNodeAttrValue): CUresult {.
+                                   value_out: ptr CUkernelNodeAttrValue): CUresult {.discardable,
     cdecl, importc: "cuGraphKernelNodeGetAttribute", dynlib: libName.}
 ##
 ##  \brief Sets node attribute.
@@ -21923,7 +21923,7 @@ proc cuGraphKernelNodeGetAttribute*(hNode: CUgraphNode; attr: CUkernelNodeAttrID
 ##
 
 proc cuGraphKernelNodeSetAttribute*(hNode: CUgraphNode; attr: CUkernelNodeAttrID;
-                                   value: ptr CUkernelNodeAttrValue): CUresult {.
+                                   value: ptr CUkernelNodeAttrValue): CUresult {.discardable,
     cdecl, importc: "cuGraphKernelNodeSetAttribute", dynlib: libName.}
 ##
 ##  \brief Write a DOT file describing graph structure
@@ -21943,7 +21943,7 @@ proc cuGraphKernelNodeSetAttribute*(hNode: CUgraphNode; attr: CUkernelNodeAttrID
 ##  ::CUDA_ERROR_OPERATING_SYSTEM
 ##
 
-proc cuGraphDebugDotPrint*(hGraph: CUgraph; path: cstring; flags: cuint): CUresult {.
+proc cuGraphDebugDotPrint*(hGraph: CUgraph; path: cstring; flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuGraphDebugDotPrint", dynlib: libName.}
 ##
 ##  \brief Create a user object
@@ -21981,7 +21981,7 @@ proc cuGraphDebugDotPrint*(hGraph: CUgraph; path: cstring; flags: cuint): CUresu
 ##
 
 proc cuUserObjectCreate*(object_out: ptr CUuserObject; `ptr`: pointer;
-                        destroy: CUhostFn; initialRefcount: cuint; flags: cuint): CUresult {.
+                        destroy: CUhostFn; initialRefcount: cuint; flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuUserObjectCreate", dynlib: libName.}
 ##
 ##  \brief Retain a reference to a user object
@@ -22006,7 +22006,7 @@ proc cuUserObjectCreate*(object_out: ptr CUuserObject; `ptr`: pointer;
 ##  ::cuGraphCreate
 ##
 
-proc cuUserObjectRetain*(`object`: CUuserObject; count: cuint): CUresult {.cdecl,
+proc cuUserObjectRetain*(`object`: CUuserObject; count: cuint): CUresult {.discardable, cdecl,
     importc: "cuUserObjectRetain", dynlib: libName.}
 ##
 ##  \brief Release a reference to a user object
@@ -22035,7 +22035,7 @@ proc cuUserObjectRetain*(`object`: CUuserObject; count: cuint): CUresult {.cdecl
 ##  ::cuGraphCreate
 ##
 
-proc cuUserObjectRelease*(`object`: CUuserObject; count: cuint): CUresult {.cdecl,
+proc cuUserObjectRelease*(`object`: CUuserObject; count: cuint): CUresult {.discardable, cdecl,
     importc: "cuUserObjectRelease", dynlib: libName.}
 ##
 ##  \brief Retain a reference to a user object from a graph
@@ -22065,7 +22065,7 @@ proc cuUserObjectRelease*(`object`: CUuserObject; count: cuint): CUresult {.cdec
 ##
 
 proc cuGraphRetainUserObject*(graph: CUgraph; `object`: CUuserObject; count: cuint;
-                             flags: cuint): CUresult {.cdecl,
+                             flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuGraphRetainUserObject", dynlib: libName.}
 ##
 ##  \brief Release a user object reference from a graph
@@ -22091,7 +22091,7 @@ proc cuGraphRetainUserObject*(graph: CUgraph; `object`: CUuserObject; count: cui
 ##  ::cuGraphCreate
 ##
 
-proc cuGraphReleaseUserObject*(graph: CUgraph; `object`: CUuserObject; count: cuint): CUresult {.
+proc cuGraphReleaseUserObject*(graph: CUgraph; `object`: CUuserObject; count: cuint): CUresult {.discardable,
     cdecl, importc: "cuGraphReleaseUserObject", dynlib: libName.}
 ##
 ##  \brief Adds a node of arbitrary type to a graph
@@ -22134,7 +22134,7 @@ proc cuGraphReleaseUserObject*(graph: CUgraph; `object`: CUuserObject; count: cu
 
 proc cuGraphAddNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                     dependencies: ptr CUgraphNode; numDependencies: csize_t;
-                    nodeParams: ptr CUgraphNodeParams): CUresult {.cdecl,
+                    nodeParams: ptr CUgraphNodeParams): CUresult {.discardable, cdecl,
     importc: "cuGraphAddNode", dynlib: libName.}
 ##
 ##  \brief Adds a node of arbitrary type to a graph (12.3+)
@@ -22180,7 +22180,7 @@ proc cuGraphAddNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 proc cuGraphAddNode_v2*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                        dependencies: ptr CUgraphNode;
                        dependencyData: ptr CUgraphEdgeData;
-                       numDependencies: csize_t; nodeParams: ptr CUgraphNodeParams): CUresult {.
+                       numDependencies: csize_t; nodeParams: ptr CUgraphNodeParams): CUresult {.discardable,
     cdecl, importc: "cuGraphAddNode_v2", dynlib: libName.}
 ##
 ##  \brief Update's a graph node's parameters
@@ -22207,7 +22207,7 @@ proc cuGraphAddNode_v2*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
 ##  ::cuGraphExecNodeSetParams
 ##
 
-proc cuGraphNodeSetParams*(hNode: CUgraphNode; nodeParams: ptr CUgraphNodeParams): CUresult {.
+proc cuGraphNodeSetParams*(hNode: CUgraphNode; nodeParams: ptr CUgraphNodeParams): CUresult {.discardable,
     cdecl, importc: "cuGraphNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Update's a graph node's parameters in an instantiated graph
@@ -22256,7 +22256,7 @@ proc cuGraphNodeSetParams*(hNode: CUgraphNode; nodeParams: ptr CUgraphNodeParams
 ##
 
 proc cuGraphExecNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
-                              nodeParams: ptr CUgraphNodeParams): CUresult {.cdecl,
+                              nodeParams: ptr CUgraphNodeParams): CUresult {.discardable, cdecl,
     importc: "cuGraphExecNodeSetParams", dynlib: libName.}
 ##
 ##  \brief Create a conditional handle
@@ -22288,7 +22288,7 @@ proc cuGraphExecNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
 
 proc cuGraphConditionalHandleCreate*(pHandle_out: ptr CUgraphConditionalHandle;
                                     hGraph: CUgraph; ctx: CUcontext;
-                                    defaultLaunchValue: cuint; flags: cuint): CUresult {.
+                                    defaultLaunchValue: cuint; flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuGraphConditionalHandleCreate", dynlib: libName.}
 ##  @}
 ##  END CUDA_GRAPH
@@ -22333,7 +22333,7 @@ proc cuGraphConditionalHandleCreate*(pHandle_out: ptr CUgraphConditionalHandle;
 ##
 
 proc cuOccupancyMaxActiveBlocksPerMultiprocessor*(numBlocks: ptr cint;
-    `func`: CUfunction; blockSize: cint; dynamicSMemSize: csize_t): CUresult {.cdecl,
+    `func`: CUfunction; blockSize: cint; dynamicSMemSize: csize_t): CUresult {.discardable, cdecl,
     importc: "cuOccupancyMaxActiveBlocksPerMultiprocessor", dynlib: libName.}
 ##
 ##  \brief Returns occupancy of a function
@@ -22382,7 +22382,7 @@ proc cuOccupancyMaxActiveBlocksPerMultiprocessor*(numBlocks: ptr cint;
 ##
 
 proc cuOccupancyMaxActiveBlocksPerMultiprocessorWithFlags*(numBlocks: ptr cint;
-    `func`: CUfunction; blockSize: cint; dynamicSMemSize: csize_t; flags: cuint): CUresult {.
+    `func`: CUfunction; blockSize: cint; dynamicSMemSize: csize_t; flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuOccupancyMaxActiveBlocksPerMultiprocessorWithFlags",
     dynlib: libName.}
 ##
@@ -22444,7 +22444,7 @@ proc cuOccupancyMaxActiveBlocksPerMultiprocessorWithFlags*(numBlocks: ptr cint;
 proc cuOccupancyMaxPotentialBlockSize*(minGridSize: ptr cint; blockSize: ptr cint;
                                       `func`: CUfunction;
     blockSizeToDynamicSMemSize: CUoccupancyB2DSize; dynamicSMemSize: csize_t;
-                                      blockSizeLimit: cint): CUresult {.cdecl,
+                                      blockSizeLimit: cint): CUresult {.discardable, cdecl,
     importc: "cuOccupancyMaxPotentialBlockSize", dynlib: libName.}
 ##
 ##  \brief Suggest a launch configuration with reasonable occupancy
@@ -22499,7 +22499,7 @@ proc cuOccupancyMaxPotentialBlockSize*(minGridSize: ptr cint; blockSize: ptr cin
 proc cuOccupancyMaxPotentialBlockSizeWithFlags*(minGridSize: ptr cint;
     blockSize: ptr cint; `func`: CUfunction;
     blockSizeToDynamicSMemSize: CUoccupancyB2DSize; dynamicSMemSize: csize_t;
-    blockSizeLimit: cint; flags: cuint): CUresult {.cdecl,
+    blockSizeLimit: cint; flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuOccupancyMaxPotentialBlockSizeWithFlags", dynlib: libName.}
 ##
 ##  \brief Returns dynamic shared memory available per block when launching \p numBlocks blocks on SM
@@ -22527,7 +22527,7 @@ proc cuOccupancyMaxPotentialBlockSizeWithFlags*(minGridSize: ptr cint;
 ##
 
 proc cuOccupancyAvailableDynamicSMemPerBlock*(dynamicSmemSize: ptr csize_t;
-    `func`: CUfunction; numBlocks: cint; blockSize: cint): CUresult {.cdecl,
+    `func`: CUfunction; numBlocks: cint; blockSize: cint): CUresult {.discardable, cdecl,
     importc: "cuOccupancyAvailableDynamicSMemPerBlock", dynlib: libName.}
 ##
 ##  \brief Given the kernel function (\p func) and launch configuration
@@ -22570,7 +22570,7 @@ proc cuOccupancyAvailableDynamicSMemPerBlock*(dynamicSmemSize: ptr csize_t;
 ##
 
 proc cuOccupancyMaxPotentialClusterSize*(clusterSize: ptr cint; `func`: CUfunction;
-                                        config: ptr CUlaunchConfig): CUresult {.
+                                        config: ptr CUlaunchConfig): CUresult {.discardable,
     cdecl, importc: "cuOccupancyMaxPotentialClusterSize", dynlib: libName.}
 ##
 ##  \brief Given the kernel function (\p func) and launch configuration
@@ -22615,7 +22615,7 @@ proc cuOccupancyMaxPotentialClusterSize*(clusterSize: ptr cint; `func`: CUfuncti
 ##
 
 proc cuOccupancyMaxActiveClusters*(numClusters: ptr cint; `func`: CUfunction;
-                                  config: ptr CUlaunchConfig): CUresult {.cdecl,
+                                  config: ptr CUlaunchConfig): CUresult {.discardable, cdecl,
     importc: "cuOccupancyMaxActiveClusters", dynlib: libName.}
 ##  @}
 ##  END CUDA_OCCUPANCY
@@ -22660,7 +22660,7 @@ proc cuOccupancyMaxActiveClusters*(numClusters: ptr cint; `func`: CUfunction;
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefSetArray*(hTexRef: CUtexref; hArray: CUarray; Flags: cuint): CUresult {.
+proc cuTexRefSetArray*(hTexRef: CUtexref; hArray: CUarray; Flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuTexRefSetArray", dynlib: libName.}
 ##
 ##  \brief Binds a mipmapped array to a texture reference
@@ -22692,7 +22692,7 @@ proc cuTexRefSetArray*(hTexRef: CUtexref; hArray: CUarray; Flags: cuint): CUresu
 ##
 
 proc cuTexRefSetMipmappedArray*(hTexRef: CUtexref;
-                               hMipmappedArray: CUmipmappedArray; Flags: cuint): CUresult {.
+                               hMipmappedArray: CUmipmappedArray; Flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuTexRefSetMipmappedArray", dynlib: libName.}
 ##
 ##  \brief Binds an address as a texture reference
@@ -22740,7 +22740,7 @@ proc cuTexRefSetMipmappedArray*(hTexRef: CUtexref;
 ##
 
 proc cuTexRefSetAddress*(ByteOffset: ptr csize_t; hTexRef: CUtexref;
-                        dptr: CUdeviceptr; bytes: csize_t): CUresult {.cdecl,
+                        dptr: CUdeviceptr; bytes: csize_t): CUresult {.discardable, cdecl,
     importc: "cuTexRefSetAddress", dynlib: libName.}
 ##
 ##  \brief Binds an address as a 2D texture reference
@@ -22797,7 +22797,7 @@ proc cuTexRefSetAddress*(ByteOffset: ptr csize_t; hTexRef: CUtexref;
 ##
 
 proc cuTexRefSetAddress2D*(hTexRef: CUtexref; desc: ptr CUDA_ARRAY_DESCRIPTOR;
-                          dptr: CUdeviceptr; Pitch: csize_t): CUresult {.cdecl,
+                          dptr: CUdeviceptr; Pitch: csize_t): CUresult {.discardable, cdecl,
     importc: "cuTexRefSetAddress2D", dynlib: libName.}
 ##
 ##  \brief Sets the format for a texture reference
@@ -22831,7 +22831,7 @@ proc cuTexRefSetAddress2D*(hTexRef: CUtexref; desc: ptr CUDA_ARRAY_DESCRIPTOR;
 ##
 
 proc cuTexRefSetFormat*(hTexRef: CUtexref; fmt: CUarray_format;
-                       NumPackedComponents: cint): CUresult {.cdecl,
+                       NumPackedComponents: cint): CUresult {.discardable, cdecl,
     importc: "cuTexRefSetFormat", dynlib: libName.}
 ##
 ##  \brief Sets the addressing mode for a texture reference
@@ -22875,7 +22875,7 @@ proc cuTexRefSetFormat*(hTexRef: CUtexref; fmt: CUarray_format;
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefSetAddressMode*(hTexRef: CUtexref; dim: cint; am: CUaddress_mode): CUresult {.
+proc cuTexRefSetAddressMode*(hTexRef: CUtexref; dim: cint; am: CUaddress_mode): CUresult {.discardable,
     cdecl, importc: "cuTexRefSetAddressMode", dynlib: libName.}
 ##
 ##  \brief Sets the filtering mode for a texture reference
@@ -22912,7 +22912,7 @@ proc cuTexRefSetAddressMode*(hTexRef: CUtexref; dim: cint; am: CUaddress_mode): 
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefSetFilterMode*(hTexRef: CUtexref; fm: CUfilter_mode): CUresult {.cdecl,
+proc cuTexRefSetFilterMode*(hTexRef: CUtexref; fm: CUfilter_mode): CUresult {.discardable, cdecl,
     importc: "cuTexRefSetFilterMode", dynlib: libName.}
 ##
 ##  \brief Sets the mipmap filtering mode for a texture reference
@@ -22949,7 +22949,7 @@ proc cuTexRefSetFilterMode*(hTexRef: CUtexref; fm: CUfilter_mode): CUresult {.cd
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefSetMipmapFilterMode*(hTexRef: CUtexref; fm: CUfilter_mode): CUresult {.
+proc cuTexRefSetMipmapFilterMode*(hTexRef: CUtexref; fm: CUfilter_mode): CUresult {.discardable,
     cdecl, importc: "cuTexRefSetMipmapFilterMode", dynlib: libName.}
 ##
 ##  \brief Sets the mipmap level bias for a texture reference
@@ -22979,7 +22979,7 @@ proc cuTexRefSetMipmapFilterMode*(hTexRef: CUtexref; fm: CUfilter_mode): CUresul
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefSetMipmapLevelBias*(hTexRef: CUtexref; bias: cfloat): CUresult {.cdecl,
+proc cuTexRefSetMipmapLevelBias*(hTexRef: CUtexref; bias: cfloat): CUresult {.discardable, cdecl,
     importc: "cuTexRefSetMipmapLevelBias", dynlib: libName.}
 ##
 ##  \brief Sets the mipmap min/max mipmap level clamps for a texture reference
@@ -23012,7 +23012,7 @@ proc cuTexRefSetMipmapLevelBias*(hTexRef: CUtexref; bias: cfloat): CUresult {.cd
 ##
 
 proc cuTexRefSetMipmapLevelClamp*(hTexRef: CUtexref; minMipmapLevelClamp: cfloat;
-                                 maxMipmapLevelClamp: cfloat): CUresult {.cdecl,
+                                 maxMipmapLevelClamp: cfloat): CUresult {.discardable, cdecl,
     importc: "cuTexRefSetMipmapLevelClamp", dynlib: libName.}
 ##
 ##  \brief Sets the maximum anisotropy for a texture reference
@@ -23042,7 +23042,7 @@ proc cuTexRefSetMipmapLevelClamp*(hTexRef: CUtexref; minMipmapLevelClamp: cfloat
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefSetMaxAnisotropy*(hTexRef: CUtexref; maxAniso: cuint): CUresult {.cdecl,
+proc cuTexRefSetMaxAnisotropy*(hTexRef: CUtexref; maxAniso: cuint): CUresult {.discardable, cdecl,
     importc: "cuTexRefSetMaxAnisotropy", dynlib: libName.}
 ##
 ##  \brief Sets the border color for a texture reference
@@ -23076,7 +23076,7 @@ proc cuTexRefSetMaxAnisotropy*(hTexRef: CUtexref; maxAniso: cuint): CUresult {.c
 ##  ::cuTexRefGetAddressMode, ::cuTexRefGetBorderColor
 ##
 
-proc cuTexRefSetBorderColor*(hTexRef: CUtexref; pBorderColor: ptr cfloat): CUresult {.
+proc cuTexRefSetBorderColor*(hTexRef: CUtexref; pBorderColor: ptr cfloat): CUresult {.discardable,
     cdecl, importc: "cuTexRefSetBorderColor", dynlib: libName.}
 ##
 ##  \brief Sets the flags for a texture reference
@@ -23119,7 +23119,7 @@ proc cuTexRefSetBorderColor*(hTexRef: CUtexref; pBorderColor: ptr cfloat): CUres
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefSetFlags*(hTexRef: CUtexref; Flags: cuint): CUresult {.cdecl,
+proc cuTexRefSetFlags*(hTexRef: CUtexref; Flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuTexRefSetFlags", dynlib: libName.}
 ##
 ##  \brief Gets the address associated with a texture reference
@@ -23147,7 +23147,7 @@ proc cuTexRefSetFlags*(hTexRef: CUtexref; Flags: cuint): CUresult {.cdecl,
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefGetAddress*(pdptr: ptr CUdeviceptr; hTexRef: CUtexref): CUresult {.cdecl,
+proc cuTexRefGetAddress*(pdptr: ptr CUdeviceptr; hTexRef: CUtexref): CUresult {.discardable, cdecl,
     importc: "cuTexRefGetAddress", dynlib: libName.}
 ##
 ##  \brief Gets the array bound to a texture reference
@@ -23175,7 +23175,7 @@ proc cuTexRefGetAddress*(pdptr: ptr CUdeviceptr; hTexRef: CUtexref): CUresult {.
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefGetArray*(phArray: ptr CUarray; hTexRef: CUtexref): CUresult {.cdecl,
+proc cuTexRefGetArray*(phArray: ptr CUarray; hTexRef: CUtexref): CUresult {.discardable, cdecl,
     importc: "cuTexRefGetArray", dynlib: libName.}
 ##
 ##  \brief Gets the mipmapped array bound to a texture reference
@@ -23204,7 +23204,7 @@ proc cuTexRefGetArray*(phArray: ptr CUarray; hTexRef: CUtexref): CUresult {.cdec
 ##
 
 proc cuTexRefGetMipmappedArray*(phMipmappedArray: ptr CUmipmappedArray;
-                               hTexRef: CUtexref): CUresult {.cdecl,
+                               hTexRef: CUtexref): CUresult {.discardable, cdecl,
     importc: "cuTexRefGetMipmappedArray", dynlib: libName.}
 ##
 ##  \brief Gets the addressing mode used by a texture reference
@@ -23233,7 +23233,7 @@ proc cuTexRefGetMipmappedArray*(phMipmappedArray: ptr CUmipmappedArray;
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefGetAddressMode*(pam: ptr CUaddress_mode; hTexRef: CUtexref; dim: cint): CUresult {.
+proc cuTexRefGetAddressMode*(pam: ptr CUaddress_mode; hTexRef: CUtexref; dim: cint): CUresult {.discardable,
     cdecl, importc: "cuTexRefGetAddressMode", dynlib: libName.}
 ##
 ##  \brief Gets the filter-mode used by a texture reference
@@ -23260,7 +23260,7 @@ proc cuTexRefGetAddressMode*(pam: ptr CUaddress_mode; hTexRef: CUtexref; dim: ci
 ##  ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefGetFilterMode*(pfm: ptr CUfilter_mode; hTexRef: CUtexref): CUresult {.
+proc cuTexRefGetFilterMode*(pfm: ptr CUfilter_mode; hTexRef: CUtexref): CUresult {.discardable,
     cdecl, importc: "cuTexRefGetFilterMode", dynlib: libName.}
 ##
 ##  \brief Gets the format used by a texture reference
@@ -23290,7 +23290,7 @@ proc cuTexRefGetFilterMode*(pfm: ptr CUfilter_mode; hTexRef: CUtexref): CUresult
 ##
 
 proc cuTexRefGetFormat*(pFormat: ptr CUarray_format; pNumChannels: ptr cint;
-                       hTexRef: CUtexref): CUresult {.cdecl,
+                       hTexRef: CUtexref): CUresult {.discardable, cdecl,
     importc: "cuTexRefGetFormat", dynlib: libName.}
 ##
 ##  \brief Gets the mipmap filtering mode for a texture reference
@@ -23317,7 +23317,7 @@ proc cuTexRefGetFormat*(pFormat: ptr CUarray_format; pNumChannels: ptr cint;
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefGetMipmapFilterMode*(pfm: ptr CUfilter_mode; hTexRef: CUtexref): CUresult {.
+proc cuTexRefGetMipmapFilterMode*(pfm: ptr CUfilter_mode; hTexRef: CUtexref): CUresult {.discardable,
     cdecl, importc: "cuTexRefGetMipmapFilterMode", dynlib: libName.}
 ##
 ##  \brief Gets the mipmap level bias for a texture reference
@@ -23344,7 +23344,7 @@ proc cuTexRefGetMipmapFilterMode*(pfm: ptr CUfilter_mode; hTexRef: CUtexref): CU
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefGetMipmapLevelBias*(pbias: ptr cfloat; hTexRef: CUtexref): CUresult {.
+proc cuTexRefGetMipmapLevelBias*(pbias: ptr cfloat; hTexRef: CUtexref): CUresult {.discardable,
     cdecl, importc: "cuTexRefGetMipmapLevelBias", dynlib: libName.}
 ##
 ##  \brief Gets the min/max mipmap level clamps for a texture reference
@@ -23374,7 +23374,7 @@ proc cuTexRefGetMipmapLevelBias*(pbias: ptr cfloat; hTexRef: CUtexref): CUresult
 
 proc cuTexRefGetMipmapLevelClamp*(pminMipmapLevelClamp: ptr cfloat;
                                  pmaxMipmapLevelClamp: ptr cfloat;
-                                 hTexRef: CUtexref): CUresult {.cdecl,
+                                 hTexRef: CUtexref): CUresult {.discardable, cdecl,
     importc: "cuTexRefGetMipmapLevelClamp", dynlib: libName.}
 ##
 ##  \brief Gets the maximum anisotropy for a texture reference
@@ -23401,7 +23401,7 @@ proc cuTexRefGetMipmapLevelClamp*(pminMipmapLevelClamp: ptr cfloat;
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFlags, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefGetMaxAnisotropy*(pmaxAniso: ptr cint; hTexRef: CUtexref): CUresult {.
+proc cuTexRefGetMaxAnisotropy*(pmaxAniso: ptr cint; hTexRef: CUtexref): CUresult {.discardable,
     cdecl, importc: "cuTexRefGetMaxAnisotropy", dynlib: libName.}
 ##
 ##  \brief Gets the border color used by a texture reference
@@ -23431,7 +23431,7 @@ proc cuTexRefGetMaxAnisotropy*(pmaxAniso: ptr cint; hTexRef: CUtexref): CUresult
 ##  ::cuTexRefSetAddressMode, ::cuTexRefSetBorderColor
 ##
 
-proc cuTexRefGetBorderColor*(pBorderColor: ptr cfloat; hTexRef: CUtexref): CUresult {.
+proc cuTexRefGetBorderColor*(pBorderColor: ptr cfloat; hTexRef: CUtexref): CUresult {.discardable,
     cdecl, importc: "cuTexRefGetBorderColor", dynlib: libName.}
 ##
 ##  \brief Gets the flags used by a texture reference
@@ -23457,7 +23457,7 @@ proc cuTexRefGetBorderColor*(pBorderColor: ptr cfloat; hTexRef: CUtexref): CUres
 ##  ::cuTexRefGetFilterMode, ::cuTexRefGetFormat
 ##
 
-proc cuTexRefGetFlags*(pFlags: ptr cuint; hTexRef: CUtexref): CUresult {.cdecl,
+proc cuTexRefGetFlags*(pFlags: ptr cuint; hTexRef: CUtexref): CUresult {.discardable, cdecl,
     importc: "cuTexRefGetFlags", dynlib: libName.}
 ##
 ##  \brief Creates a texture reference
@@ -23483,7 +23483,7 @@ proc cuTexRefGetFlags*(pFlags: ptr cuint; hTexRef: CUtexref): CUresult {.cdecl,
 ##  \sa ::cuTexRefDestroy
 ##
 
-proc cuTexRefCreate*(pTexRef: ptr CUtexref): CUresult {.cdecl,
+proc cuTexRefCreate*(pTexRef: ptr CUtexref): CUresult {.discardable, cdecl,
     importc: "cuTexRefCreate", dynlib: libName.}
 ##
 ##  \brief Destroys a texture reference
@@ -23504,7 +23504,7 @@ proc cuTexRefCreate*(pTexRef: ptr CUtexref): CUresult {.cdecl,
 ##  \sa ::cuTexRefCreate
 ##
 
-proc cuTexRefDestroy*(hTexRef: CUtexref): CUresult {.cdecl,
+proc cuTexRefDestroy*(hTexRef: CUtexref): CUresult {.discardable, cdecl,
     importc: "cuTexRefDestroy", dynlib: libName.}
 ##  @}
 ##  END CUDA_TEXREF_DEPRECATED
@@ -23546,7 +23546,7 @@ proc cuTexRefDestroy*(hTexRef: CUtexref): CUresult {.cdecl,
 ##  ::cuSurfRefGetArray
 ##
 
-proc cuSurfRefSetArray*(hSurfRef: CUsurfref; hArray: CUarray; Flags: cuint): CUresult {.
+proc cuSurfRefSetArray*(hSurfRef: CUsurfref; hArray: CUarray; Flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuSurfRefSetArray", dynlib: libName.}
 ##
 ##  \brief Passes back the CUDA array bound to a surface reference.
@@ -23570,7 +23570,7 @@ proc cuSurfRefSetArray*(hSurfRef: CUsurfref; hArray: CUarray; Flags: cuint): CUr
 ##  \sa ::cuModuleGetSurfRef, ::cuSurfRefSetArray
 ##
 
-proc cuSurfRefGetArray*(phArray: ptr CUarray; hSurfRef: CUsurfref): CUresult {.cdecl,
+proc cuSurfRefGetArray*(phArray: ptr CUarray; hSurfRef: CUsurfref): CUresult {.discardable, cdecl,
     importc: "cuSurfRefGetArray", dynlib: libName.}
 ##  @}
 ##  END CUDA_SURFREF_DEPRECATED
@@ -23814,7 +23814,7 @@ proc cuSurfRefGetArray*(phArray: ptr CUarray; hSurfRef: CUsurfref): CUresult {.c
 proc cuTexObjectCreate*(pTexObject: ptr CUtexObject;
                        pResDesc: ptr CUDA_RESOURCE_DESC;
                        pTexDesc: ptr CUDA_TEXTURE_DESC;
-                       pResViewDesc: ptr CUDA_RESOURCE_VIEW_DESC): CUresult {.cdecl,
+                       pResViewDesc: ptr CUDA_RESOURCE_VIEW_DESC): CUresult {.discardable, cdecl,
     importc: "cuTexObjectCreate", dynlib: libName.}
 ##
 ##  \brief Destroys a texture object
@@ -23835,7 +23835,7 @@ proc cuTexObjectCreate*(pTexObject: ptr CUtexObject;
 ##  ::cudaDestroyTextureObject
 ##
 
-proc cuTexObjectDestroy*(texObject: CUtexObject): CUresult {.cdecl,
+proc cuTexObjectDestroy*(texObject: CUtexObject): CUresult {.discardable, cdecl,
     importc: "cuTexObjectDestroy", dynlib: libName.}
 ##
 ##  \brief Returns a texture object's resource descriptor
@@ -23858,7 +23858,7 @@ proc cuTexObjectDestroy*(texObject: CUtexObject): CUresult {.cdecl,
 ##
 
 proc cuTexObjectGetResourceDesc*(pResDesc: ptr CUDA_RESOURCE_DESC;
-                                texObject: CUtexObject): CUresult {.cdecl,
+                                texObject: CUtexObject): CUresult {.discardable, cdecl,
     importc: "cuTexObjectGetResourceDesc", dynlib: libName.}
 ##
 ##  \brief Returns a texture object's texture descriptor
@@ -23881,7 +23881,7 @@ proc cuTexObjectGetResourceDesc*(pResDesc: ptr CUDA_RESOURCE_DESC;
 ##
 
 proc cuTexObjectGetTextureDesc*(pTexDesc: ptr CUDA_TEXTURE_DESC;
-                               texObject: CUtexObject): CUresult {.cdecl,
+                               texObject: CUtexObject): CUresult {.discardable, cdecl,
     importc: "cuTexObjectGetTextureDesc", dynlib: libName.}
 ##
 ##  \brief Returns a texture object's resource view descriptor
@@ -23905,7 +23905,7 @@ proc cuTexObjectGetTextureDesc*(pTexDesc: ptr CUDA_TEXTURE_DESC;
 ##
 
 proc cuTexObjectGetResourceViewDesc*(pResViewDesc: ptr CUDA_RESOURCE_VIEW_DESC;
-                                    texObject: CUtexObject): CUresult {.cdecl,
+                                    texObject: CUtexObject): CUresult {.discardable, cdecl,
     importc: "cuTexObjectGetResourceViewDesc", dynlib: libName.}
 ##  @}
 ##  END CUDA_TEXOBJECT
@@ -23949,7 +23949,7 @@ proc cuTexObjectGetResourceViewDesc*(pResViewDesc: ptr CUDA_RESOURCE_VIEW_DESC;
 ##
 
 proc cuSurfObjectCreate*(pSurfObject: ptr CUsurfObject;
-                        pResDesc: ptr CUDA_RESOURCE_DESC): CUresult {.cdecl,
+                        pResDesc: ptr CUDA_RESOURCE_DESC): CUresult {.discardable, cdecl,
     importc: "cuSurfObjectCreate", dynlib: libName.}
 ##
 ##  \brief Destroys a surface object
@@ -23970,7 +23970,7 @@ proc cuSurfObjectCreate*(pSurfObject: ptr CUsurfObject;
 ##  ::cudaDestroySurfaceObject
 ##
 
-proc cuSurfObjectDestroy*(surfObject: CUsurfObject): CUresult {.cdecl,
+proc cuSurfObjectDestroy*(surfObject: CUsurfObject): CUresult {.discardable, cdecl,
     importc: "cuSurfObjectDestroy", dynlib: libName.}
 ##
 ##  \brief Returns a surface object's resource descriptor
@@ -23993,7 +23993,7 @@ proc cuSurfObjectDestroy*(surfObject: CUsurfObject): CUresult {.cdecl,
 ##
 
 proc cuSurfObjectGetResourceDesc*(pResDesc: ptr CUDA_RESOURCE_DESC;
-                                 surfObject: CUsurfObject): CUresult {.cdecl,
+                                 surfObject: CUsurfObject): CUresult {.discardable, cdecl,
     importc: "cuSurfObjectGetResourceDesc", dynlib: libName.}
 ##  @}
 ##  END CUDA_SURFOBJECT
@@ -24158,7 +24158,7 @@ proc cuTensorMapEncodeTiled*(tensorMap: ptr CUtensorMap;
                             interleave: CUtensorMapInterleave;
                             swizzle: CUtensorMapSwizzle;
                             l2Promotion: CUtensorMapL2promotion;
-                            oobFill: CUtensorMapFloatOOBfill): CUresult {.cdecl,
+                            oobFill: CUtensorMapFloatOOBfill): CUresult {.discardable, cdecl,
     importc: "cuTensorMapEncodeTiled", dynlib: libName.}
 ##
 ##  \brief Create a tensor map descriptor object representing im2col memory region
@@ -24327,7 +24327,7 @@ proc cuTensorMapEncodeIm2col*(tensorMap: ptr CUtensorMap;
                              interleave: CUtensorMapInterleave;
                              swizzle: CUtensorMapSwizzle;
                              l2Promotion: CUtensorMapL2promotion;
-                             oobFill: CUtensorMapFloatOOBfill): CUresult {.cdecl,
+                             oobFill: CUtensorMapFloatOOBfill): CUresult {.discardable, cdecl,
     importc: "cuTensorMapEncodeIm2col", dynlib: libName.}
 ##
 ##  \brief Modify an existing tensor map descriptor with an updated global address
@@ -24354,7 +24354,7 @@ proc cuTensorMapEncodeIm2col*(tensorMap: ptr CUtensorMap;
 ##  ::cuTensorMapEncodeIm2col
 ##
 
-proc cuTensorMapReplaceAddress*(tensorMap: ptr CUtensorMap; globalAddress: pointer): CUresult {.
+proc cuTensorMapReplaceAddress*(tensorMap: ptr CUtensorMap; globalAddress: pointer): CUresult {.discardable,
     cdecl, importc: "cuTensorMapReplaceAddress", dynlib: libName.}
 ##  @}
 ##  END CUDA_TENSOR_MEMORY
@@ -24396,7 +24396,7 @@ proc cuTensorMapReplaceAddress*(tensorMap: ptr CUtensorMap; globalAddress: point
 ##  ::cudaDeviceCanAccessPeer
 ##
 
-proc cuDeviceCanAccessPeer*(canAccessPeer: ptr cint; dev: CUdevice; peerDev: CUdevice): CUresult {.
+proc cuDeviceCanAccessPeer*(canAccessPeer: ptr cint; dev: CUdevice; peerDev: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuDeviceCanAccessPeer", dynlib: libName.}
 ##
 ##  \brief Enables direct access to memory allocations in a peer context.
@@ -24450,7 +24450,7 @@ proc cuDeviceCanAccessPeer*(canAccessPeer: ptr cint; dev: CUdevice; peerDev: CUd
 ##  ::cudaDeviceEnablePeerAccess
 ##
 
-proc cuCtxEnablePeerAccess*(peerContext: CUcontext; Flags: cuint): CUresult {.cdecl,
+proc cuCtxEnablePeerAccess*(peerContext: CUcontext; Flags: cuint): CUresult {.discardable, cdecl,
     importc: "cuCtxEnablePeerAccess", dynlib: libName.}
 ##
 ##  \brief Disables direct access to memory allocations in a peer context and
@@ -24478,7 +24478,7 @@ proc cuCtxEnablePeerAccess*(peerContext: CUcontext; Flags: cuint): CUresult {.cd
 ##  ::cudaDeviceDisablePeerAccess
 ##
 
-proc cuCtxDisablePeerAccess*(peerContext: CUcontext): CUresult {.cdecl,
+proc cuCtxDisablePeerAccess*(peerContext: CUcontext): CUresult {.discardable, cdecl,
     importc: "cuCtxDisablePeerAccess", dynlib: libName.}
 ##
 ##  \brief Queries attributes of the link between two devices.
@@ -24520,7 +24520,7 @@ proc cuCtxDisablePeerAccess*(peerContext: CUcontext): CUresult {.cdecl,
 ##
 
 proc cuDeviceGetP2PAttribute*(value: ptr cint; attrib: CUdevice_P2PAttribute;
-                             srcDevice: CUdevice; dstDevice: CUdevice): CUresult {.
+                             srcDevice: CUdevice; dstDevice: CUdevice): CUresult {.discardable,
     cdecl, importc: "cuDeviceGetP2PAttribute", dynlib: libName.}
 ##  @}
 ##  END CUDA_PEER_ACCESS
@@ -24564,7 +24564,7 @@ proc cuDeviceGetP2PAttribute*(value: ptr cint; attrib: CUdevice_P2PAttribute;
 ##  ::cudaGraphicsUnregisterResource
 ##
 
-proc cuGraphicsUnregisterResource*(resource: CUgraphicsResource): CUresult {.cdecl,
+proc cuGraphicsUnregisterResource*(resource: CUgraphicsResource): CUresult {.discardable, cdecl,
     importc: "cuGraphicsUnregisterResource", dynlib: libName.}
 ##
 ##  \brief Get an array through which to access a subresource of a mapped graphics resource.
@@ -24606,7 +24606,7 @@ proc cuGraphicsUnregisterResource*(resource: CUgraphicsResource): CUresult {.cde
 ##
 
 proc cuGraphicsSubResourceGetMappedArray*(pArray: ptr CUarray;
-    resource: CUgraphicsResource; arrayIndex: cuint; mipLevel: cuint): CUresult {.
+    resource: CUgraphicsResource; arrayIndex: cuint; mipLevel: cuint): CUresult {.discardable,
     cdecl, importc: "cuGraphicsSubResourceGetMappedArray", dynlib: libName.}
 ##
 ##  \brief Get a mipmapped array through which to access a mapped graphics resource.
@@ -24639,7 +24639,7 @@ proc cuGraphicsSubResourceGetMappedArray*(pArray: ptr CUarray;
 ##
 
 proc cuGraphicsResourceGetMappedMipmappedArray*(
-    pMipmappedArray: ptr CUmipmappedArray; resource: CUgraphicsResource): CUresult {.
+    pMipmappedArray: ptr CUmipmappedArray; resource: CUgraphicsResource): CUresult {.discardable,
     cdecl, importc: "cuGraphicsResourceGetMappedMipmappedArray", dynlib: libName.}
 ##
 ##  \brief Get a device pointer through which to access a mapped graphics resource.
@@ -24676,7 +24676,7 @@ proc cuGraphicsResourceGetMappedMipmappedArray*(
 
 proc cuGraphicsResourceGetMappedPointer*(pDevPtr: ptr CUdeviceptr;
                                         pSize: ptr csize_t;
-                                        resource: CUgraphicsResource): CUresult {.
+                                        resource: CUgraphicsResource): CUresult {.discardable,
     cdecl, importc: "cuGraphicsResourceGetMappedPointer", dynlib: libName.}
 ##
 ##  \brief Set usage flags for mapping a graphics resource
@@ -24718,7 +24718,7 @@ proc cuGraphicsResourceGetMappedPointer*(pDevPtr: ptr CUdeviceptr;
 ##  ::cudaGraphicsResourceSetMapFlags
 ##
 
-proc cuGraphicsResourceSetMapFlags*(resource: CUgraphicsResource; flags: cuint): CUresult {.
+proc cuGraphicsResourceSetMapFlags*(resource: CUgraphicsResource; flags: cuint): CUresult {.discardable,
     cdecl, importc: "cuGraphicsResourceSetMapFlags", dynlib: libName.}
 ##
 ##  \brief Map graphics resources for access by CUDA
@@ -24760,7 +24760,7 @@ proc cuGraphicsResourceSetMapFlags*(resource: CUgraphicsResource; flags: cuint):
 ##
 
 proc cuGraphicsMapResources*(count: cuint; resources: ptr CUgraphicsResource;
-                            hStream: CUstream): CUresult {.cdecl,
+                            hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuGraphicsMapResources", dynlib: libName.}
 ##
 ##  \brief Unmap graphics resources.
@@ -24799,7 +24799,7 @@ proc cuGraphicsMapResources*(count: cuint; resources: ptr CUgraphicsResource;
 ##
 
 proc cuGraphicsUnmapResources*(count: cuint; resources: ptr CUgraphicsResource;
-                              hStream: CUstream): CUresult {.cdecl,
+                              hStream: CUstream): CUresult {.discardable, cdecl,
     importc: "cuGraphicsUnmapResources", dynlib: libName.}
 ##  @}
 ##  END CUDA_GRAPHICS
@@ -24878,7 +24878,7 @@ proc cuGraphicsUnmapResources*(count: cuint; resources: ptr CUgraphicsResource;
 
 proc cuGetProcAddress*(symbol: cstring; pfn: ptr pointer; cudaVersion: cint;
                       flags: culonglong;
-                      symbolStatus: ptr CUdriverProcAddressQueryResult): CUresult {.
+                      symbolStatus: ptr CUdriverProcAddressQueryResult): CUresult {.discardable,
     cdecl, importc: "cuGetProcAddress", dynlib: libName.}
 ##  @}
 ##  END CUDA_DRIVER_ENTRY_POINT
@@ -24992,7 +24992,7 @@ const
 ##
 
 proc cuCoredumpGetAttribute*(attrib: CUcoredumpSettings; value: pointer;
-                            size: ptr csize_t): CUresult {.cdecl,
+                            size: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuCoredumpGetAttribute", dynlib: libName.}
 ##
 ##  \brief Allows caller to fetch a coredump attribute value for the entire application
@@ -25058,7 +25058,7 @@ proc cuCoredumpGetAttribute*(attrib: CUcoredumpSettings; value: pointer;
 ##
 
 proc cuCoredumpGetAttributeGlobal*(attrib: CUcoredumpSettings; value: pointer;
-                                  size: ptr csize_t): CUresult {.cdecl,
+                                  size: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuCoredumpGetAttributeGlobal", dynlib: libName.}
 ##
 ##  \brief Allows caller to set a coredump attribute value for the current context
@@ -25137,7 +25137,7 @@ proc cuCoredumpGetAttributeGlobal*(attrib: CUcoredumpSettings; value: pointer;
 ##
 
 proc cuCoredumpSetAttribute*(attrib: CUcoredumpSettings; value: pointer;
-                            size: ptr csize_t): CUresult {.cdecl,
+                            size: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuCoredumpSetAttribute", dynlib: libName.}
 ##
 ##  \brief Allows caller to set a coredump attribute value globally
@@ -25213,12 +25213,12 @@ proc cuCoredumpSetAttribute*(attrib: CUcoredumpSettings; value: pointer;
 ##
 
 proc cuCoredumpSetAttributeGlobal*(attrib: CUcoredumpSettings; value: pointer;
-                                  size: ptr csize_t): CUresult {.cdecl,
+                                  size: ptr csize_t): CUresult {.discardable, cdecl,
     importc: "cuCoredumpSetAttributeGlobal", dynlib: libName.}
 ##  @}
 ##  END CUDA_COREDUMP
 
-proc cuGetExportTable*(ppExportTable: ptr pointer; pExportTableId: ptr CUuuid): CUresult {.
+proc cuGetExportTable*(ppExportTable: ptr pointer; pExportTableId: ptr CUuuid): CUresult {.discardable,
     cdecl, importc: "cuGetExportTable", dynlib: libName.}
 ##
 ## * ******************* GREEN CONTEXTS **********************
@@ -25399,7 +25399,7 @@ type
 ##
 
 proc cuGreenCtxCreate*(phCtx: ptr CUgreenCtx; desc: CUdevResourceDesc; dev: CUdevice;
-                      flags: cuint): CUresult {.cdecl, importc: "cuGreenCtxCreate",
+                      flags: cuint): CUresult {.discardable, cdecl, importc: "cuGreenCtxCreate",
     dynlib: libName.}
 ##
 ##  \brief Destroys a green context
@@ -25421,7 +25421,7 @@ proc cuGreenCtxCreate*(phCtx: ptr CUgreenCtx; desc: CUdevResourceDesc; dev: CUde
 ##  ::cuCtxDestroy
 ##
 
-proc cuGreenCtxDestroy*(hCtx: CUgreenCtx): CUresult {.cdecl,
+proc cuGreenCtxDestroy*(hCtx: CUgreenCtx): CUresult {.discardable, cdecl,
     importc: "cuGreenCtxDestroy", dynlib: libName.}
 ##
 ##  \brief Converts a green context into the primary context
@@ -25449,7 +25449,7 @@ proc cuGreenCtxDestroy*(hCtx: CUgreenCtx): CUresult {.cdecl,
 ##  ::cuGreenCtxCreate
 ##
 
-proc cuCtxFromGreenCtx*(pContext: ptr CUcontext; hCtx: CUgreenCtx): CUresult {.cdecl,
+proc cuCtxFromGreenCtx*(pContext: ptr CUcontext; hCtx: CUgreenCtx): CUresult {.discardable, cdecl,
     importc: "cuCtxFromGreenCtx", dynlib: libName.}
 ##
 ##  \brief Get device resources
@@ -25476,7 +25476,7 @@ proc cuCtxFromGreenCtx*(pContext: ptr CUcontext; hCtx: CUgreenCtx): CUresult {.c
 ##
 
 proc cuDeviceGetDevResource*(device: CUdevice; resource: ptr CUdevResource;
-                            `type`: CUdevResourceType): CUresult {.cdecl,
+                            `type`: CUdevResourceType): CUresult {.discardable, cdecl,
     importc: "cuDeviceGetDevResource", dynlib: libName.}
 ##
 ##  \brief Get context resources
@@ -25502,7 +25502,7 @@ proc cuDeviceGetDevResource*(device: CUdevice; resource: ptr CUdevResource;
 ##
 
 proc cuCtxGetDevResource*(hCtx: CUcontext; resource: ptr CUdevResource;
-                         `type`: CUdevResourceType): CUresult {.cdecl,
+                         `type`: CUdevResourceType): CUresult {.discardable, cdecl,
     importc: "cuCtxGetDevResource", dynlib: libName.}
 ##
 ##  \brief Get green context resources
@@ -25525,7 +25525,7 @@ proc cuCtxGetDevResource*(hCtx: CUcontext; resource: ptr CUdevResource;
 ##
 
 proc cuGreenCtxGetDevResource*(hCtx: CUgreenCtx; resource: ptr CUdevResource;
-                              `type`: CUdevResourceType): CUresult {.cdecl,
+                              `type`: CUdevResourceType): CUresult {.discardable, cdecl,
     importc: "cuGreenCtxGetDevResource", dynlib: libName.}
 ##
 ##  \brief Splits \p CU_DEV_RESOURCE_TYPE_SM resources.
@@ -25590,7 +25590,7 @@ proc cuGreenCtxGetDevResource*(hCtx: CUgreenCtx; resource: ptr CUdevResource;
 proc cuDevSmResourceSplitByCount*(resultNotKeyWord: ptr CUdevResource; nbGroups: ptr cuint;
                                  input: ptr CUdevResource;
                                  remaining: ptr CUdevResource; useFlags: cuint;
-                                 minCount: cuint): CUresult {.cdecl,
+                                 minCount: cuint): CUresult {.discardable, cdecl,
     importc: "cuDevSmResourceSplitByCount", dynlib: libName.}
 ##
 ##  \brief Generate a resource descriptor
@@ -25627,7 +25627,7 @@ proc cuDevSmResourceSplitByCount*(resultNotKeyWord: ptr CUdevResource; nbGroups:
 ##
 
 proc cuDevResourceGenerateDesc*(phDesc: ptr CUdevResourceDesc;
-                               resources: ptr CUdevResource; nbResources: cuint): CUresult {.
+                               resources: ptr CUdevResource; nbResources: cuint): CUresult {.discardable,
     cdecl, importc: "cuDevResourceGenerateDesc", dynlib: libName.}
 ##
 ##  \brief Records an event.
@@ -25661,7 +25661,7 @@ proc cuDevResourceGenerateDesc*(phDesc: ptr CUdevResourceDesc;
 ##  ::cuCtxWaitEvent
 ##
 
-proc cuGreenCtxRecordEvent*(hCtx: CUgreenCtx; hEvent: CUevent): CUresult {.cdecl,
+proc cuGreenCtxRecordEvent*(hCtx: CUgreenCtx; hEvent: CUevent): CUresult {.discardable, cdecl,
     importc: "cuGreenCtxRecordEvent", dynlib: libName.}
 ##
 ##  \brief Make a green context wait on an event
@@ -25696,7 +25696,7 @@ proc cuGreenCtxRecordEvent*(hCtx: CUgreenCtx; hEvent: CUevent): CUresult {.cdecl
 ##  ::cuCtxWaitEvent
 ##
 
-proc cuGreenCtxWaitEvent*(hCtx: CUgreenCtx; hEvent: CUevent): CUresult {.cdecl,
+proc cuGreenCtxWaitEvent*(hCtx: CUgreenCtx; hEvent: CUevent): CUresult {.discardable, cdecl,
     importc: "cuGreenCtxWaitEvent", dynlib: libName.}
 ##
 ##  \brief Query the green context associated with a stream
@@ -25749,7 +25749,7 @@ proc cuGreenCtxWaitEvent*(hCtx: CUgreenCtx; hEvent: CUevent): CUresult {.cdecl,
 ##  ::cudaStreamCreateWithFlags
 ##
 
-proc cuStreamGetGreenCtx*(hStream: CUstream; phCtx: ptr CUgreenCtx): CUresult {.cdecl,
+proc cuStreamGetGreenCtx*(hStream: CUstream; phCtx: ptr CUgreenCtx): CUresult {.discardable, cdecl,
     importc: "cuStreamGetGreenCtx", dynlib: libName.}
 ##
 ##  \brief Create a stream for use in the green context
@@ -25806,7 +25806,7 @@ proc cuStreamGetGreenCtx*(hStream: CUstream; phCtx: ptr CUgreenCtx): CUresult {.
 ##
 
 proc cuGreenCtxStreamCreate*(phStream: ptr CUstream; greenCtx: CUgreenCtx;
-                            flags: cuint; priority: cint): CUresult {.cdecl,
+                            flags: cuint; priority: cint): CUresult {.discardable, cdecl,
     importc: "cuGreenCtxStreamCreate", dynlib: libName.}
 ##  @}
 ##
@@ -25817,23 +25817,23 @@ proc cuGreenCtxStreamCreate*(phStream: ptr CUstream; greenCtx: CUgreenCtx;
 ##
 
 when defined(CUDA_API_VERSION_INTERNAL):
-  proc cuMemHostRegister*(p: pointer; bytesize: csize_t; Flags: cuint): CUresult {.
+  proc cuMemHostRegister*(p: pointer; bytesize: csize_t; Flags: cuint): CUresult {.discardable,
       cdecl, importc: "cuMemHostRegister", dynlib: libName.}
-  proc cuGraphicsResourceSetMapFlags*(resource: CUgraphicsResource; flags: cuint): CUresult {.
+  proc cuGraphicsResourceSetMapFlags*(resource: CUgraphicsResource; flags: cuint): CUresult {.discardable,
       cdecl, importc: "cuGraphicsResourceSetMapFlags", dynlib: libName.}
   proc cuLinkCreate*(numOptions: cuint; options: ptr CUjit_option;
-                    optionValues: ptr pointer; stateOut: ptr CUlinkState): CUresult {.
+                    optionValues: ptr pointer; stateOut: ptr CUlinkState): CUresult {.discardable,
       cdecl, importc: "cuLinkCreate", dynlib: libName.}
   proc cuLinkAddData*(state: CUlinkState; `type`: CUjitInputType; data: pointer;
                      size: csize_t; name: cstring; numOptions: cuint;
-                     options: ptr CUjit_option; optionValues: ptr pointer): CUresult {.
+                     options: ptr CUjit_option; optionValues: ptr pointer): CUresult {.discardable,
       cdecl, importc: "cuLinkAddData", dynlib: libName.}
   proc cuLinkAddFile*(state: CUlinkState; `type`: CUjitInputType; path: cstring;
                      numOptions: cuint; options: ptr CUjit_option;
-                     optionValues: ptr pointer): CUresult {.cdecl,
+                     optionValues: ptr pointer): CUresult {.discardable, cdecl,
       importc: "cuLinkAddFile", dynlib: libName.}
   proc cuTexRefSetAddress2D_v2*(hTexRef: CUtexref; desc: ptr CUDA_ARRAY_DESCRIPTOR;
-                               dptr: CUdeviceptr; Pitch: csize_t): CUresult {.cdecl,
+                               dptr: CUdeviceptr; Pitch: csize_t): CUresult {.discardable, cdecl,
       importc: "cuTexRefSetAddress2D_v2", dynlib: libName.}
   type
     CUdeviceptr_v1* = cuint
@@ -25947,441 +25947,441 @@ when defined(CUDA_API_VERSION_INTERNAL):
       Flags*: cuint
       ## < Flags
 
-  proc cuDeviceTotalMem*(bytes: ptr cuint; dev: CUdevice): CUresult {.cdecl,
+  proc cuDeviceTotalMem*(bytes: ptr cuint; dev: CUdevice): CUresult {.discardable, cdecl,
       importc: "cuDeviceTotalMem", dynlib: libName.}
-  proc cuCtxCreate*(pctx: ptr CUcontext; flags: cuint; dev: CUdevice): CUresult {.cdecl,
+  proc cuCtxCreate*(pctx: ptr CUcontext; flags: cuint; dev: CUdevice): CUresult {.discardable, cdecl,
       importc: "cuCtxCreate", dynlib: libName.}
   proc cuModuleGetGlobal*(dptr: ptr CUdeviceptr_v1; bytes: ptr cuint; hmod: CUmodule;
-                         name: cstring): CUresult {.cdecl,
+                         name: cstring): CUresult {.discardable, cdecl,
       importc: "cuModuleGetGlobal", dynlib: libName.}
-  proc cuMemGetInfo*(free: ptr cuint; total: ptr cuint): CUresult {.cdecl,
+  proc cuMemGetInfo*(free: ptr cuint; total: ptr cuint): CUresult {.discardable, cdecl,
       importc: "cuMemGetInfo", dynlib: libName.}
-  proc cuMemAlloc*(dptr: ptr CUdeviceptr_v1; bytesize: cuint): CUresult {.cdecl,
+  proc cuMemAlloc*(dptr: ptr CUdeviceptr_v1; bytesize: cuint): CUresult {.discardable, cdecl,
       importc: "cuMemAlloc", dynlib: libName.}
   proc cuMemAllocPitch*(dptr: ptr CUdeviceptr_v1; pPitch: ptr cuint;
-                       WidthInBytes: cuint; Height: cuint; ElementSizeBytes: cuint): CUresult {.
+                       WidthInBytes: cuint; Height: cuint; ElementSizeBytes: cuint): CUresult {.discardable,
       cdecl, importc: "cuMemAllocPitch", dynlib: libName.}
-  proc cuMemFree*(dptr: CUdeviceptr_v1): CUresult {.cdecl, importc: "cuMemFree",
+  proc cuMemFree*(dptr: CUdeviceptr_v1): CUresult {.discardable, cdecl, importc: "cuMemFree",
       dynlib: libName.}
   proc cuMemGetAddressRange*(pbase: ptr CUdeviceptr_v1; psize: ptr cuint;
-                            dptr: CUdeviceptr_v1): CUresult {.cdecl,
+                            dptr: CUdeviceptr_v1): CUresult {.discardable, cdecl,
       importc: "cuMemGetAddressRange", dynlib: libName.}
-  proc cuMemAllocHost*(pp: ptr pointer; bytesize: cuint): CUresult {.cdecl,
+  proc cuMemAllocHost*(pp: ptr pointer; bytesize: cuint): CUresult {.discardable, cdecl,
       importc: "cuMemAllocHost", dynlib: libName.}
-  proc cuMemHostGetDevicePointer*(pdptr: ptr CUdeviceptr_v1; p: pointer; Flags: cuint): CUresult {.
+  proc cuMemHostGetDevicePointer*(pdptr: ptr CUdeviceptr_v1; p: pointer; Flags: cuint): CUresult {.discardable,
       cdecl, importc: "cuMemHostGetDevicePointer", dynlib: libName.}
-  proc cuMemcpyHtoD*(dstDevice: CUdeviceptr_v1; srcHost: pointer; ByteCount: cuint): CUresult {.
+  proc cuMemcpyHtoD*(dstDevice: CUdeviceptr_v1; srcHost: pointer; ByteCount: cuint): CUresult {.discardable,
       cdecl, importc: "cuMemcpyHtoD", dynlib: libName.}
-  proc cuMemcpyDtoH*(dstHost: pointer; srcDevice: CUdeviceptr_v1; ByteCount: cuint): CUresult {.
+  proc cuMemcpyDtoH*(dstHost: pointer; srcDevice: CUdeviceptr_v1; ByteCount: cuint): CUresult {.discardable,
       cdecl, importc: "cuMemcpyDtoH", dynlib: libName.}
   proc cuMemcpyDtoD*(dstDevice: CUdeviceptr_v1; srcDevice: CUdeviceptr_v1;
-                    ByteCount: cuint): CUresult {.cdecl, importc: "cuMemcpyDtoD",
+                    ByteCount: cuint): CUresult {.discardable, cdecl, importc: "cuMemcpyDtoD",
       dynlib: libName.}
   proc cuMemcpyDtoA*(dstArray: CUarray; dstOffset: cuint; srcDevice: CUdeviceptr_v1;
-                    ByteCount: cuint): CUresult {.cdecl, importc: "cuMemcpyDtoA",
+                    ByteCount: cuint): CUresult {.discardable, cdecl, importc: "cuMemcpyDtoA",
       dynlib: libName.}
   proc cuMemcpyAtoD*(dstDevice: CUdeviceptr_v1; srcArray: CUarray; srcOffset: cuint;
-                    ByteCount: cuint): CUresult {.cdecl, importc: "cuMemcpyAtoD",
+                    ByteCount: cuint): CUresult {.discardable, cdecl, importc: "cuMemcpyAtoD",
       dynlib: libName.}
   proc cuMemcpyHtoA*(dstArray: CUarray; dstOffset: cuint; srcHost: pointer;
-                    ByteCount: cuint): CUresult {.cdecl, importc: "cuMemcpyHtoA",
+                    ByteCount: cuint): CUresult {.discardable, cdecl, importc: "cuMemcpyHtoA",
       dynlib: libName.}
   proc cuMemcpyAtoH*(dstHost: pointer; srcArray: CUarray; srcOffset: cuint;
-                    ByteCount: cuint): CUresult {.cdecl, importc: "cuMemcpyAtoH",
+                    ByteCount: cuint): CUresult {.discardable, cdecl, importc: "cuMemcpyAtoH",
       dynlib: libName.}
   proc cuMemcpyAtoA*(dstArray: CUarray; dstOffset: cuint; srcArray: CUarray;
-                    srcOffset: cuint; ByteCount: cuint): CUresult {.cdecl,
+                    srcOffset: cuint; ByteCount: cuint): CUresult {.discardable, cdecl,
       importc: "cuMemcpyAtoA", dynlib: libName.}
   proc cuMemcpyHtoAAsync*(dstArray: CUarray; dstOffset: cuint; srcHost: pointer;
-                         ByteCount: cuint; hStream: CUstream): CUresult {.cdecl,
+                         ByteCount: cuint; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyHtoAAsync", dynlib: libName.}
   proc cuMemcpyAtoHAsync*(dstHost: pointer; srcArray: CUarray; srcOffset: cuint;
-                         ByteCount: cuint; hStream: CUstream): CUresult {.cdecl,
+                         ByteCount: cuint; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyAtoHAsync", dynlib: libName.}
-  proc cuMemcpy2D*(pCopy: ptr CUDA_MEMCPY2D_v1): CUresult {.cdecl,
+  proc cuMemcpy2D*(pCopy: ptr CUDA_MEMCPY2D_v1): CUresult {.discardable, cdecl,
       importc: "cuMemcpy2D", dynlib: libName.}
-  proc cuMemcpy2DUnaligned*(pCopy: ptr CUDA_MEMCPY2D_v1): CUresult {.cdecl,
+  proc cuMemcpy2DUnaligned*(pCopy: ptr CUDA_MEMCPY2D_v1): CUresult {.discardable, cdecl,
       importc: "cuMemcpy2DUnaligned", dynlib: libName.}
-  proc cuMemcpy3D*(pCopy: ptr CUDA_MEMCPY3D_v1): CUresult {.cdecl,
+  proc cuMemcpy3D*(pCopy: ptr CUDA_MEMCPY3D_v1): CUresult {.discardable, cdecl,
       importc: "cuMemcpy3D", dynlib: libName.}
   proc cuMemcpyHtoDAsync*(dstDevice: CUdeviceptr_v1; srcHost: pointer;
-                         ByteCount: cuint; hStream: CUstream): CUresult {.cdecl,
+                         ByteCount: cuint; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyHtoDAsync", dynlib: libName.}
   proc cuMemcpyDtoHAsync*(dstHost: pointer; srcDevice: CUdeviceptr_v1;
-                         ByteCount: cuint; hStream: CUstream): CUresult {.cdecl,
+                         ByteCount: cuint; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyDtoHAsync", dynlib: libName.}
   proc cuMemcpyDtoDAsync*(dstDevice: CUdeviceptr_v1; srcDevice: CUdeviceptr_v1;
-                         ByteCount: cuint; hStream: CUstream): CUresult {.cdecl,
+                         ByteCount: cuint; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyDtoDAsync", dynlib: libName.}
-  proc cuMemcpy2DAsync*(pCopy: ptr CUDA_MEMCPY2D_v1; hStream: CUstream): CUresult {.
+  proc cuMemcpy2DAsync*(pCopy: ptr CUDA_MEMCPY2D_v1; hStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuMemcpy2DAsync", dynlib: libName.}
-  proc cuMemcpy3DAsync*(pCopy: ptr CUDA_MEMCPY3D_v1; hStream: CUstream): CUresult {.
+  proc cuMemcpy3DAsync*(pCopy: ptr CUDA_MEMCPY3D_v1; hStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuMemcpy3DAsync", dynlib: libName.}
-  proc cuMemsetD8*(dstDevice: CUdeviceptr_v1; uc: char; N: cuint): CUresult {.cdecl,
+  proc cuMemsetD8*(dstDevice: CUdeviceptr_v1; uc: char; N: cuint): CUresult {.discardable, cdecl,
       importc: "cuMemsetD8", dynlib: libName.}
-  proc cuMemsetD16*(dstDevice: CUdeviceptr_v1; us: cushort; N: cuint): CUresult {.cdecl,
+  proc cuMemsetD16*(dstDevice: CUdeviceptr_v1; us: cushort; N: cuint): CUresult {.discardable, cdecl,
       importc: "cuMemsetD16", dynlib: libName.}
-  proc cuMemsetD32*(dstDevice: CUdeviceptr_v1; ui: cuint; N: cuint): CUresult {.cdecl,
+  proc cuMemsetD32*(dstDevice: CUdeviceptr_v1; ui: cuint; N: cuint): CUresult {.discardable, cdecl,
       importc: "cuMemsetD32", dynlib: libName.}
   proc cuMemsetD2D8*(dstDevice: CUdeviceptr_v1; dstPitch: cuint; uc: char;
-                    Width: cuint; Height: cuint): CUresult {.cdecl,
+                    Width: cuint; Height: cuint): CUresult {.discardable, cdecl,
       importc: "cuMemsetD2D8", dynlib: libName.}
   proc cuMemsetD2D16*(dstDevice: CUdeviceptr_v1; dstPitch: cuint; us: cushort;
-                     Width: cuint; Height: cuint): CUresult {.cdecl,
+                     Width: cuint; Height: cuint): CUresult {.discardable, cdecl,
       importc: "cuMemsetD2D16", dynlib: libName.}
   proc cuMemsetD2D32*(dstDevice: CUdeviceptr_v1; dstPitch: cuint; ui: cuint;
-                     Width: cuint; Height: cuint): CUresult {.cdecl,
+                     Width: cuint; Height: cuint): CUresult {.discardable, cdecl,
       importc: "cuMemsetD2D32", dynlib: libName.}
   proc cuArrayCreate*(pHandle: ptr CUarray;
-                     pAllocateArray: ptr CUDA_ARRAY_DESCRIPTOR_v1): CUresult {.
+                     pAllocateArray: ptr CUDA_ARRAY_DESCRIPTOR_v1): CUresult {.discardable,
       cdecl, importc: "cuArrayCreate", dynlib: libName.}
   proc cuArrayGetDescriptor*(pArrayDescriptor: ptr CUDA_ARRAY_DESCRIPTOR_v1;
-                            hArray: CUarray): CUresult {.cdecl,
+                            hArray: CUarray): CUresult {.discardable, cdecl,
       importc: "cuArrayGetDescriptor", dynlib: libName.}
   proc cuArray3DCreate*(pHandle: ptr CUarray;
-                       pAllocateArray: ptr CUDA_ARRAY3D_DESCRIPTOR_v1): CUresult {.
+                       pAllocateArray: ptr CUDA_ARRAY3D_DESCRIPTOR_v1): CUresult {.discardable,
       cdecl, importc: "cuArray3DCreate", dynlib: libName.}
   proc cuArray3DGetDescriptor*(pArrayDescriptor: ptr CUDA_ARRAY3D_DESCRIPTOR_v1;
-                              hArray: CUarray): CUresult {.cdecl,
+                              hArray: CUarray): CUresult {.discardable, cdecl,
       importc: "cuArray3DGetDescriptor", dynlib: libName.}
   proc cuTexRefSetAddress*(ByteOffset: ptr cuint; hTexRef: CUtexref;
-                          dptr: CUdeviceptr_v1; bytes: cuint): CUresult {.cdecl,
+                          dptr: CUdeviceptr_v1; bytes: cuint): CUresult {.discardable, cdecl,
       importc: "cuTexRefSetAddress", dynlib: libName.}
   proc cuTexRefSetAddress2D*(hTexRef: CUtexref; desc: ptr CUDA_ARRAY_DESCRIPTOR_v1;
-                            dptr: CUdeviceptr_v1; Pitch: cuint): CUresult {.cdecl,
+                            dptr: CUdeviceptr_v1; Pitch: cuint): CUresult {.discardable, cdecl,
       importc: "cuTexRefSetAddress2D", dynlib: libName.}
-  proc cuTexRefGetAddress*(pdptr: ptr CUdeviceptr_v1; hTexRef: CUtexref): CUresult {.
+  proc cuTexRefGetAddress*(pdptr: ptr CUdeviceptr_v1; hTexRef: CUtexref): CUresult {.discardable,
       cdecl, importc: "cuTexRefGetAddress", dynlib: libName.}
   proc cuGraphicsResourceGetMappedPointer*(pDevPtr: ptr CUdeviceptr_v1;
-      pSize: ptr cuint; resource: CUgraphicsResource): CUresult {.cdecl,
+      pSize: ptr cuint; resource: CUgraphicsResource): CUresult {.discardable, cdecl,
       importc: "cuGraphicsResourceGetMappedPointer", dynlib: libName.}
-  proc cuCtxDestroy*(ctx: CUcontext): CUresult {.cdecl, importc: "cuCtxDestroy",
+  proc cuCtxDestroy*(ctx: CUcontext): CUresult {.discardable, cdecl, importc: "cuCtxDestroy",
       dynlib: libName.}
-  proc cuCtxPopCurrent*(pctx: ptr CUcontext): CUresult {.cdecl,
+  proc cuCtxPopCurrent*(pctx: ptr CUcontext): CUresult {.discardable, cdecl,
       importc: "cuCtxPopCurrent", dynlib: libName.}
-  proc cuCtxPushCurrent*(ctx: CUcontext): CUresult {.cdecl,
+  proc cuCtxPushCurrent*(ctx: CUcontext): CUresult {.discardable, cdecl,
       importc: "cuCtxPushCurrent", dynlib: libName.}
-  proc cuStreamDestroy*(hStream: CUstream): CUresult {.cdecl,
+  proc cuStreamDestroy*(hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuStreamDestroy", dynlib: libName.}
-  proc cuEventDestroy*(hEvent: CUevent): CUresult {.cdecl, importc: "cuEventDestroy",
+  proc cuEventDestroy*(hEvent: CUevent): CUresult {.discardable, cdecl, importc: "cuEventDestroy",
       dynlib: libName.}
-  proc cuDevicePrimaryCtxRelease*(dev: CUdevice): CUresult {.cdecl,
+  proc cuDevicePrimaryCtxRelease*(dev: CUdevice): CUresult {.discardable, cdecl,
       importc: "cuDevicePrimaryCtxRelease", dynlib: libName.}
-  proc cuDevicePrimaryCtxReset*(dev: CUdevice): CUresult {.cdecl,
+  proc cuDevicePrimaryCtxReset*(dev: CUdevice): CUresult {.discardable, cdecl,
       importc: "cuDevicePrimaryCtxReset", dynlib: libName.}
-  proc cuDevicePrimaryCtxSetFlags*(dev: CUdevice; flags: cuint): CUresult {.cdecl,
+  proc cuDevicePrimaryCtxSetFlags*(dev: CUdevice; flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuDevicePrimaryCtxSetFlags", dynlib: libName.}
-  proc cuMemcpyHtoD_v2*(dstDevice: CUdeviceptr; srcHost: pointer; ByteCount: csize_t): CUresult {.
+  proc cuMemcpyHtoD_v2*(dstDevice: CUdeviceptr; srcHost: pointer; ByteCount: csize_t): CUresult {.discardable,
       cdecl, importc: "cuMemcpyHtoD_v2", dynlib: libName.}
-  proc cuMemcpyDtoH_v2*(dstHost: pointer; srcDevice: CUdeviceptr; ByteCount: csize_t): CUresult {.
+  proc cuMemcpyDtoH_v2*(dstHost: pointer; srcDevice: CUdeviceptr; ByteCount: csize_t): CUresult {.discardable,
       cdecl, importc: "cuMemcpyDtoH_v2", dynlib: libName.}
   proc cuMemcpyDtoD_v2*(dstDevice: CUdeviceptr; srcDevice: CUdeviceptr;
-                       ByteCount: csize_t): CUresult {.cdecl,
+                       ByteCount: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemcpyDtoD_v2", dynlib: libName.}
   proc cuMemcpyDtoA_v2*(dstArray: CUarray; dstOffset: csize_t;
-                       srcDevice: CUdeviceptr; ByteCount: csize_t): CUresult {.cdecl,
+                       srcDevice: CUdeviceptr; ByteCount: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemcpyDtoA_v2", dynlib: libName.}
   proc cuMemcpyAtoD_v2*(dstDevice: CUdeviceptr; srcArray: CUarray;
-                       srcOffset: csize_t; ByteCount: csize_t): CUresult {.cdecl,
+                       srcOffset: csize_t; ByteCount: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemcpyAtoD_v2", dynlib: libName.}
   proc cuMemcpyHtoA_v2*(dstArray: CUarray; dstOffset: csize_t; srcHost: pointer;
-                       ByteCount: csize_t): CUresult {.cdecl,
+                       ByteCount: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemcpyHtoA_v2", dynlib: libName.}
   proc cuMemcpyAtoH_v2*(dstHost: pointer; srcArray: CUarray; srcOffset: csize_t;
-                       ByteCount: csize_t): CUresult {.cdecl,
+                       ByteCount: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemcpyAtoH_v2", dynlib: libName.}
   proc cuMemcpyAtoA_v2*(dstArray: CUarray; dstOffset: csize_t; srcArray: CUarray;
-                       srcOffset: csize_t; ByteCount: csize_t): CUresult {.cdecl,
+                       srcOffset: csize_t; ByteCount: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemcpyAtoA_v2", dynlib: libName.}
   proc cuMemcpyHtoAAsync_v2*(dstArray: CUarray; dstOffset: csize_t; srcHost: pointer;
-                            ByteCount: csize_t; hStream: CUstream): CUresult {.cdecl,
+                            ByteCount: csize_t; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyHtoAAsync_v2", dynlib: libName.}
   proc cuMemcpyAtoHAsync_v2*(dstHost: pointer; srcArray: CUarray; srcOffset: csize_t;
-                            ByteCount: csize_t; hStream: CUstream): CUresult {.cdecl,
+                            ByteCount: csize_t; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyAtoHAsync_v2", dynlib: libName.}
-  proc cuMemcpy2D_v2*(pCopy: ptr CUDA_MEMCPY2D): CUresult {.cdecl,
+  proc cuMemcpy2D_v2*(pCopy: ptr CUDA_MEMCPY2D): CUresult {.discardable, cdecl,
       importc: "cuMemcpy2D_v2", dynlib: libName.}
-  proc cuMemcpy2DUnaligned_v2*(pCopy: ptr CUDA_MEMCPY2D): CUresult {.cdecl,
+  proc cuMemcpy2DUnaligned_v2*(pCopy: ptr CUDA_MEMCPY2D): CUresult {.discardable, cdecl,
       importc: "cuMemcpy2DUnaligned_v2", dynlib: libName.}
-  proc cuMemcpy3D_v2*(pCopy: ptr CUDA_MEMCPY3D): CUresult {.cdecl,
+  proc cuMemcpy3D_v2*(pCopy: ptr CUDA_MEMCPY3D): CUresult {.discardable, cdecl,
       importc: "cuMemcpy3D_v2", dynlib: libName.}
   proc cuMemcpyHtoDAsync_v2*(dstDevice: CUdeviceptr; srcHost: pointer;
-                            ByteCount: csize_t; hStream: CUstream): CUresult {.cdecl,
+                            ByteCount: csize_t; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyHtoDAsync_v2", dynlib: libName.}
   proc cuMemcpyDtoHAsync_v2*(dstHost: pointer; srcDevice: CUdeviceptr;
-                            ByteCount: csize_t; hStream: CUstream): CUresult {.cdecl,
+                            ByteCount: csize_t; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyDtoHAsync_v2", dynlib: libName.}
   proc cuMemcpyDtoDAsync_v2*(dstDevice: CUdeviceptr; srcDevice: CUdeviceptr;
-                            ByteCount: csize_t; hStream: CUstream): CUresult {.cdecl,
+                            ByteCount: csize_t; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyDtoDAsync_v2", dynlib: libName.}
-  proc cuMemcpy2DAsync_v2*(pCopy: ptr CUDA_MEMCPY2D; hStream: CUstream): CUresult {.
+  proc cuMemcpy2DAsync_v2*(pCopy: ptr CUDA_MEMCPY2D; hStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuMemcpy2DAsync_v2", dynlib: libName.}
-  proc cuMemcpy3DAsync_v2*(pCopy: ptr CUDA_MEMCPY3D; hStream: CUstream): CUresult {.
+  proc cuMemcpy3DAsync_v2*(pCopy: ptr CUDA_MEMCPY3D; hStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuMemcpy3DAsync_v2", dynlib: libName.}
-  proc cuMemsetD8_v2*(dstDevice: CUdeviceptr; uc: char; N: csize_t): CUresult {.cdecl,
+  proc cuMemsetD8_v2*(dstDevice: CUdeviceptr; uc: char; N: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemsetD8_v2", dynlib: libName.}
-  proc cuMemsetD16_v2*(dstDevice: CUdeviceptr; us: cushort; N: csize_t): CUresult {.
+  proc cuMemsetD16_v2*(dstDevice: CUdeviceptr; us: cushort; N: csize_t): CUresult {.discardable,
       cdecl, importc: "cuMemsetD16_v2", dynlib: libName.}
-  proc cuMemsetD32_v2*(dstDevice: CUdeviceptr; ui: cuint; N: csize_t): CUresult {.cdecl,
+  proc cuMemsetD32_v2*(dstDevice: CUdeviceptr; ui: cuint; N: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemsetD32_v2", dynlib: libName.}
   proc cuMemsetD2D8_v2*(dstDevice: CUdeviceptr; dstPitch: csize_t; uc: char;
-                       Width: csize_t; Height: csize_t): CUresult {.cdecl,
+                       Width: csize_t; Height: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemsetD2D8_v2", dynlib: libName.}
   proc cuMemsetD2D16_v2*(dstDevice: CUdeviceptr; dstPitch: csize_t; us: cushort;
-                        Width: csize_t; Height: csize_t): CUresult {.cdecl,
+                        Width: csize_t; Height: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemsetD2D16_v2", dynlib: libName.}
   proc cuMemsetD2D32_v2*(dstDevice: CUdeviceptr; dstPitch: csize_t; ui: cuint;
-                        Width: csize_t; Height: csize_t): CUresult {.cdecl,
+                        Width: csize_t; Height: csize_t): CUresult {.discardable, cdecl,
       importc: "cuMemsetD2D32_v2", dynlib: libName.}
-  proc cuMemcpy*(dst: CUdeviceptr; src: CUdeviceptr; ByteCount: csize_t): CUresult {.
+  proc cuMemcpy*(dst: CUdeviceptr; src: CUdeviceptr; ByteCount: csize_t): CUresult {.discardable,
       cdecl, importc: "cuMemcpy", dynlib: libName.}
   proc cuMemcpyAsync*(dst: CUdeviceptr; src: CUdeviceptr; ByteCount: csize_t;
-                     hStream: CUstream): CUresult {.cdecl, importc: "cuMemcpyAsync",
+                     hStream: CUstream): CUresult {.discardable, cdecl, importc: "cuMemcpyAsync",
       dynlib: libName.}
   proc cuMemcpyPeer*(dstDevice: CUdeviceptr; dstContext: CUcontext;
                     srcDevice: CUdeviceptr; srcContext: CUcontext;
-                    ByteCount: csize_t): CUresult {.cdecl, importc: "cuMemcpyPeer",
+                    ByteCount: csize_t): CUresult {.discardable, cdecl, importc: "cuMemcpyPeer",
       dynlib: libName.}
   proc cuMemcpyPeerAsync*(dstDevice: CUdeviceptr; dstContext: CUcontext;
                          srcDevice: CUdeviceptr; srcContext: CUcontext;
-                         ByteCount: csize_t; hStream: CUstream): CUresult {.cdecl,
+                         ByteCount: csize_t; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemcpyPeerAsync", dynlib: libName.}
-  proc cuMemcpy3DPeer*(pCopy: ptr CUDA_MEMCPY3D_PEER): CUresult {.cdecl,
+  proc cuMemcpy3DPeer*(pCopy: ptr CUDA_MEMCPY3D_PEER): CUresult {.discardable, cdecl,
       importc: "cuMemcpy3DPeer", dynlib: libName.}
-  proc cuMemcpy3DPeerAsync*(pCopy: ptr CUDA_MEMCPY3D_PEER; hStream: CUstream): CUresult {.
+  proc cuMemcpy3DPeerAsync*(pCopy: ptr CUDA_MEMCPY3D_PEER; hStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuMemcpy3DPeerAsync", dynlib: libName.}
   proc cuMemsetD8Async*(dstDevice: CUdeviceptr; uc: char; N: csize_t;
-                       hStream: CUstream): CUresult {.cdecl,
+                       hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemsetD8Async", dynlib: libName.}
   proc cuMemsetD16Async*(dstDevice: CUdeviceptr; us: cushort; N: csize_t;
-                        hStream: CUstream): CUresult {.cdecl,
+                        hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemsetD16Async", dynlib: libName.}
   proc cuMemsetD32Async*(dstDevice: CUdeviceptr; ui: cuint; N: csize_t;
-                        hStream: CUstream): CUresult {.cdecl,
+                        hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemsetD32Async", dynlib: libName.}
   proc cuMemsetD2D8Async*(dstDevice: CUdeviceptr; dstPitch: csize_t; uc: char;
-                         Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.
+                         Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuMemsetD2D8Async", dynlib: libName.}
   proc cuMemsetD2D16Async*(dstDevice: CUdeviceptr; dstPitch: csize_t; us: cushort;
-                          Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.
+                          Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuMemsetD2D16Async", dynlib: libName.}
   proc cuMemsetD2D32Async*(dstDevice: CUdeviceptr; dstPitch: csize_t; ui: cuint;
-                          Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.
+                          Width: csize_t; Height: csize_t; hStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuMemsetD2D32Async", dynlib: libName.}
-  proc cuStreamGetPriority*(hStream: CUstream; priority: ptr cint): CUresult {.cdecl,
+  proc cuStreamGetPriority*(hStream: CUstream; priority: ptr cint): CUresult {.discardable, cdecl,
       importc: "cuStreamGetPriority", dynlib: libName.}
-  proc cuStreamGetId*(hStream: CUstream; streamId: ptr culonglong): CUresult {.cdecl,
+  proc cuStreamGetId*(hStream: CUstream; streamId: ptr culonglong): CUresult {.discardable, cdecl,
       importc: "cuStreamGetId", dynlib: libName.}
-  proc cuStreamGetFlags*(hStream: CUstream; flags: ptr cuint): CUresult {.cdecl,
+  proc cuStreamGetFlags*(hStream: CUstream; flags: ptr cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamGetFlags", dynlib: libName.}
-  proc cuStreamGetCtx*(hStream: CUstream; pctx: ptr CUcontext): CUresult {.cdecl,
+  proc cuStreamGetCtx*(hStream: CUstream; pctx: ptr CUcontext): CUresult {.discardable, cdecl,
       importc: "cuStreamGetCtx", dynlib: libName.}
   proc cuStreamGetCtx_v2*(hStream: CUstream; pCtx: ptr CUcontext;
-                         pGreenCtx: ptr CUgreenCtx): CUresult {.cdecl,
+                         pGreenCtx: ptr CUgreenCtx): CUresult {.discardable, cdecl,
       importc: "cuStreamGetCtx_v2", dynlib: libName.}
-  proc cuStreamWaitEvent*(hStream: CUstream; hEvent: CUevent; Flags: cuint): CUresult {.
+  proc cuStreamWaitEvent*(hStream: CUstream; hEvent: CUevent; Flags: cuint): CUresult {.discardable,
       cdecl, importc: "cuStreamWaitEvent", dynlib: libName.}
   proc cuStreamAddCallback*(hStream: CUstream; callback: CUstreamCallback;
-                           userData: pointer; flags: cuint): CUresult {.cdecl,
+                           userData: pointer; flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamAddCallback", dynlib: libName.}
   proc cuStreamAttachMemAsync*(hStream: CUstream; dptr: CUdeviceptr; length: csize_t;
-                              flags: cuint): CUresult {.cdecl,
+                              flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamAttachMemAsync", dynlib: libName.}
-  proc cuStreamQuery*(hStream: CUstream): CUresult {.cdecl, importc: "cuStreamQuery",
+  proc cuStreamQuery*(hStream: CUstream): CUresult {.discardable, cdecl, importc: "cuStreamQuery",
       dynlib: libName.}
-  proc cuStreamSynchronize*(hStream: CUstream): CUresult {.cdecl,
+  proc cuStreamSynchronize*(hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuStreamSynchronize", dynlib: libName.}
-  proc cuEventRecord*(hEvent: CUevent; hStream: CUstream): CUresult {.cdecl,
+  proc cuEventRecord*(hEvent: CUevent; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuEventRecord", dynlib: libName.}
-  proc cuEventRecordWithFlags*(hEvent: CUevent; hStream: CUstream; flags: cuint): CUresult {.
+  proc cuEventRecordWithFlags*(hEvent: CUevent; hStream: CUstream; flags: cuint): CUresult {.discardable,
       cdecl, importc: "cuEventRecordWithFlags", dynlib: libName.}
   proc cuLaunchKernel*(f: CUfunction; gridDimX: cuint; gridDimY: cuint;
                       gridDimZ: cuint; blockDimX: cuint; blockDimY: cuint;
                       blockDimZ: cuint; sharedMemBytes: cuint; hStream: CUstream;
-                      kernelParams: ptr pointer; extra: ptr pointer): CUresult {.cdecl,
+                      kernelParams: ptr pointer; extra: ptr pointer): CUresult {.discardable, cdecl,
       importc: "cuLaunchKernel", dynlib: libName.}
   proc cuLaunchKernelEx*(config: ptr CUlaunchConfig; f: CUfunction;
-                        kernelParams: ptr pointer; extra: ptr pointer): CUresult {.
+                        kernelParams: ptr pointer; extra: ptr pointer): CUresult {.discardable,
       cdecl, importc: "cuLaunchKernelEx", dynlib: libName.}
-  proc cuLaunchHostFunc*(hStream: CUstream; fn: CUhostFn; userData: pointer): CUresult {.
+  proc cuLaunchHostFunc*(hStream: CUstream; fn: CUhostFn; userData: pointer): CUresult {.discardable,
       cdecl, importc: "cuLaunchHostFunc", dynlib: libName.}
   proc cuGraphicsMapResources*(count: cuint; resources: ptr CUgraphicsResource;
-                              hStream: CUstream): CUresult {.cdecl,
+                              hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuGraphicsMapResources", dynlib: libName.}
   proc cuGraphicsUnmapResources*(count: cuint; resources: ptr CUgraphicsResource;
-                                hStream: CUstream): CUresult {.cdecl,
+                                hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuGraphicsUnmapResources", dynlib: libName.}
   proc cuStreamWriteValue32*(stream: CUstream; `addr`: CUdeviceptr; value: cint;
-                            flags: cuint): CUresult {.cdecl,
+                            flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWriteValue32", dynlib: libName.}
   proc cuStreamWaitValue32*(stream: CUstream; `addr`: CUdeviceptr; value: cint;
-                           flags: cuint): CUresult {.cdecl,
+                           flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWaitValue32", dynlib: libName.}
   proc cuStreamWriteValue64*(stream: CUstream; `addr`: CUdeviceptr;
-                            value: culonglong; flags: cuint): CUresult {.cdecl,
+                            value: culonglong; flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWriteValue64", dynlib: libName.}
   proc cuStreamWaitValue64*(stream: CUstream; `addr`: CUdeviceptr; value: culonglong;
-                           flags: cuint): CUresult {.cdecl,
+                           flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWaitValue64", dynlib: libName.}
   proc cuStreamBatchMemOp*(stream: CUstream; count: cuint;
-                          paramArray: ptr CUstreamBatchMemOpParams; flags: cuint): CUresult {.
+                          paramArray: ptr CUstreamBatchMemOpParams; flags: cuint): CUresult {.discardable,
       cdecl, importc: "cuStreamBatchMemOp", dynlib: libName.}
   proc cuStreamWriteValue32_ptsz*(stream: CUstream; `addr`: CUdeviceptr; value: cint;
-                                 flags: cuint): CUresult {.cdecl,
+                                 flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWriteValue32_ptsz", dynlib: libName.}
   proc cuStreamWaitValue32_ptsz*(stream: CUstream; `addr`: CUdeviceptr; value: cint;
-                                flags: cuint): CUresult {.cdecl,
+                                flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWaitValue32_ptsz", dynlib: libName.}
   proc cuStreamWriteValue64_ptsz*(stream: CUstream; `addr`: CUdeviceptr;
-                                 value: culonglong; flags: cuint): CUresult {.cdecl,
+                                 value: culonglong; flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWriteValue64_ptsz", dynlib: libName.}
   proc cuStreamWaitValue64_ptsz*(stream: CUstream; `addr`: CUdeviceptr;
-                                value: culonglong; flags: cuint): CUresult {.cdecl,
+                                value: culonglong; flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWaitValue64_ptsz", dynlib: libName.}
   proc cuStreamBatchMemOp_ptsz*(stream: CUstream; count: cuint;
                                paramArray: ptr CUstreamBatchMemOpParams;
-                               flags: cuint): CUresult {.cdecl,
+                               flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamBatchMemOp_ptsz", dynlib: libName.}
   proc cuStreamWriteValue32_v2*(stream: CUstream; `addr`: CUdeviceptr; value: cint;
-                               flags: cuint): CUresult {.cdecl,
+                               flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWriteValue32_v2", dynlib: libName.}
   proc cuStreamWaitValue32_v2*(stream: CUstream; `addr`: CUdeviceptr; value: cint;
-                              flags: cuint): CUresult {.cdecl,
+                              flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWaitValue32_v2", dynlib: libName.}
   proc cuStreamWriteValue64_v2*(stream: CUstream; `addr`: CUdeviceptr;
-                               value: culonglong; flags: cuint): CUresult {.cdecl,
+                               value: culonglong; flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWriteValue64_v2", dynlib: libName.}
   proc cuStreamWaitValue64_v2*(stream: CUstream; `addr`: CUdeviceptr;
-                              value: culonglong; flags: cuint): CUresult {.cdecl,
+                              value: culonglong; flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamWaitValue64_v2", dynlib: libName.}
   proc cuStreamBatchMemOp_v2*(stream: CUstream; count: cuint;
-                             paramArray: ptr CUstreamBatchMemOpParams; flags: cuint): CUresult {.
+                             paramArray: ptr CUstreamBatchMemOpParams; flags: cuint): CUresult {.discardable,
       cdecl, importc: "cuStreamBatchMemOp_v2", dynlib: libName.}
   proc cuMemPrefetchAsync*(devPtr: CUdeviceptr; count: csize_t; dstDevice: CUdevice;
-                          hStream: CUstream): CUresult {.cdecl,
+                          hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemPrefetchAsync", dynlib: libName.}
   proc cuMemPrefetchAsync_v2*(devPtr: CUdeviceptr; count: csize_t;
                              location: CUmemLocation; flags: cuint;
-                             hStream: CUstream): CUresult {.cdecl,
+                             hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemPrefetchAsync_v2", dynlib: libName.}
   proc cuLaunchCooperativeKernel*(f: CUfunction; gridDimX: cuint; gridDimY: cuint;
                                  gridDimZ: cuint; blockDimX: cuint;
                                  blockDimY: cuint; blockDimZ: cuint;
                                  sharedMemBytes: cuint; hStream: CUstream;
-                                 kernelParams: ptr pointer): CUresult {.cdecl,
+                                 kernelParams: ptr pointer): CUresult {.discardable, cdecl,
       importc: "cuLaunchCooperativeKernel", dynlib: libName.}
   proc cuSignalExternalSemaphoresAsync*(extSemArray: ptr CUexternalSemaphore;
       paramsArray: ptr CUDA_EXTERNAL_SEMAPHORE_SIGNAL_PARAMS; numExtSems: cuint;
-                                       stream: CUstream): CUresult {.cdecl,
+                                       stream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuSignalExternalSemaphoresAsync", dynlib: libName.}
   proc cuWaitExternalSemaphoresAsync*(extSemArray: ptr CUexternalSemaphore;
       paramsArray: ptr CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS; numExtSems: cuint;
-                                     stream: CUstream): CUresult {.cdecl,
+                                     stream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuWaitExternalSemaphoresAsync", dynlib: libName.}
-  proc cuStreamBeginCapture*(hStream: CUstream): CUresult {.cdecl,
+  proc cuStreamBeginCapture*(hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuStreamBeginCapture", dynlib: libName.}
-  proc cuStreamBeginCapture_ptsz*(hStream: CUstream): CUresult {.cdecl,
+  proc cuStreamBeginCapture_ptsz*(hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuStreamBeginCapture_ptsz", dynlib: libName.}
-  proc cuStreamBeginCapture_v2*(hStream: CUstream; mode: CUstreamCaptureMode): CUresult {.
+  proc cuStreamBeginCapture_v2*(hStream: CUstream; mode: CUstreamCaptureMode): CUresult {.discardable,
       cdecl, importc: "cuStreamBeginCapture_v2", dynlib: libName.}
   proc cuStreamBeginCaptureToGraph*(hStream: CUstream; hGraph: CUgraph;
                                    dependencies: ptr CUgraphNode;
                                    dependencyData: ptr CUgraphEdgeData;
                                    numDependencies: csize_t;
-                                   mode: CUstreamCaptureMode): CUresult {.cdecl,
+                                   mode: CUstreamCaptureMode): CUresult {.discardable, cdecl,
       importc: "cuStreamBeginCaptureToGraph", dynlib: libName.}
-  proc cuStreamEndCapture*(hStream: CUstream; phGraph: ptr CUgraph): CUresult {.cdecl,
+  proc cuStreamEndCapture*(hStream: CUstream; phGraph: ptr CUgraph): CUresult {.discardable, cdecl,
       importc: "cuStreamEndCapture", dynlib: libName.}
   proc cuStreamIsCapturing*(hStream: CUstream;
-                           captureStatus: ptr CUstreamCaptureStatus): CUresult {.
+                           captureStatus: ptr CUstreamCaptureStatus): CUresult {.discardable,
       cdecl, importc: "cuStreamIsCapturing", dynlib: libName.}
   proc cuStreamGetCaptureInfo*(hStream: CUstream;
                               captureStatus_out: ptr CUstreamCaptureStatus;
-                              id_out: ptr culonglong): CUresult {.cdecl,
+                              id_out: ptr culonglong): CUresult {.discardable, cdecl,
       importc: "cuStreamGetCaptureInfo", dynlib: libName.}
   proc cuStreamGetCaptureInfo_ptsz*(hStream: CUstream; captureStatus_out: ptr CUstreamCaptureStatus;
-                                   id_out: ptr culonglong): CUresult {.cdecl,
+                                   id_out: ptr culonglong): CUresult {.discardable, cdecl,
       importc: "cuStreamGetCaptureInfo_ptsz", dynlib: libName.}
   proc cuStreamGetCaptureInfo_v2*(hStream: CUstream;
                                  captureStatus_out: ptr CUstreamCaptureStatus;
                                  id_out: ptr culonglong; graph_out: ptr CUgraph;
                                  dependencies_out: ptr ptr CUgraphNode;
-                                 numDependencies_out: ptr csize_t): CUresult {.
+                                 numDependencies_out: ptr csize_t): CUresult {.discardable,
       cdecl, importc: "cuStreamGetCaptureInfo_v2", dynlib: libName.}
   proc cuStreamGetCaptureInfo_v3*(hStream: CUstream;
                                  captureStatus_out: ptr CUstreamCaptureStatus;
                                  id_out: ptr culonglong; graph_out: ptr CUgraph;
                                  dependencies_out: ptr ptr CUgraphNode;
                                  edgeData_out: ptr ptr CUgraphEdgeData;
-                                 numDependencies_out: ptr csize_t): CUresult {.
+                                 numDependencies_out: ptr csize_t): CUresult {.discardable,
       cdecl, importc: "cuStreamGetCaptureInfo_v3", dynlib: libName.}
   proc cuGraphAddKernelNode*(phGraphNode: ptr CUgraphNode; hGraph: CUgraph;
                             dependencies: ptr CUgraphNode;
                             numDependencies: csize_t;
-                            nodeParams: ptr CUDA_KERNEL_NODE_PARAMS_v1): CUresult {.
+                            nodeParams: ptr CUDA_KERNEL_NODE_PARAMS_v1): CUresult {.discardable,
       cdecl, importc: "cuGraphAddKernelNode", dynlib: libName.}
   proc cuGraphKernelNodeGetParams*(hNode: CUgraphNode;
-                                  nodeParams: ptr CUDA_KERNEL_NODE_PARAMS_v1): CUresult {.
+                                  nodeParams: ptr CUDA_KERNEL_NODE_PARAMS_v1): CUresult {.discardable,
       cdecl, importc: "cuGraphKernelNodeGetParams", dynlib: libName.}
   proc cuGraphKernelNodeSetParams*(hNode: CUgraphNode;
-                                  nodeParams: ptr CUDA_KERNEL_NODE_PARAMS_v1): CUresult {.
+                                  nodeParams: ptr CUDA_KERNEL_NODE_PARAMS_v1): CUresult {.discardable,
       cdecl, importc: "cuGraphKernelNodeSetParams", dynlib: libName.}
   proc cuGraphExecKernelNodeSetParams*(hGraphExec: CUgraphExec; hNode: CUgraphNode;
-      nodeParams: ptr CUDA_KERNEL_NODE_PARAMS_v1): CUresult {.cdecl,
+      nodeParams: ptr CUDA_KERNEL_NODE_PARAMS_v1): CUresult {.discardable, cdecl,
       importc: "cuGraphExecKernelNodeSetParams", dynlib: libName.}
   proc cuGraphInstantiateWithParams*(phGraphExec: ptr CUgraphExec; hGraph: CUgraph;
-      instantiateParams: ptr CUDA_GRAPH_INSTANTIATE_PARAMS): CUresult {.cdecl,
+      instantiateParams: ptr CUDA_GRAPH_INSTANTIATE_PARAMS): CUresult {.discardable, cdecl,
       importc: "cuGraphInstantiateWithParams", dynlib: libName.}
   proc cuGraphExecUpdate*(hGraphExec: CUgraphExec; hGraph: CUgraph;
                          hErrorNode_out: ptr CUgraphNode;
-                         updateResult_out: ptr CUgraphExecUpdateResult): CUresult {.
+                         updateResult_out: ptr CUgraphExecUpdateResult): CUresult {.discardable,
       cdecl, importc: "cuGraphExecUpdate", dynlib: libName.}
-  proc cuGraphUpload*(hGraph: CUgraphExec; hStream: CUstream): CUresult {.cdecl,
+  proc cuGraphUpload*(hGraph: CUgraphExec; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuGraphUpload", dynlib: libName.}
-  proc cuGraphLaunch*(hGraph: CUgraphExec; hStream: CUstream): CUresult {.cdecl,
+  proc cuGraphLaunch*(hGraph: CUgraphExec; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuGraphLaunch", dynlib: libName.}
-  proc cuStreamCopyAttributes*(dstStream: CUstream; srcStream: CUstream): CUresult {.
+  proc cuStreamCopyAttributes*(dstStream: CUstream; srcStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuStreamCopyAttributes", dynlib: libName.}
   proc cuStreamGetAttribute*(hStream: CUstream; attr: CUstreamAttrID;
-                            value: ptr CUstreamAttrValue): CUresult {.cdecl,
+                            value: ptr CUstreamAttrValue): CUresult {.discardable, cdecl,
       importc: "cuStreamGetAttribute", dynlib: libName.}
   proc cuStreamSetAttribute*(hStream: CUstream; attr: CUstreamAttrID;
-                            param: ptr CUstreamAttrValue): CUresult {.cdecl,
+                            param: ptr CUstreamAttrValue): CUresult {.discardable, cdecl,
       importc: "cuStreamSetAttribute", dynlib: libName.}
   proc cuIpcOpenMemHandle*(pdptr: ptr CUdeviceptr; handle: CUipcMemHandle;
-                          Flags: cuint): CUresult {.cdecl,
+                          Flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuIpcOpenMemHandle", dynlib: libName.}
   proc cuGraphInstantiate*(phGraphExec: ptr CUgraphExec; hGraph: CUgraph;
                           phErrorNode: ptr CUgraphNode; logBuffer: cstring;
-                          bufferSize: csize_t): CUresult {.cdecl,
+                          bufferSize: csize_t): CUresult {.discardable, cdecl,
       importc: "cuGraphInstantiate", dynlib: libName.}
   proc cuGraphInstantiate_v2*(phGraphExec: ptr CUgraphExec; hGraph: CUgraph;
                              phErrorNode: ptr CUgraphNode; logBuffer: cstring;
-                             bufferSize: csize_t): CUresult {.cdecl,
+                             bufferSize: csize_t): CUresult {.discardable, cdecl,
       importc: "cuGraphInstantiate_v2", dynlib: libName.}
   proc cuMemMapArrayAsync*(mapInfoList: ptr CUarrayMapInfo; count: cuint;
-                          hStream: CUstream): CUresult {.cdecl,
+                          hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemMapArrayAsync", dynlib: libName.}
-  proc cuMemFreeAsync*(dptr: CUdeviceptr; hStream: CUstream): CUresult {.cdecl,
+  proc cuMemFreeAsync*(dptr: CUdeviceptr; hStream: CUstream): CUresult {.discardable, cdecl,
       importc: "cuMemFreeAsync", dynlib: libName.}
-  proc cuMemAllocAsync*(dptr: ptr CUdeviceptr; bytesize: csize_t; hStream: CUstream): CUresult {.
+  proc cuMemAllocAsync*(dptr: ptr CUdeviceptr; bytesize: csize_t; hStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuMemAllocAsync", dynlib: libName.}
   proc cuMemAllocFromPoolAsync*(dptr: ptr CUdeviceptr; bytesize: csize_t;
-                               pool: CUmemoryPool; hStream: CUstream): CUresult {.
+                               pool: CUmemoryPool; hStream: CUstream): CUresult {.discardable,
       cdecl, importc: "cuMemAllocFromPoolAsync", dynlib: libName.}
   proc cuStreamUpdateCaptureDependencies*(hStream: CUstream;
-      dependencies: ptr CUgraphNode; numDependencies: csize_t; flags: cuint): CUresult {.
+      dependencies: ptr CUgraphNode; numDependencies: csize_t; flags: cuint): CUresult {.discardable,
       cdecl, importc: "cuStreamUpdateCaptureDependencies", dynlib: libName.}
   proc cuStreamUpdateCaptureDependencies_v2*(hStream: CUstream;
       dependencies: ptr CUgraphNode; dependencyData: ptr CUgraphEdgeData;
-      numDependencies: csize_t; flags: cuint): CUresult {.cdecl,
+      numDependencies: csize_t; flags: cuint): CUresult {.discardable, cdecl,
       importc: "cuStreamUpdateCaptureDependencies_v2", dynlib: libName.}
   proc cuGetProcAddress*(symbol: cstring; pfn: ptr pointer; cudaVersion: cint;
-                        flags: culonglong): CUresult {.cdecl,
+                        flags: culonglong): CUresult {.discardable, cdecl,
       importc: "cuGetProcAddress", dynlib: libName.}
 elif defined(CUDA_API_PER_THREAD_DEFAULT_STREAM):
   proc cuGetProcAddress_v2_ptsz*(symbol: cstring; funcPtr: ptr pointer;
-                                driverVersion: cint; flags: culonglong; symbolStatus: ptr CUdriverProcAddressQueryResult): CUresult {.
+                                driverVersion: cint; flags: culonglong; symbolStatus: ptr CUdriverProcAddressQueryResult): CUresult {.discardable,
       inline, cdecl.} =
     let procAddressMask: cint
     if (flags and procAddressMask) == 0:
