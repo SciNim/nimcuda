@@ -85,7 +85,7 @@ proc nvrtcGetErrorString*(resultNotKeyWord: nvrtcResult): cstring {.cdecl,
 ##
 ##
 
-proc nvrtcVersion*(major: ptr cint; minor: ptr cint): nvrtcResult {.cdecl,
+proc nvrtcVersion*(major: ptr cint; minor: ptr cint): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcVersion", dynlib: libName.}
 ##
 ##  \ingroup query
@@ -102,7 +102,7 @@ proc nvrtcVersion*(major: ptr cint; minor: ptr cint): nvrtcResult {.cdecl,
 ##  see    ::nvrtcGetSupportedArchs
 ##
 
-proc nvrtcGetNumSupportedArchs*(numArchs: ptr cint): nvrtcResult {.cdecl,
+proc nvrtcGetNumSupportedArchs*(numArchs: ptr cint): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcGetNumSupportedArchs", dynlib: libName.}
 ##
 ##  \ingroup query
@@ -119,7 +119,7 @@ proc nvrtcGetNumSupportedArchs*(numArchs: ptr cint): nvrtcResult {.cdecl,
 ##  see    ::nvrtcGetNumSupportedArchs
 ##
 
-proc nvrtcGetSupportedArchs*(supportedArchs: ptr cint): nvrtcResult {.cdecl,
+proc nvrtcGetSupportedArchs*(supportedArchs: ptr cint): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcGetSupportedArchs", dynlib: libName.}
 ## **********************************************************************
 ##
@@ -175,7 +175,7 @@ type
 
 proc nvrtcCreateProgram*(prog: ptr nvrtcProgram; src: cstring; name: cstring;
                         numHeaders: cint; headers: cstringArray;
-                        includeNames: cstringArray): nvrtcResult {.cdecl,
+                        includeNames: cstringArray): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcCreateProgram", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -189,7 +189,7 @@ proc nvrtcCreateProgram*(prog: ptr nvrtcProgram; src: cstring; name: cstring;
 ##  \see     ::nvrtcCreateProgram
 ##
 
-proc nvrtcDestroyProgram*(prog: ptr nvrtcProgram): nvrtcResult {.cdecl,
+proc nvrtcDestroyProgram*(prog: ptr nvrtcProgram): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcDestroyProgram", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -213,7 +213,7 @@ proc nvrtcDestroyProgram*(prog: ptr nvrtcProgram): nvrtcResult {.cdecl,
 ##  It supports compile options listed in \ref options.
 ##
 
-proc nvrtcCompileProgram*(prog: nvrtcProgram; numOptions: cint; options: cstringArray): nvrtcResult {.
+proc nvrtcCompileProgram*(prog: nvrtcProgram; numOptions: cint; options: cstringArray): nvrtcResult {.discardable,
     cdecl, importc: "nvrtcCompileProgram", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -232,7 +232,7 @@ proc nvrtcCompileProgram*(prog: nvrtcProgram; numOptions: cint; options: cstring
 ##  \see     ::nvrtcGetPTX
 ##
 
-proc nvrtcGetPTXSize*(prog: nvrtcProgram; ptxSizeRet: ptr csize_t): nvrtcResult {.
+proc nvrtcGetPTXSize*(prog: nvrtcProgram; ptxSizeRet: ptr csize_t): nvrtcResult {.discardable,
     cdecl, importc: "nvrtcGetPTXSize", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -249,7 +249,7 @@ proc nvrtcGetPTXSize*(prog: nvrtcProgram; ptxSizeRet: ptr csize_t): nvrtcResult 
 ##  \see     ::nvrtcGetPTXSize
 ##
 
-proc nvrtcGetPTX*(prog: nvrtcProgram; ptx: cstring): nvrtcResult {.cdecl,
+proc nvrtcGetPTX*(prog: nvrtcProgram; ptx: cstring): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcGetPTX", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -268,7 +268,7 @@ proc nvrtcGetPTX*(prog: nvrtcProgram; ptx: cstring): nvrtcResult {.cdecl,
 ##  \see     ::nvrtcGetCUBIN
 ##
 
-proc nvrtcGetCUBINSize*(prog: nvrtcProgram; cubinSizeRet: ptr csize_t): nvrtcResult {.
+proc nvrtcGetCUBINSize*(prog: nvrtcProgram; cubinSizeRet: ptr csize_t): nvrtcResult {.discardable,
     cdecl, importc: "nvrtcGetCUBINSize", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -287,7 +287,7 @@ proc nvrtcGetCUBINSize*(prog: nvrtcProgram; cubinSizeRet: ptr csize_t): nvrtcRes
 ##  \see     ::nvrtcGetCUBINSize
 ##
 
-proc nvrtcGetCUBIN*(prog: nvrtcProgram; cubin: cstring): nvrtcResult {.cdecl,
+proc nvrtcGetCUBIN*(prog: nvrtcProgram; cubin: cstring): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcGetCUBIN", dynlib: libName.}
 ##  #if defined(WIN32)
 ##  # define __DEPRECATED__(msg) __declspec(deprecated(msg))
@@ -305,7 +305,7 @@ proc nvrtcGetCUBIN*(prog: nvrtcProgram; cubin: cstring): nvrtcResult {.cdecl,
 ##  nvrtcGetLTOIRSize (and nvrtcGetLTOIR) instead.
 ##
 
-proc nvrtcGetNVVMSize*(prog: nvrtcProgram; nvvmSizeRet: ptr csize_t): nvrtcResult {.
+proc nvrtcGetNVVMSize*(prog: nvrtcProgram; nvvmSizeRet: ptr csize_t): nvrtcResult {.discardable,
     cdecl, importc: "nvrtcGetNVVMSize", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -314,7 +314,7 @@ proc nvrtcGetNVVMSize*(prog: nvrtcProgram; nvvmSizeRet: ptr csize_t): nvrtcResul
 ##  nvrtcGetLTOIR (and nvrtcGetLTOIRSize) instead.
 ##
 
-proc nvrtcGetNVVM*(prog: nvrtcProgram; nvvm: cstring): nvrtcResult {.cdecl,
+proc nvrtcGetNVVM*(prog: nvrtcProgram; nvvm: cstring): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcGetNVVM", dynlib: libName.}
 ##  #undef __DEPRECATED__
 ##
@@ -334,7 +334,7 @@ proc nvrtcGetNVVM*(prog: nvrtcProgram; nvvm: cstring): nvrtcResult {.cdecl,
 ##  \see     ::nvrtcGetLTOIR
 ##
 
-proc nvrtcGetLTOIRSize*(prog: nvrtcProgram; LTOIRSizeRet: ptr csize_t): nvrtcResult {.
+proc nvrtcGetLTOIRSize*(prog: nvrtcProgram; LTOIRSizeRet: ptr csize_t): nvrtcResult {.discardable,
     cdecl, importc: "nvrtcGetLTOIRSize", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -352,7 +352,7 @@ proc nvrtcGetLTOIRSize*(prog: nvrtcProgram; LTOIRSizeRet: ptr csize_t): nvrtcRes
 ##  \see     ::nvrtcGetLTOIRSize
 ##
 
-proc nvrtcGetLTOIR*(prog: nvrtcProgram; LTOIR: cstring): nvrtcResult {.cdecl,
+proc nvrtcGetLTOIR*(prog: nvrtcProgram; LTOIR: cstring): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcGetLTOIR", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -371,7 +371,7 @@ proc nvrtcGetLTOIR*(prog: nvrtcProgram; LTOIR: cstring): nvrtcResult {.cdecl,
 ##  \see     ::nvrtcGetOptiXIR
 ##
 
-proc nvrtcGetOptiXIRSize*(prog: nvrtcProgram; optixirSizeRet: ptr csize_t): nvrtcResult {.
+proc nvrtcGetOptiXIRSize*(prog: nvrtcProgram; optixirSizeRet: ptr csize_t): nvrtcResult {.discardable,
     cdecl, importc: "nvrtcGetOptiXIRSize", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -389,7 +389,7 @@ proc nvrtcGetOptiXIRSize*(prog: nvrtcProgram; optixirSizeRet: ptr csize_t): nvrt
 ##  \see     ::nvrtcGetOptiXIRSize
 ##
 
-proc nvrtcGetOptiXIR*(prog: nvrtcProgram; optixir: cstring): nvrtcResult {.cdecl,
+proc nvrtcGetOptiXIR*(prog: nvrtcProgram; optixir: cstring): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcGetOptiXIR", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -411,7 +411,7 @@ proc nvrtcGetOptiXIR*(prog: nvrtcProgram; optixir: cstring): nvrtcResult {.cdecl
 ##  \see     ::nvrtcGetProgramLog
 ##
 
-proc nvrtcGetProgramLogSize*(prog: nvrtcProgram; logSizeRet: ptr csize_t): nvrtcResult {.
+proc nvrtcGetProgramLogSize*(prog: nvrtcProgram; logSizeRet: ptr csize_t): nvrtcResult {.discardable,
     cdecl, importc: "nvrtcGetProgramLogSize", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -428,7 +428,7 @@ proc nvrtcGetProgramLogSize*(prog: nvrtcProgram; logSizeRet: ptr csize_t): nvrtc
 ##  \see     ::nvrtcGetProgramLogSize
 ##
 
-proc nvrtcGetProgramLog*(prog: nvrtcProgram; log: cstring): nvrtcResult {.cdecl,
+proc nvrtcGetProgramLog*(prog: nvrtcProgram; log: cstring): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcGetProgramLog", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -450,7 +450,7 @@ proc nvrtcGetProgramLog*(prog: nvrtcProgram; log: cstring): nvrtcResult {.cdecl,
 ##  \see     ::nvrtcGetLoweredName
 ##
 
-proc nvrtcAddNameExpression*(prog: nvrtcProgram; name_expression: cstring): nvrtcResult {.
+proc nvrtcAddNameExpression*(prog: nvrtcProgram; name_expression: cstring): nvrtcResult {.discardable,
     cdecl, importc: "nvrtcAddNameExpression", dynlib: libName.}
 ##
 ##  \ingroup compilation
@@ -479,7 +479,7 @@ proc nvrtcAddNameExpression*(prog: nvrtcProgram; name_expression: cstring): nvrt
 ##
 
 proc nvrtcGetLoweredName*(prog: nvrtcProgram; name_expression: cstring;
-                         lowered_name: cstringArray): nvrtcResult {.cdecl,
+                         lowered_name: cstringArray): nvrtcResult {.discardable, cdecl,
     importc: "nvrtcGetLoweredName", dynlib: libName.}
 ##
 ##  \defgroup options Supported Compile Options
