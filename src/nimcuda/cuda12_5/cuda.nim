@@ -254,7 +254,7 @@ const
 ##  CUdeviceptr is defined as an unsigned integer type whose size matches the size of a pointer on the target platform.
 ##
 
-when defined(WIN64) or defined(LP64):
+when sizeOf(pointer) == 8:
   type
     CUdeviceptr_v2* = culonglong
 else:
