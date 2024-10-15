@@ -29,26 +29,27 @@ const
   TemporaryHeadersDir = "headers"
 
 const Libs = [
-  # "library_types",
-  # "vector_types",
-  # "driver_types", # do not decomment - the nim file is manually adjusted
-  "surface_types",
-  "texture_types",
-  "cuda_runtime_api",
-  # "cuda_occupancy", # do not decomment - the nim file is manually adjusted
-  "cuComplex",
-  "cublas_api",
-  # "cublas_v2",
-  # "cudnn_v9",
-  "cufft",
-  "curand",
-  "cusolver_common",
-  "cusolverDn",
-  "cusolverRf",
-  "cusolverSp",
-  "cusparse",
-  "nvblas"
-  #"nvgraph" <- removed in cuda 11.0, adopted into cugraph
+  # # "library_types",
+  # # "vector_types",
+  # # "driver_types", # do not decomment - the nim file is manually adjusted
+  # "surface_types",
+  # "texture_types",
+  # "cuda_runtime_api",
+  # # "cuda_occupancy", # do not decomment - the nim file is manually adjusted
+  # "cuComplex",
+  # "cublas_api",
+  # # "cublas_v2",
+  # # "cudnn_v9",
+  # "cufft",
+  # "curand",
+  # "cusolver_common",
+  # "cusolverDn",
+  # "cusolverRf",
+  # "cusolverSp",
+  # "cusparse",
+  # "nvblas"
+  # #"nvgraph" <- removed in cuda 11.0, adopted into cugraph
+  "nvrtc"
 ]
 
 proc systemCudaName(v: CudaVersion): string =
