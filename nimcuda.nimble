@@ -296,3 +296,10 @@ taskWithCertainVersions sparseLinearSystem, "run cusolverSp example",
   exampleConfig(cudaVersion)
   setCommand "c", nimcudaExamplesDir(cudaVersion) /
                                           "sparseLinearSystem".addFileExt("nim")
+
+taskWithCertainVersions runtimeCompilation, "run nvrtc example",
+    {cuda12_5}:
+  # TODO: implement and test for 8.0
+  exampleConfig(cudaVersion)
+  setCommand "c", nimcudaExamplesDir(cudaVersion) /
+                                          "runtimeCompilation".addFileExt("nim")
