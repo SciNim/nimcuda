@@ -32,6 +32,7 @@ import ./driver_types
 # import ./surface_types
 # import ./texture_types
 # import ./vector_types
+import ./nvrtc
 
 type
   CudaError* = object of IOError
@@ -43,6 +44,7 @@ type
   CurandError* = object of IOError
   # CudnnError* = object of IOError
   # NVGraphError* = object of IOError
+  NvrtcError* = object of IOError
 
 func check*(a: sink cudaError_t) =
   if a != cudaSuccess:
@@ -81,3 +83,7 @@ func check*(a: sink curandStatus) =
 #   let a = a # ensure we only evaluate once even if the expression has side effects
 #   if a != NVGRAPH_STATUS_SUCCESS:
 #     raise newException(NVGraphError, $a & " " & $int(a))
+
+func check*(a: sink nvrtcResult) =
+  if a != NVRTC_SUCCESS:
+    raise newException(NvrtcError, $a & " " & $int(a))
