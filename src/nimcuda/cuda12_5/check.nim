@@ -33,6 +33,7 @@ import ./driver_types
 # import ./texture_types
 # import ./vector_types
 import ./nvrtc
+import ./cuda
 
 type
   CudaError* = object of IOError
@@ -45,6 +46,8 @@ type
   # CudnnError* = object of IOError
   # NVGraphError* = object of IOError
   NvrtcError* = object of IOError
+  CudaDriverError* = object of IOError
+
 
 func check*(a: sink cudaError_t) =
   if a != cudaSuccess:
@@ -86,4 +89,8 @@ func check*(a: sink curandStatus) =
 
 func check*(a: sink nvrtcResult) =
   if a != NVRTC_SUCCESS:
+    raise newException(NvrtcError, $a & " " & $int(a))
+
+func check*(a: sink CUresult) =
+  if a != CUDA_SUCCESS:
     raise newException(NvrtcError, $a & " " & $int(a))
