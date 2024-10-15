@@ -54,14 +54,14 @@
 
 
 #include <stdlib.h>
-#ifdef _MSC_VER
-typedef unsigned __int32 cuuint32_t;
-typedef unsigned __int64 cuuclonglong;
-#else
-#include <stdint.h>
-typedef uint32_t cuuint32_t;
-typedef uclonglong cuuclonglong;
-#endif
+// #ifdef _MSC_VER
+// typedef unsigned __int32 cuuint32_t;
+// typedef unsigned __int64 cuuclonglong;
+// #else
+// #include <stdint.h>
+// typedef uint32_t cuuint32_t;
+// typedef uclonglong cuuclonglong;
+// #endif
 
 // #if defined(__CUDA_API_VERSION_INTERNAL) || defined(__DOXYGEN_ONLY__) || defined(CUDA_ENABLE_DEPRECATED)
 // #define __CUDA_DEPRECATED
