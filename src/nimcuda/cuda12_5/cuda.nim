@@ -256,10 +256,10 @@ const
 
 when sizeOf(pointer) == 8:
   type
-    CUdeviceptr_v2* = culonglong
+    CUdeviceptr_v2* = distinct culonglong
 else:
   type
-    CUdeviceptr_v2* = cuint
+    CUdeviceptr_v2* = distinct cuint
 type
   CUdeviceptr* = CUdeviceptr_v2
 
