@@ -47,11 +47,10 @@ const Libs = [
   "cusolverRf",
   "cusolverSp",
   "cusparse",
-  "nvblas"
+  "nvblas",
   #"nvgraph" <- removed in cuda 11.0, adopted into cugraph
   "nvrtc",
-  "cuda"
-
+  "cuda",
 ]
 
 proc systemCudaName(v: CudaVersion): string =
