@@ -11,6 +11,8 @@ else:
 import ./[helpers, libpaths]
 tellCompilerToUseCuda()
 
+{.push importc, dynlib: libName, header: "cuda.h".}
+
 ##
 ##  Copyright 1993-2023 NVIDIA Corporation.  All rights reserved.
 ##
@@ -26394,3 +26396,5 @@ elif defined(CUDA_API_PER_THREAD_DEFAULT_STREAM):
 when defined(GNUC):
   when defined(CUDA_API_PUSH_VISIBILITY_DEFAULT):
     discard
+
+{.pop.}
