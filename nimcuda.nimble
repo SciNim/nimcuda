@@ -251,13 +251,6 @@ proc exampleConfig(version: CudaVersion) =
   --stacktrace: on
   --linetrace: on
   --debuginfo
-  when hostos == "windows":
-    switch("cincludes", systemCudaInclude(version))
-    switch("clibdir", systemCudaCLib(version))
-  else:
-    switch("cincludes", systemCudaInclude(version))
-    switch("cincludes", "/usr/include/x86_64-linux-gnu/")
-    switch("clibdir", systemCudaCLib(version))
   switch("path", thisDir() / nimcudaSourceDir(version))
   --run
 
