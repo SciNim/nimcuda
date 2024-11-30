@@ -30,7 +30,6 @@ var
 template cmdRelease(cmd, cache): untyped =
   if cache.len == 0:
     # cache = (when defined(nimscript): gorge(cmd) else: execProcess(cmd))
-    echo defined(nimVm)
     cache = gorge(cmd)
   cache
 
