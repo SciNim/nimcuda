@@ -10,6 +10,9 @@ else:
 import
   library_types
 
+import ./libpaths
+tellCompilerToUseCuda()
+
 ##
 ##  Copyright 1993-2022 NVIDIA Corporation. All rights reserved.
 ##

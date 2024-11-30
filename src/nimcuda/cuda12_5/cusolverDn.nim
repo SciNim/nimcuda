@@ -9,7 +9,8 @@ else:
     libName = "libcusolver.so"
 import
   cuComplex, cublas_api, cusolver_common, library_types, driver_types
-
+import ./libpaths
+tellCompilerToUseCuda()
 ##
 ##  Copyright 2014 NVIDIA Corporation.  All rights reserved.
 ##

@@ -11,7 +11,8 @@ else:
     libName = "libcusolver.so"
 import
   library_types
-
+import ./libpaths
+tellCompilerToUseCuda()
 ##
 ##  Copyright 2014 NVIDIA Corporation.  All rights reserved.
 ##

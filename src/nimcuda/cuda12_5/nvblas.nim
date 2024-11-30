@@ -9,7 +9,8 @@ else:
     libName = "libnvblas.so"
 import
   cuComplex
-
+import ./libpaths
+tellCompilerToUseCuda()
 ##
 ##  Copyright 1993-2019 NVIDIA Corporation. All rights reserved.
 ##

@@ -1,4 +1,6 @@
 import ./helpers
+import ./libpaths
+tellCompilerToUseCuda()
 
 ##
 ##  Copyright 1993-2017 NVIDIA Corporation.  All rights reserved.

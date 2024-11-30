@@ -46,7 +46,8 @@
 ##  comments to the code, the above Disclaimer and U.S. Government End
 ##  Users Notice.
 ##
-
+import ./libpaths
+tellCompilerToUseCuda()
 type
   char1* {.importc: "char1", header: "vector_types.h", bycopy.} = object
     x* {.importc: "x".}: cchar

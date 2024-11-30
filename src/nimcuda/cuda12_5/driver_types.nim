@@ -56,6 +56,9 @@
 import
   vector_types
 
+import ./libpaths
+tellCompilerToUseCuda()
+
 when not defined(CUDACC_RTC_MINIMAL):
   ##
   ##  \defgroup CUDART_TYPES Data types used by CUDA Runtime

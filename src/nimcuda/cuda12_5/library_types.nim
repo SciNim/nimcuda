@@ -46,6 +46,8 @@
 ##  comments to the code, the above Disclaimer and U.S. Government End
 ##  Users Notice.
 ##
+import ./libpaths
+tellCompilerToUseCuda()
 
 type
   cudaDataType* = enum

@@ -57,6 +57,8 @@ template `div`(a: cfloat, b: cfloat): cfloat = a / b
 ##  comments to the code, the above Disclaimer and U.S. Government End
 ##  Users Notice.
 ##
+import ./libpaths
+tellCompilerToUseCuda()
 
 when not defined(CUDACC_RTC):
   when defined(GNUC):

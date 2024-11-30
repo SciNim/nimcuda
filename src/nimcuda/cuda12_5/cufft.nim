@@ -10,6 +10,9 @@ else:
 import
   cuComplex, library_types, driver_types
 
+import ./libpaths
+tellCompilerToUseCuda()
+
 ##  Copyright 2005-2021 NVIDIA Corporation.  All rights reserved.
 ##
 ##  NOTICE TO LICENSEE:

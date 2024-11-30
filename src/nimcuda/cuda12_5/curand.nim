@@ -17,6 +17,9 @@ type
   curandDiscreteDistribution_st {.bycopy.} = object
 
 
+import ./libpaths
+tellCompilerToUseCuda()
+
 import
   library_types, driver_types
 

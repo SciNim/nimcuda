@@ -10,6 +10,9 @@ else:
 import
   vector_types, driver_types, surface_types, texture_types
 
+import ./libpaths
+tellCompilerToUseCuda()
+
 ##
 ##  Copyright 1993-2018 NVIDIA Corporation.  All rights reserved.
 ##
