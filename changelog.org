@@ -1,3 +1,7 @@
+* v0.2.2
+- add basic CUDA installation detection (PR #28)
+  - can be overwritten defined using ~CudaPath~ and ~CudaIncludes~
+- fix issue #27 by using ~header~ pragma for ~cuda.h~ wrapper (PR #28)
 * v0.2.1
 - fix nimble file for Windows, Nim <= 1.6 (up to 1.4 supported), PR #22
 * v0.2.0
