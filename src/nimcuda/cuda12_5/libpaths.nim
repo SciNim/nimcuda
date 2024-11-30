@@ -62,20 +62,28 @@ proc detectOsImpl(d: Distribution): bool {.compileTime.} =
       else:
         result = false
     elif defined(linux):
+      const EasyLinux = when (NimMajor, NimMinor) >= (1, 6):
+          {Distribution.Elementary, Distribution.Ubuntu, Distribution.Debian,
+          Distribution.Fedora, Distribution.OpenMandriva, Distribution.CentOS,
+          Distribution.Alpine, Distribution.Mageia, Distribution.Zorin,
+          Distribution.Void}
+        else:
+          {Distribution.Elementary, Distribution.Ubuntu, Distribution.Debian,
+          Distribution.Fedora, Distribution.OpenMandriva, Distribution.CentOS,
+          Distribution.Alpine, Distribution.Mageia, Distribution.Zorin}
+
       case d
       of Distribution.Gentoo:
         result = ("-" & $d & " ") in uname()
-      of Distribution.Elementary, Distribution.Ubuntu, Distribution.Debian,
-        Distribution.Fedora, Distribution.OpenMandriva, Distribution.CentOS,
-        Distribution.Alpine, Distribution.Mageia, Distribution.Zorin,
-        Distribution.Void:
+      of EasyLinux:
         result = toLowerAscii($d) in osReleaseID()
       of Distribution.RedHat:
         result = "rhel" in osReleaseID()
       of Distribution.ArchLinux:
         result = "arch" in osReleaseID()
-      of Distribution.Artix:
-        result = "artix" in osReleaseID()
+      # when (NimMajor, NimMinor) >= (1, 6):
+      #   of Distribution.Artix:
+      #     result = "artix" in osReleaseID()
       of Distribution.NixOS:
         # Check if this is a Nix build or NixOS environment
         result = existsEnv("NIX_BUILD_TOP") or
