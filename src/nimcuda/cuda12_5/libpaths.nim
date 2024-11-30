@@ -8,7 +8,7 @@
 
 
 from std/distros import Distribution
-import std/[os, envvars, strutils]
+import std/[os, envvars, strutils, macros, macrocache]
 
 
 # we cache the result of the 'cmdRelease'
@@ -133,3 +133,16 @@ elif not dirExists(CudaLib):
   {.error: "Could not find the cuda shared libraries! Please specify the " &
      "location of the cuda library directory by passing " &
      "`-d:CudaLib=\"YOUR_PATH\"` to the nim compiler.".}
+
+
+
+macro tellCompilerToUseCuda*(): untyped =
+  ## Tells the compiler and linker to use cuda libraries.
+  # we'll use macrocaching so that we dont unneccessarily emit a million times
+
+  const ToldCompilerCount = CacheCounter"ToldCompilerToUseCudaCount"
+  if ToldCompilerCount.value == 0:
+    result = quote do:
+      {.passC: "-I" & CudaIncludes.}
+      {.passL: "-L" & CudaLib & " -lcuda".}
+    inc ToldCompilerCount
