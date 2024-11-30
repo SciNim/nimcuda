@@ -7,6 +7,10 @@ elif defined(macosx):
 else:
   const
     libName = "libnvrtc.so"
+
+import ./libpaths
+tellCompilerToUseCuda()
+
 type nvrtcProgramObj {.noDecl, incompleteStruct.} = object
 ##
 ##  NVIDIA_COPYRIGHT_BEGIN

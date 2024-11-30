@@ -52,7 +52,8 @@
 ##                                                                               *
 ##                                                                               *
 ## *****************************************************************************
-
+import ./libpaths
+tellCompilerToUseCuda()
 when not defined(CUDACC_RTC_MINIMAL):
   ##
   ##  \addtogroup CUDART_TYPES

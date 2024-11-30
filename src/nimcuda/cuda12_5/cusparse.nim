@@ -12,7 +12,8 @@ else:
     libName = "libcusparse.so"
 import
   library_types, driver_types, cuComplex
-
+import ./libpaths
+tellCompilerToUseCuda()
 ##
 ##  Copyright 1993-2023 NVIDIA Corporation.  All rights reserved.
 ##

@@ -51,6 +51,9 @@
 ##  Cublas name functions to the actual _v2 implementations.
 ##
 
+import ./libpaths
+tellCompilerToUseCuda()
+
 when defined(CUBLAS_H):
   discard
 import

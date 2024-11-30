@@ -8,7 +8,8 @@ else:
   const
     libName = "libcuda.so"
 
-import ./helpers
+import ./[helpers, libpaths]
+tellCompilerToUseCuda()
 
 ##
 ##  Copyright 1993-2023 NVIDIA Corporation.  All rights reserved.

@@ -9,7 +9,8 @@ else:
     libName = "libcusolver.so"
 import
   cuComplex, driver_types, cusolver_common, cusparse
-
+import ./libpaths
+tellCompilerToUseCuda()
 ##
 ##  Copyright 2014 NVIDIA Corporation.  All rights reserved.
 ##
