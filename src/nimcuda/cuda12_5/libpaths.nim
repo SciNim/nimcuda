@@ -1,4 +1,12 @@
 
+##[This module implements some auto-detection of cuda installation locations,
+   as well as communication with the c compilers about this info.
+
+   If you want to manually overide the autodetection, pass the nim compiler
+   `-d:CudaLib="PATH_TO_CUDA_DYN_LIBS"` and/or
+   `-d:CudaIncludes="PATH_TO_CUDA_HEADERS"`.
+]##
+
 #[The following is a rip of std/distros, slightly modified for compile-time
   use.
   The extra specificity compared to normal `defined` tests or `hostOS`
