@@ -16,7 +16,9 @@
 
 
 from std/distros import Distribution
-import std/[os, envvars, strutils, macros, macrocache]
+import std/[os, strutils, macros, macrocache]
+when NimMajor == 2:
+  import std/envvars
 
 
 # we cache the result of the 'cmdRelease'

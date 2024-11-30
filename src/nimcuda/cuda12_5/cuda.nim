@@ -8,7 +8,7 @@ else:
   const
     libName = "libcuda.so"
 
-import ./[helpers, libpaths]
+import ./helpers, ./libpaths
 tellCompilerToUseCuda()
 
 {.push importc, dynlib: libName, header: "cuda.h".}
